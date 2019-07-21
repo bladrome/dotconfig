@@ -255,7 +255,7 @@ root.buttons(my_table.join(
 globalkeys = my_table.join(
     -- Take a screenshot
     -- https://github.com/lcpz/dots/blob/master/bin/screenshot
-    awful.key({ altkey }, "p", function() os.execute("screenshot") end,
+    awful.key({ altkey }, "p", function() os.execute("maim -m 9 -u -s ~/Pictures/screenshot-$(date +%F-%H-%M-%S).png") end,
               {description = "take a screenshot", group = "hotkeys"}),
 
     -- X screen locker
@@ -414,8 +414,8 @@ globalkeys = my_table.join(
               {description = "show calendar", group = "widgets"}),
     awful.key({ altkey, }, "h", function () if beautiful.fs then beautiful.fs.show(7) end end,
               {description = "show filesystem", group = "widgets"}),
-    awful.key({ altkey, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end,
-              {description = "show weather", group = "widgets"}),
+    --awful.key({ altkey, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end,
+              --{description = "show weather", group = "widgets"}),
 
     -- Brightness
     awful.key({ }, "XF86MonBrightnessUp", function () os.execute("xbacklight -inc 10") end,
@@ -426,13 +426,13 @@ globalkeys = my_table.join(
     -- ALSA volume control
     awful.key({ altkey }, "Up",
         function ()
-            os.execute(string.format("amixer -q set %s 1%%+", beautiful.volume.channel))
+            os.execute(string.format("amixer -q set %s 2%%+", beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "volume up", group = "hotkeys"}),
     awful.key({ altkey }, "Down",
         function ()
-            os.execute(string.format("amixer -q set %s 1%%-", beautiful.volume.channel))
+            os.execute(string.format("amixer -q set %s 2%%-", beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "volume down", group = "hotkeys"}),
@@ -528,8 +528,8 @@ globalkeys = my_table.join(
               --{description = "run prompt", group = "launcher"}),
 
     awful.key({ modkey }, "r", function ()
-            os.execute(string.format("rofi -show %s -theme %s",
-            'run', 'dmenu'))
+            os.execute(string.format("rofi -show %s",
+            'run'))
         end,
         {description = "show rofi", group = "launcher"}),
     awful.key({ modkey }, "x",
