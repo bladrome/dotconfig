@@ -123,7 +123,7 @@ theme.weather = lain.widget.weather({
 })
 
 -- / fs
---[[ commented because it needs Gio/Glib >= 2.54
+-- commented because it needs Gio/Glib >= 2.54
 local fsicon = wibox.widget.imagebox(theme.widget_fs)
 theme.fs = lain.widget.fs({
     notification_preset = { font = "xos4 Terminus 10", fg = theme.fg_normal },
@@ -131,7 +131,7 @@ theme.fs = lain.widget.fs({
         widget:set_markup(markup.fontfg(theme.font, "#80d9d8", string.format("%.1f", fs_now["/"].used) .. "% "))
     end
 })
---]]
+
 
 -- Mail IMAP check
 --[[ commented because it needs to be set before use
@@ -313,8 +313,8 @@ function theme.at_screen_connect(s)
             memory.widget,
             cpuicon,
             cpu.widget,
-            --fsicon,
-            --theme.fs.widget,
+            fsicon,
+            theme.fs.widget,
             weathericon,
             theme.weather.widget,
             tempicon,
