@@ -1,0 +1,191 @@
+
+
+
+
+
+
+
+
+
+
+#+TITLE: archlinux install note
+
+* setfont
+setfont
+* keyboard
+loadkeys
+* network
+wireless network
+#+begin_src bash
+  ip link set wlan0 up
+  wpa_passphrase "BSSID" "PASSWORD" > wifi.conf
+  wpa_supplicant -B -i wlan0 -c wifi.conf
+  dhcpcd dhclient
+#+end_src
+* Time
+#+begin_src bash
+timedatectl set-ntp true
+#+end_src
+
+
+* Disk partition & format
+#+begin_src 
+fdisk /dev/sdX
+mkfs.fat -F32 /dev/sdXn
+mkfs.ext4 /dev/sdXn
+mkswap /dev/sdXn
+#+end_src
+* Pacman Mirror
+edit /etc/pacman.conf
+edit /etc/mirror
+
+
+* Install
+#+begin_src bash
+mount /mnt
+mount /mnt/boot
+pacstrap / base linux linux-firmware
+genfstrab -U /mnt >> /mnt/etc/fstab
+#+end_src
+
+* Setting
+#+begin_src 
+arch-chroot /mnt
+ln -sf /usr/share/zoninfo/Asia/Shanghai /etc/localtime
+hwclock --systohc
+#+end_src
+
+* Locale
+
+edit /mnt/etc/locale.gen
+locale-gen
+edit /mnt/etc/locale.conf
+
+* Hostname
+edit /mnt/etc/hostname
+edit /mnt/etc/hosts
+
+* Boot loader
+#+begin_src 
+pacman -S grub efibootmgr inter-ucode os-prober
+mkdir /boot/grub
+grub-mkconfig > /boot/grub/grub.cfg
+uname -m
+grub-install --target=x86_64-efi --efi-directory=/boot
+yay -S wpa_supplicant dhcpcd
+#+end_src
+
+* Add user
+#+begin_src 
+useradd -m -U bladrome
+passwd bladrome
+#+end_src
+* switch Mirrors
+** mirrors
+** archlinuxcn
+#+begin_src 
+pacman -S yay
+yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
+yay -P -g
+#+end_src
+
+* zsh
+#+begin_src 
+yay -S zsh 
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+#+end_src
+
+
+* awesomewm
+
+#+begin_src 
+yay -S rofi unclutter slock mousepad firefox maim gpicview feh firefox mpc mpd unclutter xsel slock ttf-droid
+yay -S xorg-xinit xorg-server xf86-viedo-intel xf86-viedo-nouveau pulseaudio 
+yay -S awesome
+yay -S termite
+yay -S alsa-utils playerctl
+
+git clone https://github.com/bladrome/dotconfig.git
+cd dotconfig
+cp -a termite ~/.config/
+cp -a awesome ~/.config/
+
+chmod u+s /usr/bin/xinit
+
+#+end_src
+* Monitor
+#+begin_src 
+xrandr --output eDP1 --off
+xrandr --output HDMI1 --auto
+#+end_src
+
+* Fonts 
+#+begin_src 
+yay -S noto-fonts
+yay -S ttf-hack
+
+
+cp Fonts /usr/share/fonts/
+fc-cache
+
+renew multicolor font NotoSerif
+termite font
+
+#+end_src
+
+* Network
+
+#+begin_src 
+yay -S electron-ssr
+#+end_src
+
+
+* Emacs
+#+begin_src 
+yay -S emacs
+git clone --depth 1 https://github.com/seagle0128/.emacs.d.git ~/.emacs.d
+#+end_src
+
+* Input method
+#+begin_src 
+
+yay -S fcitx-rime fcitx-configtools
+yay -S lightdm xorg-server-xephyr lightdm-gtk-greeter
+
+#+end_src
+
+* Texlive
+#+begin_src 
+
+wget https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/Images/texlive2019-20190410.iso
+mount texlive2019-20190410.iso mountpoint
+cd moutpoint
+sudo ./install-tl
+#+end_src
+
+# Session permissions
+
+* Utils
+#+begin_src 
+yay -S polkit udisks2 ntfs-3g gvfs udevil
+yay -S glances tree
+
+yay -S python-pip
+yay -S zathura zathura-djvu zathura-pdf-poppler zathura-ps
+yay -S mpv
+
+
+yay -S mplayer
+yay -S xine-lib
+yay -S wget neovim unzip  pcmanfm baobab ack curl ranger tmux
+
+yay -S firefox
+yay -S firefox-i8n-zh-cn
+#+end_src
+** Tmux
+#+begin_src 
+yay -S tmux
+git clone https://github.com/gpakosz/.tmux.git
+ln -sf .tmux/.tmux.conf
+cp .tmux/.tmux.conf.local .
+#+end_src
