@@ -171,7 +171,7 @@ yay -S polkit udisks2 ntfs-3g gvfs udevil
 yay -S glances tree
 
 yay -S python-pip
-yay -S zathura zathura-djvu zathura-pdf-poppler zathura-ps
+yay -S zathura zathura-djvu zathura-pdf-poppler zathura-ps poppler poppler-data
 yay -S mpv
 
 
