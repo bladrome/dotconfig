@@ -44,9 +44,11 @@ edit /etc/mirror
 #+begin_src bash
 mount /mnt
 mount /mnt/boot
-pacstrap / base linux linux-firmware
+pacstrap / base linux-lts linux-lts-header linux-firmware
 genfstrab -U /mnt >> /mnt/etc/fstab
 #+end_src
+
+#+RESULTS:
 
 * Setting
 #+begin_src 
