@@ -184,6 +184,10 @@ yay -S wget neovim unzip  pcmanfm baobab ack curl ranger tmux
 yay -S firefox
 yay -S firefox-i8n-zh-cn
 #+end_src
+Beep /etc/modprobe.d/
+#+begin_src 
+blacklist pcspkr
+#+end_src
 ** Tmux
 #+begin_src 
 yay -S tmux
