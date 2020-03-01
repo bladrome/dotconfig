@@ -55,7 +55,6 @@ edit /mnt/etc/locale.conf
 LANG=en_US.UTF-8
 LC_CTYPE=zh_CN.UTF-8
 
-
 * Hostname
 edit /mnt/etc/hostname
 edit /mnt/etc/hosts
@@ -171,6 +170,7 @@ yay -S mpv
 yay -S mplayer
 yay -S xine-lib
 yay -S wget neovim unzip  pcmanfm baobab ack curl ranger tmux
+yay -S atool bsdtar djvutxt medianinfo odt2txt jq openscad highlight
 
 yay -S firefox
 yay -S firefox-i8n-zh-cn
