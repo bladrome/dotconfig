@@ -6,7 +6,7 @@
 #cell_width_scale = 1.0
 clickable_url = true
 dynamic_title = true
-font = Monospace 9
+font = Monospace 12
 #fullscreen = true
 #icon_name = terminal
 #mouse_autohide = false
@@ -26,7 +26,7 @@ browser = xdg-open
 cursor_blink = system
 
 # "block", "underline" or "ibeam"
-#cursor_shape = block
+cursor_shape = block
 
 # Hide links that are no longer valid in url select overlay mode
 #filter_unmatched_urls = true
@@ -41,97 +41,51 @@ cursor_blink = system
 #scrollbar = off
 
 [colors]
-# If both of these are unset, cursor falls back to the foreground color,
-# and cursor_foreground falls back to the background color.
-#cursor = #dcdccc
-#cursor_foreground = #dcdccc
+# Base16 Material Darker
+# Author: Nate Peterson
 
-#foreground = #dcdccc
-#foreground_bold = #ffffff
-#background = #3f3f3f
-
-# 20% background transparency (requires a compositor)
-background = rgba(63, 63, 63, 0.9)
-
-# If unset, will reverse foreground and background
-highlight = #2f2f2f
-
-# Colors from color0 to color254 can be set
-color0 = #3f3f3f
-color1 = #705050
-color2 = #60b48a
-color3 = #dfaf8f
-color4 = #506070
-color5 = #dc8cc3
-color6 = #8cd0d3
-color7 = #dcdccc
-color8 = #709080
-color9 = #dca3a3
-color10 = #c3bf9f
-color11 = #f0dfaf
-color12 = #94bff3
-color13 = #ec93d3
-color14 = #93e0e3
-color15 = #ffffff
-
-[hints]
-#font = Monospace 12
-#foreground = #dcdccc
-#background = #3f3f3f
-#active_foreground = #e68080
-#active_background = #3f3f3f
-#padding = 2
-#border = #3f3f3f
-#border_width = 0.5
-#roundness = 2.0
-
-# vim: ft=dosini cms=#%s
-# Base16 Solarized Dark
-# Author: Ethan Schoonover (modified by aramisgithub)
-
-foreground          = #93a1a1
-foreground_bold     = #eee8d5
-cursor              = #eee8d5
-cursor_foreground   = #002b36
-background          = rgba(0, 43, 54)
-background = rgba(63, 63, 63, 0.5)
+foreground          = #EEFFFF
+foreground_bold     = #EEFFFF
+cursor              = #EEFFFF
+cursor_foreground   = #212121
+background          = rgba(33, 33, 33)
 
 # 16 color space
 
 # Black, Gray, Silver, White
-color0  = #002b36
-color8  = #657b83
-color7  = #93a1a1
-color15 = #fdf6e3
+color0  = #212121
+color8  = #4A4A4A
+color7  = #EEFFFF
+color15 = #FFFFFF
 
 # Red
-color1  = #dc322f
-color9  = #dc322f
+color1  = #F07178
+color9  = #F07178
 
 # Green
-color2  = #859900
-color10 = #859900
+color2  = #C3E88D
+color10 = #C3E88D
 
 # Yellow
-color3  = #b58900
-color11 = #b58900
+color3  = #FFCB6B
+color11 = #FFCB6B
 
 # Blue
-color4  = #268bd2
-color12 = #268bd2
+color4  = #82AAFF
+color12 = #82AAFF
 
 # Purple
-color5  = #6c71c4
-color13 = #6c71c4
+color5  = #C792EA
+color13 = #C792EA
 
 # Teal
-color6  = #2aa198
-color14 = #2aa198
+color6  = #89DDFF
+color14 = #89DDFF
 
 # Extra colors
-color16 = #cb4b16
-color17 = #d33682
-color18 = #073642
-color19 = #586e75
-color20 = #839496
-color21 = #eee8d5
+color16 = #F78C6C
+color17 = #FF5370
+color18 = #303030
+color19 = #353535
+color20 = #B2CCD6
+color21 = #EEFFFF
