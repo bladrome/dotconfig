@@ -1,6 +1,6 @@
 set font                        "Cantarell 10"
-set default-bg                  "#000000" #00
-set default-fg                  "#1f1b3f" #01
+set default-bg                  "#110B1A" #01
+set default-fg                  "#000000" #00
 
 set statusbar-fg                "#c9aae0" #04
 set statusbar-bg                "#1d1229" #01
@@ -17,7 +17,7 @@ set notification-warning-fg     "#1f1b3f" #00
 set highlight-color             "#2a4f81" #0A
 set highlight-active-color      "#1f1b3f" #0D
 
-set completion-highlight-fg     "#1f1b3f"  #02
+set completion-highlight-fg     "#1f1b3f" #02
 set completion-highlight-bg     "#8b09a8" #0C
 
 set completion-bg               "#e0eaf9" #02
