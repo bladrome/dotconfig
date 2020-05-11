@@ -1,6 +1,6 @@
 set font                        "Cantarell 10"
-set default-bg                  "#110B1A" #01
 set default-fg                  "#000000" #00
+set default-bg                  "#2e3436" #01
 
 set statusbar-fg                "#c9aae0" #04
 set statusbar-bg                "#1d1229" #01
@@ -28,7 +28,8 @@ set notification-fg             "#1f1b3f" #00
 
 set recolor-lightcolor          "#130c1b" #00
 set recolor-darkcolor           "#aa99aa" #06
-set recolor                     "true"
+set recolor                     "false"
+
 
 # setting recolor-keep true will keep any color your pdf has.
 # if it is false, itll just be black and white
