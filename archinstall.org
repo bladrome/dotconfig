@@ -92,7 +92,7 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 * awesomewm
 
 #+begin_src 
-yay -S rofi unclutter slock mousepad firefox maim gpicview feh firefox mpc mpd unclutter xsel slock ttf-droid
+yay -S rofi unclutter slock mousepad firefox maim gpicview feh firefox mpc mpd unclutter xsel slock ttf-droid picom
 yay -S xorg-xinit xorg-server xf86-viedo-intel xf86-viedo-nouveau pulseaudio 
 yay -S awesome
 yay -S termite
