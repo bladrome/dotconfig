@@ -115,14 +115,13 @@ xrandr --output HDMI1 --auto
 * Fonts 
 #+begin_src 
 yay -S noto-fonts
+yay -S nerd-fonts-noto
 yay -S ttf-hack
+yay -S nerd-fonts-source-code-pro
 
 
 cp Fonts /usr/share/fonts/
 fc-cache
-
-renew multicolor font NotoSerif
-termite font
 
 #+end_src
 
@@ -169,7 +168,7 @@ yay -S mpv
 
 yay -S mplayer
 yay -S xine-lib
-yay -S wget neovim unzip  pcmanfm baobab ack curl ranger tmux
+yay -S wget neovim unzip  pcmanfm baobab ack curl
 yay -S atool bsdtar djvutxt medianinfo odt2txt jq openscad highlight
 
 yay -S firefox
@@ -180,9 +179,20 @@ Beep /etc/modprobe.d/
 blacklist pcspkr
 #+end_src
 ** Tmux
-#+begin_src 
+#+begin_src shell
 yay -S tmux
 git clone https://github.com/gpakosz/.tmux.git
 ln -sf .tmux/.tmux.conf
 cp .tmux/.tmux.conf.local .
 #+end_src
+** Ranger
+#+BEGIN_SRC shell
+yay -S ranger
+git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
+echo "default_linemode devicons" >> ~/.config/ranger/rc.conf
+
+sudo pacman -S atool
+git clone https://github.com/maximtrp/ranger-archives.git ~/.config/ranger/plugins/ranger-archives
+cd ~/.config/ranger/plugins/ranger-archives
+make install
+#+END_SRC
