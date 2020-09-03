@@ -196,3 +196,14 @@ git clone https://github.com/maximtrp/ranger-archives.git ~/.config/ranger/plugi
 cd ~/.config/ranger/plugins/ranger-archives
 make install
 #+END_SRC
+** yay
+#+BEGIN_SRC shell
+yay
+yay -Syyu
+yay -Sc
+yay -Rc
+yay -Rs
+yay -Q
+yay -Qe
+yay -Qdt
+#+END_SRC
