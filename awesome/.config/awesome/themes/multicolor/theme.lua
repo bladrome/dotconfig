@@ -305,7 +305,7 @@ function theme.at_screen_connect(s)
             halign = 'center',
             widget = wibox.container.place,
         },
-        layout  = wibox.layout.flex.horizontal
+        layout  = wibox.layout.fixed.horizontal
     },
     -- Notice that there is *NO* wibox.wibox prefix, it is a template,
     -- not a widget instance.
