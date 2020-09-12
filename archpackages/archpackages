@@ -19,6 +19,7 @@ awesome
 axel
 baobab
 base
+bash-completion
 bash-language-server
 bbswitch
 bcprov
@@ -45,9 +46,9 @@ discount
 dnsmasq
 efibootmgr
 eigen
-electron-ssr-preview
+electron-ssr
 elinks
-emacs
+emacs-git
 enchant
 eslint
 exfat-utils
@@ -58,6 +59,7 @@ fcitx-rime
 fd
 feh
 firefox
+firejail
 flex
 fontforge
 fontypython
@@ -87,6 +89,7 @@ iwd
 java-commons-lang
 jdk8-openjdk
 jq
+js-beautify
 laptop-mode-tools
 lazygit
 libfido2
@@ -114,6 +117,7 @@ mlocate
 mousepad
 mpc
 mpd
+mpv
 msmtp-mta
 mutt
 neofetch
@@ -128,11 +132,8 @@ nmap
 nnn
 noto-fonts-cjk
 ntfs-3g
-nvidia
-nvidia-settings
 odt2txt
 opencl-headers
-opencl-nvidia
 openmp
 openscad
 openshot
@@ -179,13 +180,16 @@ redshift
 ripgrep
 rofi
 rsync
+rtags
 ruby
 rust
+sbcl
 scrcpy
 screenfetch
 scrot
 shadowsocks-libev
 shadowsocks-qt5
+shfmt
 shotwell
 slock
 sshfs
@@ -193,12 +197,15 @@ ssr
 st
 stow
 strace
+stylelint
+sxiv
 systemd-swap
 tensorflow
 terminus-font-otb
 termite
 texinfo
 the_silver_searcher
+tigervnc
 tk
 tmux
 tor
@@ -290,6 +297,7 @@ xorg-xwininfo
 xorg-xwud
 xsel
 yapf
+yarn
 yay
 you-get
 zathura
