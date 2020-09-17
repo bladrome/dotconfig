@@ -48,3 +48,5 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+(package! solo-jazz-emacs-theme
+ :recipe (:host github :repo "cstby/solo-jazz-emacs-theme"))
