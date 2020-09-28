@@ -2,6 +2,7 @@ ack
 acpi_call
 adobe-source-han-sans-cn-fonts
 adobe-source-han-serif-cn-fonts
+adobe-source-han-serif-otc-fonts
 alacritty
 alsa-utils
 ant
@@ -21,6 +22,7 @@ baobab
 base
 bash-completion
 bash-language-server
+bat
 bbswitch
 bcprov
 binutils
@@ -84,6 +86,7 @@ inkscape
 inotify-tools
 intel-ucode
 intelmetool-git
+iperf
 ipython
 iwd
 java-commons-lang
@@ -104,6 +107,7 @@ linux
 linux-firmware
 linux-lts
 linux-lts-headers
+linuxqq
 llvm
 logrotate
 lua-sec
@@ -111,6 +115,7 @@ luarocks
 m4
 maim
 make
+man-pages
 maven
 meld
 mlocate
@@ -137,8 +142,8 @@ opencl-headers
 openmp
 openscad
 openshot
-optimus-manager
 os-prober
+otf-font-awesome
 p7zip
 pandoc-bin
 parallel
@@ -170,7 +175,6 @@ python-setuptools
 python2-pyopenssl
 python2-scour
 qiv
-qq-linux
 qrcp-bin
 qt5-svg
 qt5-translations
@@ -183,6 +187,7 @@ rsync
 rtags
 ruby
 rust
+rust-analyzer
 sbcl
 scrcpy
 screenfetch
@@ -210,12 +215,18 @@ tk
 tmux
 tor
 torsocks
+toxcore
 traceroute
+transmission-cli
+transmission-qt
 tree
 ttf-dejavu
 ttf-droid
 ttf-fira-code
+ttf-font-awesome
+ttf-font-icons
 ttf-hack
+ttf-ibm-plex
 ttf-nerd-fonts-symbols
 ttf-roboto
 ttf-symbola
