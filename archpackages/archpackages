@@ -1,5 +1,6 @@
 ack
 acpi_call
+acpid
 adobe-source-han-sans-cn-fonts
 adobe-source-han-serif-cn-fonts
 adobe-source-han-serif-otc-fonts
@@ -86,6 +87,7 @@ inkscape
 inotify-tools
 intel-ucode
 intelmetool-git
+iotop
 iperf
 ipython
 iwd
@@ -107,6 +109,7 @@ linux
 linux-firmware
 linux-lts
 linux-lts-headers
+linux-zen
 linuxqq
 llvm
 logrotate
@@ -159,6 +162,7 @@ polybar
 poppler-data
 poppler-glib
 pulseaudio
+pv
 python
 python-black
 python-language-server
