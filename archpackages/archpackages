@@ -18,6 +18,7 @@ autofs
 automake
 autopep8
 awesome
+awesome-terminal-fonts
 axel
 baobab
 base
@@ -47,6 +48,7 @@ dhclient
 dhcpcd
 discount
 dnsmasq
+dwm
 efibootmgr
 eigen
 electron-ssr
@@ -115,6 +117,7 @@ llvm
 logrotate
 lua-sec
 luarocks
+luit
 m4
 maim
 make
@@ -141,6 +144,7 @@ nnn
 noto-fonts-cjk
 ntfs-3g
 odt2txt
+openblas
 opencl-headers
 openmp
 openscad
@@ -161,6 +165,7 @@ playerctl
 polybar
 poppler-data
 poppler-glib
+powertop
 pulseaudio
 pv
 python
@@ -217,8 +222,6 @@ the_silver_searcher
 tigervnc
 tk
 tmux
-tor
-torsocks
 toxcore
 traceroute
 transmission-cli
@@ -269,7 +272,6 @@ xorg-fonts-75dpi
 xorg-fonts-encodings
 xorg-fonts-misc
 xorg-iceauth
-xorg-luit
 xorg-mkfontscale
 xorg-server
 xorg-server-common
