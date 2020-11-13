@@ -198,6 +198,7 @@ make install
 #+END_SRC
 ** yay
 #+BEGIN_SRC shell
+gpg --keyserver pool.sks-keyservers.net --recv-keys # for linux-xanmod
 yay
 yay -Syyu
 yay -Sc
