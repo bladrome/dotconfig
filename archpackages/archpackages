@@ -31,10 +31,12 @@ binutils
 bison
 bleachbit
 boost
+calibre
 catdoc
 cava
 ccls
 clang
+clustalw
 cmake
 conky
 cpupower
@@ -73,6 +75,7 @@ gcc
 gdb
 gimp
 glances
+glfw-x11
 gnuplot
 gpicview
 graphviz
@@ -111,6 +114,7 @@ linux
 linux-firmware
 linux-lts
 linux-lts-headers
+linux-xanmod
 linux-zen
 linuxqq
 llvm
@@ -125,12 +129,14 @@ man-pages
 maven
 meld
 mlocate
+mosh
 mousepad
 mpc
 mpd
 mpv
 msmtp-mta
 mutt
+ncurses5-compat-libs
 neofetch
 neomutt
 neovim
@@ -187,6 +193,7 @@ qiv
 qrcp-bin
 qt5-svg
 qt5-translations
+quicklisp
 r
 ranger
 redshift
@@ -243,6 +250,7 @@ unclutter
 unrar
 unzip
 upower
+upx
 variety
 vim
 visual-studio-code-bin
