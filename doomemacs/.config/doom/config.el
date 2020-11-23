@@ -58,5 +58,19 @@
 ;; (setq debug-on-quit t)
 ;; (setq debug-on-error t)
 ;; set transparency
-(set-frame-parameter (selected-frame) 'alpha '(95 85))
-(add-to-list 'default-frame-alist '(alpha 95 85))
+;; (set-frame-parameter (selected-frame) 'alpha '(95 85))
+;; (add-to-list 'default-frame-alist '(alpha 95 85))
+
+(setq org-publish-project-alist
+      '(("org"
+         :base-directory "~/Documents/2020/"
+         :publishing-directory "~/org/public_html"
+         :section-numbers t
+         :table-of-contents t
+         :auto-index t
+         :index-filename "sitemap.org"
+         :auto-preamble t
+         :publishing-function org-html-publish-to-html
+         :style "<link rel=\"stylesheet\"
+                href=\"style.css\"
+                type=\"text/css\"/>")))
