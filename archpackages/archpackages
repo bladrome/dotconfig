@@ -15,6 +15,7 @@ aspell-en
 atool
 autoconf
 autofs
+autojump
 automake
 autopep8
 awesome
@@ -55,7 +56,7 @@ efibootmgr
 eigen
 electron-ssr
 elinks
-emacs-git
+emacs-native-comp-git
 enchant
 eslint
 exfat-utils
@@ -101,7 +102,7 @@ jdk8-openjdk
 jq
 js-beautify
 laptop-mode-tools
-lazygit
+lazygit-bin
 libfido2
 libgsf
 libiconv
@@ -115,7 +116,6 @@ linux-firmware
 linux-lts
 linux-lts-headers
 linux-xanmod
-linux-zen
 linuxqq
 llvm
 logrotate
@@ -149,6 +149,7 @@ nmap
 nnn
 noto-fonts-cjk
 ntfs-3g
+octave
 odt2txt
 openblas
 opencl-headers
@@ -188,7 +189,6 @@ python-pytorch
 python-rope
 python-setuptools
 python2-pyopenssl
-python2-scour
 qiv
 qrcp-bin
 qt5-svg
@@ -222,7 +222,7 @@ stylelint
 sxiv
 systemd-swap
 tensorflow
-terminus-font-otb
+terminus-font
 termite
 texinfo
 the_silver_searcher
@@ -287,7 +287,6 @@ xorg-server-devel
 xorg-server-xephyr
 xorg-server-xnest
 xorg-server-xvfb
-xorg-server-xwayland
 xorg-sessreg
 xorg-setxkbmap
 xorg-smproxy
@@ -327,7 +326,7 @@ yay
 you-get
 zathura
 zathura-djvu
-zathura-pdf-mupdf
+zathura-pdf-poppler
 zathura-ps
 zip
 zsh
