@@ -133,6 +133,7 @@ mosh
 mousepad
 mpc
 mpd
+mplayer
 mpv
 msmtp-mta
 mutt
@@ -184,6 +185,7 @@ python-pip
 python-pipenv
 python-pyflakes
 python-pylint
+python-pynvim
 python-pytest
 python-pytorch
 python-rope
@@ -234,6 +236,7 @@ traceroute
 transmission-cli
 transmission-qt
 tree
+ttf-all-the-icons
 ttf-dejavu
 ttf-droid
 ttf-fira-code
