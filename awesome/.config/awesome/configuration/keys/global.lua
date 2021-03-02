@@ -412,7 +412,7 @@ local global_keys = awful.util.table.join(
 	),
 	awful.key(
 		{modkey}, 
-		'e',
+		'r',
 		function()
 			local focused = awful.screen.focused()
 
@@ -456,7 +456,7 @@ local global_keys = awful.util.table.join(
 	),
 	awful.key(
 		{modkey},
-		'r',
+		'e',
 		function()
 			local focused = awful.screen.focused()
 			if focused.info_center and focused.info_center.visible then
