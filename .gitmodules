@@ -1,8 +1,8 @@
 [submodule "awesome/.config/awesome/freedesktop"]
-	path = awesome/.config/awesome/freedesktop
+	path = awesome_multicolor/.config/awesome/freedesktop
 	url = https://github.com/lcpz/awesome-freedesktop.git
 [submodule "awesome/.config/awesome/lain"]
-	path = awesome/.config/awesome/lain
+	path = awesome_multicolor/.config/awesome/lain
 	url = https://github.com/lcpz/lain.git
 [submodule "tmux/.tmux"]
 	path = tmux/.tmux
