@@ -98,7 +98,7 @@ local global_keys = awful.util.table.join(
 		{modkey},
 		'o',
 		function()
-			awful.tag.incgap(2)
+			awful.tag.incgap(5)
 		end,
 		{description = 'increase gap', group = 'layout'}
 	),
@@ -106,7 +106,7 @@ local global_keys = awful.util.table.join(
 		{modkey, 'Shift'},
 		'o',
 		function()
-			awful.tag.incgap(-2)
+			awful.tag.incgap(-5)
 		end,
 		{description = 'decrease gap', group = 'layout'}
 	),
