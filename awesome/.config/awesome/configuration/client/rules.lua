@@ -138,7 +138,7 @@ ruled.client.connect_signal(
 				}
 			},
 			properties = {
-				tag = '1',
+				tag = '2',
 				switch_to_tags = true,
 				size_hints_honor = false,
 				titlebars_enabled = true
@@ -159,7 +159,7 @@ ruled.client.connect_signal(
 				}
 			},
 			properties = {
-				tag = '2'
+				tag = '1'
 			}
 		}
 
