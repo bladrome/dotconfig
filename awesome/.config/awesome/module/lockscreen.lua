@@ -24,7 +24,7 @@ local locker_config = {
 	-- Capture a picture using webcam
 	capture_intruder = config.module.lockscreen.capture_intruder or false,
 	-- Save location, auto creates
-	face_capture_dir = config.module.lockscreen.face_capture_dir or '$(xdg-user-dir PICTURES)/Intruders/',
+	face_capture_dir = config.module.lockscreen.face_capture_dir or '$(xdg-user-dir PICTURES)/Pictures/Intruders/',
 	-- Blur background
 	blur_background = config.module.lockscreen.blur_background or false,
 	-- Background directory
