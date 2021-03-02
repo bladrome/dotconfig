@@ -93,7 +93,7 @@ local terminal     = "termite"
 local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = "gvim"
 local browser      = "firefox"
-local guieditor    = "mousepad"
+local guieditor    = "emacs"
 local scrlocker    = "slock"
 
 awful.util.terminal = terminal
@@ -519,7 +519,7 @@ globalkeys = my_table.join(
     -- User programs
     awful.key({ modkey }, "q", function () awful.spawn(browser) end,
               {description = "run browser", group = "launcher"}),
-    awful.key({ modkey }, "a", function () awful.spawn(guieditor) end,
+    awful.key({ modkey }, "e", function () awful.spawn(guieditor) end,
               {description = "run gui editor", group = "launcher"}),
 
     -- Default
