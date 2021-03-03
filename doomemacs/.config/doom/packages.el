@@ -50,3 +50,8 @@
 ;(unpin! t)
 (package! solo-jazz-emacs-theme
  :recipe (:host github :repo "cstby/solo-jazz-emacs-theme"))
+
+(package! async)
+(package! request)
+(package! bongo
+ :recipe (:host github :repo "dbrock/bongo"))
