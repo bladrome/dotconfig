@@ -10,3 +10,4 @@ htmlcov
 
 ranger/.config/ranger/plugins/*py
 ranger/.config/ranger/plugins/__pycache__
+awesome/.config/awesome/widget/weather/init.lua

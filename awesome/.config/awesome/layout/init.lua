@@ -21,7 +21,7 @@ function update_bars_visibility()
 		if s.selected_tag then
 			local fullscreen = s.selected_tag.fullscreen_mode
 			-- Order matter here for shadow
-			s.bottom_panel.visible = not fullscreen
+			-- s.bottom_panel.visible = not fullscreen
 			if s.control_center then
 				if fullscreen and s.control_center.visible then
 					s.control_center:toggle()
