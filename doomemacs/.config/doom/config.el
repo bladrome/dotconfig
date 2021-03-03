@@ -20,15 +20,13 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 (setq doom-font (font-spec :family "Mono" :size 18 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "Fira Sans") ; inherits `doom-font''s :size
-      doom-unicode-font (font-spec :family "Input Mono Narrow" :size 18)
-      doom-big-font (font-spec :family "Fira Code" :size 19))
+      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 20))
 
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'whiteboard)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -74,3 +72,5 @@
          :style "<link rel=\"stylesheet\"
                 href=\"style.css\"
                 type=\"text/css\"/>")))
+
+(require 'bongo)
