@@ -381,7 +381,7 @@ local global_keys = awful.util.table.join(
 		{description = 'toggle systray visibility', group = 'Utility'}
 	),
 	awful.key(
-		{modkey, 'Shift'},
+		{altkey, 'Control'},
 		'l',
 		function()
 			awful.spawn(apps.default.lock, false)
