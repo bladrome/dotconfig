@@ -371,6 +371,16 @@ local global_keys = awful.util.table.join(
 		{description = 'toggle systray visibility', group = 'Utility'}
 	),
 	awful.key(
+		{modkey},
+		'b',
+		function ()
+			for s in screen do
+				s.bottom_panel.visible = not s.bottom_panel.visible
+			end
+		end,
+		{description = 'toggle systray visibility', group = 'Utility'}
+	),
+	awful.key(
 		{modkey, 'Shift'},
 		'l',
 		function()
