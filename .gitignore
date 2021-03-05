@@ -3,6 +3,7 @@
 *.log
 tmp/
 
+tags
 *.py[cod]
 *.egg
 build
@@ -10,4 +11,8 @@ htmlcov
 
 ranger/.config/ranger/plugins/*py
 ranger/.config/ranger/plugins/__pycache__
-awesome/.config/awesome/widget/weather/init.lua
+awesome/linear/.config/awesome/widget/weather/init.lua
+awesome/floppy
+awesome/gnawesome
+awesome/surreal
+awesome/the-glorious-dotfiles
