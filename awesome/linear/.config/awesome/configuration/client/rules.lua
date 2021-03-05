@@ -138,10 +138,9 @@ ruled.client.connect_signal(
 				}
 			},
 			properties = {
-				tag = '2',
-				switch_to_tags = true,
+				switch_to_tags = false,
 				size_hints_honor = false,
-				titlebars_enabled = true
+				titlebars_enabled = false
 			}
 		}
 
