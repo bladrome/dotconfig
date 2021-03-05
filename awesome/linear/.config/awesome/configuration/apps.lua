@@ -6,7 +6,7 @@ return {
 	-- The default applications that we will use in keybindings and widgets
 	default = {
 		-- Default terminal emulator
-		terminal = 'termite',
+		terminal = 'kitty',
 		-- Default web browser
 		web_browser = 'firefox',
 		-- Default text editor
