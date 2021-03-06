@@ -207,8 +207,8 @@ local global_keys = awful.util.table.join(
 	),
 	-- ALSA volume control
 	awful.key(
-		{},
-		'XF86AudioRaiseVolume',
+		{altkey},
+		'Up',
 		function()
 			awful.spawn('amixer -D pulse sset Master 5%+', false)
 			awesome.emit_signal('widget::volume')
@@ -217,8 +217,8 @@ local global_keys = awful.util.table.join(
 		{description = 'increase volume up by 5%', group = 'hotkeys'}
 	),
 	awful.key(
-		{},
-		'XF86AudioLowerVolume',
+		{altkey},
+		'Down',
 		function()
 			awful.spawn('amixer -D pulse sset Master 5%-', false)
 			awesome.emit_signal('widget::volume')
@@ -227,8 +227,8 @@ local global_keys = awful.util.table.join(
 		{description = 'decrease volume up by 5%', group = 'hotkeys'}
 	),
 	awful.key(
-		{},
-		'XF86AudioMute',
+		{altkey},
+		'm',
 		function()
 			awful.spawn('amixer -D pulse set Master 1+ toggle', false)
 		end,
