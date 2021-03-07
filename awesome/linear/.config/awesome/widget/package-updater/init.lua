@@ -80,7 +80,7 @@ local return_button = function()
 
 	watch(
 		'pamac checkupdates',
-		60,
+		1800,
 		function(_, stdout)
 			number_of_updates_available = tonumber(stdout:match('.-\n'):match('%d*'))
 			update_package = stdout
