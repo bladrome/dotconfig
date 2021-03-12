@@ -8,6 +8,7 @@ screen.connect_signal(
 	'request::desktop_decoration',
 	function(s)
 		s.bottom_panel = bottom_panel(s)
+		s.bottom_panel.visible = true
 		s.control_center = control_center(s)
 		s.info_center = info_center(s)
 		s.control_center_show_again = false
