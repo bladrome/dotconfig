@@ -62,7 +62,7 @@ local bottom_panel = function(s)
 			screen = 'primary',
 			widget = wibox.widget.systray
 		},
-		visible = false,
+		visible = true,
 		top = dpi(10),
 		widget = wibox.container.margin
 	}
