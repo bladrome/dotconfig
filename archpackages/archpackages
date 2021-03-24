@@ -44,7 +44,6 @@ conky
 cpupower
 crda
 cscope
-ctags
 cups
 curlftpfs
 cyrus-sasl-gssapi
@@ -52,7 +51,6 @@ dhclient
 dhcpcd
 discount
 dnsmasq
-dwm
 efibootmgr
 eigen
 electron-ssr
@@ -76,6 +74,7 @@ fzf
 gcc
 gdb
 gimp
+github-cli
 glances
 glfw-x11
 gnuplot
@@ -89,12 +88,11 @@ hddtemp
 hdparm
 highlight
 htop
-hunspell-en_US
+hunspell-en_us
 i3status
 inkscape
 inotify-tools
 intel-ucode
-intelmetool-git
 inter-font
 iotop
 iperf
@@ -104,8 +102,8 @@ java-commons-lang
 jdk8-openjdk
 jq
 js-beautify
+kitty
 laptop-mode-tools
-lazygit-bin
 libfido2
 libgsf
 libiconv
@@ -119,7 +117,8 @@ linux
 linux-firmware
 linux-lts
 linux-lts-headers
-linux-xanmod
+linux-xanmod-cacule-uksm
+linux-xanmod-cacule-uksm-headers
 linuxqq
 lldb
 llvm
@@ -142,6 +141,7 @@ mplayer
 mpv
 msmtp-mta
 mutt
+ncmpcpp
 ncurses5-compat-libs
 neofetch
 neomutt
@@ -187,6 +187,7 @@ pv
 python
 python-black
 python-language-server
+python-matplotlib
 python-netifaces
 python-nose
 python-pip
@@ -226,11 +227,11 @@ shotwell
 slock
 sshfs
 ssr
-st
 stow
 strace
 stylelint
 sxiv
+sysstat
 systemd-swap
 tensorflow
 terminus-font
