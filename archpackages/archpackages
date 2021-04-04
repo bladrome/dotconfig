@@ -58,6 +58,7 @@ elinks
 emacs-git
 enchant
 eslint
+ethtool
 exfat-utils
 fakeroot
 fcitx-configtool
@@ -73,6 +74,7 @@ fontypython
 fzf
 gcc
 gdb
+geckodriver
 gimp
 github-cli
 glances
@@ -198,6 +200,7 @@ python-pynvim
 python-pytest
 python-pytorch
 python-rope
+python-selenium
 python-setuptools
 python2-pyopenssl
 qiv
