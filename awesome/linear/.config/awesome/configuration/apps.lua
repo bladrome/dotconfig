@@ -53,7 +53,7 @@ return {
 	run_on_start_up = {
         -- fcitx
         'fcitx',
-        'conky',
+        -- 'conky',
 		-- Compositor
 		'picom -b --experimental-backends --dbus --config ' ..
 		config_dir .. '/configuration/picom.conf',
