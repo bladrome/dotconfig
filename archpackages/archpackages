@@ -57,7 +57,7 @@ efibootmgr
 eigen
 electron-ssr
 elinks
-emacs-git
+emacs
 enchant
 eslint
 ethtool
@@ -92,6 +92,7 @@ hdparm
 highlight
 htop
 hunspell-en_us
+hwinfo
 i3status
 inkscape
 inotify-tools
@@ -181,7 +182,6 @@ perl-log-log4perl
 picom-git
 pkgconf
 playerctl
-polybar
 poppler-data
 poppler-glib
 powertop
@@ -229,6 +229,7 @@ screenfetch
 scrot
 shadowsocks-libev
 shadowsocks-qt5
+shellcheck-bin
 shfmt
 shotwell
 slock
