@@ -57,7 +57,7 @@ efibootmgr
 eigen
 electron-ssr
 elinks
-emacs
+emacs-native-comp-git
 enchant
 eslint
 ethtool
@@ -85,6 +85,7 @@ gobject-introspection
 gpicview
 graphviz
 grub
+grub-theme-vimix
 gvfs
 gvfs-mtp
 hddtemp
@@ -121,9 +122,7 @@ linux
 linux-firmware
 linux-lts
 linux-lts-headers
-linux-xanmod-cacule-uksm
-linux-xanmod-cacule-uksm-headers
-linux-zen
+linux-xanmod-cacule-uksm-cjktty
 linuxqq
 lldb
 llvm
@@ -145,6 +144,7 @@ mpd
 mplayer
 mpv
 msmtp-mta
+mtools
 mutt
 ncmpcpp
 ncurses5-compat-libs
@@ -224,6 +224,7 @@ ruby
 rust-analyzer
 rustup
 sbcl
+scrapy
 scrcpy
 screenfetch
 scrot
@@ -286,6 +287,7 @@ wallutils
 weechat
 wget
 which
+wkhtmltopdf
 wpa_supplicant
 wqy-microhei
 xarchiver
