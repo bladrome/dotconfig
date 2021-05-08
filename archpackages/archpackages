@@ -146,6 +146,7 @@ mpv
 msmtp-mta
 mtools
 mutt
+myrepos
 ncmpcpp
 ncurses5-compat-libs
 neofetch
@@ -215,6 +216,7 @@ qv2ray
 r
 ranger
 redshift
+repo
 ripgrep
 rlwrap
 rofi
@@ -252,6 +254,7 @@ tigervnc
 tk
 tmux
 tmux-mem-cpu-load-git
+topgrade
 toxcore
 traceroute
 transmission-cli
