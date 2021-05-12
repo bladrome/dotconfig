@@ -34,6 +34,7 @@ bison
 bleachbit
 blueman
 boost
+bspwm
 calibre
 catdoc
 cava
@@ -127,6 +128,7 @@ linuxqq
 lldb
 llvm
 logrotate
+lua-lsp-git
 lua-sec
 luarocks
 luit
@@ -136,6 +138,7 @@ make
 man-pages
 maven
 meld
+meshlab
 mlocate
 mosh
 mousepad
@@ -183,6 +186,7 @@ perl-log-log4perl
 picom-git
 pkgconf
 playerctl
+polybar
 poppler-data
 poppler-glib
 powertop
@@ -235,12 +239,14 @@ shadowsocks-qt5
 shellcheck-bin
 shfmt
 shotwell
+siji-git
 slock
 sshfs
 ssr
 stow
 strace
 stylelint
+sxhkd
 sxiv
 sysstat
 systemd-swap
