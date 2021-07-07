@@ -54,11 +54,12 @@ dhclient
 dhcpcd
 discount
 dnsmasq
+duf
 efibootmgr
 eigen
 electron-ssr
 elinks
-emacs-native-comp-git
+emacs-git
 enchant
 eslint
 ethtool
@@ -123,7 +124,8 @@ linux
 linux-firmware
 linux-lts
 linux-lts-headers
-linux-xanmod-cacule-uksm-cjktty
+linux-xanmod
+linux-xanmod-cacule
 linuxqq
 lldb
 llvm
@@ -218,6 +220,7 @@ qt5-translations
 quicklisp
 qv2ray
 r
+r-styler
 ranger
 redshift
 repo
