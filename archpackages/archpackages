@@ -39,6 +39,7 @@ calibre
 catdoc
 cava
 clang
+cloc
 clustalw
 cmake
 conky
@@ -125,7 +126,7 @@ linux-firmware
 linux-lts
 linux-lts-headers
 linux-xanmod
-linux-xanmod-cacule
+linux-xanmod-cacule-uksm-cjktty
 linuxqq
 lldb
 llvm
