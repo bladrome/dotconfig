@@ -1,6 +1,8 @@
 
 #+TITLE: archlinux install note
-
+loadkeys 
+loadkeys
+etc/vconsole.conf
 * setfont
 setfont
 * keyboard
