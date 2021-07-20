@@ -56,9 +56,7 @@ dhcpcd
 discount
 dnsmasq
 duf
-efibootmgr
 eigen
-electron-ssr
 elinks
 emacs-git
 enchant
@@ -97,7 +95,6 @@ highlight
 htop
 hunspell-en_us
 hwinfo
-i3status
 inkscape
 inotify-tools
 intel-ucode
@@ -118,8 +115,7 @@ libiconv
 libreoffice-still
 libva-intel-driver
 light-git
-lightdm
-lightdm-gtk-greeter
+sddm
 links
 linux
 linux-firmware
@@ -127,7 +123,6 @@ linux-lts
 linux-lts-headers
 linux-xanmod
 linux-xanmod-cacule-uksm-cjktty
-linuxqq
 lldb
 llvm
 logrotate
@@ -256,7 +251,6 @@ sysstat
 systemd-swap
 tensorflow
 terminus-font
-termite
 texinfo
 the_silver_searcher
 tidy
@@ -309,7 +303,6 @@ xclip
 xdg-user-dirs
 xf86-input-evdev
 xf86-video-intel
-xf86-video-nouveau
 xf86-video-vesa
 xine-lib
 xkeycaps
