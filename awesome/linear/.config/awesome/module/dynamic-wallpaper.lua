@@ -163,7 +163,7 @@ end
 local function auto_schedule(wall_list)
 	local sched = {}
 	for index, file in ipairs(wall_list) do
-		local auto_time = parse_to_time(parse_to_seconds("24:00:00") * (index - 1) / #wall_list)
+		local auto_time = parse_to_time(parse_to_seconds("00:02:40") * (index - 1) / #wall_list)
 		sched[auto_time] = file
 	end
 
