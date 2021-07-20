@@ -19,6 +19,21 @@ local global_keys = awful.util.table.join(
 		hotkeys_popup.show_help, 
 		{description = 'show help', group = 'awesome'}
 	),
+	awful.key(
+		{ modkey, "Control"},
+		"c",
+		function ()
+			awful.spawn.easy_async("xclip -o", function (out)
+									   local c = client.focus
+									   if c and out ~= '' and out ~= nil then
+										   local command = string.format("xdg-open 'org-protocol://capture?template=c&url=%s&title=%s&body=%s'", "awesomewm", encodeURI(c.name), encodeURI(out));
+										   awful.spawn(command)
+										   naughty.notify({ preset = naughty.config.presets.normal,
+															title = "Captured!",
+															text = string.format("Title: %s\n\nDescription: %s", c.name, out)})
+									   end
+			end)
+	end),
 	awful.key({modkey, 'Control'}, 
 		'r', 
 		awesome.restart, 
