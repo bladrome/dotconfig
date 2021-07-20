@@ -3,7 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-attach-id-dir "~/Documents/2021/attatchments")
+ '(org-attach-id-dir "~/org/public_html/attachments")
  '(custom-safe-themes
    '("2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" default))
  '(fci-rule-color "#37474F")
@@ -44,3 +44,52 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(defun random-choice (items)
+  "Random choice a list"
+  (let* ((size (length items))
+         (index (random size)))
+    (nth index items)))
+
+(defun blkcat/load-theme-random ()
+  "Load random themes of doom-*"
+  (interactive)
+  (let* ((doom-themes (all-completions "doom" (custom-available-themes)))
+         (theme       (random-choice doom-themes)))
+    (counsel-load-theme-action theme)
+    (message "Current random doom-* theme is: %s" theme)
+    (setq doom-theme theme)))
+
+;; Get random themes on Emacs startup
+(setq doom-theme (random-choice (custom-available-themes)))
+
+(use-package lsp-mode
+  :hook (c++-mode . lsp)
+  :config
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
+                    :major-modes '(c++-mode)
+                    :remote? t
+                    :server-id 'clangd-remote)))
+
+(use-package org
+  :hook
+  (org-mode . turn-on-visual-line-mode)
+  :config
+  (setq org-directory "~/org/sync/")
+  ;; Capture templates for links to pages having [ and ]
+  ;; characters in their page titles - notably ArXiv
+  ;; From https://github.com/sprig/org-capture-extension
+  (require 'org-protocol)
+  (defun transform-square-brackets-to-round-ones(string-to-transform)
+    "Transforms [ into ( and ] into ), other chars left unchanged."
+    (concat
+     (mapcar #'(lambda (c) (if (equal c ?[) ?\( (if (equal c ?]) ?\) c))) string-to-transform)))
+  (setq org-capture-templates `(
+                                ("p" "Protocal" entry (file+headline ,(concat "~/Documents/2021/" (format-time-string "%Y%m%d") ".org") "arxiv")
+                                 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n\n\n\n%?")
+                                ("L" "Protocol Link" entry (file+headline ,(concat org-directory "notes_" (shell-command-to-string "date +%F__%H-%M-%S_%Z")) "Inbox")
+                                 "* %^{Title_and_tag}\n [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n")
+                                )))
+
+;; "* %^{Title_and_tag}\nSource: [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")

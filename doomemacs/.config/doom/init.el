@@ -83,8 +83,8 @@
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       (spell +flyspell)   ; tasing you for misspelling mispelling
-       grammar             ; tasing grammar mistake every you make
+       ;; (spell +flyspell)   ; tasing you for misspelling mispelling
+       ;; grammar             ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
@@ -103,14 +103,14 @@
        pdf                 ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        rgb                 ; creating color strings
-       ;;taskrunner        ; taskrunner for all your projects
+       taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        tmux                ; an API for interacting with tmux
        upload              ; map local to remote projects via ssh/ftp
 
        :os
        (:if IS-MAC macos)  ; improve compatibility with macOS
-       ;;tty               ; improve the terminal Emacs experience
+       ;;tty                 ; improve the terminal Emacs experience
 
        :lang
        ;;agda              ; types of types of types of types...
@@ -121,7 +121,7 @@
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
        ;;csharp            ; unity, .NET, and mono shenanigans
-       ;;data              ; config/data formats
+       data              ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of TEA?
@@ -145,7 +145,7 @@
        latex               ; writing papers in Emacs has never been so fun
        ;;lean              ; for folks with too much to prove
        ;;ledger            ; be audit you can be
-       lua                 ; one-based indices? one-based indices
+       (lua +lsp)          ; one-based indices? one-based indices
        markdown            ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"

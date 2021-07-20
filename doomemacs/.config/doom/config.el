@@ -19,10 +19,8 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 18 :weight 'semi-light)
-       ;; doom-variable-pitch-font (font-spec :family "Noto Serif" :size 20))
-(setq doom-font (font-spec :family "Fira Mono" :size 19 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "Fira Sans")) ; inherits `doom-font''s :size
+(setq doom-font (font-spec :family "monospace" :size 19 :weight 'semi-light) ;
+      doom-variable-pitch-font (font-spec :family "DejaVu Sans" :size 20))
 
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -39,7 +37,7 @@
 (setq display-line-numbers-type t)
 
 (setq bookmark-default-file "~/.config/doom/bookmarks")
-
+(setq recentf-save-file "~/.config/doom/recentf")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -64,16 +62,27 @@
 ;; (add-to-list 'default-frame-alist '(alpha 95 85))
 
 (setq org-publish-project-alist
-      '(("org"
-         :base-directory "~/Documents/2020/"
+      '(("orgfiles"
+         :base-directory "~/Documents/2021/"
+         :base-extension "org"
          :publishing-directory "~/org/public_html"
-         :section-numbers t
-         :table-of-contents t
-         :auto-index t
-         :index-filename "sitemap.org"
-         :auto-preamble t
          :publishing-function org-html-publish-to-html
-         :style "<link rel=\"stylesheet\"
-                href=\"style.css\"
-                type=\"text/css\"/>")))
-
+         :with-toc nil
+         :makeindex
+         :auto-sitemap
+         :sitemap-sort-files t
+         :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/worgstyle.css\" />"
+         :html-preamble nil)
+        ("images"
+         :base-directory "~/Documents/2021/attachments"
+         :base-extension "png\\|jpg"
+         :recursive t
+         :publishing-directory "~/org/public_html/images"
+         :publishing-function org-publish-attachment)
+        ("other"
+         :base-directory "~/other/"
+         :base-extension "css\\|el"
+         :publishing-directory "~/org/public_html/others"
+         :recursive t
+         :publishing-function org-publish-attachment)
+        ("org" :components ("orgfiles" "images" "other"))))
