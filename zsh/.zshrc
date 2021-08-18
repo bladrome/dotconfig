@@ -35,6 +35,9 @@ zinit ice lucid wait='1'
 zinit light skywind3000/z.lua
 zinit light Aloxaf/fzf-tab
 
+zinit snippet ~/.oh-my-zsh/lib/key-bindings.zsh
+zinit snippet ~/.oh-my-zsh/lib/clipboard.zsh
+
 bindkey ',' autosuggest-accept
 
 # >>> conda initialize >>>
