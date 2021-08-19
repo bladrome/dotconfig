@@ -3,7 +3,6 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "bladrome"
@@ -19,14 +18,33 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "monospace" :size 19 :weight 'semi-light) ;
-      doom-variable-pitch-font (font-spec :family "DejaVu Sans" :size 20))
+;; (setq doom-font (font-spec :family "monospace" :size 19 :weight 'semi-light) ;
+      ;; doom-variable-pitch-font (font-spec :family "DejaVu Sans" :size 20))
+
+(setq doom-font (font-spec :family "Roboto Mono" :size 19)
+     doom-serif-font (font-spec :family "Roboto Mono" :size 20)
+     doom-variable-pitch-font (font-spec :family "SourceHanSerifCN")
+     doom-unicode-font (font-spec :family "SourceHanSerifCN")
+     doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
+     )
+
 
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'vscode-dark-plus)
+;; (setq doom-theme 'vscode-dark-plus)
+(setq doom-theme nil)
+(require 'disp-table)
+(require 'nano-faces)
+(require 'nano-colors)
+(require 'nano-theme-dark)
+(require 'nano-theme)
+;; (require 'nano-help)
+;; (require 'nano-splash)
+;; (require 'nano-modeline)
+(nano-faces)
+(nano-theme)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -86,3 +104,31 @@
          :recursive t
          :publishing-function org-publish-attachment)
         ("org" :components ("orgfiles" "images" "other"))))
+
+
+(after! dired
+  (setq dired-listing-switches "-aBhl  --group-directories-first"
+        dired-dwim-target t
+        dired-recursive-copies (quote always)
+        dired-recursive-deletes (quote top)
+        ;; Directly edit permisison bits!
+        wdired-allow-to-change-permissions t
+        dired-omit-mode nil))
+
+(use-package! org-special-block-extras
+  :hook (org-mode . org-special-block-extras-mode)
+  :config
+  ;; Use short names like ‘defblock’ instead of the fully qualified name
+  ;; ‘org-special-block-extras--defblock’
+  (org-special-block-extras-short-names)
+  (setq org-export-allow-bind-keywords t))
+
+(use-package! pangu-spacing
+  :config
+  (global-pangu-spacing-mode 1)
+  (setq pangu-spacing-real-insert-separtor t))
+
+(use-package! valign
+  :config
+  (setq valign-fancy-bar t)
+  (add-hook 'org-mode-hook #'valign-mode))

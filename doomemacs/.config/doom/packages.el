@@ -48,8 +48,23 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+
+(package! org-fragtog)
+(package! org-page)
+(package! org-ql)
+(package! org-roam-server)
+(package! org-special-block-extras)
+(package! pangu-spacing)
+(package! rainbow-identifiers)
+(package! rime)
+(package! valign)
+
+
 (package! solo-jazz-emacs-theme
  :recipe (:host github :repo "cstby/solo-jazz-emacs-theme"))
 (package! vscode-dark-plus-emacs-theme
  :recipe (:host github :repo "ianpan870102/vscode-dark-plus-emacs-theme"))
-(package! vlf)
+(package! nano-emacs
+ :recipe (:host github :repo "rougier/nano-emacs"))
+(package! org-protocol-capture-html
+ :recipe (:host github :repo "alphapapa/org-protocol-capture-html"))

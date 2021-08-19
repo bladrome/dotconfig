@@ -61,7 +61,7 @@
     (setq doom-theme theme)))
 
 ;; Get random themes on Emacs startup
-(setq doom-theme (random-choice (custom-available-themes)))
+;; (setq doom-theme (random-choice (custom-available-themes)))
 
 (use-package lsp-mode
   :hook (c++-mode . lsp)
@@ -84,12 +84,18 @@
   (defun transform-square-brackets-to-round-ones(string-to-transform)
     "Transforms [ into ( and ] into ), other chars left unchanged."
     (concat
-     (mapcar #'(lambda (c) (if (equal c ?[) ?\( (if (equal c ?]) ?\) c))) string-to-transform)))
+     (mapcar #'(lambda (c) (if (equal c ?\[) ?\( (if (equal c ?\]) ?\) c))) string-to-transform)))
   (setq org-capture-templates `(
                                 ("p" "Protocal" entry (file+headline ,(concat "~/Documents/2021/" (format-time-string "%Y%m%d") ".org") "arxiv")
                                  "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n\n\n\n%?")
                                 ("L" "Protocol Link" entry (file+headline ,(concat org-directory "notes_" (shell-command-to-string "date +%F__%H-%M-%S_%Z")) "Inbox")
                                  "* %^{Title_and_tag}\n [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n")
+                                ("w" "Web site" entry (file+headline ,(concat "~/Documents/2021/" (format-time-string "%Y%m%d") ".org") "arxiv")
+                                 "* %a :website:\n\n%U %?\n\n%:initial")
+                                ("c" "Captured" entry (file+headline ,(concat "~/Documents/2021/" (format-time-string "%Y%m%d") ".org") "arxiv")
+                                 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :empty-lines-after 1)
+                                ("n" "Captured Now!" entry (file+headline ,(concat "~/Documents/2021/" (format-time-string "%Y%m%d") ".org") "arxiv")
+                                 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t)
                                 )))
 
 ;; "* %^{Title_and_tag}\nSource: [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
