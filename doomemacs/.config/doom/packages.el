@@ -68,3 +68,7 @@
  :recipe (:host github :repo "rougier/nano-emacs"))
 (package! org-protocol-capture-html
  :recipe (:host github :repo "alphapapa/org-protocol-capture-html"))
+
+(package! shrface)
+(package! leetcode
+ :recipe (:host github :repo "kaiwk/leetcode.el"))

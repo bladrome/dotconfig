@@ -132,3 +132,8 @@
   :config
   (setq valign-fancy-bar t)
   (add-hook 'org-mode-hook #'valign-mode))
+
+(use-package leetcode
+    :config
+    (setq leetcode-save-solutions t
+          leetcode-directory "~/workground/Leetcode/"))
