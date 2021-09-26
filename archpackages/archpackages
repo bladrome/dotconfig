@@ -217,12 +217,12 @@ python-pytorch
 python-rope
 python-selenium
 python-setuptools
+python-torchvision
 python2-pyopenssl
 qiv
 qt5-svg
 qt5-translations
 quicklisp
-qv2ray
 r
 r-styler
 ranger
@@ -234,7 +234,7 @@ rlwrap
 rofi
 rsync
 ruby
-rust
+rustup
 sbcl
 scrapy
 scrcpy
@@ -307,6 +307,7 @@ unzip
 upower
 upx
 v2ray
+v2raya-bin
 variety
 vicious
 vim
@@ -373,6 +374,7 @@ xorg-xvinfo
 xorg-xwd
 xorg-xwininfo
 xorg-xwud
+xray
 xsel
 yapf
 yarn
