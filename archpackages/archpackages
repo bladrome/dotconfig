@@ -53,6 +53,7 @@ cyrus-sasl-gssapi
 deno
 dhcpcd
 discount
+ditaa
 dnsmasq
 duf
 eigen
@@ -126,7 +127,7 @@ linux-firmware
 linux-lts
 linux-lts-headers
 linux-xanmod
-linux-xanmod-cacule-uksm-cjktty
+linux-xanmod-cacule
 linuxqq
 lldb
 llvm
@@ -191,6 +192,8 @@ perl-log-log4perl
 perl-tk
 picom-git
 pkgconf
+plantuml
+plantuml-ascii-math
 playerctl
 polybar
 poppler-data
@@ -217,6 +220,7 @@ python-pytorch
 python-rope
 python-selenium
 python-setuptools
+python-tensorflow
 python-torchvision
 python2-pyopenssl
 qiv
