@@ -16,3 +16,6 @@ awesome/floppy
 awesome/gnawesome
 awesome/surreal
 awesome/the-glorious-dotfiles
+
+doomemacs/.config/doom/bookmarks
+doomemacs/.config/doom/recentf

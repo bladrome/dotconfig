@@ -27,6 +27,7 @@
         +fuzzy
         +prescient
         +icons)            ; a search engine for love and life
+       vertico
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -110,7 +111,7 @@
 
        :os
        (:if IS-MAC macos)  ; improve compatibility with macOS
-       ;;tty                 ; improve the terminal Emacs experience
+       tty                 ; improve the terminal Emacs experience
 
        :lang
        ;;agda              ; types of types of types of types...
@@ -123,6 +124,7 @@
        ;;csharp            ; unity, .NET, and mono shenanigans
        data              ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
+       ;;dhall
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of TEA?
        emacs-lisp          ; drown in parentheses
@@ -134,7 +136,7 @@
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
        ;;gdscript          ; the language you waited for
        ;;(go +lsp)         ; the hipster dialect
-       ;;(haskell +dante)  ; a language that's lazier than I am
+       ;;(haskell +lsp)    ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ; a language you can depend on
        json                ; At least it ain't XML
@@ -151,7 +153,7 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org
-        +roam
+        +roam2
         +pandoc
         +dragndrop
         +gnuplot
@@ -160,9 +162,11 @@
         +noter
         +present)          ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
-       ;;plantuml          ; diagrams for confusing people more
+       plantuml            ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       (python +lsp)       ; beautiful is better than ugly
+       (python
+        +lsp
+        +pyright)          ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
@@ -188,7 +192,7 @@
 
        :app
        calendar
-       ;;emms
+       emms
        ;;everywhere        ; *leave* Emacs!? You must be joking
        ;;irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader

@@ -33,22 +33,25 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-;; (setq doom-theme 'vscode-dark-plus)
-(setq doom-theme nil)
-(require 'disp-table)
-(require 'nano-faces)
-(require 'nano-colors)
-(require 'nano-theme-dark)
-(require 'nano-theme)
-;; (require 'nano-help)
-;; (require 'nano-splash)
-;; (require 'nano-modeline)
-(nano-faces)
-(nano-theme)
+(setq doom-theme 'doom-ayu-light)
+;; (setq doom-theme nil)
+;; (require 'disp-table)
+;; (require 'nano-faces)
+;; (require 'nano-colors)
+;; (require 'nano-theme)
+;; (require 'nano-theme)
+;; ;; (require 'nano-help)
+;; ;; (require 'nano-splash)
+;; ;; (require 'nano-modeline)
+;; (nano-faces)
+;; (nano-theme)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
+(setq org-attach-id-dir "/home/bladrome/Documents/2021/attachments")
+;; (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdfxe %f"))
+
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -79,17 +82,19 @@
 ;; (set-frame-parameter (selected-frame) 'alpha '(95 85))
 ;; (add-to-list 'default-frame-alist '(alpha 95 85))
 
+(setq org-export-babel-evaluate nil)
 (setq org-publish-project-alist
       '(("orgfiles"
          :base-directory "~/Documents/2021/"
          :base-extension "org"
          :publishing-directory "~/org/public_html"
          :publishing-function org-html-publish-to-html
-         :with-toc nil
-         :makeindex
+         :with-toc t
+         :auto-preamble t
          :auto-sitemap
-         :sitemap-sort-files t
-         :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/worgstyle.css\" />"
+         :sitemap-title "Notes"
+         :sitemap-sort-files
+         :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/worg.css\" />"
          :html-preamble nil)
         ("images"
          :base-directory "~/Documents/2021/attachments"
@@ -115,13 +120,13 @@
         wdired-allow-to-change-permissions t
         dired-omit-mode nil))
 
+
 (use-package! org-special-block-extras
+  :ensure t
   :hook (org-mode . org-special-block-extras-mode)
-  :config
-  ;; Use short names like ‘defblock’ instead of the fully qualified name
-  ;; ‘org-special-block-extras--defblock’
-  (org-special-block-extras-short-names)
-  (setq org-export-allow-bind-keywords t))
+  ;; All relevant Lisp functions are prefixed ‘o-’; e.g., `o-docs-insert'.
+  )
+
 
 (use-package! pangu-spacing
   :config
@@ -136,4 +141,55 @@
 (use-package leetcode
     :config
     (setq leetcode-save-solutions t
+          leetcode-prefer-language "cpp"
+          leetcode-prefer-sql "mysql"
           leetcode-directory "~/workground/Leetcode/"))
+
+
+(use-package lsp-mode
+  :hook (c++-mode . lsp)
+  :config
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
+                    :major-modes '(c++-mode)
+                    :remote? t
+                    :server-id 'clangd-remote)))
+
+;; (server-start)
+(use-package org
+  :hook
+  (org-mode . turn-on-visual-line-mode)
+  :config
+  (setq org-startup-folded "folded")
+  (require 'org-ref)
+  (setq reftex-default-bibliography '("~/Documents/2021/bibliography/references.bib"))
+  (setq org-ref-bibliography-notes "~/Documents/2021/bibliography/notes.org"
+        org-ref-default-bibliography '("~/Documents/2021/bibliography/references.bib")
+        org-ref-pdf-directory "~/Documents/2021/bibliography/bibtex-pdfs/")
+
+  ;; Capture templates for links to pages having [ and ]
+  ;; characters in their page titles - notably ArXiv
+  ;; From https://github.com/sprig/org-capture-extension
+  (require 'org-protocol)
+  (defun transform-square-brackets-to-round-ones(string-to-transform)
+    "Transforms [ into ( and ] into ), other chars left unchanged."
+    (concat
+     (mapcar #'(lambda (c) (if (equal c ?\[) ?\( (if (equal c ?\]) ?\) c))) string-to-transform)))
+  (setq org-capture-templates `(
+                                ("p" "Protocal" entry (file+headline ,(concat "~/Documents/2021/" (format-time-string "%Y%m%d") ".org") "arxiv")
+                                 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n\n\n\n%?")
+                                ("L" "Protocol Link" entry (file+headline ,(concat org-directory "notes_" (shell-command-to-string "date +%F__%H-%M-%S_%Z")) "Inbox")
+                                 "* %^{Title_and_tag}\n [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n")
+                                ("w" "Web site" entry (file+headline ,(concat "~/Documents/2021/" (format-time-string "%Y%m%d") ".org") "arxiv")
+                                 "* %a :website:\n\n%U %?\n\n%:initial")
+                                ("c" "Captured" entry (file+headline ,(concat "~/Documents/2021/" (format-time-string "%Y%m%d") ".org") "arxiv")
+                                 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :empty-lines-after 1)
+                                ("n" "Captured Now!" entry (file+headline ,(concat "~/Documents/2021/" (format-time-string "%Y%m%d") ".org") "arxiv")
+                                 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t)
+                                )))
+
+;; "* %^{Title_and_tag}\nSource: [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+
+(setq elfeed-feeds
+      '("https://this-week-in-rust.org/rss.xml"
+        "http://feeds.bbci.co.uk/news/rss.xml"))
