@@ -113,8 +113,9 @@ local global_keys = awful.util.table.join(
 		{modkey},
 		'o',
 		function()
-			awful.tag.incgap(5);
-			beautiful.useless_gap =  beautiful.useless_gap + 5
+			incgap = 5
+			awful.tag.incgap(incgap);
+			beautiful.useless_gap =  beautiful.useless_gap + incgap
 		end,
 		{description = 'increase gap', group = 'layout'}
 	),
@@ -122,8 +123,9 @@ local global_keys = awful.util.table.join(
 		{modkey, 'Shift'},
 		'o',
 		function()
-			awful.tag.incgap(-5)
-			beautiful.useless_gap =  beautiful.useless_gap - 5
+			incgap = -5
+			awful.tag.incgap(incgap);
+			beautiful.useless_gap =  beautiful.useless_gap + incgap
 		end,
 		{description = 'decrease gap', group = 'layout'}
 	),
