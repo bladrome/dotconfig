@@ -53,7 +53,7 @@
 (package! org-page)
 (package! org-ql)
 (package! org-roam-server)
-(package! org-special-block-extras)
+;; (package! org-special-block-extras)
 (package! org-ref)
 (package! pangu-spacing)
 (package! rainbow-identifiers)

@@ -98,7 +98,7 @@
          :html-preamble nil)
         ("images"
          :base-directory "~/Documents/2021/attachments"
-         :base-extension "png\\|jpg"
+         :base-extension "png\\|jpg\\|webp"
          :recursive t
          :publishing-directory "~/org/public_html/images"
          :publishing-function org-publish-attachment)
@@ -121,11 +121,11 @@
         dired-omit-mode nil))
 
 
-(use-package! org-special-block-extras
-  :ensure t
-  :hook (org-mode . org-special-block-extras-mode)
-  ;; All relevant Lisp functions are prefixed ‘o-’; e.g., `o-docs-insert'.
-  )
+;; (use-package! org-special-block-extras
+;;   :ensure t
+;;   :hook (org-mode . org-special-block-extras-mode)
+;;   ;; All relevant Lisp functions are prefixed ‘o-’; e.g., `o-docs-insert'.
+;;   )
 
 
 (use-package! pangu-spacing
@@ -145,15 +145,6 @@
           leetcode-prefer-sql "mysql"
           leetcode-directory "~/workground/Leetcode/"))
 
-
-(use-package lsp-mode
-  :hook (c++-mode . lsp)
-  :config
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
-                    :major-modes '(c++-mode)
-                    :remote? t
-                    :server-id 'clangd-remote)))
 
 ;; (server-start)
 (use-package org
@@ -189,7 +180,3 @@
                                 )))
 
 ;; "* %^{Title_and_tag}\nSource: [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-
-(setq elfeed-feeds
-      '("https://this-week-in-rust.org/rss.xml"
-        "http://feeds.bbci.co.uk/news/rss.xml"))
