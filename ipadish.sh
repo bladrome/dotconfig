@@ -3,12 +3,10 @@
 sed -i 's/dl-cdn.alpinelinux.org/mirrors.bfsu.edu.cn/g' /etc/apk/repositories
 apk update
 apk upgrade
-apk add zsh git neofetch curl neovim tmux openssh python3
+apk add zsh git neofetch curl neovim tmux openssh python3 rsync
 
 # openssh
-add openssh
-ssh-keygen -A
-passwd
+apk add openssh
 echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
 /usr/sbin/sshd
 
@@ -19,4 +17,3 @@ cp ~/.zshrc ~/.zshrc.orig
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 # chage shell
 nvim /etc/passwd
-# chsh -s $(which zsh)
