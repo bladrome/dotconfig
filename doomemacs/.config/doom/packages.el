@@ -55,12 +55,14 @@
 (package! org-roam-server)
 ;; (package! org-special-block-extras)
 (package! org-ref)
+
 (package! pangu-spacing)
 (package! rainbow-identifiers)
 (package! rime)
 (package! valign)
 
-
+(package! org-bars
+ :recipe (:host github :repo "tonyaldon/org-bars"))
 (package! nano-emacs
  :recipe (:host github :repo "rougier/nano-emacs"))
 (package! org-protocol-capture-html
@@ -70,3 +72,6 @@
 (package! shrface)
 (package! leetcode
  :recipe (:host github :repo "kaiwk/leetcode.el"))
+
+(package! srcery-emacs
+  :recipe (:host github :repo "srcery-colors/srcery-emacs"))

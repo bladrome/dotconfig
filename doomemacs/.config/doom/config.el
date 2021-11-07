@@ -8,6 +8,12 @@
 (setq user-full-name "bladrome"
       user-mail-address "blkcat@163.com")
 
+(setq package-archives
+    '(("melpa" . "http://mirrors.bfsu.edu.cn/elpa/melpa/")
+      ("org"   . "http://mirrors.bfsu.edu.cn/elpa/org/")
+      ("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
+
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -33,7 +39,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-ayu-light)
+(setq doom-theme 'doom-ayu-mirage)
 ;; (setq doom-theme nil)
 ;; (require 'disp-table)
 ;; (require 'nano-faces)
@@ -151,6 +157,23 @@
   :hook
   (org-mode . turn-on-visual-line-mode)
   :config
+  ; Tags with fast selection keys
+  (setq org-tag-alist (quote ((:startgroup)
+                              ("@office" . ?o)
+                              ("@field" . ?f)
+                              (:endgroup)
+                              ("personal" . ?p)
+                              ("work" . ?w)
+                              ("cancelled" . ?c)
+                              ("read" . ?r)
+                              ("browse" . ?b)
+                              ("flagged" . ??))))
+  ; Allow setting single tags without the menu
+  (setq org-fast-tag-selection-single-key (quote expert))
+  ; For tag searches ignore tasks with scheduled and deadline dates
+  (setq org-agenda-tags-todo-honor-ignore-options t)
+  ;; (require 'org-bars)
+  ;; (add-hook 'org-mode-hook #'org-bars-mode)
   (setq org-startup-folded "folded")
   (require 'org-ref)
   (setq reftex-default-bibliography '("~/Documents/2021/bibliography/references.bib"))
