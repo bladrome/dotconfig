@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: leet
+# key: leet
+# condition: t
+# --
+Solution solu = Solution();
+cout << solu.${1:test()} << endl;
+$0

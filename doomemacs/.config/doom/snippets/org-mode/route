@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name:route
+# key: rt
+# --
+
+
+* journal
+** TODO route
+*** TODO code
+*** TODO base
+*** TODO paper

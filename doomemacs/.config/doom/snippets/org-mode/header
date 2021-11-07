@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: orgmodeheader
+# uuid: orgmodeheader
+# key: hd
+# --
+#+title:     ${1:untitled document}
+#+author:    ${2:`user-full-name`}
+#+starup:    content
+#+include:   template.org
