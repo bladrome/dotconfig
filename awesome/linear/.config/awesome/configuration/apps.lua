@@ -56,8 +56,8 @@ return {
         'unclutter -b',
         -- 'conky',
 		-- Compositor
-		-- 'picom -b --experimental-backends --dbus --config ' ..
-		-- config_dir .. '/configuration/picom.conf',
+		'picom -b --experimental-backends --dbus --config ' ..
+		config_dir .. '/configuration/picom.conf',
 		-- Blueman applet
 		'blueman-applet',
 		-- Music server
