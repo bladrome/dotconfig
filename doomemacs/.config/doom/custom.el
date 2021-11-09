@@ -35,7 +35,7 @@
   (interactive "nTransparency Value 0 - 100 opaque:")
   (set-frame-parameter (selected-frame) 'alpha value))
 
-(transparency 90)
+(transparency 80)
 
 ;; Get random themes on Emacs startup
 ;; (setq doom-theme (random-choice (custom-available-themes)))
