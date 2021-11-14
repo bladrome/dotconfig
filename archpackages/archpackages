@@ -33,6 +33,7 @@ bison
 bleachbit
 blueman
 boost
+bridge-utils
 bspwm
 cajviewer-bin
 calibre
@@ -43,12 +44,14 @@ cloc
 clustalw
 cmake
 conky
+convmv
 cpupower
 crda
 cscope
 ctags
 cups
 curlftpfs
+curlie
 cyrus-sasl-gssapi
 deno
 dhcpcd
@@ -56,6 +59,8 @@ discount
 ditaa
 dnsmasq
 duf
+dust
+ebtables
 eigen
 elinks
 emacs-git
@@ -116,7 +121,9 @@ js-beautify
 kitty
 laptop-mode-tools
 libfido2
+libfreenect-git
 libgsf
+libguestfs
 libiconv
 libreoffice-still
 libva-intel-driver
@@ -141,6 +148,7 @@ maim
 make
 man-pages
 maven
+mdcat
 meld
 mlocate
 mosh
@@ -174,6 +182,7 @@ ntfs-3g
 octave
 odt2txt
 openblas
+openbsd-netcat
 opencl-headers
 openmp
 openscad
@@ -192,8 +201,6 @@ perl-log-log4perl
 perl-tk
 picom-git
 pkgconf
-plantuml
-plantuml-ascii-math
 playerctl
 polybar
 poppler-data
@@ -223,6 +230,7 @@ python-setuptools
 python-tensorflow
 python-torchvision
 python2-pyopenssl
+qemu
 qiv
 qt5-svg
 qt5-translations
@@ -233,11 +241,13 @@ ranger
 redshift
 reflector
 repo
+rime-double-pinyin
 ripgrep
 rlwrap
 rofi
 rsync
 ruby
+rust-analyzer
 rustup
 sbcl
 scrapy
@@ -290,6 +300,7 @@ traceroute
 transmission-cli
 transmission-qt
 tree
+trizen
 ttf-all-the-icons
 ttf-dejavu
 ttf-droid
@@ -312,10 +323,12 @@ upower
 upx
 v2ray
 v2raya-bin
+valgrind
 variety
 vicious
 vim
-visual-studio-code-bin
+virt-manager
+virt-viewer
 vlc
 vsftpd
 w3m
@@ -390,4 +403,5 @@ zathura-pdf-poppler
 zathura-ps
 zip
 zram-generator
+zscroll-git
 zsh
