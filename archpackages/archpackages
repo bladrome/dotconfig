@@ -217,6 +217,7 @@ python-language-server
 python-matplotlib
 python-netifaces
 python-nose
+python-opencv
 python-pip
 python-pipenv
 python-pyflakes
@@ -300,7 +301,6 @@ traceroute
 transmission-cli
 transmission-qt
 tree
-trizen
 ttf-all-the-icons
 ttf-dejavu
 ttf-droid
