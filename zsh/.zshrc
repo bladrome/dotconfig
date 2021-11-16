@@ -12,6 +12,7 @@ PATH=$PATH:~/.config/emacs/bin
 PATH=$PATH:~/tools
 PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.cargo/bin
+PATH=$PATH:~/gitcode/bladrome/cvscripts
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -26,7 +27,7 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 zinit light zpm-zsh/material-colors
 
-zinit light zinit-zsh/z-a-meta-plugins
+zinit light z-shell/z-a-meta-plugins
 zinit for annexes zsh-users+fast ext-git console-tools #fuzzy
 
 zinit ice lucid wait='1'
