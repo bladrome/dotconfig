@@ -49,10 +49,16 @@ zi ice lucid wait='1'
 zi light skywind3000/z.lua
 zi light Aloxaf/fzf-tab
 
+<<<<<<< Updated upstream
 zi snippet OMZL::clipboard.zsh
 zi snippet OMZL::termsupport.zsh
 zi snippet OMZL::key-bindings.zsh
 zi snippet OMZL::history.zsh
+=======
+zinit snippet OMZL::clipboard.zsh
+zinit snippet OMZL::key-bindings.zsh
+zinit snippet OMZL::history.zsh
+>>>>>>> Stashed changes
 
 bindkey ',' autosuggest-accept
 
