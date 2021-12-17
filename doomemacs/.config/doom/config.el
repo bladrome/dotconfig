@@ -127,11 +127,18 @@
         dired-omit-mode nil))
 
 
-;; (use-package! org-special-block-extras
-;;   :ensure t
-;;   :hook (org-mode . org-special-block-extras-mode)
-;;   ;; All relevant Lisp functions are prefixed ‘o-’; e.g., `o-docs-insert'.
-;;   )
+(use-package! org-special-block-extras
+  :ensure t
+  :hook (org-mode . org-special-block-extras-mode)
+  ;; All relevant Lisp functions are prefixed ‘o-’; e.g., `o-docs-insert'.
+  ;; :config
+  ;; (o-defblock src (lang nil) (title nil exports nil file nil)
+  ;; "Fold-away all ‘src’ blocks as ‘<details>’ HTML export.
+  ;;       If a block has a ‘:title’, use that to title the ‘<details>’."
+  ;; (format "<details> <summary> %s </summary> <pre> %s </pre></details>"
+  ;;         (or title (concat "Details; " lang))
+  ;;         raw-contents))
+)
 
 
 (use-package! pangu-spacing
@@ -151,6 +158,48 @@
           leetcode-prefer-sql "mysql"
           leetcode-directory "~/workground/Leetcode/"))
 
+
+(use-package org-ref
+  :config
+  (setq bibtex-completion-bibliography '("~/Documents/2021/bibliography/bibliography.bib"
+                                         "~/Documents/2021/bibliography/arxiv.bib"
+                                         "~/Documents/2021/bibliography/references.bib")
+        bibtex-completion-library-path '("~/Dropbox/emacs/bibliography/bibtex-pdfs/")
+        bibtex-completion-notes-path "~/Dropbox/emacs/bibliography/notes/"
+        bibtex-completion-notes-template-multiple-files "* ${author-or-editor}, ${title}, ${journal}, (${year}) :${=type=}: \n\nSee [[cite:&${=key=}]]\n"
+        bibtex-completion-additional-search-fields '(keywords)
+        bibtex-completion-display-formats
+        '((article       . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${journal:40}")
+          (inbook        . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} Chapter ${chapter:32}")
+          (incollection  . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
+          (inproceedings . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
+          (t             . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*}"))
+        bibtex-completion-pdf-open-function
+        (lambda (fpath)
+          (call-process "open" nil 0 nil fpath)))
+  (require 'bibtex)
+  (setq bibtex-autokey-year-length 4
+        bibtex-autokey-name-year-separator "-"
+        bibtex-autokey-year-title-separator "-"
+        bibtex-autokey-titleword-separator "-"
+        bibtex-autokey-titlewords 2
+        bibtex-autokey-titlewords-stretch 1
+        bibtex-autokey-titleword-length 5
+        org-ref-bibtex-hydra-key-binding (kbd "H-b"))
+  (define-key bibtex-mode-map (kbd "H-b") 'org-ref-bibtex-hydra/body)
+  (require 'org-ref)
+  (setq reftex-default-bibliography '("~/Documents/2021/bibliography/references.bib"))
+  (setq org-ref-bibliography-notes "~/Documents/2021/bibliography/notes.org"
+        org-ref-default-bibliography '("~/Documents/2021/bibliography/references.bib")
+        org-ref-pdf-directory "~/Documents/2021/bibliography/bibtex-pdfs/")
+    ;; (require 'helm-bibtex)
+  ;; (require 'org-ref-helm)
+  ;; (setq org-ref-insert-link-function 'org-ref-insert-link-hydra/body
+  ;;       org-ref-insert-cite-function 'org-ref-cite-insert-helm
+  ;;       org-ref-insert-label-function 'org-ref-insert-label-link
+  ;;       org-ref-insert-ref-function 'org-ref-insert-ref-link
+  ;;       org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body)))
+    )
 
 ;; (server-start)
 (use-package org
@@ -175,11 +224,6 @@
   ;; (require 'org-bars)
   ;; (add-hook 'org-mode-hook #'org-bars-mode)
   (setq org-startup-folded "folded")
-  (require 'org-ref)
-  (setq reftex-default-bibliography '("~/Documents/2021/bibliography/references.bib"))
-  (setq org-ref-bibliography-notes "~/Documents/2021/bibliography/notes.org"
-        org-ref-default-bibliography '("~/Documents/2021/bibliography/references.bib")
-        org-ref-pdf-directory "~/Documents/2021/bibliography/bibtex-pdfs/")
 
   ;; Capture templates for links to pages having [ and ]
   ;; characters in their page titles - notably ArXiv

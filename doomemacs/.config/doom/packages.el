@@ -53,8 +53,11 @@
 (package! org-page)
 (package! org-ql)
 (package! org-roam-server)
-;; (package! org-special-block-extras)
+(package! org-special-block-extras)
 (package! org-ref)
+(package! helm-bibtex)
+(package! citeproc-el
+  :recipe (:host gihtub :repo "andras-simonyi/citeproc-el"))
 
 (package! pangu-spacing)
 (package! rainbow-identifiers)
