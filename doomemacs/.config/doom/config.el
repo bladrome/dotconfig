@@ -12,8 +12,6 @@
     '(("melpa" . "http://mirrors.bfsu.edu.cn/elpa/melpa/")
       ("org"   . "http://mirrors.bfsu.edu.cn/elpa/org/")
       ("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
-
-
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;

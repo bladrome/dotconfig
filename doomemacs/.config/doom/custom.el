@@ -3,8 +3,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-    '(org-agenda-files
-    '("/home/bladrome/Documents/2021/paper.org" "/home/bladrome/Documents/2021/20210926.org" "/home/bladrome/org/journal.org" "/home/bladrome/org/notebook.org" "/home/bladrome/org/notes.org" "/home/bladrome/org/self.org" "/home/bladrome/org/todo.org" "/home/bladrome/org/work.org"))
  '(warning-suppress-types '((org-mode-hook))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -35,7 +33,7 @@
   (interactive "nTransparency Value 0 - 100 opaque:")
   (set-frame-parameter (selected-frame) 'alpha value))
 
-(transparency 80)
+(transparency 95)
 
 ;; Get random themes on Emacs startup
 ;; (setq doom-theme (random-choice (custom-available-themes)))
