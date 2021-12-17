@@ -27,11 +27,11 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 19 :weight 'semi-light) ;
       ;; doom-variable-pitch-font (font-spec :family "DejaVu Sans" :size 20))
 
-(setq doom-font (font-spec :family "Roboto Mono" :size 19)
-     doom-serif-font (font-spec :family "Roboto Mono" :size 20)
-     doom-variable-pitch-font (font-spec :family "SourceHanSerifCN")
+(setq doom-font (font-spec :family "Fira Mono" :size 19)
+     doom-serif-font (font-spec :family "Fira Mono" :size 20)
+     ;; doom-variable-pitch-font (font-spec :family "SourceHanSerifCN")
      doom-unicode-font (font-spec :family "SourceHanSerifCN")
-     doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
+     ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
      )
 
 
