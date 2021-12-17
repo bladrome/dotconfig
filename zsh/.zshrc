@@ -1,7 +1,23 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-# If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+
+
+
+declare -A ZI
+ZI[BIN_DIR]="${HOME}/.zi/bin"
+if [[ ! -f "${ZI[BIN_DIR]}/zi.zsh" ]]; then
+  print -P "%F{33}▓▒░ %F{160}Installing interactive feature-rich plugin manager (%F{33}z-shell/zi%F{160})…%f"
+  command mkdir -p "${ZI[BIN_DIR]}" && command chmod g-rwX "${ZI[BIN_DIR]}"
+  command git clone -q https://github.com/z-shell/zi.git "${ZI[BIN_DIR]}" && \
+  print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+source "${ZI[BIN_DIR]}/zi.zsh"
+autoload -Uz _zi
+(( ${+_comps} )) && _comps[zi]=_zi
+# Z-Shell ZI Annexes
+zi light-mode for z-shell/z-a-meta-plugins annexes
+
+
+
 
 alias ls='ls --color=auto'
 alias ll='ls -l'
@@ -14,6 +30,7 @@ PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.cargo/bin
 PATH=$PATH:~/gitcode/bladrome/cvscripts
 
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -21,23 +38,21 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source ~/.zinit/bin/zinit.zsh
+zi ice depth=1; zi light romkatv/powerlevel10k
 
-zinit ice depth=1; zinit light romkatv/powerlevel10k
+zi light zpm-zsh/material-colors
 
-zinit light zpm-zsh/material-colors
+zi light z-shell/z-a-meta-plugins
+zi for annexes zsh-users+fast ext-git console-tools fuzzy
 
-zinit light z-shell/z-a-meta-plugins
-zinit for annexes zsh-users+fast ext-git console-tools #fuzzy
+zi ice lucid wait='1'
+zi light skywind3000/z.lua
+zi light Aloxaf/fzf-tab
 
-zinit ice lucid wait='1'
-zinit light skywind3000/z.lua
-zinit light Aloxaf/fzf-tab
-
-zinit snippet OMZL::clipboard.zsh
-zinit snippet OMZL::termsupport.zsh
-zinit snippet OMZL::key-bindings.zsh
-zinit snippet OMZL::history.zsh
+zi snippet OMZL::clipboard.zsh
+zi snippet OMZL::termsupport.zsh
+zi snippet OMZL::key-bindings.zsh
+zi snippet OMZL::history.zsh
 
 bindkey ',' autosuggest-accept
 
