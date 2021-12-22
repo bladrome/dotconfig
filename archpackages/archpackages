@@ -42,6 +42,7 @@ cajviewer-bin
 calibre
 catdoc
 cava
+cb2bib
 ccache
 chez-scheme
 clang
@@ -206,6 +207,7 @@ parallel
 patch
 pcmanfm-gtk3
 pdftk
+peek
 perl-image-exiftool
 perl-log-log4perl
 perl-tk
