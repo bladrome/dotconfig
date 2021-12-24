@@ -1,6 +1,7 @@
 #+TITLE: Doomemacs
 
 
+
 * Install
 #+begin_src bash
 emacs --batch doomemacs.org -f org-babel-tangle
@@ -214,20 +215,17 @@ emacs --batch doomemacs.org -f org-babel-tangle
        ;;twitter           ; twitter client https://twitter.com/vnought
 
        :config
-       ;;literate
+       literate
        (default +bindings +smartparens))
 
 #+end_src
 
 #+RESULTS:
-
 * packages
 :PROPERTIES:
 :header-args: :mkdirp yes
 :END:
-
 #+begin_src elisp :tangle "~/.config/doom/packages.el"
-;; -*- no-byte-compile: t; -*-
 
 (package! org-fragtog)
 (package! org-page)
@@ -252,7 +250,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
  :recipe (:host github :repo "kaiwk/leetcode.el"))
 
 #+end_src
-
 * config
 :PROPERTIES:
 :header-args: :mkdirp yes
@@ -275,7 +272,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
       ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
       )
 
-(setq doom-theme 'doom-dracula)
+;; (setq doom-theme 'doom-dracula)
+;; (setq doom-theme nil)
+;; (setq nano-theme-light/dark 'dark)
+(load-theme 'nano t)
 
 ;; Set transparency of emacs
 (defun transparency (value)
