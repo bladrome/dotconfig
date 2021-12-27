@@ -57,7 +57,7 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "picom", "unclutter -root" }) -- entries must be separated by commas
+run_once({ "picom", "unclutter -root", "fcitx-autostart" }) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
 --[[
@@ -563,7 +563,7 @@ globalkeys = my_table.join(
 clientkeys = my_table.join(
     awful.key({ altkey, "Shift"   }, "m",      lain.util.magnify_client,
               {description = "magnify client", group = "client"}),
-    awful.key({ modkey,           }, "f",
+    awful.key({ modkey,           }, "space",
         function (c)
             c.fullscreen = not c.fullscreen
             c:raise()
@@ -586,7 +586,7 @@ clientkeys = my_table.join(
             c.minimized = true
         end ,
         {description = "minimize", group = "client"}),
-    awful.key({ modkey,           }, "m",
+    awful.key({ modkey,           }, "space",
         function (c)
             c.maximized = not c.maximized
             c:raise()
