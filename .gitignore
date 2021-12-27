@@ -19,3 +19,7 @@ awesome/the-glorious-dotfiles
 
 doomemacs/.config/doom/bookmarks
 doomemacs/.config/doom/recentf
+
+doomemacs/.config/doom/init.el
+doomemacs/.config/doom/packages.el
+doomemacs/.config/doom/config.el
