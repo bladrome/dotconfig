@@ -14,7 +14,6 @@ aria2
 aspell-en
 atool
 autoconf
-autojump
 automake
 autopep8
 awesome-git
@@ -158,6 +157,7 @@ man-pages
 maven
 mdcat
 meld
+meshlab-appimage
 mlocate
 mosh
 mousepad
