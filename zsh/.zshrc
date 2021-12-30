@@ -28,7 +28,9 @@ PATH=$PATH:~/.config/emacs/bin
 PATH=$PATH:~/tools
 PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.cargo/bin
+PATH=$PATH:~/node_modules/.bin
 PATH=$PATH:~/gitcode/bladrome/cvscripts
+
 
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.

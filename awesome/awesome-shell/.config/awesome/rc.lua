@@ -4,7 +4,7 @@ pcall(require, "luarocks.loader")
 
 local gears = require("gears")
 local awful = require("awful")
-require("awful.autofocus")
+local autofocus = require("awful.autofocus")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
@@ -16,10 +16,10 @@ local has_fdo, freedesktop = pcall(require, "freedesktop")
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
-    naughty.notify({ 
+    naughty.notify({
 		preset = naughty.config.presets.critical,
         title = "Oops, there were errors during startup!",
-        text = awesome.startup_errors 
+        text = awesome.startup_errors
 	})
 end
 
@@ -39,12 +39,14 @@ do
 end
 
 beautiful.init( gears.filesystem.get_configuration_dir() .. "/themes/default/theme.lua")
+beautiful.useless_gap = 5
 
 terminal = "kitty"
 editor = os.getenv("EDITOR") or "emacs"
 editor_cmd = terminal .. " -e " .. editor
 
 modkey = "Mod4"
+
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -74,60 +76,59 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
-	
     -- Create the wibox
-    s.mywibox = awful.wibar({ 
-		position = beautiful.wibar_position,
-		screen = s,
-		height = beautiful.wibar_height,
-		bg = "#00000000"
-	})
+    s.mywibox = awful.wibar({
+        position = beautiful.wibar_position,
+        screen = s,
+        height = beautiful.wibar_height,
+        bg = "#00000000"
+    })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
-		{
-			layout = wibox.layout.align.horizontal,
-			{ -- Left widgets
-				layout = wibox.layout.fixed.horizontal,
-				require("widgets.separator"),
-				require("widgets.panel.menu"),
-				require("widgets.panel.taglist")(s),
-				require("widgets.separator"),
-				s.mypromptbox,
-			},
-			require("widgets.panel.icon-only-tasklist")(s), -- Middle widget
-			{ -- Right widgets
-				layout = wibox.layout.fixed.horizontal,
-				require("widgets.panel.systray-no-toggle")(),
-				require("widgets.panel.layoutbox")(s),
-				require("widgets.clock")(s),
-				require("widgets.control-center")(s),
-			},
-		},
-		bg = beautiful.bg_normal,
-		-- shape = function (cr, width, height)
-		-- 	gears.shape.partially_rounded_rect( cr, width, height, true, true, false, false, 50)
-		-- end,
-		widget = wibox.container.background
+        {
+            layout = wibox.layout.align.horizontal,
+            { -- Left widgets
+                layout = wibox.layout.fixed.horizontal,
+                require("widgets.separator"),
+                require("widgets.panel.menu"),
+                require("widgets.panel.taglist")(s),
+                require("widgets.separator"),
+                s.mypromptbox,
+            },
+            require("widgets.panel.icon-only-tasklist")(s), -- Middle widget
+            { -- Right widgets
+                layout = wibox.layout.fixed.horizontal,
+                require("widgets.panel.systray-no-toggle")(),
+                require("widgets.panel.layoutbox")(s),
+                require("widgets.clock")(s),
+                require("widgets.control-center")(s),
+            },
+        },
+        bg = beautiful.bg_normal,
+        shape = function (cr, width, height)
+            gears.shape.partially_rounded_rect( cr, width, height, true, true, false, false, 180 )
+        end,
+        widget = wibox.container.background
     }
 end)
 
 awesome.connect_signal(
-	"panel::show",
-	function ()
-		for s in screen do
-			s.mywibox.visible = true
-		end
-	end
+    "panel::show",
+    function ()
+        for s in screen do
+            s.mywibox.visible = true
+        end
+    end
 )
 
 awesome.connect_signal(
-	"panel::hide",
-	function ()
-		for s in screen do
-			s.mywibox.visible = false
-		end
-	end
+    "panel::hide",
+    function ()
+        for s in screen do
+            s.mywibox.visible = false
+        end
+    end
 )
 
 -- Mouse bindings
@@ -146,55 +147,55 @@ for i = 1, 9 do
     globalkeys = gears.table.join(globalkeys,
         -- View tag only.
 
-		awful.key(
-			{ modkey }, "#" .. i + 9,
-			function ()
-				local screen = awful.screen.focused()
-				local tag = screen.tags[i]
-				if tag then
-					tag:view_only()
-				end
-			end,
-			{description = "view tag #"..i, group = "tag"}
-		),
-		-- Toggle tag display.
-		awful.key(
-			{ modkey, "Control" }, "#" .. i + 9,
-			function ()
-				local screen = awful.screen.focused()
-				local tag = screen.tags[i]
-				if tag then
-					awful.tag.viewtoggle(tag)
-				end
-			end,
-			{description = "toggle tag #" .. i, group = "tag"}
-		),
-		-- Move client to tag.
-		awful.key(
-			{ modkey, "Shift" }, "#" .. i + 9,
-			function ()
-				if client.focus then
-					local tag = client.focus.screen.tags[i]
-					if tag then
-						client.focus:move_to_tag(tag)
-					end
-			   end
-			end,
-			{description = "move focused client to tag #"..i, group = "tag"}
-		),
-		-- Toggle tag on focused client.
-		awful.key(
-			{ modkey, "Control", "Shift" }, "#" .. i + 9,
-			function ()
-				if client.focus then
-					local tag = client.focus.screen.tags[i]
-					if tag then
-						client.focus:toggle_tag(tag)
-					end
-				end
-			end,
-			{description = "toggle focused client on tag #" .. i, group = "tag"}
-		)
+        awful.key(
+            { modkey }, "#" .. i + 9,
+            function ()
+                local screen = awful.screen.focused()
+                local tag = screen.tags[i]
+                if tag then
+                    tag:view_only()
+                end
+            end,
+            {description = "view tag #"..i, group = "tag"}
+        ),
+        -- Toggle tag display.
+        awful.key(
+            { modkey, "Control" }, "#" .. i + 9,
+            function ()
+                local screen = awful.screen.focused()
+                local tag = screen.tags[i]
+                if tag then
+                    awful.tag.viewtoggle(tag)
+                end
+            end,
+            {description = "toggle tag #" .. i, group = "tag"}
+        ),
+        -- Move client to tag.
+        awful.key(
+            { modkey, "Shift" }, "#" .. i + 9,
+            function ()
+                if client.focus then
+                    local tag = client.focus.screen.tags[i]
+                    if tag then
+                        client.focus:move_to_tag(tag)
+                    end
+               end
+            end,
+            {description = "move focused client to tag #"..i, group = "tag"}
+        ),
+        -- Toggle tag on focused client.
+        awful.key(
+            { modkey, "Control", "Shift" }, "#" .. i + 9,
+            function ()
+                if client.focus then
+                    local tag = client.focus.screen.tags[i]
+                    if tag then
+                        client.focus:toggle_tag(tag)
+                    end
+                end
+            end,
+            {description = "toggle focused client on tag #" .. i, group = "tag"}
+        )
     )
 end
 

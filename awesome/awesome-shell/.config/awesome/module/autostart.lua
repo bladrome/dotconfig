@@ -5,15 +5,16 @@ local naughty = require("naughty")
 local config_dir = filesystem.get_configuration_dir()
 local default_apps = require("configurations.default-apps")
 local startup_apps = {
-	"picom -b --experimental-backends --config " .. config_dir .. "configurations/picom.conf",
-	"redshift -t 5700:3400 -l 26.1445:91.7362",
-	"xbacklight -set 45"
+    "picom -b --experimental-backends --config " .. config_dir .. "configurations/picom.conf",
+    "redshift -t 5700:3400 -l 26.1445:91.7362",
+    "xbacklight -set 45",
+    "fcitx-autostart"
     -- Add your startup programs here
 }
 
 
 local spawn_once = function (cmd)
-	local findme = cmd
+    local findme = cmd
     local firstspace = cmd:find(" ")
     if firstspace then
         findme = cmd:sub(0, firstspace - 1)
@@ -26,7 +27,7 @@ local spawn_once = function (cmd)
             end
             naughty.notification({
                 app_name = 'Startup Applications',
-				image = beautiful.icon_noti_error,
+                image = beautiful.icon_noti_error,
                 title = "Error starting application",
                 message = "Error while starting " .. cmd,
                 timeout = 10,
@@ -37,6 +38,6 @@ local spawn_once = function (cmd)
 end
 
 for _, app in ipairs(startup_apps) do
-	spawn_once(app)
+    spawn_once(app)
 end
 

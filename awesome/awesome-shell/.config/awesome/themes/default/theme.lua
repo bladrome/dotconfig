@@ -7,7 +7,7 @@ local theme_path = gfs.get_configuration_dir () .. "themes/default/"
 local theme = {}
 
 -- Theme name, available values "dark" and "glassy"
-theme.mode = "glassy"
+theme.mode = "dark"
 -- Fonts
 theme.font = "Ubuntu 10"
 theme.font_bold = "Ubuntu 10"
