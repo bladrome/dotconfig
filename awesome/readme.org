@@ -1,0 +1,8 @@
+#+TITLE: README
+
+
+* multicolor at [[https://github.com/lcpz/awesome-copycats][lcpz/awesome-copycats]]
+
+* linear at [[https://github.com/manilarome/the-glorious-dotfiles][manilarome/the-glorious-dotfiles]]
+
+* shell at [[https://github.com/Mofiqul/awesome-shell][Mofiqul/awesome-shell]]
