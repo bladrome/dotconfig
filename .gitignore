@@ -24,3 +24,4 @@ doomemacs/.config/doom/init.el
 doomemacs/.config/doom/packages.el
 doomemacs/.config/doom/config.el
 awesome/shell/.config/awesome/configurations/settings.lua
+awesome/linear/.config/awesome/theme/wallpapers/*.png
