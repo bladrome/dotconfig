@@ -28,7 +28,7 @@ function shot() {
 
 	check_dir
 
-	file_loc="${screenshot_dir}$(date +%Y%m%d_%H%M%S).jpg"
+	file_loc="${screenshot_dir}$(date +%Y%m%d_%H%M%S).png"
 	
 	maim_command="$1"
 	notif_message="$2"
@@ -44,7 +44,7 @@ function shot() {
 	fi
 
 	# Copy to clipboard
-	xclip -selection clipboard -t image/jpg -i "${screenshot_dir}"/`ls -1 -t "${screenshot_dir}" | head -1` &
+	xclip -selection clipboard -t image/png -i "${screenshot_dir}"/`ls -1 -t "${screenshot_dir}" | head -1` &
 
 	awesome-client "
 
@@ -111,10 +111,10 @@ then
 elif [ "$1" = 'full' ];
 then
 	msg="Full screenshot saved and copied to clipboard!"
-	shot 'maim -u -m 9' "${msg}"
+	shot 'maim -u -m 1' "${msg}"
 elif [ "$1" = 'area' ];
 then
 	msg='Area screenshot saved and copied to clipboard!'
-	shot 'maim -u -s -n -m 9' "${msg}"
+	shot 'maim -u -s -n -m 1' "${msg}"
 fi
 

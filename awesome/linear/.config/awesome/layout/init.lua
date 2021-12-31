@@ -8,7 +8,6 @@ screen.connect_signal(
 	'request::desktop_decoration',
 	function(s)
 		s.bottom_panel = bottom_panel(s)
-		s.bottom_panel.visible = true
 		s.control_center = control_center(s)
 		s.info_center = info_center(s)
 		s.control_center_show_again = false
@@ -22,7 +21,7 @@ function update_bars_visibility()
 		if s.selected_tag then
 			local fullscreen = s.selected_tag.fullscreen_mode
 			-- Order matter here for shadow
-			-- s.bottom_panel.visible = not fullscreen
+			s.bottom_panel.visible = not fullscreen
 			if s.control_center then
 				if fullscreen and s.control_center.visible then
 					s.control_center:toggle()
