@@ -11,9 +11,9 @@ local altkey = "Mod1"
 
 local globalkeys = gears.table.join(
     awful.key(
-      { modkey,},
-      'F1',
-      hotkeys_popup.show_help,
+        { modkey,},
+        'F1',
+        hotkeys_popup.show_help,
         {description="show help", group="awesome"}
     ),
     awful.key(
