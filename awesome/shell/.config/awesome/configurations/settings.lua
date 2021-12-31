@@ -5,7 +5,7 @@ settings.lan_interface = "enp19s0"
 -- Turn this to false if you have no bluetooth available, otherwise your dbus will get polutate with bluetoothctl
 settings.is_bluetooth_presence = true
 settings.script_dir = "/home/bladrome/.config/awesome/scripts/"
-settings.openweathermap_api_key = "1e0375e5adead1724f932b561cd16e1d"
+settings.openweathermap_api_key = ""
 settings.openweathermap_coordinates = {
 	"<LAT>", -- lat
 	"<LNG>" -- lng

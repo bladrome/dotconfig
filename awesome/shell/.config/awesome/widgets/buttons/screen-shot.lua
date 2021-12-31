@@ -359,8 +359,8 @@ local screeh_shot_tool = function (s)
 	button_video_capture:connect_signal("button::press", function (self, _, _, button)
 		if button == 1 then
 			local video_dir = "~/Documents/"
-			local file_name = os.date("%d-%m-%Y-%H:%M:%S") .. ".mp4"
-			local command = "ffmpeg -video_size 1366x768 -framerate 30 -f x11grab -i :0.0+0,0 " .. video_dir .. file_name
+			local file_name = os.date("%Y-%m-%d-%H:%M:%S") .. ".mp4"
+			local command = "ffmpeg -framerate 30 -f x11grab -i :0.0+0,0 " .. video_dir .. file_name
 			local btn_text_widget = self:get_children_by_id("buttontext")[1]
 			if not is_vedio_capturing then
 				awful.spawn.with_shell(command)
