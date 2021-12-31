@@ -68,57 +68,57 @@ local clientkeys = gears.table.join(
 
 
 
-	awful.key(
-		{modkey},
-		'j',
-		function()
-			awful.client.focus.byidx(1)
-		end,
-		{description = 'focus next by index', group = 'client'}
-	),
-	awful.key(
-		{modkey},
-		'k',
-		function()
-			awful.client.focus.byidx(-1)
-		end,
-		{description = 'focus previous by index', group = 'client'}
-	),
-	awful.key(
-		{ modkey, 'Shift'  },
-		'j',
-		function ()
-			awful.client.swap.byidx(1)
-		end,
-		{description = 'swap with next client by index', group = 'client'}
-	),
-	awful.key(
-		{ modkey, 'Shift' },
-		'k',
-		function ()
-			awful.client.swap.byidx(-1)
-		end,
-		{description = 'swap with next client by index', group = 'client'}
-	),
+    awful.key(
+        {modkey},
+        'j',
+        function()
+            awful.client.focus.byidx(1)
+        end,
+        {description = 'focus next by index', group = 'client'}
+    ),
+    awful.key(
+        {modkey},
+        'k',
+        function()
+            awful.client.focus.byidx(-1)
+        end,
+        {description = 'focus previous by index', group = 'client'}
+    ),
+    awful.key(
+        { modkey, 'Shift'  },
+        'j',
+        function ()
+            awful.client.swap.byidx(1)
+        end,
+        {description = 'swap with next client by index', group = 'client'}
+    ),
+    awful.key(
+        { modkey, 'Shift' },
+        'k',
+        function ()
+            awful.client.swap.byidx(-1)
+        end,
+        {description = 'swap with next client by index', group = 'client'}
+    ),
 
-	awful.key(
-		{modkey},
-		'u',
-		awful.client.urgent.jumpto,
-		{description = 'jump to urgent client', group = 'client'}
-	),
+    awful.key(
+        {modkey},
+        'u',
+        awful.client.urgent.jumpto,
+        {description = 'jump to urgent client', group = 'client'}
+    ),
 
-	awful.key(
-		{modkey},
-		'Tab',
-		function()
-			awful.client.focus.history.previous()
-			if client.focus then
-				client.focus:raise()
-			end
-		end,
-		{description = 'go back', group = 'client'}
-	),
+    awful.key(
+        {modkey},
+        'Tab',
+        function()
+            awful.client.focus.history.previous()
+            if client.focus then
+                client.focus:raise()
+            end
+        end,
+        {description = 'go back', group = 'client'}
+    ),
 
 
     awful.key(
@@ -130,18 +130,18 @@ local clientkeys = gears.table.join(
         {description = 'minimize client', group = 'client'}
     ),
 
-	awful.key(
-		{ modkey, 'Shift' },
-		'c',
-		function(c)
-			local focused = awful.screen.focused()
+    awful.key(
+        { modkey, 'Shift' },
+        'c',
+        function(c)
+            local focused = awful.screen.focused()
 
-			awful.placement.centered(c, {
-				honor_workarea = true
-			})
-		end,
-		{description = 'align a client to the center of the focused screen', group = 'client'}
-	)
+            awful.placement.centered(c, {
+                honor_workarea = true
+            })
+        end,
+        {description = 'align a client to the center of the focused screen', group = 'client'}
+    )
 )
 
 return clientkeys
