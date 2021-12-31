@@ -27,7 +27,14 @@ local globalkeys = gears.table.join(
         awesome.quit,
         {description = 'quit awesome', group = 'awesome'}
     ),
-
+    awful.key(
+        {modkey, 'Shift'},
+        'q',
+        function()
+            awesome.emit_signal('module::exit_screen:show')
+        end,
+        {description = 'toggle exit screen', group = 'hotkeys'}
+    ),
     awful.key(
         {altkey, 'Shift'},
         'l',
@@ -302,14 +309,7 @@ local globalkeys = gears.table.join(
         end,
         {description = 'arandr', group = 'hotkeys'}
     ),
-    awful.key(
-        {modkey, 'Shift'},
-        'q',
-        function()
-            awesome.emit_signal('module::exit_screen:show')
-        end,
-        {description = 'toggle exit screen', group = 'hotkeys'}
-    ),
+
     awful.key(
         {modkey},
         '`',
