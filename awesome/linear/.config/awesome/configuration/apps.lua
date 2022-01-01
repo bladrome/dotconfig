@@ -57,11 +57,7 @@ return {
         'unclutter -b',
         -- 'conky',
 		-- Compositor
-<<<<<<< Updated upstream
 		'picom -b --experimental-backends --log-file ~/picomlogfile --dbus --config ' ..
-=======
-		'picom -b --experimental-backends --dbus --config ' ..
->>>>>>> Stashed changes
 		config_dir .. '/configuration/picom.conf',
 		-- Blueman applet
 		'blueman-applet',
