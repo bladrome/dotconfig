@@ -248,6 +248,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! shrface)
 (package! leetcode
  :recipe (:host github :repo "kaiwk/leetcode.el"))
+;(unpin! code-review)
+(package! code-review :disable t)
 
 #+end_src
 * config
@@ -277,6 +279,12 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;; (setq nano-theme-light/dark 'dark)
 (load-theme 'nano t)
 
+;; t relative or nil
+(setq display-line-numbers-type t)
+;; bookmarks and recentf cache
+(setq bookmark-default-file "~/.config/doom/bookmarks")
+(setq recentf-save-file "~/.config/doom/recentf")
+
 ;; Set transparency of emacs
 (defun transparency (value)
   "Sets the transparency of the frame window. 0=transparent/100=opaque"
@@ -285,16 +293,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (transparency 95)
 
-(setq org-directory "~/org/")
-(setq org-attach-id-dir "~/Documents/2021/attachments")
+(setq org-directory "~/Documents/2022/")
+(setq org-attach-id-dir (concat org-directory "attachments"))
+;(setq org-download-image-dir (concat org-attach-id-dir "/" (format-time-string "%Y%m%d")))
 ;; (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdfxe %f"))
-
-;; t relative or nil
-(setq display-line-numbers-type t)
-
-;; bookmarks and recentf cache
-(setq bookmark-default-file "~/.config/doom/bookmarks")
-(setq recentf-save-file "~/.config/doom/recentf")
 
 (after! dired
   (setq dired-listing-switches "-aBhl  --group-directories-first"
@@ -307,7 +309,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (use-package! org-special-block-extras
   :hook (org-mode . org-special-block-extras-mode))
-
 
 (use-package! pangu-spacing
   :config
@@ -329,11 +330,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (use-package org-ref
   :config
-  (setq bibtex-completion-bibliography '("~/Documents/2021/bibliography/bibliography.bib"
-                                         "~/Documents/2021/bibliography/arxiv.bib"
-                                         "~/Documents/2021/bibliography/references.bib")
-        bibtex-completion-library-path '("~/Dropbox/emacs/bibliography/bibtex-pdfs/")
-        bibtex-completion-notes-path "~/Dropbox/emacs/bibliography/notes/"
+  (setq bibtex-completion-bibliography '((concat org-directory "bibliography/bibliography.bib")
+                                         (concat org-directory "bibliography/arxiv.bib")
+                                         (concat org-directory "bibliography/references.bib"))
+        bibtex-completion-library-path '((concat org-directory "bibliography"))
         bibtex-completion-notes-template-multiple-files "* ${author-or-editor}, ${title}, ${journal}, (${year}) :${=type=}: \n\nSee [[cite:&${=key=}]]\n"
         bibtex-completion-additional-search-fields '(keywords)
         bibtex-completion-display-formats
@@ -356,17 +356,17 @@ emacs --batch doomemacs.org -f org-babel-tangle
         org-ref-bibtex-hydra-key-binding (kbd "H-b"))
   (define-key bibtex-mode-map (kbd "H-b") 'org-ref-bibtex-hydra/body)
   (require 'org-ref)
-  (setq reftex-default-bibliography '("~/Documents/2021/bibliography/references.bib"))
-  (setq org-ref-bibliography-notes "~/Documents/2021/bibliography/notes.org"
-        org-ref-default-bibliography '("~/Documents/2021/bibliography/references.bib")
-        org-ref-pdf-directory "~/Documents/2021/bibliography/bibtex-pdfs/"))
+  (setq reftex-default-bibliography '(concat org-directory "bibliography/references.bib"))
+  (setq org-ref-bibliography-notes '(concat org-directory "bibliography/notes.org")
+        org-ref-default-bibliography '(concat org-directory "bibliography/references.bib")
+        org-ref-pdf-directory '(concat org-directory "bibliography/bibtex-pdfs/")))
 
 (use-package org
   :init
   (setq org-export-use-babel nil)
   (setq org-publish-project-alist
         '(("orgfiles"
-           :base-directory "~/Documents/2021/"
+           :base-directory org-directory
            :base-extension "org"
            :publishing-directory "~/org/public_html"
            :publishing-function org-html-publish-to-html
@@ -378,7 +378,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
            :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/worg.css\" />"
            :html-preamble nil)
           ("images"
-           :base-directory "~/Documents/2021/attachments"
+           :base-directory (concat org-directory "attachments")
            :base-extension "png\\|jpg\\|webp"
            :recursive t
            :publishing-directory "~/org/public_html/images"
@@ -421,15 +421,15 @@ emacs --batch doomemacs.org -f org-babel-tangle
     (concat
      (mapcar #'(lambda (c) (if (equal c ?\[) ?\( (if (equal c ?\]) ?\) c))) string-to-transform)))
   (setq org-capture-templates `(
-                                ("p" "Protocal" entry (file+headline ,(concat "~/Documents/2021/" (format-time-string "%Y%m%d") ".org") "arxiv")
+                                ("p" "Protocal" entry (file+headline ,(concat org-directory "/" (format-time-string "%Y%m%d") ".org") "arxiv")
                                  "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n\n\n\n%?")
-                                ("L" "Protocol Link" entry (file+headline ,(concat org-directory "notes_" (shell-command-to-string "date +%F__%H-%M-%S_%Z")) "Inbox")
+                                ("L" "Protocol Link" entry (file+headline ,(concat org-directory "/" "notes_" (shell-command-to-string "date +%F__%H-%M-%S_%Z")) "Inbox")
                                  "* %^{Title_and_tag}\n [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n")
-                                ("w" "Web site" entry (file+headline ,(concat "~/Documents/2021/" (format-time-string "%Y%m%d") ".org") "arxiv")
+                                ("w" "Web site" entry (file+headline ,(concat org-directory "/" (format-time-string "%Y%m%d") ".org") "arxiv")
                                  "* %a :website:\n\n%U %?\n\n%:initial")
-                                ("c" "Captured" entry (file+headline ,(concat "~/Documents/2021/" (format-time-string "%Y%m%d") ".org") "arxiv")
+                                ("c" "Captured" entry (file+headline ,(concat org-directory "/" (format-time-string "%Y%m%d") ".org") "arxiv")
                                  "* %t %:description\nlink: %l \n\n%i\n" :prepend t :empty-lines-after 1)
-                                ("n" "Captured Now!" entry (file+headline ,(concat "~/Documents/2021/" (format-time-string "%Y%m%d") ".org") "arxiv")
+                                ("n" "Captured Now!" entry (file+headline ,(concat org-directory "/" (format-time-string "%Y%m%d") ".org") "arxiv")
                                  "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t)
                                 )))
 
