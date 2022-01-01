@@ -43,7 +43,6 @@ beautiful.useless_gap = 5
 
 terminal = "kitty"
 editor = os.getenv("EDITOR") or "emacs"
-editor_cmd = terminal .. " -e " .. editor
 
 modkey = "Mod4"
 
@@ -106,9 +105,9 @@ awful.screen.connect_for_each_screen(function(s)
             },
         },
         bg = beautiful.bg_normal,
-        shape = function (cr, width, height)
-            gears.shape.partially_rounded_rect( cr, width, height, true, true, false, false, 180 )
-        end,
+        -- shape = function (cr, width, height)
+            -- gears.shape.partially_rounded_rect( cr, width, height, true, true, false, false, 180 )
+        -- end,
         widget = wibox.container.background
     }
 end)
@@ -222,4 +221,3 @@ require("configurations.rules")
 require("widgets.exit-screen")
 require("module.notification")
 require("module.autostart")
-
