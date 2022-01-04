@@ -248,8 +248,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! shrface)
 (package! leetcode
  :recipe (:host github :repo "kaiwk/leetcode.el"))
-;(unpin! code-review)
-(package! code-review :disable t)
 
 #+end_src
 * config
