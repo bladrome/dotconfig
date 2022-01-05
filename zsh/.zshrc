@@ -22,6 +22,7 @@ zi light-mode for z-shell/z-a-meta-plugins annexes
 alias ls='ls --color=auto'
 alias ll='ls -l'
 alias vim='nvim'
+alias ca='conda activate'
 export EDITOR='nvim'
 PATH=$PATH:/usr/local/texlive/2019/bin/x86_64-linux
 PATH=$PATH:~/.config/emacs/bin
