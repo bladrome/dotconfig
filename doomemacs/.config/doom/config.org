@@ -249,6 +249,9 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! leetcode
  :recipe (:host github :repo "kaiwk/leetcode.el"))
 
+(package! org-bib-mode
+ :recipe (:host github :repo "rougier/org-bib-mode"))
+
 #+end_src
 * config
 :PROPERTIES:
@@ -291,6 +294,9 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (transparency 95)
 
+(use-package! org-bib-mode
+  :config
+  (setq org-bib-pdf-directory "~/Downloads/papers/"))
 (setq org-directory "~/Documents/2022/")
 (setq org-attach-id-dir (concat org-directory "attachments"))
 ;(setq org-download-image-dir (concat org-attach-id-dir "/" (format-time-string "%Y%m%d")))
@@ -307,6 +313,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (use-package! org-special-block-extras
   :hook (org-mode . org-special-block-extras-mode))
+
+(use-package! org-bib-mode)
 
 (use-package! pangu-spacing
   :config
