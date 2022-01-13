@@ -5,5 +5,5 @@
 # --
 #+title:     ${1:untitled document}
 #+author:    ${2:`user-full-name`}
-#+starup:    content
+#+startup:   show2levels
 #+include:   template.org
