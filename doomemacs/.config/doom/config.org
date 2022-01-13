@@ -232,6 +232,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! org-ql)
 (package! org-special-block-extras)
 (package! org-ref)
+(package! ebib)
 
 
 (package! pangu-spacing)
@@ -275,10 +276,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
       ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
       )
 
-;; (setq doom-theme 'doom-dracula)
+(setq doom-theme 'doom-dracula)
 ;; (setq doom-theme nil)
 ;; (setq nano-theme-light/dark 'dark)
-(load-theme 'nano t)
+;; (load-theme 'nano t)
 
 ;; t relative or nil
 (setq display-line-numbers-type t)
@@ -293,6 +294,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (set-frame-parameter (selected-frame) 'alpha value))
 
 (transparency 95)
+
 
 (use-package! org-bib-mode
   :config
@@ -311,10 +313,25 @@ emacs --batch doomemacs.org -f org-babel-tangle
         wdired-allow-to-change-permissions t
         dired-omit-mode nil))
 
-(use-package! org-special-block-extras
-  :hook (org-mode . org-special-block-extras-mode))
+;; (use-package! org-special-block-extras
+  ;; :hook (org-mode . org-special-block-extras-mode))
 
 (use-package! org-bib-mode)
+(use-package! ebib)
+
+
+(use-package! rime
+  :custom
+  (default-input-method "rime")
+  :config
+  (setq rime-disable-predicates
+        '(rime-predicate-after-alphabet-char-p
+          rime-predicate-current-input-punctuation-p
+          rime-predicate-current-uppercase-letter-p
+          rime-predicate-punctuation-line-begin-p))
+  (setq rime-show-candidate 'posframe))
+
+
 
 (use-package! pangu-spacing
   :config
@@ -372,7 +389,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq org-export-use-babel nil)
   (setq org-publish-project-alist
         '(("orgfiles"
-           :base-directory org-directory
+           :base-directory "~/Documents/2022"
            :base-extension "org"
            :publishing-directory "~/org/public_html"
            :publishing-function org-html-publish-to-html
