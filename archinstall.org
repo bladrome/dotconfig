@@ -6,6 +6,13 @@
 setfont
 * keyboard
 loadkeys =/etc/vconsole.conf=
+
+#+begin_src bash
+echo 'include "linux-with-two-alt-keys"
+     keycode 29 = Caps_Lock
+     keycode 58 = Control' > /usr/local/share/kbd/keymaps/personal.map
+echo 'KEYMAP=/usr/local/share/kbd/keymaps/personal.map' > /etc/vconsole.conf
+#+end_src
 * network
 wireless network
 #+begin_src bash
@@ -26,8 +33,11 @@ mkfs.fat -F32 /dev/sda1
 mkfs.ext4 /dev/sda2
 #+end_src
 * Pacman Mirror
-edit /etc/pacman.conf
-edit /etc/mirror
+edit =/etc/pacman.conf=
+edit =/etc/pacman.d/mirror=
+#+begin_src bash
+echo "Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch" > /etc/pacman.d/mirror
+#+end_src
 
 * Install
 #+begin_src bash
@@ -44,7 +54,6 @@ arch-chroot /mnt
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 hwclock --systohc
 #+end_src
-
 
 * Locale
 
@@ -83,12 +92,12 @@ uname -m
 grub-install --target=x86_64-efi --efi-directory=/boot
 
 #+end_src
-
 * Add user
 #+begin_src 
 useradd -m -U bladrome
 passwd bladrome
 #+end_src
+
 * switch Mirrors
 ** mirrors
 ** archlinuxcn
@@ -103,19 +112,16 @@ yay -P -g
 yay -S zsh 
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/z-shell/zinit/main/doc/install.sh)"
-
-
 #+end_src
 
 * awesomewm
 
 #+begin_src 
-yay -S rofi unclutter slock mousepad firefox maim gpicview feh firefox mpc mpd unclutter xsel slock ttf-droid picom
-yay -S xorg-xinit xorg-server xf86-viedo-intel xf86-viedo-nouveau
- pulseaudio
+yay -S rofi unclutter slock mousepad firefox maim gpicview feh firefox mpc mpd unclutter xsel slock ttf-droid picom-git
+yay -S xorg-xinit xorg-server xf86-viedo-intel xf86-viedo-nouveau  pulseaudio
 yay -S lightdm xorg-server-xephyr lightdm-gtk-greeter
 yay -S awesome
-yay -S termite
+yay -S termite kitty
 yay -S alsa-utils playerctl
 
 git clone https://github.com/bladrome/dotconfig.git
