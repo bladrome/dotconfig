@@ -1,19 +1,19 @@
 
 #+TITLE: archlinux install note
-loadkeys 
-loadkeys
-etc/vconsole.conf
+
+
+
 * setfont
 setfont
 * keyboard
-loadkeys
+loadkeys =/etc/vconsole.conf=
 * network
 wireless network
 #+begin_src bash
-  ip link set wlan0 up
-  wpa_passphrase "BSSID" "PASSWORD" > wifi.conf
-  wpa_supplicant -B -i wlan0 -c wifi.conf
-  dhcpcd dhclient
+ip link set wlan0 up
+wpa_passphrase "BSSID" "PASSWORD" > wifi.conf
+wpa_supplicant -B -i wlan0 -c wifi.conf
+dhcpcd dhclient
 #+end_src
 * Time
 #+begin_src bash
@@ -22,7 +22,7 @@ timedatectl set-ntp true
 
 * Disk partition & format
 #+begin_src 
-fdisk /dev/sdX
+cfdisk /dev/sdX
 mkfs.fat -F32 /dev/sdXn
 mkfs.ext4 /dev/sdXn
 mkswap /dev/sdXn
@@ -33,13 +33,12 @@ edit /etc/mirror
 
 * Install
 #+begin_src bash
-mount /mnt
-mount /mnt/boot
-pacstrap / base linux-lts linux-lts-header linux-firmware
+mkdir -p /mnt/boot
+mount /dev/sda2 /mnt
+mount /dev/sda2 /mnt/boot
+pacstrap /mnt base linux-lts linux-lts-header linux-firmware
 genfstrab -U /mnt >> /mnt/etc/fstab
 #+end_src
-
-#+RESULTS:
 
 * Setting
 #+begin_src 
@@ -50,16 +49,30 @@ hwclock --systohc
 
 * Locale
 
-edit /mnt/etc/locale.gen
-locale-gen
-edit /mnt/etc/locale.conf
+1. edit /mnt/etc/locale.gen
 
-LANG=en_US.UTF-8
-LC_CTYPE=zh_CN.UTF-8
+#+begin_src bash
+locale-gen
+#+end_src
+
+2. edit /mnt/etc/locale.conf
+
+#+begin_src bash
+echo "LANG=en_US.UTF-8
+LC_CTYPE=zh_CN.UTF-8" > /mnt/etc/locale.conf
+#+end_src
 
 * Hostname
-edit /mnt/etc/hostname
-edit /mnt/etc/hosts
+1. edit /mnt/etc/hostname
+#+begin_src bash
+echo "Thindrome" > /mnt/etc/hostname
+#+end_src
+2. edit /mnt/etc/hosts
+#+begin_src bash
+echo "127.0.0.1	localhost
+::1 		localhost
+127.0.0.1	Thindrome" > /mnt/etc/hosts
+#+end_src
 
 * Boot loader
 #+begin_src 
