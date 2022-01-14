@@ -2,7 +2,6 @@
 #+TITLE: archlinux install note
 
 
-
 * setfont
 setfont
 * keyboard
@@ -22,10 +21,9 @@ timedatectl set-ntp true
 
 * Disk partition & format
 #+begin_src 
-cfdisk /dev/sdX
-mkfs.fat -F32 /dev/sdXn
-mkfs.ext4 /dev/sdXn
-mkswap /dev/sdXn
+cfdisk /dev/sda
+mkfs.fat -F32 /dev/sda1
+mkfs.ext4 /dev/sda2
 #+end_src
 * Pacman Mirror
 edit /etc/pacman.conf
@@ -40,48 +38,50 @@ pacstrap /mnt base linux-lts linux-lts-header linux-firmware
 genfstrab -U /mnt >> /mnt/etc/fstab
 #+end_src
 
+* Setting
+#+begin_src 
+arch-chroot /mnt
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+hwclock --systohc
+#+end_src
+
+
 * Locale
 
-1. edit /mnt/etc/locale.gen
+** edit /etc/locale.gen
 
 #+begin_src bash
 locale-gen
 #+end_src
 
-2. edit /mnt/etc/locale.conf
+** edit /etc/locale.conf
 
 #+begin_src bash
 echo "LANG=en_US.UTF-8
-LC_CTYPE=zh_CN.UTF-8" > /mnt/etc/locale.conf
+LC_CTYPE=zh_CN.UTF-8" > /etc/locale.conf
 #+end_src
 
 * Hostname
-1. edit /mnt/etc/hostname
+** edit /mnt/etc/hostname
 #+begin_src bash
 echo "Thindrome" > /mnt/etc/hostname
 #+end_src
-2. edit /mnt/etc/hosts
+** edit /mnt/etc/hosts
 #+begin_src bash
 echo "127.0.0.1	localhost
 ::1 		localhost
 127.0.0.1	Thindrome" > /mnt/etc/hosts
 #+end_src
 
-* Setting
-#+begin_src 
-arch-chroot /mnt
-ln -sf /usr/share/zoninfo/Asia/Shanghai /etc/localtime
-hwclock --systohc
-#+end_src
 
 * Boot loader
 #+begin_src 
 pacman -S grub efibootmgr inter-ucode os-prober
 mkdir /boot/grub
-grub-mkconfig > /boot/grub/grub.cfg
+grub-mkconfig -o /boot/grub/grub.cfg
 uname -m
 grub-install --target=x86_64-efi --efi-directory=/boot
-yay -S wpa_supplicant dhcpcd
+
 #+end_src
 
 * Add user
@@ -111,7 +111,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/z-shell/zinit/main/doc/ins
 
 #+begin_src 
 yay -S rofi unclutter slock mousepad firefox maim gpicview feh firefox mpc mpd unclutter xsel slock ttf-droid picom
-yay -S xorg-xinit xorg-server xf86-viedo-intel xf86-viedo-nouveau pulseaudio 
+yay -S xorg-xinit xorg-server xf86-viedo-intel xf86-viedo-nouveau
+ pulseaudio
+yay -S lightdm xorg-server-xephyr lightdm-gtk-greeter
 yay -S awesome
 yay -S termite
 yay -S alsa-utils playerctl
@@ -145,8 +147,9 @@ fc-cache
 
 * Network
 
-#+begin_src 
-yay -S electron-ssr
+#+begin_src
+yay -S wpa_supplicant dhcpcd
+yay -S v2raya
 #+end_src
 
 * Emacs
@@ -157,9 +160,7 @@ git clone --depth 1 https://github.com/seagle0128/.emacs.d.git ~/.emacs.d
 
 * Input method
 #+begin_src 
-
 yay -S fcitx-rime fcitx-configtools
-yay -S lightdm xorg-server-xephyr lightdm-gtk-greeter
 
 #+end_src
 
