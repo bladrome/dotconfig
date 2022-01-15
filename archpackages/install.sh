@@ -33,12 +33,12 @@ mount ${disco}1 /mnt/boot
 pacstrap /mnt base linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 
+cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 mkdir /mnt/boot/grub
 arch-chroot /mnt /bin/bash -c "pacman -S grub efibootmgr os-prober --noconfirm"
 arch-chroot /mnt /bin/bash -c "grub-install --target=i386-pc ${disco}"
 arch-chroot /mnt /bin/bash -c "grub-mkconfig -o /boot/grub/grub.cfg"
 
-cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /mnt/etc/localtime
 arch-chroot /mnt /bin/bash -c "hwclock --systohc"
 
