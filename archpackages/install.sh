@@ -51,6 +51,11 @@ ln -sf /usr/share/zoneinfo/Asia/Shanghai /mnt/etc/localtime
 arch-chroot /mnt /bin/bash -c "hwclock --systohc"
 clear
 
+echo 'en_US.UTF-8 UTF-8
+zh_CN.GB18030 GB18030
+zh_CN.GBK GBK
+zh_CN.UTF-8 UTF-8
+zh_CN GB2312' > /mnt/etc/locale.gen
 arch-chroot /mnt /bin/bash -c locale-gen
 clear
 

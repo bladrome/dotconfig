@@ -80,6 +80,11 @@ clear
 ** Locale
 *** edit /etc/locale.gen
 #+begin_src shell
+echo 'en_US.UTF-8 UTF-8
+zh_CN.GB18030 GB18030
+zh_CN.GBK GBK
+zh_CN.UTF-8 UTF-8
+zh_CN GB2312' > /mnt/etc/locale.gen
 arch-chroot /mnt /bin/bash -c locale-gen
 clear
 #+end_src
@@ -185,12 +190,22 @@ Beep /etc/modprobe.d/
 blacklist pcspkr
 #+end_src
 
+** Add user
+#+begin_src shell :tangle no
+
+arch-chroot /mnt
+passwd root
+useradd -m -U bladrome
+passwd bladrome
+exit
+#+end_src
+
 
 ** Config
 #+begin_src
 cp -r ~/dotconfig /mnt/home/bladrome/
 cd dotconfig
-stow -d awesome -t ~
+stow -d awesome -t ~ multicolor
 cp -a termite ~/.config/
 cp -a awesome ~/.config/
 
