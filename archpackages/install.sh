@@ -19,9 +19,8 @@ fi
 timedatectl set-ntp true
 
 sgdisk --zap-all ${disco}
-sgdisk ${disco} -n=1:0:+100M -t=1:ef00
+sgdisk ${disco} -n=1:0:+100M -t=1:ef02
 sgdisk ${disco} -n=2:0:0 -t=2:8300
-
 mkfs.fat -F32 ${disco}1
 mkfs.btrfs -f -L "root"  ${disco}2
 
@@ -52,7 +51,7 @@ echo "127.0.0.1	localhost
 mkdir /mnt/boot/grub
 arch-chroot /mnt /bin/bash -c "pacman -S grub efibootmgr os-prober --noconfirm"
 arch-chroot /mnt /bin/bash -c "grub-mkconfig -o /boot/grub/grub.cfg"
-arch-chroot /mnt /bin/bash -c "grub-install --target=x86_64-efi --efi-directory=/boot"
+arch-chroot /mnt /bin/bash -c "grub-install --target=i386-pc ${disco}
 
 arch-chroot /mnt
 useradd -m -U bladrome
