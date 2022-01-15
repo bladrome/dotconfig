@@ -1,10 +1,12 @@
 disco=/dev/sda
 wifi=0
 
+mkdir -p /usr/local/share/kbd/keymaps
 echo 'include "linux-with-two-alt-keys"
      keycode 29 = Caps_Lock
      keycode 58 = Control' > /usr/local/share/kbd/keymaps/personal.map
 echo 'KEYMAP=/usr/local/share/kbd/keymaps/personal.map' > /etc/vconsole.conf
+loadkeys /etc/vconsole.conf
 
 if [ $wifi -ne 0 ]
 then
@@ -48,7 +50,7 @@ echo "127.0.0.1	localhost
 127.0.0.1	Thindrome" > /mnt/etc/hosts
 
 mkdir /mnt/boot/grub
-arch-chroot /mnt /bin/bash -c "pacman -S grub efibootmgr inter-ucode os-prober --noconfirm"
+arch-chroot /mnt /bin/bash -c "pacman -S grub efibootmgr os-prober --noconfirm"
 arch-chroot /mnt /bin/bash -c "grub-mkconfig -o /boot/grub/grub.cfg"
 arch-chroot /mnt /bin/bash -c "grub-install --target=x86_64-efi --efi-directory=/boot"
 
