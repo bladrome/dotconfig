@@ -98,7 +98,7 @@ clear
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm fcitx-rime fcitx-configtools"
 clear
 
-arch-chroot /mnt /bin/bash -c "yay -S --noconfirm polkit udisks2 ntfs-3g gvfs udevil"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm polkit udisks2 ntfs-3g gvfs udevil stow"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm glances tree"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm python-pip"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm zathura zathura-djvu zathura-pdf-poppler zathura-ps poppler poppler-data"

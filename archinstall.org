@@ -168,7 +168,7 @@ clear
 #+end_src
 ** Utils
 #+begin_src shell
-arch-chroot /mnt /bin/bash -c "yay -S --noconfirm polkit udisks2 ntfs-3g gvfs udevil"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm polkit udisks2 ntfs-3g gvfs udevil stow"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm glances tree"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm python-pip"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm zathura zathura-djvu zathura-pdf-poppler zathura-ps poppler poppler-data"
@@ -188,13 +188,16 @@ blacklist pcspkr
 
 ** Config
 #+begin_src
-git clone https://gitee.com/bladrome/dotconfig.git
+cp -r ~/dotconfig /mnt/home/bladrome/
 cd dotconfig
+stow -d awesome -t ~
 cp -a termite ~/.config/
 cp -a awesome ~/.config/
 
 chmod u+s /usr/bin/xinit
 #+end_src
+
+#+RESULTS:
 
 
 ** Tmux
