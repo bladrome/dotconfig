@@ -55,6 +55,13 @@ mount ${disco}1 /mnt/boot
 pacstrap /mnt base linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 #+end_src
+** Boot loader
+#+begin_src shell
+mkdir /mnt/boot/grub
+arch-chroot /mnt /bin/bash -c "pacman -S grub efibootmgr os-prober --noconfirm"
+arch-chroot /mnt /bin/bash -c "grub-install --target=i386-pc ${disco}"
+arch-chroot /mnt /bin/bash -c "grub-mkconfig -o /boot/grub/grub.cfg"
+#+end_src
 ** Setting
 #+begin_src shell
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
@@ -63,18 +70,14 @@ arch-chroot /mnt /bin/bash -c "hwclock --systohc"
 #+end_src
 ** Locale
 *** edit /etc/locale.gen
-
 #+begin_src shell
 arch-chroot /mnt /bin/bash -c locale-gen
 #+end_src
-
 *** edit /etc/locale.conf
-
 #+begin_src shell
 echo "LANG=en_US.UTF-8
 LC_CTYPE=zh_CN.UTF-8" > /mnt/etc/locale.conf
 #+end_src
-
 ** Hostname
 *** edit /mnt/etc/hostname
 #+begin_src shell
@@ -87,16 +90,8 @@ echo "127.0.0.1	localhost
 127.0.0.1	Thindrome" > /mnt/etc/hosts
 #+end_src
 
-** Boot loader
-#+begin_src shell
-mkdir /mnt/boot/grub
-arch-chroot /mnt /bin/bash -c "pacman -S grub efibootmgr os-prober --noconfirm"
-arch-chroot /mnt /bin/bash -c "grub-mkconfig -o /boot/grub/grub.cfg"
-arch-chroot /mnt /bin/bash -c "grub-install --target=i386-pc ${disco}
-#+end_src
 ** Add user
-#+begin_src shell
-
+#+begin_src shell :tangle no
 arch-chroot /mnt
 useradd -m -U bladrome
 passwd bladrome
