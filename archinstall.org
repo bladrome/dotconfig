@@ -52,7 +52,7 @@ mount ${disco}2 /mnt
 mkdir -p /mnt/boot
 mount ${disco}1 /mnt/boot
 pacstrap /mnt base linux linux-firmware
-genfstrab -U /mnt >> /mnt/etc/fstab
+genfstab -U /mnt >> /mnt/etc/fstab
 #+end_src
 ** Setting
 #+begin_src shell
