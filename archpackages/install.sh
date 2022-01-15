@@ -19,17 +19,18 @@ fi
 timedatectl set-ntp true
 
 sgdisk --zap-all ${disco}
-sgdisk ${disco} -n=1:0:+100M -t=1:ef02
-sgdisk ${disco} -n=2:0:0 -t=2:8300
-mkfs.fat -F32 ${disco}1
-mkfs.btrfs -f -L "root"  ${disco}2
+sgdisk ${disco} -n=1:0:+1M   -t=1:ef02
+sgdisk ${disco} -n=2:0:+100M -t=2:8300
+sgdisk ${disco} -n=3:0:0     -t=3:8300
+mkfs.fat -F32 ${disco}2
+mkfs.btrfs -f -L "root"  ${disco}3
 
 echo 'Server = https://mirrors.bfsu.edu.cn/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
 pacman -Syy
 
-mount ${disco}2 /mnt
+mount ${disco}3 /mnt
 mkdir -p /mnt/boot
-mount ${disco}1 /mnt/boot
+mount ${disco}2 /mnt/boot
 pacstrap /mnt base linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 
