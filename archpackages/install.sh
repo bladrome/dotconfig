@@ -11,12 +11,12 @@ clear
 
 if [ $wifi -ne 0 ]
 then
-ip link set wlan0 up
-wpa_passphrase "BSSID" "PASSWORD" > wifi.conf
-wpa_supplicant -B -i wlan0 -c wifi.conf
-dhcpcd dhclient &
-clear
+    ip link set wlan0 up
+    wpa_passphrase "BSSID" "PASSWORD" > wifi.conf
+    wpa_supplicant -B -i wlan0 -c wifi.conf
+    dhcpcd dhclient &
 fi
+clear
 
 timedatectl set-ntp true
 clear
@@ -86,7 +86,7 @@ arch-chroot /mnt /bin/bash -c "yay -S --noconfirm zsh"
 clear
 
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm xorg-xinit xorg-server xf86-viedo-intel xf86-viedo-nouveau pulseaudio"
-arch-chroot /mnt /bin/bash -c "yay -S --noconfirm lightdm xorg-server-xephyr lightdm-gtk-greeter"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm xorg-server-xephyr sddm"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm awesome-git"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm rofi unclutter slock mousepad maim gpicview feh mpc mpd unclutter xsel slock ttf-droid picom-git"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm termite kitty"

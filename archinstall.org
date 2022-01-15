@@ -24,12 +24,12 @@ clear
 #+begin_src shell
 if [ $wifi -ne 0 ]
 then
-ip link set wlan0 up
-wpa_passphrase "BSSID" "PASSWORD" > wifi.conf
-wpa_supplicant -B -i wlan0 -c wifi.conf
-dhcpcd dhclient &
-clear
+    ip link set wlan0 up
+    wpa_passphrase "BSSID" "PASSWORD" > wifi.conf
+    wpa_supplicant -B -i wlan0 -c wifi.conf
+    dhcpcd dhclient &
 fi
+clear
 #+end_src
 ** Time
 #+begin_src shell
@@ -144,7 +144,7 @@ clear
 ** awesomewm
 #+begin_src shell
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm xorg-xinit xorg-server xf86-viedo-intel xf86-viedo-nouveau pulseaudio"
-arch-chroot /mnt /bin/bash -c "yay -S --noconfirm lightdm xorg-server-xephyr lightdm-gtk-greeter"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm xorg-server-xephyr sddm"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm awesome-git"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm rofi unclutter slock mousepad maim gpicview feh mpc mpd unclutter xsel slock ttf-droid picom-git"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm termite kitty"
@@ -203,11 +203,13 @@ exit
 
 ** Config
 #+begin_src
+doas systemctl enable sddm
+doas systemctl start sddm
+
 cp -r ~/dotconfig /mnt/home/bladrome/
 cd dotconfig
 stow -d awesome -t ~ multicolor
-cp -a termite ~/.config/
-cp -a awesome ~/.config/
+stow -d ternimal -t ~ kitty
 
 chmod u+s /usr/bin/xinit
 #+end_src
