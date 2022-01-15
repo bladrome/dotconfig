@@ -9,12 +9,12 @@ alacritty
 alsa-utils
 ant
 anthy
+arandr
 archlinuxcn-keyring
 aria2
 aspell-en
 atool
 autoconf
-autojump
 automake
 autopep8
 awesome-git
@@ -143,6 +143,7 @@ linux-lts
 linux-lts-headers
 linux-xanmod
 linux-xanmod-cacule
+linux-xanmod-headers
 linuxqq
 lldb
 llvm
@@ -189,6 +190,7 @@ nmap
 nnn
 noto-fonts-cjk
 noto-fonts-emoji
+npm
 ntfs-3g
 octave
 odt2txt
@@ -196,6 +198,7 @@ onefetch
 openblas
 openbsd-netcat
 opencl-headers
+opendoas
 openmp
 openscad
 openshot
@@ -239,6 +242,7 @@ python-pynvim
 python-pytest
 python-pytorch
 python-rope
+python-scikit-learn
 python-selenium
 python-setuptools
 python-tensorflow
@@ -281,7 +285,6 @@ ssr
 stow
 strace
 stylelint
-sudo
 sxhkd
 sxiv
 sysstat
