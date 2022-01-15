@@ -105,6 +105,7 @@ clear
 
 ** Add user
 #+begin_src shell :tangle no
+bash
 arch-chroot /mnt
 useradd -m -U bladrome
 passwd bladrome
@@ -121,11 +122,13 @@ clear
 #+end_src
 ** aur
 #+begin_src shell
-arch-chroot /mnt /bin/bash -c "pacman -S yay"
+arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm yay doas"
 arch-chroot /mnt /bin/bash -c "yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save"
 arch-chroot /mnt /bin/bash -c "yay -P -g"
 clear
 #+end_src
+
+#+RESULTS:
 
 ** zsh
 #+begin_src shell
@@ -138,7 +141,7 @@ clear
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm xorg-xinit xorg-server xf86-viedo-intel xf86-viedo-nouveau pulseaudio"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm lightdm xorg-server-xephyr lightdm-gtk-greeter"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm awesome-git"
-arch-chroot /mnt /bin/bash -c "yay -S --noconfirm rofi unclutter slock mousepad firefox maim gpicview feh mpc mpd unclutter xsel slock ttf-droid picom-git"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm rofi unclutter slock mousepad maim gpicview feh mpc mpd unclutter xsel slock ttf-droid picom-git"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm termite kitty"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm alsa-utils playerctl"
 clear
@@ -147,7 +150,7 @@ clear
 ** Fonts
 #+begin_src shell
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm noto-fonts nerd-fonts-noto ttf-hack nerd-fonts-source-code-pro"
---noconfirm
+clear
 #+end_src
 
 ** Network
@@ -155,13 +158,13 @@ arch-chroot /mnt /bin/bash -c "yay -S --noconfirm noto-fonts nerd-fonts-noto ttf
 #+begin_src shell
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm wpa_supplicant dhcpcd"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm v2raya"
---noconfirm
+clear
 #+end_src
 
 ** Input method
 #+begin_src shell
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm fcitx-rime fcitx-configtools"
---noconfirm
+clear
 #+end_src
 ** Utils
 #+begin_src shell
@@ -174,7 +177,7 @@ arch-chroot /mnt /bin/bash -c "yay -S --noconfirm xine-lib"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm wget neovim unzip  pcmanfm baobab ack curl"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm atool bsdtar djvutxt medianinfo odt2txt jq openscad highlight"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm firefox"
---noconfirm
+clear
 #+end_src
 
 Beep /etc/modprobe.d/
@@ -184,7 +187,7 @@ blacklist pcspkr
 
 
 ** Config
-#+begin_src shell
+#+begin_src
 git clone https://gitee.com/bladrome/dotconfig.git
 cd dotconfig
 cp -a termite ~/.config/
@@ -195,7 +198,7 @@ chmod u+s /usr/bin/xinit
 
 
 ** Tmux
-#+begin_src shell
+#+begin_src
 yay -S tmux
 git clone https://github.com/gpakosz/.tmux.git
 ln -sf .tmux/.tmux.conf
@@ -203,7 +206,7 @@ cp .tmux/.tmux.conf.local .
 #+end_src
 
 ** yay
-#+BEGIN_SRC shell
+#+BEGIN_SRC
 gpg --keyserver pool.sks-keyservers.net --recv-keys # for linux-xanmod
 yay
 yay -Syyu

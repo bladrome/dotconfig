@@ -72,7 +72,7 @@ arch-chroot /mnt /bin/bash -c "pacman -Syy --noconfirm"
 arch-chroot /mnt /bin/bash -c "pacman -S archlinuxcn-keyring --noconfirm"
 clear
 
-arch-chroot /mnt /bin/bash -c "pacman -S yay"
+arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm yay doas"
 arch-chroot /mnt /bin/bash -c "yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save"
 arch-chroot /mnt /bin/bash -c "yay -P -g"
 clear
@@ -83,20 +83,20 @@ clear
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm xorg-xinit xorg-server xf86-viedo-intel xf86-viedo-nouveau pulseaudio"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm lightdm xorg-server-xephyr lightdm-gtk-greeter"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm awesome-git"
-arch-chroot /mnt /bin/bash -c "yay -S --noconfirm rofi unclutter slock mousepad firefox maim gpicview feh mpc mpd unclutter xsel slock ttf-droid picom-git"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm rofi unclutter slock mousepad maim gpicview feh mpc mpd unclutter xsel slock ttf-droid picom-git"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm termite kitty"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm alsa-utils playerctl"
 clear
 
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm noto-fonts nerd-fonts-noto ttf-hack nerd-fonts-source-code-pro"
---noconfirm
+clear
 
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm wpa_supplicant dhcpcd"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm v2raya"
---noconfirm
+clear
 
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm fcitx-rime fcitx-configtools"
---noconfirm
+clear
 
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm polkit udisks2 ntfs-3g gvfs udevil"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm glances tree"
@@ -107,26 +107,4 @@ arch-chroot /mnt /bin/bash -c "yay -S --noconfirm xine-lib"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm wget neovim unzip  pcmanfm baobab ack curl"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm atool bsdtar djvutxt medianinfo odt2txt jq openscad highlight"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm firefox"
---noconfirm
-
-git clone https://gitee.com/bladrome/dotconfig.git
-cd dotconfig
-cp -a termite ~/.config/
-cp -a awesome ~/.config/
-
-chmod u+s /usr/bin/xinit
-
-yay -S tmux
-git clone https://github.com/gpakosz/.tmux.git
-ln -sf .tmux/.tmux.conf
-cp .tmux/.tmux.conf.local .
-
-gpg --keyserver pool.sks-keyservers.net --recv-keys # for linux-xanmod
-yay
-yay -Syyu
-yay -Sc
-yay -Rc
-yay -Rs
-yay -Q
-yay -Qe
-yay -Qdt
+clear
