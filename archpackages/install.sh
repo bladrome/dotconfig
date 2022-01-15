@@ -32,6 +32,10 @@ mount ${disco}1 /mnt/boot
 pacstrap /mnt base linux linux-firmware
 genfstrab -U /mnt >> /mnt/etc/fstab
 
+cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /mnt/etc/localtime
+arch-chroot /mnt /bin/bash -c "hwclock --systohc"
+
 arch-chroot /mnt /bin/bash -c locale-gen
 
 echo "LANG=en_US.UTF-8
@@ -42,6 +46,79 @@ echo "Thindrome" > /mnt/etc/hostname
 echo "127.0.0.1	localhost
 ::1 		localhost
 127.0.0.1	Thindrome" > /mnt/etc/hosts
+
+mkdir /mnt/boot/grub
+arch-chroot /mnt /bin/bash -c "pacman -S grub efibootmgr inter-ucode os-prober --noconfirm"
+arch-chroot /mnt /bin/bash -c "grub-mkconfig -o /boot/grub/grub.cfg"
+arch-chroot /mnt /bin/bash -c "grub-install --target=x86_64-efi --efi-directory=/boot"
+
+arch-chroot /mnt
+useradd -m -U bladrome
+passwd bladrome
+exit
+
+pacman -S yay
+yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
+yay -P -g
+
+yay -S zsh 
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/z-shell/zinit/main/doc/install.sh)"
+
+yay -S rofi unclutter slock mousepad firefox maim gpicview feh firefox mpc mpd unclutter xsel slock ttf-droid picom-git
+yay -S xorg-xinit xorg-server xf86-viedo-intel xf86-viedo-nouveau  pulseaudio
+yay -S lightdm xorg-server-xephyr lightdm-gtk-greeter
+yay -S awesome
+yay -S termite kitty
+yay -S alsa-utils playerctl
+
+git clone https://github.com/bladrome/dotconfig.git
+cd dotconfig
+cp -a termite ~/.config/
+cp -a awesome ~/.config/
+
+chmod u+s /usr/bin/xinit
+
+xrandr --output eDP1 --off
+xrandr --output HDMI1 --auto
+
+yay -S noto-fonts
+yay -S nerd-fonts-noto
+yay -S ttf-hack
+yay -S nerd-fonts-source-code-pro
+
+
+cp Fonts /usr/share/fonts/
+fc-cache
+
+yay -S wpa_supplicant dhcpcd
+yay -S v2raya
+
+yay -S emacs
+git clone --depth 1 https://github.com/seagle0128/.emacs.d.git ~/.emacs.d
+
+yay -S fcitx-rime fcitx-configtools
+
+wget https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/Images/texlive2019-20190410.iso
+mount texlive2019-20190410.iso mountpoint
+cd moutpoint
+sudo ./install-tl
+
+yay -S polkit udisks2 ntfs-3g gvfs udevil
+yay -S glances tree
+
+yay -S python-pip
+yay -S zathura zathura-djvu zathura-pdf-poppler zathura-ps poppler poppler-data
+yay -S mpv
+
+
+yay -S mplayer
+yay -S xine-lib
+yay -S wget neovim unzip  pcmanfm baobab ack curl
+yay -S atool bsdtar djvutxt medianinfo odt2txt jq openscad highlight
+
+yay -S firefox
+yay -S firefox-i8n-zh-cn
 
 yay -S tmux
 git clone https://github.com/gpakosz/.tmux.git
