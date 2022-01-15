@@ -1,104 +1,109 @@
-
 #+TITLE: archlinux install note
 
-
-* setfont
-setfont
-* keyboard
+* archinstall
+:PROPERTIES:
+:header-args: :tangle archpackages/install.sh
+:END:
+** Setting
+#+begin_src shell
+disco=/dev/sda
+wifi=0
+#+end_src
+** keyboard
 loadkeys =/etc/vconsole.conf=
-
-#+begin_src bash
+#+begin_src shell
 echo 'include "linux-with-two-alt-keys"
      keycode 29 = Caps_Lock
      keycode 58 = Control' > /usr/local/share/kbd/keymaps/personal.map
 echo 'KEYMAP=/usr/local/share/kbd/keymaps/personal.map' > /etc/vconsole.conf
 #+end_src
-* network
-wireless network
-#+begin_src bash
+** wifi network
+#+begin_src shell
+if [ $wifi -ne 0 ]
+then
 ip link set wlan0 up
 wpa_passphrase "BSSID" "PASSWORD" > wifi.conf
 wpa_supplicant -B -i wlan0 -c wifi.conf
 dhcpcd dhclient
+fi
 #+end_src
-* Time
-#+begin_src bash
+** Time
+#+begin_src shell
 timedatectl set-ntp true
 #+end_src
+** Disk partition & format
+#+begin_src shell
+sgdisk --zap-all ${disco}
+sgdisk ${disco} -n=1:0:+100M -t=1:ef00
+sgdisk ${disco} -n=2:0:0 -t=2:8300
 
-* Disk partition & format
-#+begin_src 
-cfdisk /dev/sda
-mkfs.fat -F32 /dev/sda1
-mkfs.ext4 /dev/sda2
+mkfs.fat -F32 ${disco}1
+mkfs.btrfs -f -L "root"  ${disco}2
 #+end_src
-* Pacman Mirror
-edit =/etc/pacman.conf=
-edit =/etc/pacman.d/mirror=
-#+begin_src bash
-echo "Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch" > /etc/pacman.d/mirror
+** Pacman Mirror
+- edit =/etc/pacman.d/mirrorlist=
+#+begin_src shell
+echo 'Server = https://mirrors.bfsu.edu.cn/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
+pacman -Syy
 #+end_src
-
-* Install
-#+begin_src bash
+** Install
+#+begin_src shell
+mount ${disco}2 /mnt
 mkdir -p /mnt/boot
-mount /dev/sda2 /mnt
-mount /dev/sda1 /mnt/boot
-pacstrap /mnt base linux-lts linux-lts-header linux-firmware
+mount ${disco}1 /mnt/boot
+pacstrap /mnt base linux linux-firmware
 genfstrab -U /mnt >> /mnt/etc/fstab
 #+end_src
+** Setting
+#+begin_src
+cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /mnt/etc/localtime
+arch-chroot /mnt /bin/bash -c "hwclock --systohc"
+#+end_src
+** Locale
+*** edit /etc/locale.gen
 
-* Setting
-#+begin_src 
-arch-chroot /mnt
-ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-hwclock --systohc
+#+begin_src shell
+arch-chroot /mnt /bin/bash -c locale-gen
 #+end_src
 
-* Locale
+*** edit /etc/locale.conf
 
-** edit /etc/locale.gen
-
-#+begin_src bash
-locale-gen
-#+end_src
-
-** edit /etc/locale.conf
-
-#+begin_src bash
+#+begin_src shell
 echo "LANG=en_US.UTF-8
-LC_CTYPE=zh_CN.UTF-8" > /etc/locale.conf
+LC_CTYPE=zh_CN.UTF-8" > /mnt/etc/locale.conf
 #+end_src
 
-* Hostname
-** edit /mnt/etc/hostname
-#+begin_src bash
+** Hostname
+*** edit /mnt/etc/hostname
+#+begin_src shell
 echo "Thindrome" > /mnt/etc/hostname
 #+end_src
-** edit /mnt/etc/hosts
-#+begin_src bash
+*** edit /mnt/etc/hosts
+#+begin_src shell
 echo "127.0.0.1	localhost
 ::1 		localhost
 127.0.0.1	Thindrome" > /mnt/etc/hosts
 #+end_src
 
-
-* Boot loader
-#+begin_src 
-pacman -S grub efibootmgr inter-ucode os-prober
-mkdir /boot/grub
-grub-mkconfig -o /boot/grub/grub.cfg
-uname -m
-grub-install --target=x86_64-efi --efi-directory=/boot
+** Boot loader
+#+begin_src
+mkdir /mnt/boot/grub
+arch-chroot /mnt /bin/bash -c "pacman -S grub efibootmgr inter-ucode os-prober --noconfirm"
+arch-chroot /mnt /bin/bash -c "grub-mkconfig -o /boot/grub/grub.cfg"
+arch-chroot /mnt /bin/bash -c "grub-install --target=x86_64-efi --efi-directory=/boot"
 
 #+end_src
-* Add user
-#+begin_src 
+** Add user
+#+begin_src
+
+arch-chroot /mnt
 useradd -m -U bladrome
 passwd bladrome
+exit
 #+end_src
 
-* switch Mirrors
+** switch Mirrors
 ** mirrors
 ** archlinuxcn
 #+begin_src 
@@ -107,14 +112,14 @@ yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
 yay -P -g
 #+end_src
 
-* zsh
+** zsh
 #+begin_src 
 yay -S zsh 
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/z-shell/zinit/main/doc/install.sh)"
 #+end_src
 
-* awesomewm
+** awesomewm
 
 #+begin_src 
 yay -S rofi unclutter slock mousepad firefox maim gpicview feh firefox mpc mpd unclutter xsel slock ttf-droid picom-git
@@ -132,13 +137,13 @@ cp -a awesome ~/.config/
 chmod u+s /usr/bin/xinit
 
 #+end_src
-* Monitor
+** Monitor
 #+begin_src 
 xrandr --output eDP1 --off
 xrandr --output HDMI1 --auto
 #+end_src
 
-* Fonts 
+** Fonts
 #+begin_src 
 yay -S noto-fonts
 yay -S nerd-fonts-noto
@@ -151,26 +156,26 @@ fc-cache
 
 #+end_src
 
-* Network
+** Network
 
 #+begin_src
 yay -S wpa_supplicant dhcpcd
 yay -S v2raya
 #+end_src
 
-* Emacs
+** Emacs
 #+begin_src 
 yay -S emacs
 git clone --depth 1 https://github.com/seagle0128/.emacs.d.git ~/.emacs.d
 #+end_src
 
-* Input method
+** Input method
 #+begin_src 
 yay -S fcitx-rime fcitx-configtools
 
 #+end_src
 
-* Texlive
+** Texlive
 #+begin_src 
 
 wget https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/Images/texlive2019-20190410.iso
@@ -181,7 +186,7 @@ sudo ./install-tl
 
 # Session permissions
 
-* Utils
+** Utils
 #+begin_src 
 yay -S polkit udisks2 ntfs-3g gvfs udevil
 yay -S glances tree
