@@ -54,82 +54,52 @@ echo "127.0.0.1	localhost
 ::1 		localhost
 127.0.0.1	Thindrome" > /mnt/etc/hosts
 
-pacman -S yay
-yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
-yay -P -g
+echo '[archlinuxcn]
+Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch' >> /mnt/etc/pacman.conf
+arch-chroot /mnt /bin/bash -c "pacman -Syy --noconfirm"
+arch-chroot /mnt /bin/bash -c "pacman -S archlinuxcn-keyring --noconfirm"
 
-yay -S zsh 
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/z-shell/zinit/main/doc/install.sh)"
+arch-chroot /mnt /bin/bash -c "pacman -S yay"
+arch-chroot /mnt /bin/bash -c "yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save"
+arch-chroot /mnt /bin/bash -c "yay -P -g"
 
-yay -S rofi unclutter slock mousepad firefox maim gpicview feh firefox mpc mpd unclutter xsel slock ttf-droid picom-git
-yay -S xorg-xinit xorg-server xf86-viedo-intel xf86-viedo-nouveau  pulseaudio
-yay -S lightdm xorg-server-xephyr lightdm-gtk-greeter
-yay -S awesome
-yay -S termite kitty
-yay -S alsa-utils playerctl
+arch-chroot /mnt /bin/bash -c "yay -S zsh"
 
-git clone https://github.com/bladrome/dotconfig.git
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm xorg-xinit xorg-server xf86-viedo-intel xf86-viedo-nouveau pulseaudio"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm lightdm xorg-server-xephyr lightdm-gtk-greeter"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm awesome-git"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm rofi unclutter slock mousepad firefox maim gpicview feh mpc mpd unclutter xsel slock ttf-droid picom-git"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm termite kitty"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm alsa-utils playerctl"
+
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm noto-fonts nerd-fonts-noto ttf-hack nerd-fonts-source-code-pro"
+
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm wpa_supplicant dhcpcd"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm v2raya"
+
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm fcitx-rime fcitx-configtools"
+
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm polkit udisks2 ntfs-3g gvfs udevil"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm glances tree"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm python-pip"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm zathura zathura-djvu zathura-pdf-poppler zathura-ps poppler poppler-data"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm mpv mplayer"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm xine-lib"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm wget neovim unzip  pcmanfm baobab ack curl"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm atool bsdtar djvutxt medianinfo odt2txt jq openscad highlight"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm firefox"
+
+git clone https://gitee.com/bladrome/dotconfig.git
 cd dotconfig
 cp -a termite ~/.config/
 cp -a awesome ~/.config/
 
 chmod u+s /usr/bin/xinit
 
-xrandr --output eDP1 --off
-xrandr --output HDMI1 --auto
-
-yay -S noto-fonts
-yay -S nerd-fonts-noto
-yay -S ttf-hack
-yay -S nerd-fonts-source-code-pro
-
-
-cp Fonts /usr/share/fonts/
-fc-cache
-
-yay -S wpa_supplicant dhcpcd
-yay -S v2raya
-
-yay -S emacs
-git clone --depth 1 https://github.com/seagle0128/.emacs.d.git ~/.emacs.d
-
-yay -S fcitx-rime fcitx-configtools
-
-wget https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/Images/texlive2019-20190410.iso
-mount texlive2019-20190410.iso mountpoint
-cd moutpoint
-sudo ./install-tl
-
-yay -S polkit udisks2 ntfs-3g gvfs udevil
-yay -S glances tree
-
-yay -S python-pip
-yay -S zathura zathura-djvu zathura-pdf-poppler zathura-ps poppler poppler-data
-yay -S mpv
-
-
-yay -S mplayer
-yay -S xine-lib
-yay -S wget neovim unzip  pcmanfm baobab ack curl
-yay -S atool bsdtar djvutxt medianinfo odt2txt jq openscad highlight
-
-yay -S firefox
-yay -S firefox-i8n-zh-cn
-
 yay -S tmux
 git clone https://github.com/gpakosz/.tmux.git
 ln -sf .tmux/.tmux.conf
 cp .tmux/.tmux.conf.local .
-
-yay -S ranger
-git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
-echo "default_linemode devicons" >> ~/.config/ranger/rc.conf
-
-sudo pacman -S atool
-git clone https://github.com/maximtrp/ranger-archives.git ~/.config/ranger/plugins/ranger-archives
-cd ~/.config/ranger/plugins/ranger-archives
-make install
 
 gpg --keyserver pool.sks-keyservers.net --recv-keys # for linux-xanmod
 yay
