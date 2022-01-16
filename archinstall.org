@@ -185,8 +185,7 @@ cp -r ~/dotconfig /mnt/home/bladrome/
 cd dotconfig
 stow -d awesome -t ~ multicolor
 stow -d ternimal -t ~ kitty
-
-chmod u+s /usr/bin/xinit
+stow fontconfig
 #+end_src
 
 #+RESULTS:
