@@ -11,7 +11,9 @@ wifi=0
 set -x
 
 chrootrun () {
+    clear
     arch-chroot /mnt /bin/bash -c "$@"
+
 }
 #+end_src
 ** keyboard
@@ -23,7 +25,6 @@ echo 'include "linux-with-two-alt-keys"
      keycode 58 = Control' > /usr/local/share/kbd/keymaps/personal.map
 echo 'KEYMAP=/usr/local/share/kbd/keymaps/personal.map' > /etc/vconsole.conf
 loadkeys /etc/vconsole.conf
-clear
 #+end_src
 ** wifi network
 #+begin_src shell
@@ -34,12 +35,10 @@ then
     wpa_supplicant -B -i wlan0 -c wifi.conf
     dhcpcd dhclient &
 fi
-clear
 #+end_src
 ** Time
 #+begin_src shell
 timedatectl set-ntp true
-clear
 #+end_src
 ** Disk partition & format
 #+begin_src shell
@@ -49,14 +48,12 @@ sgdisk ${disco} -n=2:0:+1024M -t=2:8300
 sgdisk ${disco} -n=3:0:0 -t=3:8300
 mkfs.fat -F32 ${disco}2
 mkfs.btrfs -f -L "root"  ${disco}3
-clear
 #+end_src
 ** Pacman Mirror
 - edit =/etc/pacman.d/mirrorlist=
 #+begin_src shell
 echo 'Server = https://mirrors.bfsu.edu.cn/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
 pacman -Syy
-clear
 #+end_src
 
 ** Install
@@ -75,13 +72,11 @@ mkdir /mnt/boot/grub
 chrootrun "pacman -S grub efibootmgr os-prober --noconfirm"
 chrootrun "grub-install --target=i386-pc ${disco}"
 chrootrun "grub-mkconfig -o /boot/grub/grub.cfg"
-clear
 #+end_src
 ** Setting
 #+begin_src shell
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /mnt/etc/localtime
 chrootrun "hwclock --systohc"
-clear
 #+end_src
 ** Locale
 *** edit /etc/locale.gen
@@ -92,26 +87,22 @@ zh_CN.GBK GBK
 zh_CN.UTF-8 UTF-8
 zh_CN GB2312' >> /mnt/etc/locale.gen
 chrootrun locale-gen
-clear
 #+end_src
 *** edit /etc/locale.conf
 #+begin_src shell
 echo "LANG=en_US.UTF-8
 LC_CTYPE=zh_CN.UTF-8" > /mnt/etc/locale.conf
-clear
 #+end_src
 ** Hostname
 *** edit /mnt/etc/hostname
 #+begin_src shell
 echo "Thindrome" > /mnt/etc/hostname
-clear
 #+end_src
 *** edit /mnt/etc/hosts
 #+begin_src shell
 echo "127.0.0.1	localhost
 ::1 		localhost
 127.0.0.1	Thindrome" > /mnt/etc/hosts
-clear
 #+end_src
 
 ** archlinuxcn
@@ -120,19 +111,16 @@ echo '[archlinuxcn]
 Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch' >> /mnt/etc/pacman.conf
 chrootrun "pacman -Syy --noconfirm"
 chrootrun "pacman -S archlinuxcn-keyring --noconfirm"
-clear
 #+end_src
 ** package manager & aur
 #+begin_src shell
 chrootrun "pacman -S --noconfirm yay doas"
-chrootrun "yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save"
+chrootrun 'yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save'
 chrootrun "yay -P -g"
-clear
 #+end_src
 ** zsh
 #+begin_src shell
 chrootrun "yay -S --noconfirm zsh"
-clear
 #+end_src
 
 ** awesomewm
@@ -143,13 +131,11 @@ chrootrun "yay -S --noconfirm awesome-git"
 chrootrun "yay -S --noconfirm rofi unclutter slock mousepad maim gpicview feh mpc mpd unclutter xsel slock ttf-droid picom-git"
 chrootrun "yay -S --noconfirm termite kitty"
 chrootrun "yay -S --noconfirm alsa-utils playerctl"
-clear
 #+end_src
 
 ** Fonts
 #+begin_src shell
 chrootrun "yay -S --noconfirm noto-fonts nerd-fonts-noto ttf-hack nerd-fonts-source-code-pro"
-clear
 #+end_src
 
 ** Network
@@ -157,13 +143,11 @@ clear
 #+begin_src shell
 chrootrun "yay -S --noconfirm wpa_supplicant dhcpcd"
 chrootrun "yay -S --noconfirm v2raya"
-clear
 #+end_src
 
 ** Input method
 #+begin_src shell
 chrootrun "yay -S --noconfirm fcitx-rime fcitx-configtools"
-clear
 #+end_src
 ** Utils
 #+begin_src shell
@@ -177,7 +161,6 @@ chrootrun "yay -S --noconfirm wget neovim unzip  pcmanfm baobab ack curl"
 chrootrun "yay -S --noconfirm atool bsdtar djvutxt medianinfo odt2txt jq openscad highlight"
 chrootrun "yay -S --noconfirm firefox"
 chrootrun "systemctl enable sddm"
-clear
 #+end_src
 
 Beep /etc/modprobe.d/
