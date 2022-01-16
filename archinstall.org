@@ -128,14 +128,14 @@ chrootrun "yay -S --noconfirm zsh"
 chrootrun "yay -S --noconfirm xorg-xinit xorg-server xf86-viedo-intel xf86-viedo-nouveau pulseaudio"
 chrootrun "yay -S --noconfirm xorg-server-xephyr sddm"
 chrootrun "yay -S --noconfirm awesome-git"
-chrootrun "yay -S --noconfirm rofi unclutter slock mousepad maim gpicview feh mpc mpd unclutter xsel slock ttf-droid picom-git"
+chrootrun "yay -S --noconfirm rofi unclutter slock mousepad maim gpicview feh mpc mpd unclutter xsel slock picom-git"
 chrootrun "yay -S --noconfirm termite kitty"
 chrootrun "yay -S --noconfirm alsa-utils playerctl"
 #+end_src
 
 ** Fonts
 #+begin_src shell
-chrootrun "yay -S --noconfirm noto-fonts nerd-fonts-noto ttf-hack nerd-fonts-source-code-pro"
+chrootrun "yay -S --noconfirm ttf-droid ttf-font-awesome noto-fonts nerd-fonts-noto ttf-hack nerd-fonts-source-code-pro"
 #+end_src
 
 ** Network
