@@ -114,28 +114,19 @@ echo "127.0.0.1	localhost
 clear
 #+end_src
 
-** Add user
-#+begin_src shell :tangle no
-bash
-arch-chroot /mnt
-useradd -m -U bladrome
-passwd bladrome
-exit
-#+end_src
-
-** package manager & aur
-#+begin_src shell
-chrootrun "pacman -S --noconfirm yay doas"
-chrootrun "yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save"
-chrootrun "yay -P -g"
-clear
-#+end_src
 ** archlinuxcn
 #+begin_src shell
 echo '[archlinuxcn]
 Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch' >> /mnt/etc/pacman.conf
 chrootrun "yay -Syy --noconfirm"
 chrootrun "yay -S archlinuxcn-keyring --noconfirm"
+clear
+#+end_src
+** package manager & aur
+#+begin_src shell
+chrootrun "pacman -S --noconfirm yay doas"
+chrootrun "yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save"
+chrootrun "yay -P -g"
 clear
 #+end_src
 ** zsh

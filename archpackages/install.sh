@@ -76,15 +76,15 @@ echo "127.0.0.1	localhost
 127.0.0.1	Thindrome" > /mnt/etc/hosts
 clear
 
-chrootrun "pacman -S --noconfirm yay doas"
-chrootrun "yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save"
-chrootrun "yay -P -g"
-clear
-
 echo '[archlinuxcn]
 Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch' >> /mnt/etc/pacman.conf
 chrootrun "yay -Syy --noconfirm"
 chrootrun "yay -S archlinuxcn-keyring --noconfirm"
+clear
+
+chrootrun "pacman -S --noconfirm yay doas"
+chrootrun "yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save"
+chrootrun "yay -P -g"
 clear
 
 chrootrun "yay -S --noconfirm zsh"
