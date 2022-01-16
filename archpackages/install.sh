@@ -1,5 +1,6 @@
 disco=/dev/sda
 wifi=0
+set -x
 
 mkdir -p /usr/local/share/kbd/keymaps
 echo 'include "linux-with-two-alt-keys"
@@ -22,9 +23,9 @@ timedatectl set-ntp true
 clear
 
 sgdisk --zap-all ${disco}
-sgdisk ${disco} -n=1:0:+1M   -t=1:ef02
-sgdisk ${disco} -n=2:0:+100M -t=2:8300
-sgdisk ${disco} -n=3:0:0     -t=3:8300
+sgdisk ${disco} -t=1:ef02 -n=1:0:+1M
+sgdisk ${disco} -t=2:8300 -n=2:0:+1024M
+sgdisk ${disco} -t=3:8300 -n=3:0:0
 mkfs.fat -F32 ${disco}2
 mkfs.btrfs -f -L "root"  ${disco}3
 clear
@@ -71,46 +72,46 @@ echo "127.0.0.1	localhost
 127.0.0.1	Thindrome" > /mnt/etc/hosts
 clear
 
+arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm yay doas"
+arch-chroot /mnt /bin/bash -c "yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save"
+arch-chroot /mnt /bin/bash -c "yay -P -g"
+clear
+
 echo '[archlinuxcn]
 Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch' >> /mnt/etc/pacman.conf
-arch-chroot /mnt /bin/bash -c "pacman -Syy --noconfirm"
-arch-chroot /mnt /bin/bash -c "pacman -S archlinuxcn-keyring --noconfirm"
+arch-chroot /mnt /bin/bash -c "yay -Syy --noconfirm"
+arch-chroot /mnt /bin/bash -c "yay -S archlinuxcn-keyring --noconfirm"
 clear
 
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm yay doas"
-arch-chroot /mnt /bin/bash -c "pacman --aururl "https://aur.tuna.tsinghua.edu.cn" --save"
-arch-chroot /mnt /bin/bash -c "pacman -P -g"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm zsh"
 clear
 
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm zsh"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm xorg-xinit xorg-server xf86-viedo-intel xf86-viedo-nouveau pulseaudio"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm xorg-server-xephyr sddm"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm awesome-git"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm rofi unclutter slock mousepad maim gpicview feh mpc mpd unclutter xsel slock ttf-droid picom-git"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm termite kitty"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm alsa-utils playerctl"
 clear
 
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm xorg-xinit xorg-server xf86-viedo-intel xf86-viedo-nouveau pulseaudio"
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm xorg-server-xephyr sddm"
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm awesome-git"
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm rofi unclutter slock mousepad maim gpicview feh mpc mpd unclutter xsel slock ttf-droid picom-git"
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm termite kitty"
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm alsa-utils playerctl"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm noto-fonts nerd-fonts-noto ttf-hack nerd-fonts-source-code-pro"
 clear
 
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm noto-fonts nerd-fonts-noto ttf-hack nerd-fonts-source-code-pro"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm wpa_supplicant dhcpcd"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm v2raya"
 clear
 
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm wpa_supplicant dhcpcd"
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm v2raya"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm fcitx-rime fcitx-configtools"
 clear
 
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm fcitx-rime fcitx-configtools"
-clear
-
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm polkit udisks2 ntfs-3g gvfs udevil stow"
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm glances tree"
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm python-pip"
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm zathura zathura-djvu zathura-pdf-poppler zathura-ps poppler poppler-data"
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm mpv mplayer"
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm xine-lib"
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm wget neovim unzip  pcmanfm baobab ack curl"
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm atool bsdtar djvutxt medianinfo odt2txt jq openscad highlight"
-arch-chroot /mnt /bin/bash -c "pacman -S --noconfirm firefox"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm polkit udisks2 ntfs-3g gvfs udevil stow"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm glances tree"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm python-pip"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm zathura zathura-djvu zathura-pdf-poppler zathura-ps poppler poppler-data"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm mpv mplayer"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm xine-lib"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm wget neovim unzip  pcmanfm baobab ack curl"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm atool bsdtar djvutxt medianinfo odt2txt jq openscad highlight"
+arch-chroot /mnt /bin/bash -c "yay -S --noconfirm firefox"
 arch-chroot /mnt /bin/bash -c "systemctl enable sddm"
 clear
