@@ -182,6 +182,7 @@ arch-chroot /mnt /bin/bash -c "yay -S --noconfirm xine-lib"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm wget neovim unzip  pcmanfm baobab ack curl"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm atool bsdtar djvutxt medianinfo odt2txt jq openscad highlight"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm firefox"
+arch-chroot /mnt /bin/bash -c "systemctl enable sddm"
 clear
 #+end_src
 
@@ -203,9 +204,6 @@ exit
 
 ** Config
 #+begin_src
-doas systemctl enable sddm
-doas systemctl start sddm
-
 cp -r ~/dotconfig /mnt/home/bladrome/
 cd dotconfig
 stow -d awesome -t ~ multicolor

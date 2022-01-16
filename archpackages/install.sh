@@ -112,4 +112,5 @@ arch-chroot /mnt /bin/bash -c "yay -S --noconfirm xine-lib"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm wget neovim unzip  pcmanfm baobab ack curl"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm atool bsdtar djvutxt medianinfo odt2txt jq openscad highlight"
 arch-chroot /mnt /bin/bash -c "yay -S --noconfirm firefox"
+arch-chroot /mnt /bin/bash -c "systemctl enable sddm"
 clear
