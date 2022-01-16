@@ -44,9 +44,9 @@ clear
 ** Disk partition & format
 #+begin_src shell
 sgdisk --zap-all ${disco}
-sgdisk ${disco} -t=1:ef02 -n=1:0:+1M
-sgdisk ${disco} -t=2:8300 -n=2:0:+1024M
-sgdisk ${disco} -t=3:8300 -n=3:0:0
+sgdisk ${disco} -n=1:0:+1M -t=1:ef02
+sgdisk ${disco} -n=2:0:+1024M -t=2:8300
+sgdisk ${disco} -n=3:0:0 -t=3:8300
 mkfs.fat -F32 ${disco}2
 mkfs.btrfs -f -L "root"  ${disco}3
 clear
