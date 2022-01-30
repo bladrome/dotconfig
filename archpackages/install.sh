@@ -55,7 +55,7 @@ clear
 
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 mkdir /mnt/boot/grub
-chrootrun "pacman -S grub efibootmgr os-prober --noconfirm"
+chrootrun "pacman -S btrfs-progs grub efibootmgr os-prober --noconfirm"
 if [ $EFI -eq 0 ]
 then
     chrootrun "grub-install --target=i386-pc ${DISCO}"
