@@ -89,7 +89,7 @@ echo '
 echo '
 [archlinuxcn]
 Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch' >> /mnt/etc/pacman.conf
-chrootrun "pacman -S archlinuxcn-keyring --noconfirm"
+chrootrun "pacman -Sy archlinuxcn-keyring --noconfirm"
 
 chrootrun "pacman -S --noconfirm paru doas"
 chrootrun 'paru --aururl "https://aur.tuna.tsinghua.edu.cn" --save'
