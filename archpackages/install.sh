@@ -16,7 +16,7 @@ keycode 58 = Control' > /usr/local/share/kbd/keymaps/personal.map
 echo 'KEYMAP=/usr/local/share/kbd:/keymaps/personal.map' > /etc/vconsole.conf
 loadkeys /etc/vconsole.conf
 
-if [ $wifi -ne 0 ]
+if [ $WIFI -ne 0 ]
 then
     ip link set wlan0 up
     wpa_passphrase "BSSID" "PASSWORD" > wifi.conf
