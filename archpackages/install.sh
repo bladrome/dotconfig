@@ -60,7 +60,7 @@ if [ $EFI -eq 0 ]
 then
     chrootrun "grub-install --target=i386-pc ${DISCO}"
 else
-    chrootrun "grub-install --target=x86_64-efi --efi-directory=/mnt/boot --bootloader-id=GRUB"
+    chrootrun "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB"
 fi
 chrootrun "grub-mkconfig -o /boot/grub/grub.cfg"
 
@@ -91,8 +91,8 @@ echo '
 Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch' >> /mnt/etc/pacman.conf
 chrootrun "pacman -Sy archlinuxcn-keyring --noconfirm"
 
-chrootrun "pacman -S --noconfirm paru doas"
-chrootrun 'paru --aururl "https://aur.tuna.tsinghua.edu.cn" --save'
+chrootrun "pacman -S --noconfirm yay paru doas"
+chrootrun 'yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save'
 chrootrun "paru -P -g"
 
 chrootrun "paru -S --noconfirm zsh"
