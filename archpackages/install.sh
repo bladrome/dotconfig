@@ -1,7 +1,7 @@
 set -x
 DISCO=/dev/vda
 WIFI=0
-if [ -d /sys/firmware/efi/efivars ]; then EFI=1 else EFI=0; fi
+if [ -d /sys/firmware/efi/efivars ]; then EFI=1; else EFI=0; fi
 
 chrootrun () {
     clear
@@ -89,7 +89,6 @@ echo '
 echo '
 [archlinuxcn]
 Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch' >> /mnt/etc/pacman.conf
-chrootrun "pacman -Syy --noconfirm"
 chrootrun "pacman -S archlinuxcn-keyring --noconfirm"
 
 chrootrun "pacman -S --noconfirm paru doas"
