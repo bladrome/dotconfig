@@ -60,7 +60,7 @@ if [ $EFI -eq 0 ]
 then
     chrootrun "grub-install --target=i386-pc ${DISCO}"
 else
-    chrootrun "grub-install --target=x86_64-efi ${DISCO}"
+    chrootrun "grub-install --target=x86_64-efi --efi-directory=${DISCO}"
 fi
 chrootrun "grub-mkconfig -o /boot/grub/grub.cfg"
 
