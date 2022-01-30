@@ -43,7 +43,7 @@ fi
 mkfs.fat -F32 $PARTBOOT
 mkfs.btrfs -f -L "root"  $PARTROOT
 
-echo 'Server = https://mirrors.bfsu.edu.cn/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
+echo 'Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
 pacman -Syy
 
 mount $PARTROOT /mnt
