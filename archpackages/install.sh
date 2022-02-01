@@ -1,10 +1,9 @@
 set -x
-DISCO=/dev/vda
+DISCO=/dev/nvme0n1
 WIFI=0
 if [ -d /sys/firmware/efi/efivars ]; then EFI=1; else EFI=0; fi
 
 chrootrun () {
-    clear
     arch-chroot /mnt /bin/bash -c "$@"
 }
 
@@ -16,7 +15,7 @@ keycode 58 = Control' > /usr/local/share/kbd/keymaps/personal.map
 echo 'KEYMAP=/usr/local/share/kbd:/keymaps/personal.map' > /etc/vconsole.conf
 loadkeys /etc/vconsole.conf
 
-if [ $WIFI -ne 0 ]
+if [ $wifi -ne 0 ]
 then
     ip link set wlan0 up
     wpa_passphrase "BSSID" "PASSWORD" > wifi.conf
@@ -37,8 +36,8 @@ then
 else
     sgdisk ${DISCO} -n=1:0:+2048M -t=1:ef00
     sgdisk ${DISCO} -n=2:0:0 -t=2:8300
-    PARTBOOT=${DISCO}1
-    PARTROOT=${DISCO}2
+    PARTBOOT=${DISCO}p1
+    PARTROOT=${DISCO}p2
 fi
 mkfs.fat -F32 $PARTBOOT
 mkfs.btrfs -f -L "root"  $PARTROOT
