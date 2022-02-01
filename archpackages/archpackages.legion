@@ -5,6 +5,7 @@ acpid
 adobe-source-han-sans-cn-fonts
 adobe-source-han-serif-cn-fonts
 adobe-source-han-serif-otc-fonts
+aic94xx-firmware
 alacritty
 alsa-utils
 amule
@@ -82,7 +83,6 @@ emacs-git
 enchant
 eslint
 ethtool
-exfat-utils
 fakeroot
 fcitx-configtool
 fcitx-qt5
@@ -143,8 +143,9 @@ java-commons-lang
 jdk8-openjdk
 jq
 js-beautify
+kate
 kitty
-laptop-mode-tools
+konsole
 libfido2
 libgsf
 libguestfs
@@ -161,7 +162,6 @@ linux-headers
 linux-lts
 linux-lts-headers
 linux-xanmod
-linux-xanmod-cacule
 linux-xanmod-headers
 linux-zen-headers
 lldb
@@ -213,12 +213,16 @@ noto-fonts-cjk
 noto-fonts-emoji
 npm
 ntfs-3g
+nvidia-dkms
+nvidia-prime
+nvidia-settings
 octave
 odt2txt
 onefetch
 openblas
 openbsd-netcat
 opencl-headers
+opencl-nvidia
 opendoas
 openmp
 openscad
@@ -227,8 +231,10 @@ openssh
 os-prober
 otf-font-awesome
 p7zip
+pacman
 pandoc-bin
 parallel
+paru
 patch
 pcmanfm-gtk3
 pdftk
@@ -238,6 +244,8 @@ perl-log-log4perl
 perl-tk
 picom-git
 pkgconf
+plasma-meta
+plasma-wayland-session
 playerctl
 polybar
 poppler-data
@@ -272,9 +280,6 @@ python2-pyopenssl
 qemu
 qemu-arch-extra
 qiv
-qt5-svg
-qt5-translations
-quicklisp
 r
 r-styler
 ranger
@@ -302,12 +307,14 @@ shellcheck
 shfmt
 shotwell
 slock
+smartmontools
 sox
 sshfs
 ssr
 stow
 strace
 stylelint
+sudo
 sxhkd
 sxiv
 sysstat
@@ -370,6 +377,8 @@ virt-manager
 virt-viewer
 vlc
 vsftpd
+vulkan-intel
+vulkan-radeon
 w3m
 wallutils
 weechat
@@ -384,8 +393,12 @@ xcb-util-errors
 xclip
 xdg-utils
 xf86-input-evdev
+xf86-video-amdgpu
+xf86-video-ati
 xf86-video-intel
+xf86-video-nouveau
 xf86-video-vesa
+xf86-video-vmware
 xine-lib
 xkeycaps
 xorg-bdftopcf
@@ -422,11 +435,8 @@ xorg-xlsatoms
 xorg-xlsclients
 xorg-xlsfonts
 xorg-xpr
-xorg-xprop
 xorg-xrandr
 xorg-xrefresh
-xorg-xset
-xorg-xsetroot
 xorg-xvinfo
 xorg-xwd
 xorg-xwininfo
@@ -443,5 +453,4 @@ zathura-pdf-poppler
 zathura-ps
 zip
 zram-generator
-zscroll-git
 zsh
