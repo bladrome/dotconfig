@@ -94,7 +94,9 @@ local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = "gvim"
 local browser      = "firefox"
 local guieditor    = "emacs"
+local browser      = "pcmanfm"
 local scrlocker    = "slock"
+
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
@@ -521,6 +523,8 @@ globalkeys = my_table.join(
               {description = "run browser", group = "launcher"}),
     awful.key({ modkey }, "e", function () awful.spawn(guieditor) end,
               {description = "run gui editor", group = "launcher"}),
+    awful.key({ modkey, "Shift"  }, "e", function () awful.spawn(filemanager) end,
+              {description = "run file manamger", group = "launcher"}),
 
     -- Default
     --[[ Menubar
