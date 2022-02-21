@@ -94,7 +94,7 @@ local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = "gvim"
 local browser      = "firefox"
 local guieditor    = "emacs"
-local browser      = "pcmanfm"
+local filemanager  = "pcmanfm"
 local scrlocker    = "slock"
 
 
