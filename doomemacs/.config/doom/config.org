@@ -296,10 +296,12 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (transparency 95)
 
 
-(use-package! org-bib-mode
-  :config
-  (setq org-bib-pdf-directory "~/Downloads/papers/"))
+;; (use-package! org-bib-mode
+  ;; :config
+  ;; (setq org-bib-pdf-directory "~/Downloads/papers/"))
+
 (setq org-directory "~/Documents/2022/")
+(setq org-agenda-files (list org-directory))
 (setq org-attach-id-dir (concat org-directory "attachments"))
 ;(setq org-download-image-dir (concat org-attach-id-dir "/" (format-time-string "%Y%m%d")))
 ;; (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdfxe %f"))
@@ -316,7 +318,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;; (use-package! org-special-block-extras
   ;; :hook (org-mode . org-special-block-extras-mode))
 
-(use-package! org-bib-mode)
+;; (use-package! org-bib-mode)
 (use-package! ebib)
 
 
@@ -325,8 +327,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (default-input-method "rime")
   :config
   (setq rime-disable-predicates
-        '(rime-predicate-after-alphabet-char-p
-          rime-predicate-current-input-punctuation-p
+        '(rime-predicate-current-input-punctuation-p
           rime-predicate-current-uppercase-letter-p
           rime-predicate-punctuation-line-begin-p))
   (setq rime-show-candidate 'posframe))
@@ -383,10 +384,13 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq org-ref-bibliography-notes '(concat org-directory "bibliography/notes.org")
         org-ref-default-bibliography '(concat org-directory "bibliography/references.bib")
         org-ref-pdf-directory '(concat org-directory "bibliography/bibtex-pdfs/")))
-
 (use-package org
   :init
   (setq org-export-use-babel nil)
+  :hook
+  (org-mode . turn-on-visual-line-mode)
+  :config
+
   (setq org-publish-project-alist
         '(("orgfiles"
            :base-directory "~/Documents/2022"
@@ -413,9 +417,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
            :recursive t
            :publishing-function org-publish-attachment)
           ("org" :components ("orgfiles" "images" "other"))))
-  :hook
-  (org-mode . turn-on-visual-line-mode)
-  :config
   ;; Tags with fast selection keys
   (setq org-tag-alist (quote ((:startgroup)
                               ("@office" . ?o)
