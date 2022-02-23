@@ -208,7 +208,7 @@ local netupinfo = lain.widget.net({
         if iface ~= "network off" and
            string.match(theme.weather.widget.text, "N/A")
         then
-            theme.weather.update()
+            -- theme.weather.update()
         end
 
         widget:set_markup(markup.fontfg(theme.font, "#e54c62", net_now.sent .. " "))
@@ -368,8 +368,8 @@ function theme.at_screen_connect(s)
             cpu.widget,
             fsicon,
             theme.fs.widget,
-            weathericon,
-            theme.weather.widget,
+            -- weathericon,
+            -- theme.weather.widget,
             tempicon,
             temp.widget,
             baticon,
