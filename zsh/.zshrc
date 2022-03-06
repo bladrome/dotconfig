@@ -1,7 +1,5 @@
 [[ $- != *i* ]] && return
 
-
-
 declare -A ZI
 ZI[BIN_DIR]="${HOME}/.zi/bin"
 if [[ ! -f "${ZI[BIN_DIR]}/zi.zsh" ]]; then
@@ -14,10 +12,7 @@ source "${ZI[BIN_DIR]}/zi.zsh"
 autoload -Uz _zi
 (( ${+_comps} )) && _comps[zi]=_zi
 # Z-Shell ZI Annexes
-zi light-mode for z-shell/z-a-meta-plugins annexes
-
-
-
+zi light-mode for z-shell/z-a-meta-plugins @annexes+rec
 
 alias ls='ls --color=auto'
 alias ll='ls -l'
@@ -31,7 +26,6 @@ PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.cargo/bin
 PATH=$PATH:~/node_modules/.bin
 PATH=$PATH:~/gitcode/bladrome/cvscripts
-
 
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
