@@ -6,6 +6,7 @@ pythonfile = ~/.config/offlineimap/pass.py
 [Account bladrome]
 localrepository = Local
 remoterepository = Remote
+utf8foldernames = yes
 
 [Repository Local]
 type = Maildir
@@ -17,3 +18,4 @@ sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 remotehost = imap.163.com
 remoteuser = blackwhitedoggie@163.com
 remotepasseval = get_pass()
+folderfilter = lambda foldername: foldername not in ['drafts', 'sent', 'trash']
