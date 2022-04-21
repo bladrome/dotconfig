@@ -202,7 +202,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
        ;;zig               ; C, but simpler
 
        :email
-       ;;(mu4e +org +gmail)
+       (mu4e +org)
        ;;notmuch
        ;;(wanderlust +gmail)
 
@@ -262,7 +262,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 #+begin_src elisp :tangle "~/.config/doom/config.el"
 
 (setq user-full-name "bladrome"
-      user-mail-address "blkcat@163.com")
+      user-mail-address "blackwhitedoggie@163.com")
 
 (setq package-archives
       '(("melpa" . "http://mirrors.bfsu.edu.cn/elpa/melpa/")
@@ -295,6 +295,13 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (transparency 95)
 
+(setq +mu4e-backend 'offlineimap)
+(after! mu4e
+  (setq sendmail-program (executable-find "msmtp")
+        send-mail-function #'smtpmail-send-it
+        message-sendmail-f-is-evil t
+        message-sendmail-extra-arguments '("--read-envelope-from")
+        message-send-mail-function #'message-send-mail-with-sendmail))
 
 ;; (use-package! org-bib-mode
   ;; :config
