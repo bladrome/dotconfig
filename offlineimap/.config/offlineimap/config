@@ -1,0 +1,19 @@
+
+[general]
+accounts = bladrome
+pythonfile = ~/.config/offlineimap/pass.py
+
+[Account bladrome]
+localrepository = Local
+remoterepository = Remote
+
+[Repository Local]
+type = Maildir
+localfolders = ~/mail/mailbox
+
+[Repository Remote]
+type = IMAP
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+remotehost = imap.163.com
+remoteuser = blackwhitedoggie@163.com
+remotepasseval = get_pass()
