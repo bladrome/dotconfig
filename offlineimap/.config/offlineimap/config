@@ -1,6 +1,8 @@
 [general]
 accounts = blkcat,jack
 pythonfile = ~/.config/offlineimap/pass.py
+maxsyncaccounts = 2
+autorefresh = 20
 
 [Account blkcat]
 localrepository = blkcat-Local

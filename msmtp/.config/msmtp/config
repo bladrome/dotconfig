@@ -8,6 +8,12 @@ account        blackwhitedoggie
 user           blackwhitedoggie
 host           smtp.163.com
 from           blackwhitedoggie@163.com
-passwordeval   "gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.config/.mailauthinfo.gpg"
+passwordeval   "gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.config/.mailauthinfo.gpg | head -n1 | awk '{print $2}'"
+
+account        blade_jack
+user           blade_jack
+host           smtp.163.com
+from           blade_jack@163.com
+passwordeval   "gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.config/.mailauthinfo.gpg | tail -n1 | awk '{print $2}'"
 
 account default : blackwhitedoggie
