@@ -1,21 +1,41 @@
-
 [general]
-accounts = bladrome
+accounts = blkcat,jack
 pythonfile = ~/.config/offlineimap/pass.py
 
-[Account bladrome]
-localrepository = Local
-remoterepository = Remote
+[Account blkcat]
+localrepository = blkcat-Local
+remoterepository = blkcat-Remote
 utf8foldernames = yes
 
-[Repository Local]
+[Repository blkcat-Local]
 type = Maildir
-localfolders = ~/mail/mailbox
+localfolders = ~/mail/blkcat-mailbox
 
-[Repository Remote]
+[Repository blkcat-Remote]
 type = IMAP
+ssl = true
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 remotehost = imap.163.com
 remoteuser = blackwhitedoggie@163.com
-remotepasseval = get_pass()
+remotepasseval = get_pass("blackwhitedoggie")
 folderfilter = lambda foldername: foldername not in ['drafts', 'sent', 'trash']
+realdelete = no
+
+[Account jack]
+localrepository = jack-Local
+remoterepository = jack-Remote
+utf8foldernames = yes
+
+[Repository jack-Local]
+type = Maildir
+localfolders = ~/mail/jack-mailbox
+
+[Repository jack-Remote]
+type = IMAP
+ssl = true
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+remotehost = imap.163.com
+remoteuser = blade_jack@163.com
+remotepasseval = get_pass("blade_jack")
+folderfilter = lambda foldername: foldername not in ['drafts', 'sent', 'trash']
+realdelete = no
