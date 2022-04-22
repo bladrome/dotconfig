@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: beamer attr latex
+# key: bimg
+# condition: t
+# --
+#+ATTR_LATEX: :width 0.8\textwidth
