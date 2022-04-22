@@ -7,20 +7,17 @@ adobe-source-han-serif-cn-fonts
 adobe-source-han-serif-otc-fonts
 alacritty
 alsa-utils
-amule
 ant
 anthy
 arandr
 archlinuxcn-keyring
 aria2
-ark
-asp
 aspell-en
 atool
 autoconf
 automake
 autopep8
-awesome-git
+awesome
 awesome-terminal-fonts
 axel
 azure-kinect-sensor-sdk-git
@@ -38,7 +35,9 @@ bison
 bleachbit
 blender
 blueman
+bochs
 boost
+bpftrace
 bridge-utils
 bspwm
 btrfs-progs
@@ -67,7 +66,6 @@ dhcpcd
 discount
 ditaa
 dnsmasq
-dolphin
 dos2unix
 duf
 dust
@@ -90,8 +88,7 @@ fcitx-rime
 fd
 feh
 ffmpegthumbnailer
-file
-findutils
+figlet
 firefox
 firejail
 flex
@@ -137,7 +134,6 @@ iotop
 iperf
 ipython
 ispell
-isync
 iwd
 java-commons-lang
 jdk8-openjdk
@@ -160,7 +156,7 @@ linux-headers
 linux-lts
 linux-lts-headers
 linux-xanmod
-linux-xanmod-cacule
+linux-xanmod-edge
 linux-xanmod-headers
 linux-zen-headers
 lldb
@@ -187,6 +183,7 @@ mplayer
 mpv
 msmtp-mta
 mtools
+mu
 mutt
 myrepos
 nano
@@ -214,6 +211,7 @@ npm
 ntfs-3g
 octave
 odt2txt
+offlineimap
 onefetch
 openblas
 openbsd-netcat
@@ -228,6 +226,7 @@ otf-font-awesome
 p7zip
 pandoc-bin
 parallel
+paru
 patch
 pcmanfm-gtk3
 pdftk
@@ -307,6 +306,7 @@ ssr
 stow
 strace
 stylelint
+sudo
 sxhkd
 sxiv
 sysstat
@@ -351,7 +351,7 @@ ttf-ibm-plex
 ttf-nerd-fonts-symbols
 ttf-roboto
 ttf-roboto-mono
-ttf-symbola-free
+ttf-symbola
 udevil
 uget
 unclutter
@@ -381,12 +381,13 @@ wqy-microhei
 xarchiver
 xcb-util-errors
 xclip
-xdg-utils
+xdg-user-dirs
 xf86-input-evdev
 xf86-video-intel
 xf86-video-vesa
 xine-lib
 xkeycaps
+xmake
 xorg-bdftopcf
 xorg-docs
 xorg-font-util
