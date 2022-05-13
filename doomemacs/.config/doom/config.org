@@ -53,7 +53,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
        hl-todo             ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        hydra
        ;;indent-guides     ; highlighted indent columns
-       ;;ligatures         ; ligatures and symbols to make your code pretty again
+       ligatures         ; ligatures and symbols to make your code pretty again
        ;;minimap           ; show a map of the code on the side
        (modeline +light)   ; snazzy, Atom-inspired modeline, plus API
        nav-flash           ; blink cursor line after big motions
@@ -216,7 +216,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
        :config
        literate
-       (default +bindings +smartparens))
+       (default +snippets +bindings +smartparens))
 
 #+end_src
 
@@ -332,10 +332,16 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (use-package! rime
   :custom
   (default-input-method "rime")
+  :bind
+  (:map rime-active-mode-map
+   ("<tab>" . 'rime-inline-ascii)
+   :map rime-mode-map
+   ("C-`" . 'rime-send-keybinding)
+   ("M-j" . 'rime-force-enable))
   :config
+  (setq rime-inline-ascii-trigger 'shift-l)
   (setq rime-disable-predicates
-        '(rime-predicate-current-input-punctuation-p
-          rime-predicate-current-uppercase-letter-p
+        '(rime-predicate-current-uppercase-letter-p
           rime-predicate-punctuation-line-begin-p))
   (setq rime-show-candidate 'posframe))
 
