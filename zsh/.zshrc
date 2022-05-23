@@ -26,6 +26,7 @@ PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.cargo/bin
 PATH=$PATH:~/node_modules/.bin
 PATH=$PATH:~/gitcode/bladrome/cvscripts
+source ~/tools/loadproxy.sh
 
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -68,7 +69,7 @@ else
     if [ -f "/run/media/bladrome/drome/anaconda3/etc/profile.d/conda.sh" ]; then
         . "/run/media/bladrome/drome/anaconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/run/media/bladrome/drome/anaconda3/bin:$PATH"
+        export PATH=$PATH:"/run/media/bladrome/drome/anaconda3/bin"
     fi
 fi
 unset __conda_setup
@@ -76,3 +77,9 @@ unset __conda_setup
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+#alias for npm
+alias npm="npm --registry=https://registry.npmmirror.com \
+  --cache=$HOME/.npm/.cache/cnpm \
+  --disturl=https://npmmirror.com/mirrors/node \
+  --userconfig=$HOME/.cnpmrc"
