@@ -13,7 +13,7 @@ local systray = function (s)
 					opacity = .90,
 					widget = wibox.widget.systray
 				},
-				margins = dpi(1),
+				margins = dpi(4),
 				widget = wibox.container.margin
 			},
 			bg = beautiful.bg_panel_button,
@@ -22,7 +22,7 @@ local systray = function (s)
 			border_color = beautiful.border_panel_button,
 			widget = wibox.container.background
 		},
-		margins = dpi(5),
+		margins = dpi(2),
 		widget = wibox.container.margin
 	}
 

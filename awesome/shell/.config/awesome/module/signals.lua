@@ -17,11 +17,11 @@ local function setTitlebar(client, s)
 end
 
 local set_client_icon = function (c)
-    local icon = menubar.utils.lookup_icon(c.instance)
+	local icon = menubar.utils.lookup_icon(c.instance)
     local lower_icon = menubar.utils.lookup_icon(c.instance:lower())
     --Check if the icon exists
     if icon ~= nil then
-        local new_icon = gears.surface(icon)
+		local new_icon = gears.surface(icon)
         c.icon = new_icon._native
 
     --Check if the icon exists in the lowercase variety
@@ -32,8 +32,8 @@ local set_client_icon = function (c)
     --Check if the client already has an icon. If not, give it a default.
     elseif c.icon == nil then
         local new_icon = gears.surface(menubar.utils.lookup_icon("application-default-icon"))
-        c.icon = new_icon._native
-    end
+		c.icon = new_icon._native
+	end
 end
 
 
@@ -49,14 +49,14 @@ client.connect_signal("manage", function (c)
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
+	
+	if awful.layout.suit.floating or c.floating then
+		awful.placement.centered(c)
+	end
 
-    if awful.layout.suit.floating or c.floating then
-        awful.placement.centered(c)
-    end
 
-
-    set_client_icon(c)
-    setTitlebar(c, c.first_tag.layout == awful.layout.suit.floating)
+	set_client_icon(c)
+	setTitlebar(c, c.first_tag.layout == awful.layout.suit.floating)
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
@@ -75,13 +75,13 @@ client.connect_signal("request::titlebars", function(c)
 
     awful.titlebar(c) : setup {
         { -- Left
-            {
-                awful.titlebar.widget.iconwidget(c),
-                left = dpi(6),
-                top = dpi(4),
-                bottom = dpi(4),
-                widget = wibox.container.margin
-            },
+			{
+				awful.titlebar.widget.iconwidget(c),
+				left = dpi(6),
+				top = dpi(4),
+				bottom = dpi(4),
+				widget = wibox.container.margin
+			},
             buttons = buttons,
             layout  = wibox.layout.fixed.horizontal
         },
@@ -94,43 +94,43 @@ client.connect_signal("request::titlebars", function(c)
             layout  = wibox.layout.flex.horizontal
         },
         { -- Right
-            {
-                {
-                    awful.titlebar.widget.minimizebutton(c),
-                    forced_height = dpi(16),
-                    forced_width = dpi(16),
-                    widget = wibox.container.place
-                },
-                right = dpi(6),
-                top = dpi(4),
-                bottom = dpi(4),
-                widget = wibox.container.margin
-            },
-            {
-                {
-                    awful.titlebar.widget.maximizedbutton(c),
-                    forced_height = dpi(16),
-                    forced_width = dpi(16),
-                    widget = wibox.container.place
-                },
-                right = dpi(6),
-                top = dpi(4),
-                bottom = dpi(4),
+			{
+				{
+					awful.titlebar.widget.minimizebutton(c),
+					forced_height = dpi(16),
+					forced_width = dpi(16),
+					widget = wibox.container.place
+				},
+				right = dpi(6),
+				top = dpi(4),
+				bottom = dpi(4),
+				widget = wibox.container.margin
+			},
+			{
+				{
+					awful.titlebar.widget.maximizedbutton(c),
+					forced_height = dpi(16),
+					forced_width = dpi(16),
+					widget = wibox.container.place
+				},
+				right = dpi(6),
+				top = dpi(4),
+				bottom = dpi(4),
 
-                widget = wibox.container.margin
-            },
-            {
-                {
-                    awful.titlebar.widget.closebutton (c),
-                    forced_height = dpi(16),
-                    forced_width = dpi(16),
-                    widget = wibox.container.place
-                },
-                right = dpi(6),
-                top = dpi(4),
-                bottom = dpi(4),
-                widget = wibox.container.margin
-            },
+				widget = wibox.container.margin
+			},
+			{
+				{
+					awful.titlebar.widget.closebutton (c),
+					forced_height = dpi(16),
+					forced_width = dpi(16),
+					widget = wibox.container.place
+				},
+				right = dpi(6),
+				top = dpi(4),
+				bottom = dpi(4),
+				widget = wibox.container.margin
+			},
             layout = wibox.layout.fixed.horizontal()
         },
         layout = wibox.layout.align.horizontal
@@ -148,14 +148,14 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 screen.connect_signal("arrange", function (s)
     local layout = s.selected_tag.layout.name
     for _, c in pairs(s.clients) do
-        if c.maximized then
+		if c.maximized then
             c.border_width = 0
-            awful.spawn("xprop -id " .. c.window .. " -f _COMPTON_SHADOW 32c -set _COMPTON_SHADOW 0", false)
+    		awful.spawn("xprop -id " .. c.window .. " -f _COMPTON_SHADOW 32c -set _COMPTON_SHADOW 0", false)
         elseif layout == 'floating' then
             c.border_width = 0
-               awful.spawn("xprop -id " .. c.window .. " -f _COMPTON_SHADOW 32c -set _COMPTON_SHADOW 1", false)
+   			awful.spawn("xprop -id " .. c.window .. " -f _COMPTON_SHADOW 32c -set _COMPTON_SHADOW 1", false)
         else
-            awful.spawn("xprop -id " .. c.window .. " -f _COMPTON_SHADOW 32c -set _COMPTON_SHADOW 0", false)
+    		awful.spawn("xprop -id " .. c.window .. " -f _COMPTON_SHADOW 32c -set _COMPTON_SHADOW 0", false)
             c.border_width = beautiful.border_width
         end
     end

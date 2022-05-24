@@ -25,14 +25,10 @@ local taglist = function (s)
     )
 
     -- Each screen has its own tag table.
-	-- local tag_names = {"1", "2", "✏", "4", "5", "6", "📘", "8", "9"}
-	-- local tag_names = {"①", "②", "③",  "④", "⑤", "⑥", "⑦", "⑧", "⑨"}
-	-- local tag_names = {"🌐", "🖊", "", "4", "5", "6", "7", "8", "9"}
-	local tag_names = {"爵" , "", "", "", "", "", "📘", "✑", "🎵"}
-
+	local tag_names = {"爵", "", "", "", "", ""}
 	for idx, name in ipairs(tag_names) do
 		local selected = false
-		if idx == 1 then
+		if idx == 1 then 
 			selected = true
 		end
 
@@ -52,13 +48,13 @@ local taglist = function (s)
 	return wibox.widget{
 			{
 				tags,
-				-- border_width = dpi(1),
-				-- border_color = beautiful.bg_normal_alt,
-				bg = beautiful.bg_button,
-				-- shape = gears.shape.rounded_bar,
+				--border_width = dpi(1),
+				--border_color = beautiful.bg_normal_alt,
+				--bg = beautiful.bg_button,
+				--shape = gears.shape.rounded_bar,
 				widget = wibox.container.background
 			},
-			margins = {top = dpi(2), bottom = dpi(2)},
+			margins = {top = dpi(4), bottom = dpi(4)},
 			widget = wibox.container.margin
 	}
 

@@ -3,62 +3,69 @@ local awful = require("awful")
 
 
 local clientkeys = gears.table.join(
-    -- Toggle fullscreen
+	-- Toggle fullscreen
     awful.key(
-        { modkey,},
-        "f",
+		{ modkey,},
+		"f",
         function (c)
             c.fullscreen = not c.fullscreen
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}
-    ),
+	),
 
-    -- Kill program
+	-- Kill program
     awful.key(
         { modkey},
         "q",
         function (c) c:kill()                         end,
         {description = "close", group = "client"}
-    ),
+	),
 
-    -- Swap with master
+	-- Toggle floating
     awful.key(
-        { modkey, "Control" },
-        "Return",
-        function (c) c:swap(awful.client.getmaster()) end,
+		{ modkey, "Shift" },
+		"space",
+		awful.client.floating.toggle                     ,
+        {description = "toggle floating", group = "client"}
+	),
+	-- Swap with master
+    awful.key(
+		{ modkey, "Control" },
+		"Return",
+		function (c) c:swap(awful.client.getmaster()) end,
         {description = "move to master", group = "client"}
-    ),
+	),
 
     awful.key({ modkey,},
-        "n",
+		"n",
         function (c)
             -- The client currently has the input focus, so it cannot be
             -- minimized, since minimized clients can't have the focus.
             c.minimized = true
         end ,
         {description = "minimize", group = "client"}
-    ),
+	),
     awful.key({ modkey,},
-        "m",
+		"m",
         function (c)
             c.maximized = not c.maximized
             c:raise()
         end ,
         {description = "(un)maximize", group = "client"}
-    ),
+	),
     awful.key(
-        { modkey, "Control" },
-        "m",
+		{ modkey, "Control" },
+		"m",
         function (c)
             c.maximized_vertical = not c.maximized_vertical
             c:raise()
         end ,
         {description = "(un)maximize vertically", group = "client"}
-    ),
+	),
     awful.key(
-        { modkey, "Shift"},
-        "m",
+		{ modkey, "Shift"},
+		"m",
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c:raise()

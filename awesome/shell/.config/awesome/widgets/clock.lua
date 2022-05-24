@@ -129,6 +129,7 @@ local create_clock = function(s)
 	end)
 
 	return clock_widget
+	
 end
 
 return create_clock
