@@ -5,7 +5,7 @@ local naughty = require("naughty")
 local config_dir = filesystem.get_configuration_dir()
 local default_apps = require("configurations.default-apps")
 local startup_apps = {
-	"picom -b --experimental-backends",
+	"picom",
 	"udiskie",
 	"xbacklight -set 45",
     "fcitx-autostart"

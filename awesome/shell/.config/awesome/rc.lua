@@ -40,7 +40,6 @@ end
 
 beautiful.init( gears.filesystem.get_configuration_dir() .. "/themes/default/theme.lua")
 
-terminal = "kitty"
 editor = os.getenv("EDITOR") or "emacs"
 
 modkey = "Mod4"
