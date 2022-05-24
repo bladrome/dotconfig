@@ -3,7 +3,7 @@ local awful = require("awful")
 local redshift = {}
 redshift.redshift = "/usr/bin/redshift"    -- binary path
 redshift.method = "randr"                  -- randr or vidmode
-redshift.state = 1                         -- 1 for screen dimming, 0 for none
+redshift.state = 0                         -- 1 for screen dimming, 0 for none
 
 redshift.dim = function()
     awful.util.spawn("pkill -USR1 redshift")
