@@ -353,6 +353,24 @@ local globalkeys = gears.table.join(
         {description = 'toggle systray visibility', group = 'Utility'}
     ),
     awful.key(
+        {modkey},
+        'c',
+        function ()
+          awesome.emit_signal("control-center::toggle")
+        end,
+        {description = 'toggle control center', group = 'Utility'}
+    ),
+
+    awful.key(
+        {modkey},
+        'i',
+        function ()
+          awesome.emit_signal("calendar::toggle")
+        end,
+        {description = 'toggle calendar visibility', group = 'Utility'}
+    ),
+
+    awful.key(
         {modkey, 'Control'},
         'l',
         function()

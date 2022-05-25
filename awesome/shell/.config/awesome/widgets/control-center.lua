@@ -251,6 +251,9 @@ local control_center = function (s)
 		end
 	end)
 
+	awesome.connect_signal("control-center::toggle", function ()
+		control_popup.visible = not control_popup.visible
+	end)
 
 	awesome.connect_signal("control-center::hide", function ()
 		control_popup.visible = false

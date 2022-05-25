@@ -120,6 +120,10 @@ local create_clock = function(s)
 		end
 	end)
 
+	awesome.connect_signal("calendar::toggle", function ()
+		calendar.visible = not calendar.visible
+	end)
+
 	awesome.connect_signal("calendar::show", function ()
 		calendar.visible = true
 	end)
