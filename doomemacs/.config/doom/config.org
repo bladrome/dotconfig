@@ -278,8 +278,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
       ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
       )
 
-(setq doom-theme 'lazycat-dark)
-
+(setq doom-theme 'doom-ayu-light)
 
 ;; t relative or nil
 (setq display-line-numbers-type t)
@@ -438,7 +437,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
            :publishing-function org-publish-attachment)
           ("org" :components ("orgfiles" "images" "other"))))
   ;; Tags with fast selection keys
-  (setq org-tag-alist (quote ((:startgroup)
+  (setq org-tag-alist (quote (("noexport" . ?n)
+                              (:startgroup)
                               ("@office" . ?o)
                               ("@field" . ?f)
                               (:endgroup)
