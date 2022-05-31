@@ -6,8 +6,8 @@ return {
 	-- The default applications that we will use in keybindings and widgets
 	default = {
 		-- Default terminal emulator
-		-- terminal = 'alacritty',
-		terminal = 'kitty',
+		terminal = 'alacritty',
+		-- terminal = 'kitty',
 		-- Default web browser
 		web_browser = 'firefox',
 		-- Default text editor
@@ -57,8 +57,7 @@ return {
         'unclutter -b',
         -- 'conky',
 		-- Compositor
-		'picom -b --experimental-backends --log-file ~/picomlogfile --dbus --config ' ..
-		config_dir .. '/configuration/picom.conf',
+		'picom',
 		-- Blueman applet
 		'blueman-applet',
 		-- Music server

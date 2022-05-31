@@ -8,7 +8,8 @@ local startup_apps = {
 	"picom",
 	"udiskie",
 	"xbacklight -set 45",
-    "fcitx-autostart"
+    "fcitx-autostart",
+    "variety"
     -- Add your startup programs here
 }
 
