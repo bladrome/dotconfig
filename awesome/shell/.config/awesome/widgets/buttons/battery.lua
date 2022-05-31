@@ -32,7 +32,7 @@ local last_battery_check = os.time()
 
 local update_status = function ()
 	awful.spawn.easy_async_with_shell(
-		"acpi",
+		"acpi | head -1",
 		function (stdout)
 			local state = str_split(stdout:gsub(",", ""), " ")
 			local status = state[3]:gsub("%s+", "")
