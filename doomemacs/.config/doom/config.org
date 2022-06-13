@@ -294,6 +294,14 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (transparency 95)
 
+;; org-export docs using a tempalate.docx
+(defun org-export-docx ()
+  (interactive)
+  (let ((docx-file (concat (file-name-sans-extension (buffer-file-name)) ".docx"))
+           (template-file "/home/bladrome/.config/doom/template.docx"))
+    (shell-command (format "pandoc %s -o %s --reference-doc=%s" (buffer-file-name) docx-file template-file))
+    (message "Convert finish: %s" docx-file)))
+
 (setq +mu4e-backend 'offlineimap)
 (after! mu4e
   (setq sendmail-program (executable-find "msmtp")
