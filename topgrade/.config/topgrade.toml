@@ -2,7 +2,7 @@
 #assume_yes = true
 
 # Disable specific steps - same options as the command line flag
-disable = ["emacs", "vim", "deno"]
+disable = ["emacs", "vim", "shell", "conda", "config_update", "git_repos", "myrepos"]
 
 # Ignore failures for these steps
 #ignore_failures = ["powershell"]
@@ -32,10 +32,10 @@ disable = ["emacs", "vim", "deno"]
 #set_title = false
 
 # Cleanup temporary or old files
-cleanup = true
+cleanup = false
 
 [git]
-max_concurrency = 5
+max_concurrency = 9
 # Additional git repositories to pull
 #repos = [
 #    "~/src/*/",
@@ -64,8 +64,8 @@ self_update = true
 
 [linux]
 # Arguments to pass yay when updating packages
-#yay_arguments = "--nodevel"
-#trizen_arguments = "--devel"
+# yay_arguments = "--nodevel"
+# trizen_arguments = "--devel"
 #enable_tlmgr = true
 #emerge_sync_flags = "-q"
 #emerge_update_flags = "-uDNa --with-bdeps=y world"
