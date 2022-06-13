@@ -16,13 +16,13 @@ end
 local clear_all_button = wibox.widget{
 	{
 		{
-			--{
-				--image = beautiful.icon_clear_all,
-				--resize = true,
-				--forced_height = dpi(20),
-				--forced_width = dpi(20),
-				--widget = wibox.widget.imagebox
-			--},
+			-- {
+			-- 	image = beautiful.icon_clear_all,
+			-- 	resize = true,
+			-- 	forced_height = dpi(20),
+			-- 	forced_width = dpi(20),
+			-- 	widget = wibox.widget.imagebox
+			-- },
 			{
 				text = "Clear all",
 				font = beautiful.font_extra_small,
@@ -340,6 +340,7 @@ remove_notifbox = function(box)
     end
 end
 
+notifbox_layout:insert(1, clear_all_button)
 notifbox_layout:insert(1, empty_notifbox)
 
 naughty.connect_signal("added", function(n)
