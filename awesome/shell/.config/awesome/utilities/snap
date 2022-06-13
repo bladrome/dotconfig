@@ -111,10 +111,10 @@ then
 elif [ "$1" = 'full' ];
 then
 	msg="Full screenshot saved and copied to clipboard!"
-	shot 'maim -u -m 1' "${msg}"
+	shot 'maim -u -m 5' "${msg}"
 elif [ "$1" = 'area' ];
 then
 	msg='Area screenshot saved and copied to clipboard!'
-	shot 'maim -u -s -n -m 1' "${msg}"
+	shot 'maim -u -s -n -m 5' "${msg}"
 fi
 
