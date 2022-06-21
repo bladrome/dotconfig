@@ -34,27 +34,37 @@
   ;; when gccemacs is installed.
   (setq comp-deferred-compilation nil)
   ;; Disable mode-line, It's uglily after theme changed
-  (setq-default mode-line-format nil)
-  ;;; early-init.el ends here
+  ;; (setq-default mode-line-format nil)
+  ;; early-init.el ends here
 #+end_src
 
 ** use-packages
 #+begin_src elisp 
-    (setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                             ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-                             ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
-                             ))
-    (package-initialize) ;; You might already have this line
+  (setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                           ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+                           ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+                           ))
+  (package-initialize) ;; You might already have this line
 
-    (setq use-package-always-ensure t)
-    (unless (package-installed-p 'use-package)
-      (package-install 'use-package))
-    (require 'use-package)
+  (setq use-package-always-ensure t)
+  (unless (package-installed-p 'use-package)
+    (package-install 'use-package))
+  (require 'use-package)
   (use-package auto-compile
            :config
            (auto-compile-on-load-mode)
            (auto-compile-on-save-mode))
 
+#+end_src
+
+** borg
+#+begin_src elisp :tangle no
+  (use-package borg)
+  (custom-set-variables
+   '(package-selected-packages '(borg)))
+  (if (require 'borg-elpa nil t)
+      (borg-elpa-initialize)
+    (package-initialize))
 #+end_src
 
 ** start speedup
@@ -92,8 +102,19 @@
   (load private-file t)
 #+end_src
 
+#+begin_src shell :tangle ~/.emacs.d/Makefile
+  BORG_SECONDARY_P = true
+  include $(shell find -L elpa -maxdepth 1 -regex '.*/borg-[.0-9]*' |\
+    sort | tail -n 1)/borg.mk
+#+end_src
+
 ** Vis
 *** modeline
+#+begin_src elisp
+  (use-package doom-modeline
+    :ensure t
+    :hook (after-init . doom-modeline-mode))
+#+end_src
 *** tab-bar
 #+begin_src elisp
   (setq tab-bar-new-button-show nil)
@@ -264,6 +285,13 @@ Do not saves duplicates in kill-ring
 	       (setq recentf-exclude nil)
 	       (recentf-mode 1))
 #+end_src
+*** projectile
+#+begin_src elisp
+  (use-package projectile
+    :config
+    (projectile-mode +1)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+#+END_SRC
 ** icons
 #+begin_src elisp
   (use-package all-the-icons
@@ -836,12 +864,13 @@ Copy id to clipboard.
       (message "Convert finish: %s" docx-file)))
 #+end_src
 *** auctex
-# #+begin_src elisp
-  ;; (use-package auctex
-  ;;                                         ;:config
-  ;;                                         ;	     (load "auctex.el" nil t t)
-  ;;        )
-# #+end_src
+#+begin_src elisp
+  (use-package tex
+    :defer t
+    :ensure auctex
+    :config
+    (setq TeX-auto-save t))
+#+end_src
 
 * Applications
 ** git
