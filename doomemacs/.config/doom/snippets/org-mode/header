@@ -4,6 +4,6 @@
 # key: hd
 # --
 #+title:     `(file-name-base buffer-file-name)`
-#+author:    `user-full-name`
+#+author:    bladrome
 #+startup:   show2levels
 #+include:   template.org
