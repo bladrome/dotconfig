@@ -173,7 +173,7 @@
     :config
     (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
           doom-themes-enable-italic t) ; if nil, italics is universally disabled
-    (load-theme 'doom-one t)
+    (load-theme 'doom-one-light t)
     (doom-themes-visual-bell-config)
     (setq doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
     (doom-themes-treemacs-config)
@@ -188,6 +188,27 @@
     (yas-global-mode 1))
   (use-package yasnippet-snippets)
 #+end_src
+** rime
+#+begin_src elisp
+
+  (use-package rime
+    :custom
+    (default-input-method "rime")
+    :bind
+    (:map rime-active-mode-map
+          ("<tab>" . 'rime-inline-ascii)
+          :map rime-mode-map
+          ("C-`" . 'rime-send-keybinding)
+          ("M-j" . 'rime-force-enable))
+    :config
+    (setq rime-inline-ascii-trigger 'shift-l)
+    (setq rime-disable-predicates
+          '(rime-predicate-current-uppercase-letter-p
+            rime-predicate-punctuation-line-begin-p))
+    (setq rime-show-candidate 'posframe))
+
+#+end_src
+
 ** Builtin
 
 *** y-or-n-p
@@ -270,8 +291,6 @@ Do not saves duplicates in kill-ring
   (setq ibuffer-saved-filter-groups
 	    (quote (("default"
 		     ("dired" (mode . dired-mode))
-		     ("perl" (mode . cperl-mode))
-		     ("erc" (mode . erc-mode))
 		     ("org" (mode . org-mode))
 		     ("planner" (or
 				 (name . "^\\*Calendar\\*$")
@@ -578,6 +597,10 @@ Toggle saving of minibuffer history.
     :ensure t
     :config
     (dashboard-setup-startup-hook)
+    (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
+    (setq dashboard-center-content t)
+    ;; To disable shortcut "jump" indicators for each section, set
+    (setq dashboard-show-shortcuts nil)
     (setq dashboard-items '((recents  . 5)
                             (bookmarks . 5)
                             (projects . 5)
@@ -661,6 +684,67 @@ Toggle saving of minibuffer history.
   (global-set-key (kbd "C-c o p i") 'org-id-get-create)
   (global-set-key (kbd "C-c o b") 'org-switchb)
 #+end_src
+** config
+#+begin_src elisp
+  (setq org-directory "~/Documents/2022/")
+  (setq org-agenda-files (list org-directory))
+  (setq org-attach-id-dir (concat org-directory "attachments"))
+  (use-package org
+    :init
+    (setq org-export-use-babel nil)
+    :hook
+    (org-mode . turn-on-visual-line-mode)
+    :config
+    (add-to-list 'org-latex-packages-alist '("" "minted"))
+    (setq org-latex-listings 'minted)
+    (setq org-publish-project-alist
+          '(("orgfiles"
+             :base-directory "~/Documents/2022"
+             :base-extension "org"
+             :publishing-directory "~/org/public_html"
+             :publishing-function org-html-publish-to-html
+             :with-toc t
+             :auto-preamble t
+             :auto-sitemap
+             :sitemap-title "Notes"
+             :sitemap-sort-files
+             :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/worg.css\" />"
+             :html-preamble nil)
+            ("images"
+             :base-directory (concat org-directory "attachments")
+             :base-extension "png\\|jpg\\|webp"
+             :recursive t
+             :publishing-directory "~/org/public_html/images"
+             :publishing-function org-publish-attachment)
+            ("other"
+             :base-directory "~/other/"
+             :base-extension "css\\|el"
+             :publishing-directory "~/org/public_html/others"
+             :recursive t
+             :publishing-function org-publish-attachment)
+            ("org" :components ("orgfiles" "images" "other"))))
+    ;; Tags with fast selection keys
+    (setq org-tag-alist (quote (("noexport" . ?n)
+                                (:startgroup)
+                                ("@office" . ?o)
+                                ("@field" . ?f)
+                                (:endgroup)
+                                ("personal" . ?p)
+                                ("work" . ?w)
+                                ("cancelled" . ?c)
+                                ("read" . ?r)
+                                ("browse" . ?b)
+                                ("flagged" . ??))))
+    ;; Allow setting single tags without the menu
+    (setq org-fast-tag-selection-single-key (quote expert))
+    ;; For tag searches ignore tasks with scheduled and deadline dates
+    (setq org-agenda-tags-todo-honor-ignore-options t)
+    ;; (require 'org-bars)
+    ;; (add-hook 'org-mode-hook #'org-bars-mode)
+    (setq org-startup-folded "folded"))
+
+#+end_src
+
 ** org todo
 If you do not provide the separator bar, the last state is used as the DONE state.
 #+begin_src elisp
