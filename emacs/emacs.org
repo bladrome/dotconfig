@@ -1,4 +1,4 @@
-#+TITLE: jack
+#+TITLE: Emacs Configuration
 #+PROPERTY: header-args:elisp :noweb yes :results silent :mkdirp yes :tangle "~/.emacs.d/init.el"  :exports code
 
 * Emacs configuration
@@ -41,9 +41,14 @@
 ** use-packages
 #+begin_src elisp 
   (setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                           ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-                           ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
-                           ))
+			   ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+			   ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+			   ))
+
+  (setq package-archives '(("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
+			   ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
+			   ("nongnu" . "http://mirrors.ustc.edu.cn/elpa/nongnu/")))
+
   (package-initialize) ;; You might already have this line
 
   (setq use-package-always-ensure t)
@@ -51,10 +56,11 @@
     (package-install 'use-package))
   (require 'use-package)
   (use-package auto-compile
-           :config
-           (auto-compile-on-load-mode)
-           (auto-compile-on-save-mode))
-
+	       :config
+	       (auto-compile-on-load-mode)
+	       (auto-compile-on-save-mode))
+  ;; (use-package quelpa)
+  ;; (use-package quelpa-use-package)
 #+end_src
 
 ** borg
@@ -159,6 +165,28 @@
 #+begin_src elisp
   (use-package rainbow-mode)
   (add-hook 'prog-mode-hook 'rainbow-mode)
+#+end_src
+** doom-themes
+#+begin_src elisp
+  (use-package doom-themes
+    :ensure t
+    :config
+    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+          doom-themes-enable-italic t) ; if nil, italics is universally disabled
+    (load-theme 'doom-one t)
+    (doom-themes-visual-bell-config)
+    (setq doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
+    (doom-themes-treemacs-config)
+    ;; Corrects (and improves) org-mode's native fontification.
+    (doom-themes-org-config))
+#+end_src
+
+** doom-snippets
+#+begin_src elisp
+  (use-package yasnippet
+    :config
+    (yas-global-mode 1))
+  (use-package yasnippet-snippets)
 #+end_src
 ** Builtin
 
@@ -292,6 +320,12 @@ Do not saves duplicates in kill-ring
     (projectile-mode +1)
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 #+END_SRC
+** Font
+#+begin_src elisp
+  (add-to-list 'default-frame-alist '(font . "Droid Sans Mono-13"))
+  (set-face-attribute 'default t :font "Droid Sans Mono-13")
+#+end_src
+
 ** icons
 #+begin_src elisp
   (use-package all-the-icons
