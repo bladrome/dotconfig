@@ -1,5 +1,6 @@
-#+TITLE: Emacs Configuration
-#+PROPERTY: header-args:elisp :noweb yes :results silent :mkdirp yes :tangle "~/.emacs.d/init.el"  :exports code
+#+title: Emacs Configuration
+#+auto_tangle: t
+#+property: header-args:elisp :noweb yes :results silent :mkdirp yes :tangle "~/.emacs.d/init.el"  :exports code
 
 * Emacs configuration
 ** Early-init.el
@@ -41,26 +42,45 @@
 ** use-packages
 #+begin_src elisp 
   (setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-			   ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-			   ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
-			   ))
+           ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+           ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+           ))
 
   (setq package-archives '(("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
-			   ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
-			   ("nongnu" . "http://mirrors.ustc.edu.cn/elpa/nongnu/")))
+           ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
+           ("nongnu" . "http://mirrors.ustc.edu.cn/elpa/nongnu/")))
 
   (package-initialize) ;; You might already have this line
 
   (setq use-package-always-ensure t)
   (unless (package-installed-p 'use-package)
     (package-install 'use-package))
+
+  (use-package benchmark-init 
+    :init (benchmark-init/activate) 
+    :hook (after-init . benchmark-init/deactivate))
+
+  (eval-and-compile 
+    (setq use-package-always-ensure t) ;不用每个包都手动添加:ensure t关键字 
+    (setq use-package-always-defer t) ;默认都是延迟加载，不用每个包都手动添加:defer t 
+    (setq use-package-always-demand nil) 
+    (setq use-package-expand-minimally t) 
+    (setq use-package-verbose t))
   (require 'use-package)
+
   (use-package auto-compile
-	       :config
-	       (auto-compile-on-load-mode)
-	       (auto-compile-on-save-mode))
+    :defer nil
+    :config
+    (auto-compile-on-load-mode)
+    (auto-compile-on-save-mode))
   ;; (use-package quelpa)
   ;; (use-package quelpa-use-package)
+
+#+end_src
+
+** debug
+#+begin_src elisp :tangle no
+  (toggle-debug-on-error)
 #+end_src
 
 ** borg
@@ -75,8 +95,6 @@
 
 ** start speedup
 #+begin_src elisp
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (linum-mode 1)
 
@@ -104,7 +122,7 @@
 ** private file
 #+begin_src elisp
   (defvar private-file nil "My private Emacs configuration")
-  (setq private-file "~/.emacs.d/private.el")
+  (setq private-file (expand-file-name "private.el" user-emacs-directory))
   (load private-file t)
 #+end_src
 
@@ -118,7 +136,7 @@
 *** modeline
 #+begin_src elisp
   (use-package doom-modeline
-    :ensure t
+    :defer nil
     :hook (after-init . doom-modeline-mode))
 #+end_src
 *** tab-bar
@@ -163,13 +181,13 @@
 #+end_src
 ** rainbow-mode
 #+begin_src elisp
-  (use-package rainbow-mode)
-  (add-hook 'prog-mode-hook 'rainbow-mode)
+  (use-package rainbow-mode
+    :config
+    (add-hook 'prog-mode-hook 'rainbow-mode))
 #+end_src
 ** doom-themes
 #+begin_src elisp
   (use-package doom-themes
-    :ensure t
     :config
     (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
           doom-themes-enable-italic t) ; if nil, italics is universally disabled
@@ -184,13 +202,13 @@
 ** doom-snippets
 #+begin_src elisp
   (use-package yasnippet
+    :defer nil
     :config
     (yas-global-mode 1))
   (use-package yasnippet-snippets)
 #+end_src
 ** rime
 #+begin_src elisp
-
   (use-package rime
     :custom
     (default-input-method "rime")
@@ -206,7 +224,6 @@
           '(rime-predicate-current-uppercase-letter-p
             rime-predicate-punctuation-line-begin-p))
     (setq rime-show-candidate 'posframe))
-
 #+end_src
 
 ** Builtin
@@ -247,7 +264,6 @@ Do not saves duplicates in kill-ring
   (setq delete-by-moving-to-trash t)
 #+end_src
 
-
 *** system coding
 #+begin_src elisp
   (prefer-coding-system 'utf-8)
@@ -283,25 +299,25 @@ Do not saves duplicates in kill-ring
 *** so-long
 #+begin_src elisp
   (use-package so-long
-	       :config
-	       (add-hook 'text-mode-hook 'global-so-long-mode))
+    :config
+    (add-hook 'text-mode-hook 'global-so-long-mode))
 #+end_src
 *** ibuffer
 #+begin_src elisp
   (setq ibuffer-saved-filter-groups
-	    (quote (("default"
-		     ("dired" (mode . dired-mode))
-		     ("org" (mode . org-mode))
-		     ("planner" (or
-				 (name . "^\\*Calendar\\*$")
-				 (name . "^diary$")
-				 (mode . muse-mode)))
-		     ("emacs" (or
-			       (name . "^\\*scratch\\*$")
-			       (name . "^\\*Messages\\*$")))))))
+        (quote (("default"
+                 ("dired" (mode . dired-mode))
+                 ("org" (mode . org-mode))
+                 ("planner" (or
+                             (name . "^\\*Calendar\\*$")
+                             (name . "^diary$")
+                             (mode . muse-mode)))
+                 ("emacs" (or
+                           (name . "^\\*scratch\\*$")
+                           (name . "^\\*Messages\\*$")))))))
   (add-hook 'ibuffer-mode-hook
-		(lambda ()
-		  (ibuffer-switch-to-saved-filter-groups "default")))
+            (lambda ()
+              (ibuffer-switch-to-saved-filter-groups "default")))
 #+end_src
 *** mouse-avoidance
 #+begin_src elisp
@@ -316,21 +332,22 @@ Do not saves duplicates in kill-ring
 *** gcmh
 #+begin_src elisp
   (use-package gcmh
-	       :config
-	       (setq gcmh-idle-delay 'auto)
-	       (setq gcmh-auto-idle-delay-factor 10)
-	       (setq gcmh-high-cons-threshold #x1000000)
-	       (gcmh-mode 1))
+    :defer nil
+    :config
+    (setq gcmh-idle-delay 'auto)
+    (setq gcmh-auto-idle-delay-factor 10)
+    (setq gcmh-high-cons-threshold #x1000000)
+    (gcmh-mode 1))
 #+end_src
 *** recentf
 #+begin_src elisp
   (use-package recentf
-	       :config
-	       (add-hook 'kill-emacs-hook #'recentf-cleanup)
-	       (setq recentf-auto-cleanup 'never) ;; disable before we start recentf!
-	       (setq recentf-max-saved-items 1000)
-	       (setq recentf-exclude nil)
-	       (recentf-mode 1))
+    :config
+    (add-hook 'kill-emacs-hook #'recentf-cleanup)
+    (setq recentf-auto-cleanup 'never) ;; disable before we start recentf!
+    (setq recentf-max-saved-items 1000)
+    (setq recentf-exclude nil)
+    (recentf-mode 1))
 #+end_src
 *** projectile
 #+begin_src elisp
@@ -355,7 +372,6 @@ Do not saves duplicates in kill-ring
     (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 
   (use-package all-the-icons-ibuffer
-    :ensure t
     :hook (ibuffer-mode . all-the-icons-ibuffer-mode))
 #+end_src
 ** dired
@@ -391,23 +407,25 @@ Toggle saving of minibuffer history.
 #+begin_src elisp
   ;; Persist history over Emacs restarts. Vertico sorts by history position.
   (use-package savehist
-	       :init
-	       (savehist-mode)
-	       :config
-	       (setq history-length 1000)
-	       (setq savehist-save-minibuffer-history 1)
-	       (setq savehist-additional-variables '(kill-ring
-						     search-ring
-						     regexp-search-ring))
-	       (setq history-delete-duplicates t)
-	       (add-hook 'on-first-input-hook 'savehist-mode))
+    :defer nil
+    :init
+    (savehist-mode)
+    :config
+    (setq history-length 1000)
+    (setq savehist-save-minibuffer-history 1)
+    (setq savehist-additional-variables '(kill-ring
+                                          search-ring
+                                          regexp-search-ring))
+    (setq history-delete-duplicates t)
+    (add-hook 'on-first-input-hook 'savehist-mode))
 #+end_src
 
 *** undo
 #+begin_src elisp
   (use-package vundo
-	     :config
-	     (setq vundo-glyph-alist vundo-unicode-symbols))
+    :demand
+    :config
+    (setq vundo-glyph-alist vundo-unicode-symbols))
 #+end_src
 
 *** ispell
@@ -435,95 +453,95 @@ Toggle saving of minibuffer history.
 在 echo 中显示有关函数或变量的信息。
 #+begin_src elisp
   (use-package eldoc
-	       :config
-	       (add-hook 'on-first-buffer-hook 'eldoc-mode))
+    :config
+    (add-hook 'on-first-buffer-hook 'eldoc-mode))
 #+end_src
 
 *** marginalia
 #+begin_src elisp
 (use-package marginalia
-  :ensure t
+  :defer nil
   :config
   (marginalia-mode))
 #+end_src
 
 *** orderless
 #+begin_src elisp
-;; Optionally use the `orderless' completion style.
-(use-package orderless
-  :init
-  ;; Configure a custom style dispatcher (see the Consult wiki)
-  ;; (setq orderless-style-dispatchers '(+orderless-dispatch)
-  ;;       orderless-component-separator #'orderless-escapable-split-on-space)
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion)))))
+  ;; Optionally use the `orderless' completion style.
+  (use-package orderless
+    :defer nil
+    :init
+    ;; Configure a custom style dispatcher (see the Consult wiki)
+    ;; (setq orderless-style-dispatchers '(+orderless-dispatch)
+    ;;       orderless-component-separator #'orderless-escapable-split-on-space)
+    (setq completion-styles '(orderless basic)
+          completion-category-defaults nil
+          completion-category-overrides '((file (styles partial-completion)))))
 #+end_src
 *** corfu
 #+begin_src elisp
   (use-package corfu
-	       :init
-	       (global-corfu-mode)
-	       :config
-	       (setq corfu-auto t)
-	       (setq corfu-cycle t)
-	       (setq corfu-quit-at-boundary t)
-	       (setq corfu-auto-prefix 2)
-	       (setq corfu-preselect-first t)
-	       (setq corfu-quit-no-match t)
-	       (setq completion-cycle-threshold 3)
+    :defer nil
+    :init
+    (global-corfu-mode)
+    :config
+    (setq corfu-auto t)
+    (setq corfu-cycle t)
+    (setq corfu-quit-at-boundary t)
+    (setq corfu-auto-prefix 2)
+    (setq corfu-preselect-first t)
+    (setq corfu-quit-no-match t)
+    (setq completion-cycle-threshold 3)
 
-	       (defun corfu-enable-always-in-minibuffer ()
-		 "Enable Corfu in the minibuffer if Vertico/Mct are not active."
-		 (unless (or (bound-and-true-p mct--active)
-			     (bound-and-true-p vertico--input))
-		   (corfu-mode 1)))
-	       (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
+    (defun corfu-enable-always-in-minibuffer ()
+      "Enable Corfu in the minibuffer if Vertico/Mct are not active."
+      (unless (or (bound-and-true-p mct--active)
+                  (bound-and-true-p vertico--input))
+        (corfu-mode 1)))
+    (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
 
-	       (add-hook 'on-first-input-hook 'global-corfu-mode)
-	       (add-hook 'on-first-input-hook 'corfu-history-mode)
-	       (add-hook 'on-first-input-hook 'corfu-indexed-mode))
+    (add-hook 'on-first-input-hook 'global-corfu-mode)
+    (add-hook 'on-first-input-hook 'corfu-history-mode)
+    (add-hook 'on-first-input-hook 'corfu-indexed-mode))
 #+end_src
 *** corfu-doc
 #+begin_src elisp
   (use-package corfu-doc
-	       :config
-	       (add-hook 'corfu-mode-hook #'corfu-doc-mode)
-	       (setq corfu-doc-delay 0.5
-		     corfu-doc-max-width 70
-		     corfu-doc-max-height 20)
-	       (with-eval-after-load 'corfu
-		 (define-key corfu-map (kbd "M-p") #'corfu-doc-scroll-down)
-		 (define-key corfu-map (kbd "M-n") #'corfu-doc-scroll-up)))
+    :config
+    (add-hook 'corfu-mode-hook #'corfu-doc-mode)
+    (setq corfu-doc-delay 0.5
+          corfu-doc-max-width 70
+          corfu-doc-max-height 20)
+    (with-eval-after-load 'corfu
+      (define-key corfu-map (kbd "M-p") #'corfu-doc-scroll-down)
+      (define-key corfu-map (kbd "M-n") #'corfu-doc-scroll-up)))
 #+end_src
 *** kind-icon
 
 #+begin_src elisp
   (use-package kind-icon
-	       :config
-	       (setq kind-icon-default-face 'corfu-default)
-	       (setq kind-icon-use-icons nil)
-	       (with-eval-after-load 'corfu
-		 (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)))
+    :config
+    (setq kind-icon-default-face 'corfu-default)
+    (setq kind-icon-use-icons nil)
+    (with-eval-after-load 'corfu
+      (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)))
 #+end_src
 
 *** consult
 #+begin_src elisp
   (use-package consult
-	       :config
-	       (add-hook 'completion-list-mode-hook 'consult-preview-at-point-mode)
-	       (global-set-key (kbd "C-x C-b") 'consult-buffer)
-	       (global-set-key (kbd "M-y") 'consult-yank-pop)
-
-	       (global-set-key (kbd "C-c f r") 'consult-recent-file)
-	       (global-set-key (kbd "C-c o o") 'consult-outline))
+    :defer nil
+    :config
+    (add-hook 'completion-list-mode-hook 'consult-preview-at-point-mode)
+    (global-set-key (kbd "C-x C-b") 'consult-buffer)
+    (global-set-key (kbd "M-y") 'consult-yank-pop)
+    (global-set-key (kbd "C-c f r") 'consult-recent-file)
+    (global-set-key (kbd "C-c o o") 'consult-outline))
 #+end_src
 
 *** embark
 #+begin_src elisp
-
 (use-package embark
-  :ensure t
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
    ("C-;" . embark-dwim)        ;; good alternative: M-.
@@ -540,7 +558,6 @@ Toggle saving of minibuffer history.
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
-  :ensure t
   :after (embark consult)
   :demand t ; only necessary if you have the hook below
   ;; if you want to have consult previews as you move around an
@@ -551,112 +568,120 @@ Toggle saving of minibuffer history.
 
 ** cape
 #+begin_src elisp
-;; Enable Corfu completion UI
-;; See the Corfu README for more configuration tips.
-
-;; Add extensions
-(use-package cape
-  ;; Bind dedicated completion commands
-  ;; Alternative prefix keys: C-c p, M-p, M-+, ...
-  :bind (("C-c p p" . completion-at-point) ;; capf
-         ("C-c p t" . complete-tag)        ;; etags
-         ("C-c p d" . cape-dabbrev)        ;; or dabbrev-completion
-         ("C-c p h" . cape-history)
-         ("C-c p f" . cape-file)
-         ("C-c p k" . cape-keyword)
-         ("C-c p s" . cape-symbol)
-         ("C-c p a" . cape-abbrev)
-         ("C-c p i" . cape-ispell)
-         ("C-c p l" . cape-line)
-         ("C-c p w" . cape-dict)
-         ("C-c p \\" . cape-tex)
-         ("C-c p _" . cape-tex)
-         ("C-c p ^" . cape-tex)
-         ("C-c p &" . cape-sgml)
-         ("C-c p r" . cape-rfc1345))
-  :init
-  ;; Add `completion-at-point-functions', used by `completion-at-point'.
-  (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  ;;(add-to-list 'completion-at-point-functions #'cape-history)
-  ;;(add-to-list 'completion-at-point-functions #'cape-keyword)
-  ;;(add-to-list 'completion-at-point-functions #'cape-tex)
-  ;;(add-to-list 'completion-at-point-functions #'cape-sgml)
-  ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345)
-  ;;(add-to-list 'completion-at-point-functions #'cape-abbrev)
-  ;;(add-to-list 'completion-at-point-functions #'cape-ispell)
-  ;;(add-to-list 'completion-at-point-functions #'cape-dict)
-  ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
-  ;;(add-to-list 'completion-at-point-functions #'cape-line)
-)
+  ;; Add extensions
+  (use-package cape
+    :defer nil
+    ;; Bind dedicated completion commands
+    ;; Alternative prefix keys: C-c p, M-p, M-+, ...
+    :bind (("C-c p p" . completion-at-point) ;; capf
+           ("C-c p t" . complete-tag)        ;; etags
+           ("C-c p d" . cape-dabbrev)        ;; or dabbrev-completion
+           ("C-c p h" . cape-history)
+           ("C-c p f" . cape-file)
+           ("C-c p k" . cape-keyword)
+           ("C-c p s" . cape-symbol)
+           ("C-c p a" . cape-abbrev)
+           ("C-c p i" . cape-ispell)
+           ("C-c p l" . cape-line)
+           ("C-c p w" . cape-dict)
+           ("C-c p \\" . cape-tex)
+           ("C-c p _" . cape-tex)
+           ("C-c p ^" . cape-tex)
+           ("C-c p &" . cape-sgml)
+           ("C-c p r" . cape-rfc1345))
+    :init
+    ;; Add `completion-at-point-functions', used by `completion-at-point'.
+    (add-to-list 'completion-at-point-functions #'cape-file)
+    (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+    ;;(add-to-list 'completion-at-point-functions #'cape-history)
+    ;;(add-to-list 'completion-at-point-functions #'cape-keyword)
+    ;;(add-to-list 'completion-at-point-functions #'cape-tex)
+    ;;(add-to-list 'completion-at-point-functions #'cape-sgml)
+    ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345)
+    ;;(add-to-list 'completion-at-point-functions #'cape-abbrev)
+    ;;(add-to-list 'completion-at-point-functions #'cape-ispell)
+    ;;(add-to-list 'completion-at-point-functions #'cape-dict)
+    ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
+    ;;(add-to-list 'completion-at-point-functions #'cape-line)
+  )
 #+end_src
 
 ** dashboard
 #+begin_src elisp
   (use-package dashboard
-    :ensure t
+    :defer nil
     :config
     (dashboard-setup-startup-hook)
     (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
     (setq dashboard-center-content t)
-    ;; To disable shortcut "jump" indicators for each section, set
-    (setq dashboard-show-shortcuts nil)
     (setq dashboard-items '((recents  . 5)
                             (bookmarks . 5)
                             (projects . 5)
                             (agenda . 5)
                             (registers . 5))))
 #+end_src
+** flycheck
+#+begin_src elisp
+  (use-package flycheck
+    :hook (after-init . global-flycheck-mode))
+#+end_src
+** which-key
+#+begin_src elisp
+  (use-package which-key
+    :defer nil
+    :config (which-key-mode))
+#+end_src
 * Programing Languages
 ** complettion
 #+begin_src elisp
 
-;;; vertico
-;; Enable vertico
-(use-package vertico
-  :init
-  (vertico-mode)
+  ;;; vertico
+  ;; Enable vertico
+  (use-package vertico
+    :defer nil
+    :init
+    (vertico-mode)
 
-  ;; Different scroll margin
-  ;; (setq vertico-scroll-margin 0)
+    ;; Different scroll margin
+    ;; (setq vertico-scroll-margin 0)
 
-  ;; Show more candidates
-  ;; (setq vertico-count 20)
+    ;; Show more candidates
+    ;; (setq vertico-count 20)
 
-  ;; Grow and shrink the Vertico minibuffer
-  ;; (setq vertico-resize t)
+    ;; Grow and shrink the Vertico minibuffer
+    ;; (setq vertico-resize t)
 
-  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
-  ;; (setq vertico-cycle t)
-  )
+    ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
+    ;; (setq vertico-cycle t)
+    )
 
 
-;; A few more useful configurations...
-(use-package emacs
-  :init
-  ;; Add prompt indicator to `completing-read-multiple'.
-  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
-  (defun crm-indicator (args)
-    (cons (format "[CRM%s] %s"
-                  (replace-regexp-in-string
-                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
-                   crm-separator)
-                  (car args))
-          (cdr args)))
-  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+  ;; A few more useful configurations...
+  (use-package emacs
+    :init
+    ;; Add prompt indicator to `completing-read-multiple'.
+    ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+    (defun crm-indicator (args)
+      (cons (format "[CRM%s] %s"
+                    (replace-regexp-in-string
+                     "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                     crm-separator)
+                    (car args))
+            (cdr args)))
+    (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
 
-  ;; Do not allow the cursor in the minibuffer prompt
-  (setq minibuffer-prompt-properties
-        '(read-only t cursor-intangible t face minibuffer-prompt))
-  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+    ;; Do not allow the cursor in the minibuffer prompt
+    (setq minibuffer-prompt-properties
+          '(read-only t cursor-intangible t face minibuffer-prompt))
+    (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
-  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
-  ;; Vertico commands are hidden in normal buffers.
-  ;; (setq read-extended-command-predicate
-  ;;       #'command-completion-default-include-p)
+    ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+    ;; Vertico commands are hidden in normal buffers.
+    ;; (setq read-extended-command-predicate
+    ;;       #'command-completion-default-include-p)
 
-  ;; Enable recursive minibuffers
-  (setq enable-recursive-minibuffers t))
+    ;; Enable recursive minibuffers
+    (setq enable-recursive-minibuffers t))
 #+end_src
 
 * Orgmode
@@ -672,7 +697,6 @@ Toggle saving of minibuffer history.
   (setq org-log-into-drawer t)
   (setq org-fast-tag-selection-single-key 'expert)
   (setq org-adapt-indentation nil)
-  (setq org-fontify-quote-and-verse-blocks t)
   (setq org-support-shift-select t)
   (setq org-treat-S-cursor-todo-selection-as-state-change nil)
   (setq org-hide-leading-stars nil)
@@ -695,7 +719,6 @@ Toggle saving of minibuffer history.
     :hook
     (org-mode . turn-on-visual-line-mode)
     :config
-    (add-to-list 'org-latex-packages-alist '("" "minted"))
     (setq org-latex-listings 'minted)
     (setq org-publish-project-alist
           '(("orgfiles"
@@ -802,8 +825,8 @@ If you do not provide the separator bar, the last state is used as the DONE stat
 ** org-auto-tangle
 #+begin_src elisp
   (use-package org-auto-tangle
-	       :defer t
-	       :hook (org-mode . org-auto-tangle-mode))
+    :defer nil
+    :hook (org-mode . org-auto-tangle-mode))
 #+end_src
 ** org-src
 默认是在右侧打开编辑 buffer ，我的屏幕小，所以我选择当前窗口打开编辑 buffer 。
@@ -895,71 +918,70 @@ Copy id to clipboard.
 ** toc-org
 #+begin_src elisp
   (use-package toc-org
-	       :config
-	       (add-hook 'org-mode-hook 'toc-org-mode))
+    :config
+    (add-hook 'org-mode-hook 'toc-org-mode))
 #+end_src
 ** org-superstar
 #+begin_src elisp
   (use-package org-superstar
-	       :config
-	       (add-hook 'org-mode-hook 'org-superstar-mode))
+    :config
+    :hook (org-mode . org-superstar-mode))
 #+end_src
 ** org-present
 #+begin_src elisp
   (use-package org-present
-	       :config
-	       (add-hook 'org-present-mode-hook (lambda ()
-						  (org-present-big)
-						  (org-display-inline-images)
-						  (org-present-hide-cursor)
-						  (org-present-read-only)
-						  (global-tab-line-mode 0)
-						  (awesome-tray-disable)))
-	       (add-hook 'org-present-mode-quit-hook (lambda ()
-						       (org-present-small)
-						       (org-remove-inline-images)
-						       (org-present-show-cursor)
-						       (org-present-read-write)
-						       (global-tab-line-mode 1)
-						       (awesome-tray-enable))))
+    :config
+    (add-hook 'org-present-mode-hook (lambda ()
+                                       (org-present-big)
+                                       (org-display-inline-images)
+                                       (org-present-hide-cursor)
+                                       (org-present-read-only)
+                                       (global-tab-line-mode 0)
+                                       (awesome-tray-disable)))
+    (add-hook 'org-present-mode-quit-hook (lambda ()
+                                            (org-present-small)
+                                            (org-remove-inline-images)
+                                            (org-present-show-cursor)
+                                            (org-present-read-write)
+                                            (global-tab-line-mode 1)
+                                            (awesome-tray-enable))))
 #+end_src
 
 ** bib
 #+begin_src elisp
+  (use-package org
+    :config (require 'org-attach))
 
-(use-package org
-  :config (require 'org-attach))
+  (use-package ebib)
 
-(use-package ebib)
-(use-package org-ref)
-
-(use-package citar
-  :bind (("C-c ]" . citar-insert-citation)
-         :map minibuffer-local-map
-         ("M-b" . citar-insert-preset))
-  :custom
-  (citar-bibliography '("~/Documents/2022/papertii.bib")))
+  (use-package citar
+    :bind (("C-c ]" . citar-insert-citation)
+           :map minibuffer-local-map
+           ("M-b" . citar-insert-preset))
+    :custom
+    (citar-bibliography '("~/Documents/2022/papertii.bib")))
 
 
-(use-package helm)
-(use-package helm-bibtex)
+  (use-package helm
+    :defer nil)
+  (use-package helm-bibtex)
 
-(use-package org-ref
-  :config
-  (require 'bibtex)
-  (setq bibtex-autokey-year-length 4
-	bibtex-autokey-name-year-separator "-"
-	bibtex-autokey-year-title-separator "-"
-	bibtex-autokey-titleword-separator "-"
-	bibtex-autokey-titlewords 2
-	bibtex-autokey-titlewords-stretch 1
-	bibtex-autokey-titleword-length 5)
-
-  (require 'org-ref)
-  (require 'org-ref-helm)
-  (define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link)
-  )
-(setq bibtex-completion-bibliography '("/home/bladrome/Documents/2022/papertii.bib"))
+  (use-package org-ref
+    :defer nil
+    :config
+    (require 'bibtex)
+    (setq bibtex-autokey-year-length 4
+          bibtex-autokey-name-year-separator "-"
+          bibtex-autokey-year-title-separator "-"
+          bibtex-autokey-titleword-separator "-"
+          bibtex-autokey-titlewords 2
+          bibtex-autokey-titlewords-stretch 1
+          bibtex-autokey-titleword-length 5)
+    (require 'org-ref)
+    (require 'org-ref-helm)
+    (define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link)
+    )
+  (setq bibtex-completion-bibliography '("/home/bladrome/Documents/2022/papertii.bib"))
 
 #+end_src
 *** consult-bibtex
@@ -994,11 +1016,11 @@ Copy id to clipboard.
 ** git
 #+begin_src elisp
   (use-package magit
-         :config
-         (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-topleft-v1)
-         (magit-add-section-hook 'magit-status-sections-hook
-                     'magit-insert-modules
-                     'magit-insert-unpulled-from-upstream))
+    :config
+    (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-topleft-v1)
+    (magit-add-section-hook 'magit-status-sections-hook
+                            'magit-insert-modules
+                            'magit-insert-unpulled-from-upstream))
 #+end_src
 ** eshell
 #+begin_src elisp
@@ -1007,26 +1029,25 @@ Copy id to clipboard.
 *** eshell buffer
 #+begin_src elisp
   (add-to-list 'display-buffer-alist
-	       '("*eshell*"
-		 (display-buffer-reuse-window
-		  display-buffer-in-side-window)
-		 (side . bottom)
-		 (window-height . 0.3)
-		 (slot . 1)
-		 (window-parameters
-		  (mode-line-format . none)
-		  (tab-line-format . none))))
+               '("*eshell*"
+                 (display-buffer-reuse-window
+                  display-buffer-in-side-window)
+                 (side . bottom)
+                 (window-height . 0.3)
+                 (slot . 1)
+                 (window-parameters
+                  (mode-line-format . none)
+                  (tab-line-format . none))))
 #+end_src
 *** pdf tools
 
 
 #+begin_src elisp
-(use-package pdf-tools
-  :config
-  (pdf-tools-install)
-  (setq pdf-view-resize-factor 1.1)
-  (setq-default pdf-view-display-size 'fit-page)
-  )
+  (use-package pdf-tools
+    :config
+    (pdf-tools-install)
+    (setq pdf-view-resize-factor 1.1)
+    (setq-default pdf-view-display-size 'fit-page))
 
 #+end_src
 *** pdf-view
