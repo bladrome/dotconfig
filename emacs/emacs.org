@@ -96,6 +96,7 @@
 ** start speedup
 #+begin_src elisp
   (scroll-bar-mode -1)
+  (menu-bar-mode -1)
   (linum-mode 1)
 
   (setq auto-mode-case-fold nil)
@@ -173,17 +174,16 @@
 		     (t
 		      :foreground "#FFFFFF"))
 		   'face-override-spec)
-  (add-hook 'after-init-hook 'window-divider-mode)
+  (add-hook 'after-init-hook #'window-divider-mode)
 #+end_src
 ** info-colors
 #+begin_src elisp
-  (add-hook 'Info-selection-hook 'info-colors-fontify-node)
+  (add-hook 'Info-selection-hook #'info-colors-fontify-node)
 #+end_src
 ** rainbow-mode
 #+begin_src elisp
   (use-package rainbow-mode
-    :config
-    (add-hook 'prog-mode-hook 'rainbow-mode))
+    :hook (prog-mode . rainbow-mode))
 #+end_src
 ** doom-themes
 #+begin_src elisp
@@ -210,6 +210,7 @@
 ** rime
 #+begin_src elisp
   (use-package rime
+    :defer nil
     :custom
     (default-input-method "rime")
     :bind
@@ -276,7 +277,7 @@ Do not saves duplicates in kill-ring
   (setq show-paren-style 'mixed
 	show-paren-when-point-inside-paren t
 	show-paren-when-point-in-periphery t)
-  (add-hook 'text-mode-hook 'show-paren-mode)
+  (add-hook 'text-mode-hook #'show-paren-mode)
 #+end_src
 
 *** autorevert
@@ -299,8 +300,7 @@ Do not saves duplicates in kill-ring
 *** so-long
 #+begin_src elisp
   (use-package so-long
-    :config
-    (add-hook 'text-mode-hook 'global-so-long-mode))
+    :hook (text-mode . global-so-long-mode))
 #+end_src
 *** ibuffer
 #+begin_src elisp
@@ -358,8 +358,8 @@ Do not saves duplicates in kill-ring
 #+END_SRC
 ** Font
 #+begin_src elisp
-  (add-to-list 'default-frame-alist '(font . "Droid Sans Mono-13"))
-  (set-face-attribute 'default t :font "Droid Sans Mono-13")
+  (add-to-list 'default-frame-alist '(font . "Roboto Mono-15"))
+  (set-face-attribute 'default t :font "Roboto Mono-15")
 #+end_src
 
 ** icons
@@ -368,11 +368,10 @@ Do not saves duplicates in kill-ring
     :if (display-graphic-p))
 
   (use-package all-the-icons-dired
-    :config
-    (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+    :hook (dired-mode . all-the-icons-dired-mode))
 
   (use-package all-the-icons-ibuffer
-    :hook (ibuffer-mode . all-the-icons-ibuffer-mode))
+    :hook (dired-mode . all-the-icons-ibuffer-mode))
 #+end_src
 ** dired
 *** files
@@ -400,7 +399,7 @@ Do not saves duplicates in kill-ring
 *** save place
 This means when you visit a file, point goes to the last place where it was when you previously visited the same file.
 #+begin_src elisp
-  (add-hook 'on-first-file-hook 'save-place-mode)
+  (add-hook 'on-first-file-hook #'save-place-mode)
 #+end_src
 *** save hist
 Toggle saving of minibuffer history.
@@ -417,7 +416,7 @@ Toggle saving of minibuffer history.
                                           search-ring
                                           regexp-search-ring))
     (setq history-delete-duplicates t)
-    (add-hook 'on-first-input-hook 'savehist-mode))
+    (add-hook 'on-first-input-hook #'savehist-mode))
 #+end_src
 
 *** undo
@@ -500,9 +499,9 @@ Toggle saving of minibuffer history.
         (corfu-mode 1)))
     (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
 
-    (add-hook 'on-first-input-hook 'global-corfu-mode)
-    (add-hook 'on-first-input-hook 'corfu-history-mode)
-    (add-hook 'on-first-input-hook 'corfu-indexed-mode))
+    (add-hook 'on-first-input-hook #'global-corfu-mode)
+    (add-hook 'on-first-input-hook #'corfu-history-mode)
+    (add-hook 'on-first-input-hook #'corfu-indexed-mode))
 #+end_src
 *** corfu-doc
 #+begin_src elisp
@@ -683,6 +682,13 @@ Toggle saving of minibuffer history.
     ;; Enable recursive minibuffers
     (setq enable-recursive-minibuffers t))
 #+end_src
+** Smex
+#+begin_src elisp
+  (use-package smex)
+  (use-package ivy)
+  (use-package counsel)
+
+#+end_src
 
 * Orgmode
 ** Better Default
@@ -710,61 +716,61 @@ Toggle saving of minibuffer history.
 #+end_src
 ** config
 #+begin_src elisp
-  (setq org-directory "~/Documents/2022/")
-  (setq org-agenda-files (list org-directory))
-  (setq org-attach-id-dir (concat org-directory "attachments"))
-  (use-package org
-    :init
-    (setq org-export-use-babel nil)
-    :hook
-    (org-mode . turn-on-visual-line-mode)
-    :config
-    (setq org-latex-listings 'minted)
-    (setq org-publish-project-alist
-          '(("orgfiles"
-             :base-directory "~/Documents/2022"
-             :base-extension "org"
-             :publishing-directory "~/org/public_html"
-             :publishing-function org-html-publish-to-html
-             :with-toc t
-             :auto-preamble t
-             :auto-sitemap
-             :sitemap-title "Notes"
-             :sitemap-sort-files
-             :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/worg.css\" />"
-             :html-preamble nil)
-            ("images"
-             :base-directory (concat org-directory "attachments")
-             :base-extension "png\\|jpg\\|webp"
-             :recursive t
-             :publishing-directory "~/org/public_html/images"
-             :publishing-function org-publish-attachment)
-            ("other"
-             :base-directory "~/other/"
-             :base-extension "css\\|el"
-             :publishing-directory "~/org/public_html/others"
-             :recursive t
-             :publishing-function org-publish-attachment)
-            ("org" :components ("orgfiles" "images" "other"))))
-    ;; Tags with fast selection keys
-    (setq org-tag-alist (quote (("noexport" . ?n)
-                                (:startgroup)
-                                ("@office" . ?o)
-                                ("@field" . ?f)
-                                (:endgroup)
-                                ("personal" . ?p)
-                                ("work" . ?w)
-                                ("cancelled" . ?c)
-                                ("read" . ?r)
-                                ("browse" . ?b)
-                                ("flagged" . ??))))
-    ;; Allow setting single tags without the menu
-    (setq org-fast-tag-selection-single-key (quote expert))
-    ;; For tag searches ignore tasks with scheduled and deadline dates
-    (setq org-agenda-tags-todo-honor-ignore-options t)
-    ;; (require 'org-bars)
-    ;; (add-hook 'org-mode-hook #'org-bars-mode)
-    (setq org-startup-folded "folded"))
+      (setq org-directory "~/Documents/2022/")
+      (setq org-agenda-files (list org-directory))
+      (setq org-attach-id-dir (concat org-directory "attachments"))
+      (use-package org
+        :init
+        (setq org-export-use-babel nil)
+        :hook
+        (org-mode . turn-on-visual-line-mode)
+        :config
+        (setq org-latex-listings 'minted)
+        (setq org-publish-project-alist
+              '(("orgfiles"
+                 :base-directory "~/Documents/2022"
+                 :base-extension "org"
+                 :publishing-directory "~/org/public_html"
+                 :publishing-function org-html-publish-to-html
+                 :with-toc t
+                 :auto-preamble t
+                 :auto-sitemap
+                 :sitemap-title "Notes"
+                 :sitemap-sort-files
+                 :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/worg.css\" />"
+                 :html-preamble nil)
+                ("images"
+                 :base-directory (concat org-directory "attachments")
+                 :base-extension "png\\|jpg\\|webp"
+                 :recursive t
+                 :publishing-directory "~/org/public_html/images"
+                 :publishing-function org-publish-attachment)
+                ("other"
+                 :base-directory "~/other/"
+                 :base-extension "css\\|el"
+                 :publishing-directory "~/org/public_html/others"
+                 :recursive t
+                 :publishing-function org-publish-attachment)
+                ("org" :components ("orgfiles" "images" "other"))))
+        ;; Tags with fast selection keys
+        (setq org-tag-alist (quote (("noexport" . ?n)
+                                    (:startgroup)
+                                    ("@office" . ?o)
+                                    ("@field" . ?f)
+                                    (:endgroup)
+                                    ("personal" . ?p)
+                                    ("work" . ?w)
+                                    ("cancelled" . ?c)
+                                    ("read" . ?r)
+                                    ("browse" . ?b)
+                                    ("flagged" . ??))))
+        ;; Allow setting single tags without the menu
+        (setq org-fast-tag-selection-single-key (quote expert))
+        ;; For tag searches ignore tasks with scheduled and deadline dates
+        (setq org-agenda-tags-todo-honor-ignore-options t)
+        (setq org-startup-folded "folded")
+        (setq org-export-async-debug nil)
+        :hook (org-mode . org-indent-mode))
 
 #+end_src
 
@@ -1005,11 +1011,14 @@ Copy id to clipboard.
 #+end_src
 *** auctex
 #+begin_src elisp
-  (use-package tex
-    :defer t
-    :ensure auctex
-    :config
-    (setq TeX-auto-save t))
+    (use-package auctex
+      :defer nil)
+
+    (use-package tex
+      :defer nil
+      :ensure auctex
+      :config
+      (setq TeX-auto-save t))
 #+end_src
 
 * Applications
@@ -1069,5 +1078,34 @@ Copy id to clipboard.
       (define-key pdf-view-mode-map (kbd "y") 'pdf-view-kill-ring-save)
       (define-key pdf-view-mode-map (kbd "G") 'pdf-view-goto-page)
       (define-key pdf-view-mode-map [remap pdf-misc-print-document] 'mrb/pdf-misc-print-pages))
+#+end_src
+** custom
+#+begin_src eslip
+  (setq make-backup-files nil)
+  (defun org-export-docx ()
+  (interactive)
+  (let ((docx-file (concat (file-name-sans-extension (buffer-file-name)) ".docx"))
+           (template-file "/home/bladrome/.config/doom/template.docx"))
+    (shell-command (format "pandoc %s -o %s --reference-doc=%s" (buffer-file-name) docx-file template-file))
+    (message "Convert finish: %s" docx-file)))
+#+end_src
+
+
+
+* Exp
+#+begin_src elisp
+  (setq doom-theme nil)
+  (add-to-list 'load-path
+               "~/gitcode/nano-emacs/")
+  (require 'nano-base-colors)
+  (require 'nano-faces)
+  (require 'nano)
+  (require 'nano-theme)
+  (require 'nano-theme-dark)
+  (require 'nano-modeline)
+  (require 'nano-counsel)
+  (require 'nano-layout)
+  (require 'nano-defaults)
+  (menu-bar-mode -1)
 #+end_src
 
