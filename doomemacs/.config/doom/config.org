@@ -271,8 +271,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
         ("org"   . "http://mirrors.bfsu.edu.cn/elpa/org/")
         ("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
 
-(setq doom-font (font-spec :family "Fira Mono" :size 19)
-      doom-serif-font (font-spec :family "Fira Mono" :size 20)
+(setq doom-font (font-spec :family "Roboto Mono" :size 19)
+      doom-serif-font (font-spec :family "Roboto Mono" :size 20)
       ;; doom-variable-pitch-font (font-spec :family "SourceHanSerifCN")
       doom-unicode-font (font-spec :family "SourceHanSerifCN")
       ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
@@ -317,8 +317,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (setq org-directory "~/Documents/2022/")
 (setq org-agenda-files (list org-directory))
 (setq org-attach-id-dir (concat org-directory "attachments"))
-;(setq org-download-image-dir (concat org-attach-id-dir "/" (format-time-string "%Y%m%d")))
-;; (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdfxe %f"))
+(setq org-download-image-dir (concat org-attach-id-dir "/" (format-time-string "%Y%m%d")))
+(setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdfxe %f"))
 
 (after! dired
   (setq dired-listing-switches "-aBhl  --group-directories-first"
