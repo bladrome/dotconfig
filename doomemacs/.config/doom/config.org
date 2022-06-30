@@ -318,7 +318,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (setq org-agenda-files (list org-directory))
 (setq org-attach-id-dir (concat org-directory "attachments"))
 (setq org-download-image-dir (concat org-attach-id-dir "/" (format-time-string "%Y%m%d")))
-(setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdfxe %f"))
+(setq org-latex-pdf-process (list "latexmk -xelatex -bibtex- -shell-escape -f %f"))
 
 (after! dired
   (setq dired-listing-switches "-aBhl  --group-directories-first"
@@ -413,7 +413,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   :config
   (add-to-list 'org-latex-packages-alist '("" "minted"))
   (setq org-latex-listings 'minted)
-  (setq org-latex-pdf-process (list "latexmk -shell-escape -biber -f -pdf %f"))
+  ;; (setq org-latex-pdf-process (list "latexmk -xelatex -shell-escape -f -pdf %f"))
   ;; (setq org-latex-pdf-process
   ;;       '("xelatex -shell-escape -bibtex -interaction nonstopmode -output-directory %o %f"
   ;;         "xelatex -shell-escape -bibtex -interaction nonstopmode -output-directory %o %f"
