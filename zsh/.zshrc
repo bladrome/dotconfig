@@ -1,25 +1,15 @@
 [[ $- != *i* ]] && return
 
-declare -A ZI
-ZI[BIN_DIR]="${HOME}/.zi/bin"
-if [[ ! -f "${ZI[BIN_DIR]}/zi.zsh" ]]; then
-  print -P "%F{33}▓▒░ %F{160}Installing interactive feature-rich plugin manager (%F{33}z-shell/zi%F{160})…%f"
-  command mkdir -p "${ZI[BIN_DIR]}" && command chmod g-rwX "${ZI[BIN_DIR]}"
-  command git clone -q https://github.com/z-shell/zi.git "${ZI[BIN_DIR]}" && \
-  print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || print -P "%F{160}▓▒░ The clone has failed.%f%b"
-fi
-source "${ZI[BIN_DIR]}/zi.zsh"
-autoload -Uz _zi
-(( ${+_comps} )) && _comps[zi]=_zi
-# Z-Shell ZI Annexes
-zi light-mode for z-shell/z-a-meta-plugins @annexes+rec
-
-alias ls='ls --color=auto'
-alias ll='ls -l'
+alias ls='ls --color'
+export EDITOR='nvim'
 alias vim='nvim'
 alias ca='conda activate'
-export EDITOR='nvim'
-PATH=$PATH:/usr/local/texlive/2019/bin/x86_64-linux
+#alias for npm
+alias npm="npm --registry=https://registry.npmmirror.com \
+  --cache=$HOME/.npm/.cache/cnpm \
+  --disturl=https://npmmirror.com/mirrors/node \
+  --userconfig=$HOME/.cnpmrc"
+
 PATH=$PATH:~/.config/emacs/bin
 PATH=$PATH:~/tools
 PATH=$PATH:~/.local/bin
@@ -29,36 +19,50 @@ PATH=$PATH:~/gitcode/bladrome/cvscripts
 source ~/tools/loadproxy.sh
 
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# https://wiki.zshell.dev/docs/getting_started/installation#-manual-setup
+typeset -Ag ZI
+export ZI[HOME_DIR]="${HOME}/.zi"
+export ZI[BIN_DIR]="${ZI[HOME_DIR]}/bin"
+command mkdir -p "$ZI[BIN_DIR]"
+
+if [[ ! -f "${ZI[BIN_DIR]}/zi.zsh" ]]; then
+  chown -R "$(whoami)" "$ZI[HOME_DIR]"
+  chmod -R go-w "$ZI[HOME_DIR]"
+  git clone --depth 1 https://github.com/z-shell/zi.git "$ZI[BIN_DIR]"
 fi
 
-zi ice depth=1; zi light romkatv/powerlevel10k
+typeset -A ZI
+ZI[BIN_DIR]="${HOME}/.zi/bin"
+source "${ZI[BIN_DIR]}/zi.zsh"
 
-zi light zpm-zsh/material-colors
+autoload -Uz _zi
+(( ${+_comps} )) && _comps[zi]=_zi
 
-zi light z-shell/z-a-meta-plugins
-zi for annexes zsh-users+fast ext-git console-tools fuzzy
 
-zi ice lucid wait='1'
-zi light skywind3000/z.lua
-zi light Aloxaf/fzf-tab
+# zi self-update
 
+zi light-mode for \
+ z-shell/z-a-meta-plugins skip'F-Sy-H' \
+ @annexes \
+ @ext-git \
+ @fuzzy
+
+
+zi light zsh-users/zsh-autosuggestions
+zi light zsh-users/zsh-completions
+
+zi pack for dircolors-material
+zi light dircolors-material
+zi ice as"command" from"gh-r" \
+  atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+  atpull"%atclone" src"init.zsh"
+zi light starship/starship
 
 zi snippet OMZL::clipboard.zsh
 zi snippet OMZL::termsupport.zsh
 zi snippet OMZL::key-bindings.zsh
 zi snippet OMZL::history.zsh
 
-zinit snippet OMZL::clipboard.zsh
-zinit snippet OMZL::key-bindings.zsh
-zinit snippet OMZL::history.zsh
-
-
-bindkey ',' autosuggest-accept
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -74,12 +78,3 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-#alias for npm
-alias npm="npm --registry=https://registry.npmmirror.com \
-  --cache=$HOME/.npm/.cache/cnpm \
-  --disturl=https://npmmirror.com/mirrors/node \
-  --userconfig=$HOME/.cnpmrc"
