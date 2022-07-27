@@ -242,6 +242,9 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! rime)
 (package! valign)
 
+(package! nano-theme)
+(package! nano-modeline)
+
 (package! lazycat-theme
  :recipe (:host github :repo "manateelazycat/lazycat-theme"))
 (package! org-protocol-capture-html
@@ -278,7 +281,13 @@ emacs --batch doomemacs.org -f org-babel-tangle
       ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
       )
 
-(setq doom-theme 'doom-ayu-light)
+(setq doom-theme 'doom-nova)
+
+;; (setq doom-theme nil)
+;; (require 'nano-theme)
+;; (nano-mode)
+;; (nano-light)
+;; ;; (nano-modeline-mode)
 
 ;; t relative or nil
 (setq display-line-numbers-type t)
