@@ -1,6 +1,7 @@
 [[ $- != *i* ]] && return
 
 alias ls='ls --color'
+alias ll='ls -al'
 export EDITOR='nvim'
 alias vim='nvim'
 alias ca='conda activate'
