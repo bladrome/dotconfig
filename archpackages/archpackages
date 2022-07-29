@@ -78,7 +78,7 @@ efibootmgr
 egl-wayland
 eigen
 elinks
-emacs-native-comp-git
+emacs-git
 enchant
 eslint
 ethtool
@@ -123,10 +123,13 @@ gvfs-mtp
 gzip
 hddtemp
 hdparm
+hexyl
 highlight
 htop
+httpie
 hunspell-en_us
 hwinfo
+hyperfine
 inkscape
 inotify-tools
 intel-media-driver
@@ -134,6 +137,7 @@ intel-ucode
 inter-font
 iotop
 iperf
+iptables
 ipython
 ispell
 isync-utf8-mailboxes
@@ -163,6 +167,7 @@ linux-xanmod-edge
 linux-xanmod-headers
 linux-zen
 linux-zen-headers
+listen1-desktop-appimage
 lldb
 llvm
 logrotate
@@ -236,6 +241,7 @@ paru
 patch
 pcmanfm-gtk3
 pdftk
+peco
 peek
 perf
 perl-file-homedir
@@ -320,6 +326,7 @@ slock
 sox
 sshfs
 ssr
+starship
 stow
 strace
 stylelint
@@ -328,6 +335,7 @@ sxhkd
 sxiv
 sysstat
 systemd-swap
+tcpdump
 tensorflow
 terminus-font
 texinfo
@@ -377,6 +385,7 @@ udevil
 udiskie
 ueberzug
 uget
+unarchiver
 unclutter
 unrar
 unzip
