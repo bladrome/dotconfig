@@ -281,7 +281,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
       ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
       )
 
-(setq doom-theme 'doom-nova)
+(setq doom-theme 'doom-henna)
 
 ;; (setq doom-theme nil)
 ;; (require 'nano-theme)

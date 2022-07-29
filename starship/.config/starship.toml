@@ -1,7 +1,7 @@
 # https://starship.rs/config/
 format = "$all$directory$character"
 
-command_timeout = 300
+command_timeout = 500
 scan_timeout = 10
 add_newline = false
 
@@ -30,7 +30,7 @@ format = "[$symbol$environment](dimmed green) "
 
 
 [directory]
-truncation_length = 8
+truncation_length = 19
 truncation_symbol = "…/"
 
 
