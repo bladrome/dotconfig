@@ -123,6 +123,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
        ;;taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        tmux                ; an API for interacting with tmux
+       tree-sitter         ; syntax and parsing, sitting in a tree...
        upload              ; map local to remote projects via ssh/ftp
 
        :os
@@ -282,7 +283,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
       )
 
 (setq doom-theme 'doom-henna)
-
 ;; (setq doom-theme nil)
 ;; (require 'nano-theme)
 ;; (nano-mode)
@@ -421,6 +421,14 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (org-mode . turn-on-visual-line-mode)
   :config
   (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (setq org-latex-minted-options
+        '(
+          ("bgcolor" "bg")
+          ("breaklines" "true")
+          ("autogobble" "true")
+          ("fontsize" "\\footnotesize")
+          )
+        )
   (setq org-latex-listings 'minted)
   ;; (setq org-latex-pdf-process (list "latexmk -xelatex -shell-escape -f -pdf %f"))
   ;; (setq org-latex-pdf-process
