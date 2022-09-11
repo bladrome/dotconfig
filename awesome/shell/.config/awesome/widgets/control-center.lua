@@ -181,10 +181,10 @@ local control_center = function (s)
 
 
 	local slider_contols = wibox.widget{
+		require("widgets.brightness-slider"),
 		layout = wibox.layout.fixed.vertical,
 		spacing = dpi(10),
 		volume_widget.slider,
-		require("widgets.brightness-slider"),
 	}
 
 
