@@ -9,6 +9,10 @@ tags
 build
 htmlcov
 
+mpd/.config/mpd/mpd.db
+mpd/.config/mpd/mpdstate
+mpd/.config/mpd/mpdsticker.sql
+
 rime/.config/fcitx/rime/luna_pinyin.userdb/
 
 ranger/.config/ranger/plugins/*py
