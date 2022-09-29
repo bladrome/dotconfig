@@ -1,0 +1,8 @@
+session_name: workspace
+windows:
+  - window_name: ranger
+    panes:
+    - ranger ~
+  - window_name: terminal
+    panes:
+    - pane
