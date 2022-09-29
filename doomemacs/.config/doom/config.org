@@ -282,12 +282,12 @@ emacs --batch doomemacs.org -f org-babel-tangle
       ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
       )
 
-(setq doom-theme 'doom-henna)
-;; (setq doom-theme nil)
-;; (require 'nano-theme)
-;; (nano-mode)
-;; (nano-light)
-;; ;; (nano-modeline-mode)
+;; (setq doom-theme 'doom-dark+)
+(setq doom-theme nil)
+(require 'nano-theme)
+(nano-mode)
+(nano-light)
+(nano-modeline-mode)
 
 ;; t relative or nil
 (setq display-line-numbers-type t)
