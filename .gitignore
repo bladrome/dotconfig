@@ -9,8 +9,11 @@ tags
 build
 htmlcov
 
+rime/.config/fcitx/rime/luna_pinyin.userdb/
+
 ranger/.config/ranger/plugins/*py
 ranger/.config/ranger/plugins/__pycache__
+
 awesome/linear/.config/awesome/widget/weather/init.lua
 awesome/floppy
 awesome/gnawesome
