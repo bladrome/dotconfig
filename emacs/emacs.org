@@ -15,9 +15,92 @@
   (setq package-enable-at-startup nil)
   ;; Do not allow loading from the package cache (same reason).
   (setq package-quickstart nil)
+
+  (setq load-prefer-newer nil)
+  ;; A second, case-insensitive pass over `auto-mode-alist' is time wasted and
+  ;; indicates misconfiguration.
+  (setq auto-mode-case-fold nil)
+
+  ;; Reduce rendering/line scan work for Emacs by not rendering cursors or regions
+  ;; in non-focused windows.
+  (setq-default cursor-in-non-selected-windows nil)
+  (setq highlight-nonselected-windows nil)
+
+  ;; Reduce rendering/line scan work for Emacs by not rendering cursors or regions
+  ;; in non-focused windows.
+  (setq-default cursor-in-non-selected-windows nil)
+  (setq highlight-nonselected-windows nil)
+
+  ;; More performant rapid scrolling over unfontified regions. May cause brief
+  ;; spells of inaccurate syntax highlighting right after scrolling, which should
+  ;; quickly self-correct.
+  (setq fast-but-imprecise-scrolling t)
+
+  ;; More performant rapid scrolling over unfontified regions. May cause brief
+  ;; spells of inaccurate syntax highlighting right after scrolling, which should
+  ;; quickly self-correct.
+  (setq fast-but-imprecise-scrolling t)
+
   ;; Prevent the glimpse of un-styled Emacs by disabling these UI elements early.
   (setq inhibit-startup-message t)
   (setq inhibit-splash-screen t)
+
+;; Faster to disable these here (before they've been initialized)
+(push '(menu-bar-lines . 0) default-frame-alist)
+(push '(tool-bar-lines . 0) default-frame-alist)
+(push '(vertical-scroll-bars) default-frame-alist)
+(when (featurep 'ns)
+  (push '(ns-transparent-titlebar . t) default-frame-alist))
+(push '(internal-border-width . 20) default-frame-alist)
+(push '(line-spacing . 10) default-frame-alist)
+
+
+;; Resizing the Emacs frame can be a terribly expensive part of changing the
+;; font. By inhibiting this, we halve startup times, particularly when we use
+;; fonts that are larger than the system default (which would resize the frame).
+(setq frame-inhibit-implied-resize t)
+
+;; The GC introduces annoying pauses and stuttering into our Emacs experience,
+;; so we use `gcmh' to stave off the GC while we're using Emacs, and provoke it
+;; when it's idle. However, if the idle delay is too long, we run the risk of
+;; runaway memory usage in busy sessions. If it's too low, then we may as well
+;; not be using gcmh at all.
+(setq gcmh-idle-delay 'auto  ; default is 15s
+      gcmh-auto-idle-delay-factor 10
+      gcmh-high-cons-threshold (* 16 1024 1024))  ; 16mb
+
+;; Emacs "updates" its ui more often than it needs to, so slow it down slightly
+(setq idle-update-delay 1.0)  ; default is 0.5
+
+;; Font compacting can be terribly expensive, especially for rendering icon
+;; fonts on Windows. Whether disabling it has a notable affect on Linux and Mac
+;; hasn't been determined, but do it anyway, just in case. This increases memory
+;; usage, however!
+(setq inhibit-compacting-font-caches t)
+
+;; PGTK builds only: this timeout adds latency to frame operations, like
+;; `make-frame-invisible', which are frequently called without a guard because
+;; it's inexpensive in non-PGTK builds. Lowering the timeout from the default
+;; 0.1 should make childframes and packages that manipulate them (like `lsp-ui',
+;; `company-box', and `posframe') feel much snappier. See emacs-lsp/lsp-ui#613.
+(setq pgtk-wait-for-event-timeout 0.001)
+
+;; Increase how much is read from processes in a single chunk (default is 4kb).
+;; This is further increased elsewhere, where needed (like our LSP module).
+(setq read-process-output-max (* 64 1024))  ; 64kb
+
+;; Introduced in Emacs HEAD (b2f8c9f), this inhibits fontification while
+;; receiving input, which should help a little with scrolling performance.
+(setq redisplay-skip-fontification-on-input t)
+
+;; Shave seconds off startup time by starting the scratch buffer in
+;; `fundamental-mode', rather than, say, `org-mode' or `text-mode', which pull
+;; in a ton of packages. `doom/open-scratch-buffer' provides a better scratch
+;; buffer anyway.
+(setq initial-major-mode 'fundamental-mode
+      initial-scratch-message nil)
+
+
   (push '(menu-bar-lines . 0) default-frame-alist)
   (push '(tool-bar-lines . 0) default-frame-alist)
   (push '(vertical-scroll-bars) default-frame-alist)
@@ -41,40 +124,40 @@
 
 ** use-packages
 #+begin_src elisp 
-  (setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-           ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-           ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
-           ))
+    (setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+             ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+             ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+             ))
 
-  (setq package-archives '(("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
-           ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
-           ("nongnu" . "http://mirrors.ustc.edu.cn/elpa/nongnu/")))
+    (setq package-archives '(("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
+             ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
+             ("nongnu" . "http://mirrors.ustc.edu.cn/elpa/nongnu/")))
+    (when (version< emacs-version "27.0")
+      (package-initialize))
 
-  (package-initialize) ;; You might already have this line
+    (setq use-package-always-ensure t)
+    (unless (package-installed-p 'use-package)
+      (package-install 'use-package))
 
-  (setq use-package-always-ensure t)
-  (unless (package-installed-p 'use-package)
-    (package-install 'use-package))
+    (use-package benchmark-init 
+      :init (benchmark-init/activate) 
+      :hook (after-init . benchmark-init/deactivate))
 
-  (use-package benchmark-init 
-    :init (benchmark-init/activate) 
-    :hook (after-init . benchmark-init/deactivate))
+    (eval-and-compile 
+      (setq use-package-always-ensure t)
+      (setq use-package-always-defer t)
+      (setq use-package-always-demand nil) 
+      (setq use-package-expand-minimally t) 
+      (setq use-package-verbose t))
+    (require 'use-package)
 
-  (eval-and-compile 
-    (setq use-package-always-ensure t) ;不用每个包都手动添加:ensure t关键字 
-    (setq use-package-always-defer t) ;默认都是延迟加载，不用每个包都手动添加:defer t 
-    (setq use-package-always-demand nil) 
-    (setq use-package-expand-minimally t) 
-    (setq use-package-verbose t))
-  (require 'use-package)
-
-  (use-package auto-compile
-    :defer nil
-    :config
-    (auto-compile-on-load-mode)
-    (auto-compile-on-save-mode))
-  ;; (use-package quelpa)
-  ;; (use-package quelpa-use-package)
+    (use-package auto-compile
+      :defer nil
+      :config
+      (auto-compile-on-load-mode)
+      (auto-compile-on-save-mode))
+    ;; (use-package quelpa)
+    ;; (use-package quelpa-use-package)
 
 #+end_src
 
@@ -97,7 +180,6 @@
 #+begin_src elisp
   (scroll-bar-mode -1)
   (menu-bar-mode -1)
-  (linum-mode 1)
 
   (setq auto-mode-case-fold nil)
 
