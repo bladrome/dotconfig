@@ -6,3 +6,12 @@ windows:
   - window_name: terminal
     panes:
     - pane
+  - window_name: ipython
+    panes:
+    - ipython
+  - window_name: T3P
+    layout: tiled
+    panes:
+    - focus: true
+    - pane
+    - pane
