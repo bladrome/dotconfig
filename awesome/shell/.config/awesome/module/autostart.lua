@@ -6,11 +6,12 @@ local config_dir = filesystem.get_configuration_dir()
 local default_apps = require("configurations.default-apps")
 local startup_apps = {
     "unclutter",
-	"picom",
-	"udiskie",
-	"xbacklight -set 45",
+    "picom",
+    "udiskie",
+    "xbacklight -set 25",
     "fcitx-autostart",
-    "variety"
+    "variety",
+    "mpd"
     -- Add your startup programs here
 }
 
@@ -29,7 +30,7 @@ local spawn_once = function (cmd)
             end
             naughty.notification({
                 app_name = 'Startup Applications',
-				image = beautiful.icon_noti_error,
+                image = beautiful.icon_noti_error,
                 title = "Error starting application",
                 message = "Error while starting " .. cmd,
                 timeout = 10,
