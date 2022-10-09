@@ -179,6 +179,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
         +hugo
         +journal
         +noter
+        +pretty
         +present)          ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        plantuml            ; diagrams for confusing people more
@@ -282,12 +283,13 @@ emacs --batch doomemacs.org -f org-babel-tangle
       ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
       )
 
-;; (setq doom-theme 'doom-dark+)
-(setq doom-theme nil)
-(require 'nano-theme)
-(nano-mode)
-(nano-light)
-(nano-modeline-mode)
+(setq doom-theme 'doom-one-light)
+;; (setq doom-theme nil)
+;; (require 'nano-theme)
+;; (nano-mode)
+;; (nano-light)
+;; (nano-dark)
+;; (nano-modeline-mode)
 
 ;; t relative or nil
 (setq display-line-numbers-type t)
@@ -324,7 +326,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   ;; (setq org-bib-pdf-directory "~/Downloads/papers/"))
 
 (setq org-directory "~/Documents/2022/")
-(setq org-agenda-files (list org-directory))
+(setq org-agenda-files (list (concat org-directory "/GTD/")))
 (setq org-attach-id-dir (concat org-directory "attachments"))
 (setq org-download-image-dir (concat org-attach-id-dir "/" (format-time-string "%Y%m%d")))
 (setq org-latex-pdf-process (list "latexmk -xelatex -bibtex- -shell-escape -f %f"))
@@ -423,10 +425,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (add-to-list 'org-latex-packages-alist '("" "minted"))
   (setq org-latex-minted-options
         '(
-          ("bgcolor" "bg")
-          ("breaklines" "true")
-          ("autogobble" "true")
-          ("fontsize" "\\footnotesize")
+          ("bgcolor" . "bg")
+          ("breaklines" . "true")
+          ("autogobble" . "true")
+          ("fontsize" . "\\footnotesize")
           )
         )
   (setq org-latex-listings 'minted)
@@ -438,12 +440,13 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 
   (setq org-publish-project-alist
-        '(("orgfiles"
-           :base-directory "~/Documents/2022"
+        `(("orgfiles"
+           :base-directory ,org-directory
            :base-extension "org"
            :publishing-directory "~/org/public_html"
            :publishing-function org-html-publish-to-html
            :with-toc t
+           :makeindex t
            :auto-preamble t
            :auto-sitemap
            :sitemap-title "Notes"
@@ -451,15 +454,15 @@ emacs --batch doomemacs.org -f org-babel-tangle
            :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/worg.css\" />"
            :html-preamble nil)
           ("images"
-           :base-directory (concat org-directory "attachments")
+           :base-directory ,(concat org-directory "attachments")
            :base-extension "png\\|jpg\\|webp"
            :recursive t
-           :publishing-directory "~/org/public_html/images"
+           :publishing-directory "~/org/public_html/attachments"
            :publishing-function org-publish-attachment)
           ("other"
-           :base-directory "~/other/"
+           :base-directory ,(concat org-directory "style")
            :base-extension "css\\|el"
-           :publishing-directory "~/org/public_html/others"
+           :publishing-directory "~/org/public_html/style"
            :recursive t
            :publishing-function org-publish-attachment)
           ("org" :components ("orgfiles" "images" "other"))))
@@ -494,8 +497,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq org-capture-templates `(
                                 ("p" "Protocal" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
                                  "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n\n\n\n%?")
-                                ("L" "Protocol Link" entry (file+headline (lambda () (concat org-directory "/" "notes_" (shell-command-to-string "date +%F__%H-%M-%S_%Z"))) "Inbox")
-                                 "* %^{Title_and_tag}\n [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n")
+                                ("L" "Protocol Link" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
+                                 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n%?")
                                 ("w" "Web site" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
                                  "* %a :website:\n\n%U %?\n\n%:initial")
                                 ("c" "Captured" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
