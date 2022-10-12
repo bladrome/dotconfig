@@ -1,4 +1,4 @@
-#+TITLE: Doomemacs
+g#+TITLE: Doomemacs
 
 
 
@@ -260,6 +260,13 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! org-bib-mode
  :recipe (:host github :repo "rougier/org-bib-mode"))
 
+(package! emacs-epc
+ :recipe (:host github :repo "kiwanami/emacs-epc"))
+(package! lsp-bridge
+ :recipe (:host github :repo "manateelazycat/lsp-bridge"
+          :files ("*.el" "*.py" "acm" "core" "langserver" "icons")))
+
+
 #+end_src
 * config
 :PROPERTIES:
@@ -364,6 +371,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq rime-show-candidate 'posframe))
 
 
+(use-package! lsp-bridge
+  :config
+  (global-lsp-bridge-mode)
+  (yas-global-mode 1))
 
 (use-package! pangu-spacing
   :config
