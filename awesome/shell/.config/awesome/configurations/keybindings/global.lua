@@ -175,18 +175,18 @@ local globalkeys = gears.table.join(
         {description = 'view next non-empty tag', group = 'tag'}
     ),
     awful.key(
-        {modkey, 'Shift'},
+        {altkey},
         'F1',
         function()
-            awful.screen.focus_relative(-1)
+            awful.screen.focus(1)
         end,
         { description = 'focus the previous screen', group = 'screen'}
     ),
     awful.key(
-        {modkey, 'Shift'},
+        {altkey},
         'F2',
         function()
-            awful.screen.focus_relative(1)
+            awful.screen.focus(2)
         end,
         { description = 'focus the next screen', group = 'screen'}
     ),
