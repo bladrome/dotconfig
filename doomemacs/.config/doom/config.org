@@ -153,7 +153,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
        ;;fsharp            ; ML stands for Microsoft's Language
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
        ;;gdscript          ; the language you waited for
-       ;;(go +lsp)         ; the hipster dialect
+       (go +lsp)           ; the hipster dialect
        ;;(graphql +lsp)    ; Give queries a REST
        ;;(haskell +lsp)    ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
@@ -264,7 +264,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
  :recipe (:host github :repo "kiwanami/emacs-epc"))
 (package! lsp-bridge
  :recipe (:host github :repo "manateelazycat/lsp-bridge"
-          :files ("*.el" "*.py" "acm" "core" "langserver" "icons")))
+          :files ("*.el" "*.py" "acm" "core" "langserver" "icons" "resources")))
 
 
 #+end_src
@@ -331,6 +331,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;; (use-package! org-bib-mode
   ;; :config
   ;; (setq org-bib-pdf-directory "~/Downloads/papers/"))
+
+(setq org-hugo-base-dir "~/quickstart")
 
 (setq org-directory "~/Documents/2022/")
 (setq org-agenda-files (list (concat org-directory "/GTD/")))
