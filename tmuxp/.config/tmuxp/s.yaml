@@ -14,3 +14,6 @@ windows:
     panes:
     - focus: true
     - pane
+  - window_name: T
+    panes:
+    - pane
