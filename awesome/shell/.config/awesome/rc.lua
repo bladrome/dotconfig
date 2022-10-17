@@ -198,10 +198,10 @@ end
 
 globalkeys = gears.table.join(globalkeys,
         awful.key(
-			{ modkey, "Control" }, 'f1',
+			{ modkey, "Control" }, 'F1',
 			function ()
 				if client.focus then
-                    client:move_to_screen()
+                    client.focus:move_to_screen()
 			   end
 			end,
 			{description = "move focused client to screen #(next)", group = "screen"}
