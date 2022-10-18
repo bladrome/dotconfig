@@ -64,18 +64,19 @@ zi snippet OMZL::termsupport.zsh
 zi snippet OMZL::key-bindings.zsh
 zi snippet OMZL::history.zsh
 
-
+# conda
+PATH=$PATH:/run/media/bladrome/drome/anaconda3/bin/
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/run/media/bladrome/drome/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/run/media/bladrome/drome/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/run/media/bladrome/drome/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH=$PATH:"/run/media/bladrome/drome/anaconda3/bin"
-    fi
-fi
-unset __conda_setup
+# __conda_setup="$('/run/media/bladrome/drome/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/run/media/bladrome/drome/anaconda3/etc/profile.d/conda.sh" ]; then
+#         . "/run/media/bladrome/drome/anaconda3/etc/profile.d/conda.sh"
+#     else
+#         export PATH=$PATH:"/run/media/bladrome/drome/anaconda3/bin"
+#     fi
+# fi
+# unset __conda_setup
 # <<< conda initialize <<<
