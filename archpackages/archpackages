@@ -42,6 +42,7 @@ boost
 bpftrace
 bridge-utils
 bspwm
+caddy
 calibre
 catdoc
 cava
@@ -73,14 +74,19 @@ downgrade
 duf
 dust
 eigen
-emacs-git
+emacs
 enchant
 eslint
 ethtool
 fakeroot
-fcitx-configtool
-fcitx-qt5
-fcitx-rime
+fcitx5
+fcitx5-chinese-addons
+fcitx5-configtool
+fcitx5-gtk
+fcitx5-material-color
+fcitx5-pinyin-zhwiki
+fcitx5-qt
+fcitx5-rime
 fd
 feh
 ffmpegthumbnailer
@@ -103,7 +109,9 @@ github-cli
 glances
 glfw-x11
 gnuplot
+go
 gobject-introspection
+gopls
 gpicview
 graphviz
 grub
@@ -116,6 +124,7 @@ hexyl
 highlight
 htop
 httpie
+hugo
 hunspell-en_us
 hwinfo
 hyperfine
@@ -172,6 +181,7 @@ mdcat
 mediainfo
 meld
 meshlab-appimage
+mkvtoolnix-cli
 mlocate
 mosh
 mousepad
@@ -199,6 +209,7 @@ nerd-fonts-fira-code
 nerd-fonts-noto
 networkmanager
 nfs-utils
+nginx
 ninja
 nm-connection-editor
 nmap
@@ -246,6 +257,7 @@ playerctl
 polybar
 poppler-data
 poppler-glib
+postgresql
 powertop
 prettier
 psutils
@@ -277,6 +289,7 @@ python-scikit-learn
 python-setuptools
 python-torchvision
 qemu-desktop
+qemu-system-aarch64
 qiv
 qt5-svg
 qt5-translations
@@ -291,6 +304,7 @@ repo
 rime-double-pinyin
 ripgrep
 ripgrep-all
+riscv-gnu-toolchain-bin
 rlwrap
 rofi
 rsync
@@ -320,6 +334,7 @@ stylelint
 sudo
 sxhkd
 sxiv
+syncthing
 sysstat
 system-config-printer
 systemd-swap
@@ -327,6 +342,7 @@ tcpdump
 tensorflow
 terminus-font
 texinfo
+texlab
 texlive-bibtexextra
 texlive-core
 texlive-fontsextra
