@@ -1,0 +1,13 @@
+session_name: monitor
+windows:
+  - window_name: monitor
+    panes:
+    - shell_command:
+        - ssh jack
+        - nvitop -m
+    - shell_command:
+        - ssh cie204b
+        - nvitop -m
+    - shell_command:
+        - ssh cie205
+        - nvitop -m
