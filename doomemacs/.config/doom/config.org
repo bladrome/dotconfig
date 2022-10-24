@@ -68,7 +68,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
        vi-tilde-fringe     ; fringe tildes to mark beyond EOB
        window-select       ; visually switch windows
        workspaces          ; tab emulation, persistence & separate workspaces
-       ;;zen               ; distraction-free coding or writing
+       zen                 ; distraction-free coding or writing
 
        :editor
        ;;evil              ; come to the dark side, we have cookies
@@ -371,8 +371,12 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq rime-inline-ascii-trigger 'shift-l)
   (setq rime-disable-predicates
         '(rime-predicate-current-uppercase-letter-p
-          rime-predicate-punctuation-line-begin-p))
-  (setq rime-show-candidate 'posframe))
+          rime-predicate-punctuation-line-begin-p
+          rime-predicate-evil-mode-p
+          rime-predicate-after-alphabet-char-p
+          rime-predicate-prog-in-code-p))
+  (setq rime-show-candidate 'posframe)
+  (setq rime-posframe-style 'vertical))
 
 
 (use-package! lsp-bridge
