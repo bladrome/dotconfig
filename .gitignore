@@ -35,3 +35,4 @@ doomemacs/.config/doom/custom.el
 
 awesome/shell/.config/awesome/configurations/settings.lua
 awesome/linear/.config/awesome/theme/wallpapers/*.png
+/mpd/.config/mpd/mpd.pid
