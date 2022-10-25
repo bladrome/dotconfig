@@ -11,6 +11,7 @@ local naughty = require("naughty")
 require("awful.hotkeys_popup.keys")
 require('awful.autofocus')
 local has_fdo, freedesktop = pcall(require, "freedesktop")
+xdg_menu = require("archmenu")
 
 -- Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -46,10 +47,12 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
+    awful.layout.suit.tile,
     awful.layout.suit.max,
-    awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
 }
+
+MAINMENU = awful.menu({ items = {{ "Applications", xdgmenu },}})
 
 -- Set wallpaper
 local function set_wallpaper(s)

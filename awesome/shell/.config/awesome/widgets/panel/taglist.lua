@@ -35,7 +35,7 @@ local taglist = function (s)
 
 		awful.tag.add(name, {
 			screen = s,
-			layout = awful.layout.suit.fair,
+			layout = awful.layout.suit.tile,
 			selected = selected,
 		})
 	end
