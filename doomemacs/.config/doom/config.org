@@ -1,4 +1,4 @@
-g#+TITLE: Doomemacs
+#+TITLE: Doomemacs
 
 
 
@@ -163,7 +163,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
        (javascript +lsp)   ; all(hope(abandon(ye(who(enter(here))))))
        julia               ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
-       latex               ; writing papers in Emacs has never been so fun
+       (latex
+        +cdlatex
+        +latexmk
+        +lsp)              ; writing papers in Emacs has never been so fun
        ;;lean              ; for folks with too much to prove
        ;;ledger            ; be audit you can be
        (lua +lsp)          ; one-based indices? one-based indices
@@ -372,11 +375,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq rime-disable-predicates
         '(rime-predicate-current-uppercase-letter-p
           rime-predicate-punctuation-line-begin-p
-          rime-predicate-evil-mode-p
-          rime-predicate-after-alphabet-char-p
           rime-predicate-prog-in-code-p))
-  (setq rime-show-candidate 'posframe)
-  (setq rime-posframe-style 'vertical))
+  (setq rime-show-candidate 'posframe))
 
 
 (use-package! lsp-bridge
