@@ -414,7 +414,6 @@ local globalkeys = gears.table.join(
     awful.key(
         { modkey },
         "r",
-        --function() awful.spawn("rofi -show drun -columns 2 -theme codeDark -no-show-icons") end
         function() awful.spawn(default_apps.app_menu, false) end,
         {description = "Application launcher", group = 'launcher'}
     )

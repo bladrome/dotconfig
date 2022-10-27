@@ -9,10 +9,7 @@ default_apps.lock_screen = "slock"
 default_apps.software_updater = "kitty --title 'System upgrade' -e sudo pacman -Syu"
 default_apps.bluetooth_manager = "kitty -e bluetoothctl"
 default_apps.network_manager = "kitty -e nmtui"
-default_apps.app_menu = "rofi -dpi " .. screen.primary.dpi ..
-						" -show drun -theme " .. config_dir ..
-						"configurations/rofi-".. beautiful.mode ..".rasi -icon-theme " ..
-						beautiful.icon_theme
+default_apps.app_menu = "rofi -show drun -theme ~/.config/rofi/config"
 default_apps.terminal = "wezterm"
 default_apps.web_browser = "firefox"
 default_apps.file_manager = "pcmanfm"
