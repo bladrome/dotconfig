@@ -4,10 +4,11 @@ configuration {
     icon-theme: "Papirus";
     font: "Hack 12";
     drun-display-format: "{name}";
-	ssh-client: "ssh";
-	ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]";
-	run-command: "{cmd}";
-	run-shell-command: "{terminal} -e {cmd}";
+    ssh-client: "ssh";
+    /* ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]"; */
+    ssh-command: "wezterm ssh {host}";
+    run-command: "{cmd}";
+    run-shell-command: "{terminal} -e {cmd}";
 }
 
 * {
