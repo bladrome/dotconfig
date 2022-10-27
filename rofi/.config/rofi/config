@@ -1,23 +1,28 @@
 configuration {
+    modes: [window, drun, ssh, combi, run];
     show-icons: true;
-    icon-theme: "Tela-dark";
-    font: "Iosevka Nerd Font 12";
-    display-drun: "";
+    icon-theme: "Papirus";
+    font: "Hack 12";
     drun-display-format: "{name}";
+	ssh-client: "ssh";
+	ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]";
+	run-command: "{cmd}";
+	run-shell-command: "{terminal} -e {cmd}";
 }
 
 * {
+    foreground: #5B60711A;
     background-color: transparent;
     background: #5B60711A;
-    background-alt: #ffffff13;
-    text-color: #D8DEE9;
+    background-alt: #13dddddd;
+    text-color: #FFFFFF;
     primary: #A3BE8C;
     urgent: #BF616A;
 }
 
 window {
-    height: 100%;
-    width: 20%;
+    height: 80%;
+    width: 60%;
     transparency: "real";
     background-color: @background;
 }
@@ -35,7 +40,7 @@ prompt {
 }
 
 entry {
-    font: "SF Pro Display 12";
+    font: "Hack 12";
     placeholder-color: #999999;
     placeholder: "Search Applications";
     blink: true;
@@ -43,12 +48,40 @@ entry {
 
 
 mainbox {
-    children: [ inputbar, listview ];
+    children: [ inputbar, listview,  wrapper-mode-switcher ];
     margin: 5% 1% 0 3.5%;
 }
 
+wrapper-mode-switcher {
+    orientation: horizontal;
+    expand:     false;
+    spacing:    0;
+    children: [ icon-ms-ic1, mode-switcher, icon-ms-ic2 ];
+}
+icon-ms-ic1 {
+    filename: "go-previous";
+    action: "kb-mode-previous";
+}
+icon-ms-ic2 {
+    filename: "go-next";
+    action: "kb-mode-next";
+}
+icon-ms-ic1,icon-ms-ic2 {
+    size: 16;
+    vertical-align: 0.8;
+    expand:        false;
+    border:       0px 0px 5px ;
+    border-color: lightgreen;
+}
+
+mode-switcher {
+    border:  0px;
+    spacing: 0px;
+    expand: true;
+}
+
 listview {
-    columns: 3;
+    columns: 6;
     layout: vertical;
     spacing: 0;
     margin: 7% 0;
@@ -66,7 +99,6 @@ element normal.urgent, element alternate.urgent {
 
 element normal.active, element alternate.active {
     background-color: @background-alt;
-    color: @selected-text-color;
 }
 
 element selected {
@@ -86,7 +118,7 @@ element-icon {
 }
 
 element-text {
-    font: "SF Pro Display 10";
+    font: "Hack 10";
     color: inherit;
     horizontal-align: 0.5;
 }
