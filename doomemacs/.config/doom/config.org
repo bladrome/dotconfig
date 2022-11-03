@@ -71,7 +71,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
        zen                 ; distraction-free coding or writing
 
        :editor
-       ;;evil              ; come to the dark side, we have cookies
+       evil              ; come to the dark side, we have cookies
        file-templates      ; auto-snippets for empty files
        fold                ; (nigh) universal code folding
        format              ; automated prettiness
@@ -247,11 +247,16 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! rime)
 (package! valign)
 
-(package! nano-theme)
-(package! nano-modeline)
 
-(package! lazycat-theme
- :recipe (:host github :repo "manateelazycat/lazycat-theme"))
+;; (package! mu4e-thread-folding
+;;   :recipe (:host github :repo "rougier/mu4e-thread-folding"))
+;; (package! mu4e-dashboard
+;;   :recipe (:host github :repo "rougier/mu4e-dashboard"))
+(package! svg-tag-mode 
+  :recipe (:host github :repo "rougier/svg-tag-mode"))
+(package! nano-emacs
+  :recipe (:host github :repo "rougier/nano-emacs"))
+
 (package! org-protocol-capture-html
  :recipe (:host github :repo "alphapapa/org-protocol-capture-html"))
 
@@ -267,7 +272,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
  :recipe (:host github :repo "kiwanami/emacs-epc"))
 (package! lsp-bridge
  :recipe (:host github :repo "manateelazycat/lsp-bridge"
-          :files ("*.el" "*.py" "acm" "core" "langserver" "icons" "resources")))
+   :files ("*.el" "*.py" "acm" "core" "langserver" "icons" "resources")))
 
 
 #+end_src
@@ -282,9 +287,21 @@ emacs --batch doomemacs.org -f org-babel-tangle
       user-mail-address "blackwhitedoggie@163.com")
 
 (setq package-archives
-      '(("melpa" . "http://mirrors.bfsu.edu.cn/elpa/melpa/")
-        ("org"   . "http://mirrors.bfsu.edu.cn/elpa/org/")
-        ("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
+    '(("melpa" . "http://mirrors.bfsu.edu.cn/elpa/melpa/")
+    	("org"   . "http://mirrors.bfsu.edu.cn/elpa/org/")
+  	("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
+
+(setq doom-theme 'doom-one-light)
+(setq doom-theme nil)
+
+;; (setq nano-font-family-monospaced "Roboto Mono")
+;; (require 'nano-base-colors)
+;; (require 'nano-faces)
+;; (require 'nano-theme)
+;; (require 'nano-splash)
+;; (require 'nano)
+;; (menu-bar-mode -1)
+
 
 (setq doom-font (font-spec :family "Roboto Mono" :size 19)
       doom-serif-font (font-spec :family "Roboto Mono" :size 20)
@@ -293,13 +310,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
       ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
       )
 
-(setq doom-theme 'doom-one-light)
-;; (setq doom-theme nil)
-;; (require 'nano-theme)
-;; (nano-mode)
-;; (nano-light)
-;; (nano-dark)
-;; (nano-modeline-mode)
 
 ;; t relative or nil
 (setq display-line-numbers-type t)
@@ -319,21 +329,21 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (defun org-export-docx ()
   (interactive)
   (let ((docx-file (concat (file-name-sans-extension (buffer-file-name)) ".docx"))
-           (template-file "/home/bladrome/.config/doom/template.docx"))
+	(template-file "/home/bladrome/.config/doom/template.docx"))
     (shell-command (format "pandoc %s -o %s --reference-doc=%s" (buffer-file-name) docx-file template-file))
     (message "Convert finish: %s" docx-file)))
 
 (setq +mu4e-backend 'offlineimap)
 (after! mu4e
   (setq sendmail-program (executable-find "msmtp")
-        send-mail-function #'smtpmail-send-it
-        message-sendmail-f-is-evil t
-        message-sendmail-extra-arguments '("--read-envelope-from")
-        message-send-mail-function #'message-send-mail-with-sendmail))
+	send-mail-function #'smtpmail-send-it
+	message-sendmail-f-is-evil t
+	message-sendmail-extra-arguments '("--read-envelope-from")
+	message-send-mail-function #'message-send-mail-with-sendmail))
 
 ;; (use-package! org-bib-mode
-  ;; :config
-  ;; (setq org-bib-pdf-directory "~/Downloads/papers/"))
+;; :config
+;; (setq org-bib-pdf-directory "~/Downloads/papers/"))
 
 (setq org-hugo-base-dir "~/quickstart")
 
@@ -346,15 +356,15 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (after! dired
   (setq dired-listing-switches "-aBhl  --group-directories-first"
-        dired-dwim-target t
-        dired-recursive-copies (quote always)
-        dired-recursive-deletes (quote top)
-        ;; Directly edit permisison bits!
-        wdired-allow-to-change-permissions t
-        dired-omit-mode nil))
+	dired-dwim-target t
+	dired-recursive-copies (quote always)
+	dired-recursive-deletes (quote top)
+	;; Directly edit permisison bits!
+	wdired-allow-to-change-permissions t
+	dired-omit-mode nil))
 
 ;; (use-package! org-special-block-extras
-  ;; :hook (org-mode . org-special-block-extras-mode))
+;; :hook (org-mode . org-special-block-extras-mode))
 
 ;; (use-package! org-bib-mode)
 (use-package! ebib)
@@ -373,9 +383,9 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq rime-user-data-dir "~/.local/share/fcitx5/rime")
   (setq rime-inline-ascii-trigger 'shift-l)
   (setq rime-disable-predicates
-        '(rime-predicate-current-uppercase-letter-p
-          rime-predicate-punctuation-line-begin-p
-          rime-predicate-prog-in-code-p))
+	'(rime-predicate-current-uppercase-letter-p
+	  rime-predicate-punctuation-line-begin-p
+	  rime-predicate-prog-in-code-p))
   (setq rime-show-candidate 'posframe))
 
 
@@ -397,43 +407,43 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (use-package leetcode
   :config
   (setq leetcode-save-solutions t
-        leetcode-prefer-language "cpp"
-        leetcode-prefer-sql "mysql"
-        leetcode-directory "~/workground/Leetcode/"))
+	leetcode-prefer-language "cpp"
+	leetcode-prefer-sql "mysql"
+	leetcode-directory "~/workground/Leetcode/"))
 
 
 (use-package org-ref
   :config
   (setq bibtex-completion-bibliography '((concat org-directory "bibliography/bibliography.bib")
-                                         (concat org-directory "bibliography/arxiv.bib")
-                                         (concat org-directory "bibliography/references.bib"))
-        bibtex-completion-library-path '((concat org-directory "bibliography"))
-        bibtex-completion-notes-template-multiple-files "* ${author-or-editor}, ${title}, ${journal}, (${year}) :${=type=}: \n\nSee [[cite:&${=key=}]]\n"
-        bibtex-completion-additional-search-fields '(keywords)
-        bibtex-completion-display-formats
-        '((article       . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${journal:40}")
-          (inbook        . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} Chapter ${chapter:32}")
-          (incollection  . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
-          (inproceedings . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
-          (t             . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*}"))
-        bibtex-completion-pdf-open-function
-        (lambda (fpath)
-          (call-process "open" nil 0 nil fpath)))
+					 (concat org-directory "bibliography/arxiv.bib")
+					 (concat org-directory "bibliography/references.bib"))
+	bibtex-completion-library-path '((concat org-directory "bibliography"))
+	bibtex-completion-notes-template-multiple-files "* ${author-or-editor}, ${title}, ${journal}, (${year}) :${=type=}: \n\nSee [[cite:&${=key=}]]\n"
+	bibtex-completion-additional-search-fields '(keywords)
+	bibtex-completion-display-formats
+	'((article       . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${journal:40}")
+	  (inbook        . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} Chapter ${chapter:32}")
+	  (incollection  . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
+	  (inproceedings . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
+	  (t             . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*}"))
+	bibtex-completion-pdf-open-function
+	(lambda (fpath)
+	  (call-process "open" nil 0 nil fpath)))
   (require 'bibtex)
   (setq bibtex-autokey-year-length 4
-        bibtex-autokey-name-year-separator "-"
-        bibtex-autokey-year-title-separator "-"
-        bibtex-autokey-titleword-separator "-"
-        bibtex-autokey-titlewords 2
-        bibtex-autokey-titlewords-stretch 1
-        bibtex-autokey-titleword-length 5
-        org-ref-bibtex-hydra-key-binding (kbd "H-b"))
+	bibtex-autokey-name-year-separator "-"
+	bibtex-autokey-year-title-separator "-"
+	bibtex-autokey-titleword-separator "-"
+	bibtex-autokey-titlewords 2
+	bibtex-autokey-titlewords-stretch 1
+	bibtex-autokey-titleword-length 5
+	org-ref-bibtex-hydra-key-binding (kbd "H-b"))
   (define-key bibtex-mode-map (kbd "H-b") 'org-ref-bibtex-hydra/body)
   (require 'org-ref)
   (setq reftex-default-bibliography '(concat org-directory "bibliography/references.bib"))
   (setq org-ref-bibliography-notes '(concat org-directory "bibliography/notes.org")
-        org-ref-default-bibliography '(concat org-directory "bibliography/references.bib")
-        org-ref-pdf-directory '(concat org-directory "bibliography/bibtex-pdfs/")))
+	org-ref-default-bibliography '(concat org-directory "bibliography/references.bib")
+	org-ref-pdf-directory '(concat org-directory "bibliography/bibtex-pdfs/")))
 (setq! citar-bibliography '("/home/bladrome/Documents/2022/papertii.bib"))
 (use-package org
   :init
@@ -443,13 +453,13 @@ emacs --batch doomemacs.org -f org-babel-tangle
   :config
   (add-to-list 'org-latex-packages-alist '("" "minted"))
   (setq org-latex-minted-options
-        '(
-          ("bgcolor" . "bg")
-          ("breaklines" . "true")
-          ("autogobble" . "true")
-          ("fontsize" . "\\footnotesize")
-          )
-        )
+	'(
+	  ("bgcolor" . "bg")
+	  ("breaklines" . "true")
+	  ("autogobble" . "true")
+	  ("fontsize" . "\\footnotesize")
+	  )
+	)
   (setq org-latex-listings 'minted)
   ;; (setq org-latex-pdf-process (list "latexmk -xelatex -shell-escape -f -pdf %f"))
   ;; (setq org-latex-pdf-process
@@ -459,44 +469,44 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 
   (setq org-publish-project-alist
-        `(("orgfiles"
-           :base-directory ,org-directory
-           :base-extension "org"
-           :publishing-directory "~/org/public_html"
-           :publishing-function org-html-publish-to-html
-           :with-toc t
-           :makeindex t
-           :auto-preamble t
-           :auto-sitemap
-           :sitemap-title "Notes"
-           :sitemap-sort-files
-           :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/worg.css\" />"
-           :html-preamble nil)
-          ("images"
-           :base-directory ,(concat org-directory "attachments")
-           :base-extension "png\\|jpg\\|webp"
-           :recursive t
-           :publishing-directory "~/org/public_html/attachments"
-           :publishing-function org-publish-attachment)
-          ("other"
-           :base-directory ,(concat org-directory "style")
-           :base-extension "css\\|el"
-           :publishing-directory "~/org/public_html/style"
-           :recursive t
-           :publishing-function org-publish-attachment)
-          ("org" :components ("orgfiles" "images" "other"))))
+	`(("orgfiles"
+	   :base-directory ,org-directory
+	   :base-extension "org"
+	   :publishing-directory "~/org/public_html"
+	   :publishing-function org-html-publish-to-html
+	   :with-toc t
+	   :makeindex t
+	   :auto-preamble t
+	   :auto-sitemap
+	   :sitemap-title "Notes"
+	   :sitemap-sort-files
+	   :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/worg.css\" />"
+	   :html-preamble nil)
+	  ("images"
+	   :base-directory ,(concat org-directory "attachments")
+	   :base-extension "png\\|jpg\\|webp"
+	   :recursive t
+	   :publishing-directory "~/org/public_html/attachments"
+	   :publishing-function org-publish-attachment)
+	  ("other"
+	   :base-directory ,(concat org-directory "style")
+	   :base-extension "css\\|el"
+	   :publishing-directory "~/org/public_html/style"
+	   :recursive t
+	   :publishing-function org-publish-attachment)
+	  ("org" :components ("orgfiles" "images" "other"))))
   ;; Tags with fast selection keys
   (setq org-tag-alist (quote (("noexport" . ?n)
-                              (:startgroup)
-                              ("@office" . ?o)
-                              ("@field" . ?f)
-                              (:endgroup)
-                              ("personal" . ?p)
-                              ("work" . ?w)
-                              ("cancelled" . ?c)
-                              ("read" . ?r)
-                              ("browse" . ?b)
-                              ("flagged" . ??))))
+			      (:startgroup)
+			      ("@office" . ?o)
+			      ("@field" . ?f)
+			      (:endgroup)
+			      ("personal" . ?p)
+			      ("work" . ?w)
+			      ("cancelled" . ?c)
+			      ("read" . ?r)
+			      ("browse" . ?b)
+			      ("flagged" . ??))))
   ;; Allow setting single tags without the menu
   (setq org-fast-tag-selection-single-key (quote expert))
   ;; For tag searches ignore tasks with scheduled and deadline dates
@@ -514,17 +524,16 @@ emacs --batch doomemacs.org -f org-babel-tangle
     (concat
      (mapcar #'(lambda (c) (if (equal c ?\[) ?\( (if (equal c ?\]) ?\) c))) string-to-transform)))
   (setq org-capture-templates `(
-                                ("p" "Protocal" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
-                                 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n\n\n\n%?")
-                                ("L" "Protocol Link" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
-                                 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n%?")
-                                ("w" "Web site" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
-                                 "* %a :website:\n\n%U %?\n\n%:initial")
-                                ("c" "Captured" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
-                                 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :empty-lines-after 1)
-                                ("n" "Captured Now!" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
-                                 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t)
-                                )))
-
+				("p" "Protocal" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
+				 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n\n\n\n%?")
+				("L" "Protocol Link" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
+				 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n%?")
+				("w" "Web site" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
+				 "* %a :website:\n\n%U %?\n\n%:initial")
+				("c" "Captured" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
+				 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :empty-lines-after 1)
+				("n" "Captured Now!" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
+				 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t)
+				)))
 #+end_src
 
