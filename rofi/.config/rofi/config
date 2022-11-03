@@ -1,7 +1,7 @@
 configuration {
     show: "combi";
     combi-modes: "drun,ssh,windows,run";
-    modes: [combi, window, drun, ssh, run];
+    modes: "combi,window,drun,ssh,run";
     show-icons: true;
     icon-theme: "Papirus";
     font: "Hack 12";
