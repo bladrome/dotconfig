@@ -1,12 +1,14 @@
 configuration {
-    modes: [window, drun, ssh, combi, run];
+    show: "combi";
+    combi-modes: "drun,ssh,windows,run";
+    modes: [combi, window, drun, ssh, run];
     show-icons: true;
     icon-theme: "Papirus";
     font: "Hack 12";
     drun-display-format: "{name}";
     ssh-client: "ssh";
-    /* ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]"; */
-    ssh-command: "wezterm ssh {host}";
+    terminal: "wezterm";
+    ssh-command: "{terminal} ssh {host}";
     run-command: "{cmd}";
     run-shell-command: "{terminal} -e {cmd}";
 }
