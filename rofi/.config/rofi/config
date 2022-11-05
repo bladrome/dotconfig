@@ -6,6 +6,7 @@ configuration {
     icon-theme: "Papirus";
     font: "Hack 12";
     drun-display-format: "{name}";
+    combi-display-format: "{text}";
     ssh-client: "ssh";
     terminal: "wezterm";
     ssh-command: "{terminal} ssh {host}";
