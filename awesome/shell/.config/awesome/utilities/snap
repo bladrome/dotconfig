@@ -87,7 +87,7 @@ function shot() {
 	naughty.notification ({
 		app_name = 'Screenshot Tool',
 		icon = '${file_loc}',
-		timeout = 10,
+		timeout = 1,
 		title = '<b>Snap!</b>',
 		message = '${notif_message}',
 		actions = { open_image, open_folder, delete_image }
