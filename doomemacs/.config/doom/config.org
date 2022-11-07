@@ -71,7 +71,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
        zen                 ; distraction-free coding or writing
 
        :editor
-       evil              ; come to the dark side, we have cookies
+       ;;evil              ; come to the dark side, we have cookies
        file-templates      ; auto-snippets for empty files
        fold                ; (nigh) universal code folding
        format              ; automated prettiness
@@ -252,10 +252,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;;   :recipe (:host github :repo "rougier/mu4e-thread-folding"))
 ;; (package! mu4e-dashboard
 ;;   :recipe (:host github :repo "rougier/mu4e-dashboard"))
-(package! svg-tag-mode 
+(package! svg-tag-mode
   :recipe (:host github :repo "rougier/svg-tag-mode"))
 (package! nano-emacs
-  :recipe (:host github :repo "rougier/nano-emacs"))
+  :recipe (:host github :repo "rougier/nano-theme"))
 
 (package! org-protocol-capture-html
  :recipe (:host github :repo "alphapapa/org-protocol-capture-html"))
@@ -291,17 +291,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
     	("org"   . "http://mirrors.bfsu.edu.cn/elpa/org/")
   	("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
 
-(setq doom-theme 'doom-one-light)
+;; (setq doom-theme 'doom-one-light)
 (setq doom-theme nil)
-
-;; (setq nano-font-family-monospaced "Roboto Mono")
-;; (require 'nano-base-colors)
-;; (require 'nano-faces)
-;; (require 'nano-theme)
-;; (require 'nano-splash)
-;; (require 'nano)
-;; (menu-bar-mode -1)
-
 
 (setq doom-font (font-spec :family "Roboto Mono" :size 19)
       doom-serif-font (font-spec :family "Roboto Mono" :size 20)
@@ -380,7 +371,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
    ("C-`" . 'rime-send-keybinding)
    ("M-j" . 'rime-force-enable))
   :config
-  (setq rime-user-data-dir "~/.local/share/fcitx5/rime")
   (setq rime-inline-ascii-trigger 'shift-l)
   (setq rime-disable-predicates
 	'(rime-predicate-current-uppercase-letter-p
@@ -536,4 +526,3 @@ emacs --batch doomemacs.org -f org-babel-tangle
 				 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t)
 				)))
 #+end_src
-
