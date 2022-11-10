@@ -1,5 +1,5 @@
-#+TITLE: Doomemacs
-
+#+TITLE:     Doomemacs
+#+STARTUP:   overview
 
 
 * Install
@@ -256,6 +256,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   :recipe (:host github :repo "rougier/svg-tag-mode"))
 (package! nano-emacs
   :recipe (:host github :repo "rougier/nano-theme"))
+(package! nano-modeline)
 
 (package! org-protocol-capture-html
  :recipe (:host github :repo "alphapapa/org-protocol-capture-html"))
@@ -294,6 +295,12 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;; (setq doom-theme 'doom-one-light)
 (setq doom-theme nil)
 
+(require 'nano-theme)
+(nano-mode)
+(nano-light)
+(nano-modeline-mode)
+(setq-default cursor-type 'box)
+
 (setq doom-font (font-spec :family "Roboto Mono" :size 19)
       doom-serif-font (font-spec :family "Roboto Mono" :size 20)
       ;; doom-variable-pitch-font (font-spec :family "SourceHanSerifCN")
@@ -301,6 +308,13 @@ emacs --batch doomemacs.org -f org-babel-tangle
       ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
       )
 
+(setq use-default-font-for-symbols nil)
+
+(add-hook! 'after-setting-font-hook
+  (set-fontset-font t 'latin (font-spec :family "Roboto Mono"))
+  (set-fontset-font t 'symbol (font-spec :family "Symbola"))
+  (set-fontset-font t 'mathematical (font-spec :family "Symbola"))
+  (set-fontset-font t 'emoji (font-spec :family "Symbola")))
 
 ;; t relative or nil
 (setq display-line-numbers-type t)
@@ -371,6 +385,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
    ("C-`" . 'rime-send-keybinding)
    ("M-j" . 'rime-force-enable))
   :config
+  (setq rime-user-data-dir "~/.config/doom/rime")
   (setq rime-inline-ascii-trigger 'shift-l)
   (setq rime-disable-predicates
 	'(rime-predicate-current-uppercase-letter-p
@@ -387,7 +402,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (use-package! pangu-spacing
   :config
   (global-pangu-spacing-mode 1)
-  (setq pangu-spacing-real-insert-separtor t))
+  (setq pangu-spacing-real-insert-separtor nil))
 
 (use-package! valign
   :config
@@ -401,6 +416,9 @@ emacs --batch doomemacs.org -f org-babel-tangle
 	leetcode-prefer-sql "mysql"
 	leetcode-directory "~/workground/Leetcode/"))
 
+(setq Tex-command-default "XeLaTeX")
+(setq TeX-engine 'xetex)
+(setq TeX-command-extra-options "-shell-escape")
 
 (use-package org-ref
   :config
@@ -451,11 +469,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
 	  )
 	)
   (setq org-latex-listings 'minted)
-  ;; (setq org-latex-pdf-process (list "latexmk -xelatex -shell-escape -f -pdf %f"))
-  ;; (setq org-latex-pdf-process
-  ;;       '("xelatex -shell-escape -bibtex -interaction nonstopmode -output-directory %o %f"
-  ;;         "xelatex -shell-escape -bibtex -interaction nonstopmode -output-directory %o %f"
-  ;;         "xelatex -shell-escape -bibtex -interaction nonstopmode -output-directory %o %f"))
+  (setq org-highlight-latex-and-related '(native script entities))
+  (pdf-loader-install)
 
 
   (setq org-publish-project-alist
@@ -525,4 +540,41 @@ emacs --batch doomemacs.org -f org-babel-tangle
 				("n" "Captured Now!" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
 				 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t)
 				)))
+#+end_src
+* Exp
+
+#+begin_src elisp :tangle "~/.config/doom/config.el"
+
+(use-package! eaf
+  :load-path "~/gitcode/emacs-application-framework"
+  :custom
+  (eaf-browser-continue-where-left-off t)
+  (browse-url-browser-function 'eaf-open-browser)
+  :config
+  (require 'eaf)
+  (require 'eaf-browser)
+  (require 'eaf-file-manager)
+  (require 'eaf-image-viewer)
+  (require 'eaf-pdf-viewer)
+  (require 'eaf-rss-reader)
+  (require 'eaf-terminal)
+  (require 'eaf-file-sender)
+  (require 'eaf-music-player)
+  (require 'eaf-video-player)
+  (require 'eaf-netease-cloud-music)
+
+
+  (setq eaf-python-command "python")
+  (setq eaf-proxy-type "http")
+  (setq eaf-proxy-host "127.0.0.1")
+  (setq eaf-proxy-port "8889")
+  (setq eaf-pdf-dark-mode nil)
+  (setq eaf-terminal-font-size 18)
+  (setq eaf-buffer-background-color "#FFFFFF")
+  (setq eaf-start-python-process-when-require nil)
+  
+  (eaf-bind-key eaf-rss-reader-scroll-up-web-page "SPC" eaf-rss-reader-keybinding)
+  (eaf-bind-key eaf-rss-reader-scroll-down-web-page "b" eaf-rss-reader-keybinding)
+
+  (defalias 'browse-web #'eaf-open-browser))
 #+end_src
