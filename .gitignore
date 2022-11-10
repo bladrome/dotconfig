@@ -14,7 +14,8 @@ mpd/.config/mpd/mpdstate
 mpd/.config/mpd/mpdsticker.sql
 
 rime/.config/fcitx/rime/.place_holder
-rime/.local/share/fcitx5/rime/luna_pinyin.userdb/
+rime/.local/share/fcitx5/rime/luna_pinyin.userdb/*
+
 
 ranger/.config/ranger/plugins/__pycache__
 
@@ -36,3 +37,5 @@ doomemacs/.config/doom/custom.el
 awesome/shell/.config/awesome/configurations/settings.lua
 awesome/linear/.config/awesome/theme/wallpapers/*.png
 /mpd/.config/mpd/mpd.pid
+/doomemacs/.config/doom/rime/
+/rime/.local/share/fcitx5/rime/sync/
