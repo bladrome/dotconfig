@@ -99,7 +99,6 @@ fd
 feh
 ffmpegthumbnailer
 figlet
-filebrowser-bin
 firefox
 firejail
 flex
@@ -141,7 +140,7 @@ hugo
 hunspell-en_us
 hwinfo
 hyperfine
-hyprland-bin
+hyprland
 hyprpaper-git
 inkscape
 inotify-tools
@@ -172,6 +171,7 @@ linux-firmware
 linux-headers
 linux-lts
 linux-lts-headers
+linux-xanmod
 linux-xanmod-edge
 linux-xanmod-headers
 linux-zen
@@ -219,7 +219,6 @@ neomutt
 neovim
 neovim-remote
 nerd-fonts-fira
-networkmanager
 nfs-utils
 nginx
 ninja
@@ -322,7 +321,6 @@ repo
 rime-double-pinyin
 ripgrep
 ripgrep-all
-riscv-gnu-toolchain-bin
 rlwrap
 rofi
 rslsync
@@ -335,7 +333,7 @@ scrapy
 scrcpy
 screenfetch
 scrot
-sddm
+sddm-git
 shadowsocks-libev
 shadowsocks-qt5
 shellcheck
