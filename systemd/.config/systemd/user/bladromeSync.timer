@@ -1,0 +1,9 @@
+[Unit]
+Description=Run sync to Thinidrome 30min
+
+[Timer]
+OnUnitActiveSec=30min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

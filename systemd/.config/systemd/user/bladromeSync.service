@@ -1,0 +1,10 @@
+[Unit]
+Description=Run sync to Thinidrome 30min
+
+[Service]
+ExecStart=/usr/bin/bash /home/bladrome/tools/syncremote.sh /run/media/bladrome/drome/ThindromeBackup
+RestartSec=3
+Restart=on-failure
+
+[Install]
+WantedBy=bladromeSync.timer
