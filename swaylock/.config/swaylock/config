@@ -1,7 +1,8 @@
 daemonize
+screenshots
 show-failed-attempts
 clock
-effect-blur=5x5
+effect-blur=10x10
 color=1f1d2e80
 font="Inter"
 indicator

@@ -66,7 +66,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
        ;;unicode           ; extended unicode support for various languages
        vc-gutter           ; vcs diff in the fringe
        vi-tilde-fringe     ; fringe tildes to mark beyond EOB
-       window-select       ; visually switch windows
+       (window-select
+        +switch-window)    ; visually switch windows
        workspaces          ; tab emulation, persistence & separate workspaces
        zen                 ; distraction-free coding or writing
 
@@ -241,12 +242,12 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! org-ref)
 (package! ebib)
 
+(package! fanyi)
 
 (package! pangu-spacing)
 (package! rainbow-identifiers)
 (package! rime)
 (package! valign)
-
 
 ;; (package! mu4e-thread-folding
 ;;   :recipe (:host github :repo "rougier/mu4e-thread-folding"))
@@ -301,8 +302,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (nano-modeline-mode)
 (setq-default cursor-type 'box)
 
-(setq doom-font (font-spec :family "Roboto Mono" :size 19)
-      doom-serif-font (font-spec :family "Roboto Mono" :size 20)
+(setq doom-font (font-spec :family "Fira Mono" :size 19)
+      doom-serif-font (font-spec :family "Fira Mono" :size 20)
       ;; doom-variable-pitch-font (font-spec :family "SourceHanSerifCN")
       doom-unicode-font (font-spec :family "SourceHanSerifCN")
       ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
@@ -352,7 +353,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (setq org-hugo-base-dir "~/quickstart")
 
-(setq org-directory "~/Documents/2022/")
+(setq org-directory "~/Documents/2023/")
 (setq org-agenda-files (list (concat org-directory "/GTD/")))
 (setq org-refile-allow-creating-parent-nodes 'confirm)
 (setq org-attach-id-dir (concat org-directory "attachments"))
@@ -393,7 +394,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
 	  rime-predicate-prog-in-code-p))
   (setq rime-show-candidate 'posframe))
 
-
 (use-package! lsp-bridge
   :config
   (global-lsp-bridge-mode)
@@ -401,7 +401,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (use-package! pangu-spacing
   :config
-  (global-pangu-spacing-mode 1)
+  (global-pangu-spacing-mode 0)
   (setq pangu-spacing-real-insert-separtor nil))
 
 (use-package! valign
@@ -459,15 +459,12 @@ emacs --batch doomemacs.org -f org-babel-tangle
   :hook
   (org-mode . turn-on-visual-line-mode)
   :config
-  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (add-to-list 'org-latex-packages-alist '("outputdir=latexout" "minted"))
   (setq org-latex-minted-options
-	'(
-	  ("bgcolor" . "bg")
+	'(("bgcolor" . "bg")
 	  ("breaklines" . "true")
 	  ("autogobble" . "true")
-	  ("fontsize" . "\\footnotesize")
-	  )
-	)
+	  ("fontsize" . "\\scriptsize")))
   (setq org-latex-listings 'minted)
   (setq org-highlight-latex-and-related '(native script entities))
   (pdf-loader-install)
@@ -519,7 +516,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   ;; (require 'org-bars)
   ;; (add-hook 'org-mode-hook #'org-bars-mode)
   (setq org-startup-folded "folded")
-
+  (setq org-export-date-timestamp-format nil)
   ;; Capture templates for links to pages having [ and ]
   ;; characters in their page titles - notably ArXiv
   ;; From https://github.com/sprig/org-capture-extension
@@ -537,7 +534,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 				 "* %a :website:\n\n%U %?\n\n%:initial")
 				("c" "Captured" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
 				 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :empty-lines-after 1)
-				("n" "Captured Now!" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
+				("n" "Captured Now!" entry (file+headline (lambda () (concat org-directory "/"  (format-time-string "%Y%m%d") ".org")) "arxiv")
 				 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t)
 				)))
 #+end_src
@@ -549,7 +546,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   :load-path "~/gitcode/emacs-application-framework"
   :custom
   (eaf-browser-continue-where-left-off t)
-  (browse-url-browser-function 'eaf-open-browser)
+  ;; (browse-url-browser-function 'eaf-open-browser)
   :config
   (require 'eaf)
   (require 'eaf-browser)
@@ -563,7 +560,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (require 'eaf-video-player)
   (require 'eaf-netease-cloud-music)
 
-
   (setq eaf-python-command "python")
   (setq eaf-proxy-type "http")
   (setq eaf-proxy-host "127.0.0.1")
@@ -572,9 +568,9 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq eaf-terminal-font-size 18)
   (setq eaf-buffer-background-color "#FFFFFF")
   (setq eaf-start-python-process-when-require nil)
-  
+
   (eaf-bind-key eaf-rss-reader-scroll-up-web-page "SPC" eaf-rss-reader-keybinding)
   (eaf-bind-key eaf-rss-reader-scroll-down-web-page "b" eaf-rss-reader-keybinding)
-
-  (defalias 'browse-web #'eaf-open-browser))
+  ;; (defalias 'browse-web #'eaf-open-browser)
+)
 #+end_src
