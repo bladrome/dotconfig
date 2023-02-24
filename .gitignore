@@ -39,3 +39,4 @@ awesome/linear/.config/awesome/theme/wallpapers/*.png
 /mpd/.config/mpd/mpd.pid
 /doomemacs/.config/doom/rime/
 /rime/.local/share/fcitx5/rime/sync/
+/rime/.local/share/fcitx5/rime/luna_pinyin.sogou.dict.yaml

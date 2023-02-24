@@ -1,7 +1,7 @@
 distribution_code_name: "fcitx-rime"
 distribution_name: Rime
-distribution_version: 5.0.14
+distribution_version: 5.0.15
 install_time: "Sat Jan  1 11:22:05 2022"
-installation_id: "965b802b-6d45-476d-ab25-d046d79127f1"
-rime_version: 1.7.3
-update_time: "Tue Oct 18 15:15:24 2022"
+installation_id: bladrome
+rime_version: 1.8.5
+update_time: "Fri Feb 17 15:53:17 2023"

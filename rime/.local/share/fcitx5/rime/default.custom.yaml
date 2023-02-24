@@ -2,3 +2,4 @@ patch:
   schema_list:
     - schema: double_pinyin        # 自然碼雙拼
   "menu/page_size": 9
+translator/dictionary: luna_pinyin.sogou
