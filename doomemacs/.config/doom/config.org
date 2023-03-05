@@ -114,7 +114,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
-       lsp
+       (lsp +peek)
        magit               ; a git porcelain for Emacs
        make                ; run make tasks from Emacs
        pass                ; password manager for nerds
@@ -217,9 +217,9 @@ emacs --batch doomemacs.org -f org-babel-tangle
        :app
        calendar
        ;;emms
-       ;;everywhere        ; *leave* Emacs!? You must be joking
+       everywhere          ; *leave* Emacs!? You must be joking
        ;;irc               ; how neckbeards socialize
-       ;;(rss +org)        ; emacs as an RSS reader
+       (rss +org)          ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
 
        :config
@@ -284,7 +284,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
 :END:
 
 #+begin_src elisp :tangle "~/.config/doom/config.el"
-
 (setq user-full-name "bladrome"
       user-mail-address "blackwhitedoggie@163.com")
 
@@ -293,13 +292,13 @@ emacs --batch doomemacs.org -f org-babel-tangle
     	("org"   . "http://mirrors.bfsu.edu.cn/elpa/org/")
   	("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
 
+(setq doom-theme 'doom-nord-light)
 ;; (setq doom-theme 'doom-one-light)
-(setq doom-theme nil)
-
-(require 'nano-theme)
-(nano-mode)
-(nano-light)
-(nano-modeline-mode)
+;; (setq doom-theme nil)
+;; (require 'nano-theme)
+;; (nano-mode)
+;; (nano-light)
+;; (nano-modeline-mode)
 (setq-default cursor-type 'box)
 
 (setq doom-font (font-spec :family "Fira Mono" :size 19)
@@ -322,6 +321,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;; bookmarks and recentf cache
 (setq bookmark-default-file "~/.config/doom/bookmarks")
 (setq recentf-save-file "~/.config/doom/recentf")
+(run-at-time nil (* 5 60) 'recentf-save-list)
 
 ;; Set transparency of emacs
 (defun transparency (value)
@@ -335,8 +335,12 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (defun org-export-docx ()
   (interactive)
   (let ((docx-file (concat (file-name-sans-extension (buffer-file-name)) ".docx"))
-	(template-file "/home/bladrome/.config/doom/template.docx"))
+	      (template-file "/home/bladrome/.config/doom/template.docx"))
     (shell-command (format "pandoc %s -o %s --reference-doc=%s" (buffer-file-name) docx-file template-file))
+    ;; pandoc --bibliography=/bibliographyfile.bib \
+    ;;        --csl=chicago-fullnote-bibliography.csl \
+    ;;        --reference-docx=reference.docx \
+    ;;        -i (buffer-file-name) -o docx.docx
     (message "Convert finish: %s" docx-file)))
 
 (setq +mu4e-backend 'offlineimap)
@@ -345,7 +349,12 @@ emacs --batch doomemacs.org -f org-babel-tangle
 	send-mail-function #'smtpmail-send-it
 	message-sendmail-f-is-evil t
 	message-sendmail-extra-arguments '("--read-envelope-from")
-	message-send-mail-function #'message-send-mail-with-sendmail))
+	message-send-mail-function #'message-send-mail-with-sendmail)
+  (add-to-list 'mu4e-bookmarks
+               ;; add bookmark for recent messages on the Mu mailing list.
+               '( :name "6 months message"
+                  :key  ?a
+                  :query "date:20200101..now")))
 
 ;; (use-package! org-bib-mode
 ;; :config
@@ -399,9 +408,23 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (global-lsp-bridge-mode)
   (yas-global-mode 1))
 
+
+(after! lsp-mode
+  (add-to-list 'tramp-remote-path "/home/jack/.nvm/versions/node/v16.19.1/bin/")
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-tramp-connection "pyright")
+                    :major-modes '(python-mode)
+                    :remote? t
+                    :server-id 'pyright-remote))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
+                    :major-modes '(c++-mode)
+                    :remote? t
+                    :server-id 'clangd-remote)))
+
 (use-package! pangu-spacing
   :config
-  (global-pangu-spacing-mode 0)
+  (global-pangu-spacing-mode 1)
   (setq pangu-spacing-real-insert-separtor nil))
 
 (use-package! valign
@@ -459,7 +482,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   :hook
   (org-mode . turn-on-visual-line-mode)
   :config
-  (add-to-list 'org-latex-packages-alist '("outputdir=latexout" "minted"))
+  (add-to-list 'org-latex-packages-alist '("outputdir=latex.out" "minted"))
   (setq org-latex-minted-options
 	'(("bgcolor" . "bg")
 	  ("breaklines" . "true")
@@ -538,6 +561,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
 				 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t)
 				)))
 #+end_src
+
+#+RESULTS:
+| #[0 \301\211\207 [imenu-create-index-function org-imenu-get-tree] 2] | turn-on-visual-line-mode | org-ref-org-menu | valign-mode | #[0 \300\301!\207 [lsp-bridge-mode 1] 2] | +lookup--init-org-mode-handlers-h | (closure (t) (&rest _) (add-hook 'before-save-hook 'org-encrypt-entries nil t)) | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-fold-show-all append local] 5] | doom-disable-show-paren-mode-h | doom-disable-show-trailing-whitespace-h | +org-enable-auto-reformat-tables-h | +org-enable-auto-update-cookies-h | +org-make-last-point-visible-h | org-fancy-priorities-mode | org-superstar-mode | toc-org-enable | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | org-cdlatex-mode | org-eldoc-load | +literate-enable-recompile-h |
+
 * Exp
 
 #+begin_src elisp :tangle "~/.config/doom/config.el"
