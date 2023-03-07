@@ -11,7 +11,6 @@ local naughty = require("naughty")
 require("awful.hotkeys_popup.keys")
 require('awful.autofocus')
 local has_fdo, freedesktop = pcall(require, "freedesktop")
-xdg_menu = require("archmenu")
 
 -- Error handling
 -- Check if awesome encountered an error during startup and fell back to
