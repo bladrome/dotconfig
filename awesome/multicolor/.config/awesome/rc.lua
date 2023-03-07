@@ -517,8 +517,7 @@ globalkeys = my_table.join(
     -- check https://github.com/DaveDavenport/rofi for more details
     -- rofi
     awful.key({ modkey }, "r", function ()
-            os.execute(string.format("rofi -show %s",
-            'run'))
+            os.execute("rofi -show combi -theme ~/.config/rofi/config")
         end,
         {description = "show rofi", group = "launcher"}),    
     --
