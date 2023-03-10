@@ -228,4 +228,5 @@ paru -Rs
 paru -Q
 paru -Qe
 paru -Qdt
+paru -Si
 #+END_SRC
