@@ -108,7 +108,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
        biblio              ; Writes a PhD for you (citation needed)
        debugger            ; FIXME stepping through code, to help you add bugs
        ;;direnv
-       ;;docker
+       docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
@@ -189,6 +189,9 @@ emacs --batch doomemacs.org -f org-babel-tangle
        plantuml            ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        (python
+        +conda
+        +pyenv
+        +poetry
         +lsp
         +pyright)          ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
@@ -207,7 +210,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
        ;;terra             ; Earth and Moon in alignment for performance.
        web                 ; the tubes
        yaml                ; JSON, but readable
-       ;;zig               ; C, but simpler
+       zig                 ; C, but simpler
 
        :email
        (mu4e +org)
@@ -275,7 +278,9 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! lsp-bridge
  :recipe (:host github :repo "manateelazycat/lsp-bridge"
    :files ("*.el" "*.py" "acm" "core" "langserver" "icons" "resources")))
-
+(package! mind-wave
+ :recipe (:host github :repo "manateelazycat/mind-wave"
+   :files ("*.el" "*.py")))
 
 #+end_src
 * config
@@ -431,6 +436,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
   :config
   (setq valign-fancy-bar t)
   (add-hook 'org-mode-hook #'valign-mode))
+
+(use-package! mind-wave)
 
 (use-package leetcode
   :config
