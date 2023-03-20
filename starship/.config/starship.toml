@@ -30,8 +30,8 @@ format = "[$symbol$environment](dimmed green) "
 
 
 [directory]
-truncation_length = 19
-truncation_symbol = "…/"
+truncation_length = 3
+truncation_symbol = ""
 
 
 [git_status]
