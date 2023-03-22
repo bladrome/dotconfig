@@ -66,21 +66,22 @@ zi snippet OMZL::history.zsh
 
 # conda
 
+PATH=$PATH:/run/media/bladrome/bank/drome/mambaforge/bin/conda
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/run/media/bladrome/bank/drome/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/run/media/bladrome/bank/drome/mambaforge/etc/profile.d/conda.sh" ]; then
-        . "/run/media/bladrome/bank/drome/mambaforge/etc/profile.d/conda.sh"
-    else
-        export PATH="/run/media/bladrome/bank/drome/mambaforge/bin:$PATH"
-    fi
-fi
-unset __conda_setup
+# __conda_setup="$('/run/media/bladrome/bank/drome/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/run/media/bladrome/bank/drome/mambaforge/etc/profile.d/conda.sh" ]; then
+#         . "/run/media/bladrome/bank/drome/mambaforge/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/run/media/bladrome/bank/drome/mambaforge/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
 
-if [ -f "/run/media/bladrome/bank/drome/mambaforge/etc/profile.d/mamba.sh" ]; then
-    . "/run/media/bladrome/bank/drome/mambaforge/etc/profile.d/mamba.sh"
-fi
+# if [ -f "/run/media/bladrome/bank/drome/mambaforge/etc/profile.d/mamba.sh" ]; then
+#     . "/run/media/bladrome/bank/drome/mambaforge/etc/profile.d/mamba.sh"
+# fi
 # <<< conda initialize <<<

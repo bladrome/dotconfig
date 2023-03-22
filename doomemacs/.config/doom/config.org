@@ -282,6 +282,9 @@ emacs --batch doomemacs.org -f org-babel-tangle
  :recipe (:host github :repo "manateelazycat/mind-wave"
    :files ("*.el" "*.py")))
 
+(package! chatgpt-shell
+  :recipe (:host github :repo "xenodium/chatgpt-shell"))
+
 #+end_src
 * config
 :PROPERTIES:
@@ -296,6 +299,9 @@ emacs --batch doomemacs.org -f org-babel-tangle
     '(("melpa" . "http://mirrors.bfsu.edu.cn/elpa/melpa/")
     	("org"   . "http://mirrors.bfsu.edu.cn/elpa/org/")
   	("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
+
+(setq url-proxy-services
+         '(("socks5" . "127.0.0.1:8888")))
 
 (setq doom-theme 'doom-nord-light)
 ;; (setq doom-theme 'doom-one-light)
@@ -335,6 +341,16 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (set-frame-parameter (selected-frame) 'alpha value))
 
 (transparency 95)
+
+(use-package! chatgpt-shell
+  :init
+  (setq chatgpt-shell-openai-key
+        (lambda ()
+          (nth 0 (process-lines "pass" "show" "openai-key")))))
+
+(after! conda
+  (setq conda-anaconda-home "/run/media/bladrome/bank/drome/mambaforge"
+        conda-env-home-directory  "/run/media/bladrome/bank/drome/mambaforge"))
 
 ;; org-export docs using a tempalate.docx
 (defun org-export-docx ()
