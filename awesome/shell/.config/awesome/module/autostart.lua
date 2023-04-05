@@ -11,7 +11,8 @@ local startup_apps = {
     "xbacklight -set 25",
     "fcitx5",
     "variety",
-    "mpd"
+    "mpd",
+    "xmodmap ~/.Xmodmap"
     -- Add your startup programs here
 }
 
