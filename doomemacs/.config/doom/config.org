@@ -43,14 +43,16 @@ emacs --batch doomemacs.org -f org-babel-tangle
         +fuzzy
         +prescient
         +icons)            ; a search engine for love and life
-       vertico
+       (vertico
+        :icons
+        :childframe)
 
        :ui
        ;;deft              ; notational velocity for Emacs
        doom                ; what makes DOOM look the way it does
        doom-dashboard      ; a nifty splash screen for Emacs
-       ;;doom-quit         ; DOOM quit-message prompts when you quit Emacs
-       ;;(emoji +unicode)  ; 🙂
+       doom-quit           ; DOOM quit-message prompts when you quit Emacs
+       (emoji +unicode)    ; 🙂
        hl-todo             ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        hydra
        ;;indent-guides     ; highlighted indent columns
@@ -64,7 +66,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
        ;;tabs              ; a tab bar for Emacs
        treemacs            ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
-       vc-gutter           ; vcs diff in the fringe
+       (vc-gutter
+        +pretty)           ; vcs diff in the fringe
        vi-tilde-fringe     ; fringe tildes to mark beyond EOB
        (window-select
         +switch-window)    ; visually switch windows
@@ -100,13 +103,14 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       ;; (spell +flyspell)   ; tasing you for misspelling mispelling
+       ;;(spell +flyspell)   ; tasing you for misspelling mispelling
        ;; grammar             ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
        biblio              ; Writes a PhD for you (citation needed)
-       debugger            ; FIXME stepping through code, to help you add bugs
+       (debugger
+       +lsp)               ; FIXME stepping through code, to help you add bugs
        ;;direnv
        docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
@@ -114,7 +118,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
-       (lsp +peek)
+       (lsp +peek)         ; M-x vscode
        magit               ; a git porcelain for Emacs
        make                ; run make tasks from Emacs
        pass                ; password manager for nerds
@@ -277,13 +281,20 @@ emacs --batch doomemacs.org -f org-babel-tangle
  :recipe (:host github :repo "kiwanami/emacs-epc"))
 (package! lsp-bridge
  :recipe (:host github :repo "manateelazycat/lsp-bridge"
-   :files ("*.el" "*.py" "acm" "core" "langserver" "icons" "resources")))
+ :files ("*.el" "*.py" "acm" "core" "langserver" "icons" "resources")))
 (package! mind-wave
  :recipe (:host github :repo "manateelazycat/mind-wave"
-   :files ("*.el" "*.py")))
+ :files ("*.el" "*.py")))
+(package! nova
+ :recipe (:host github :repo "manateelazycat/nova"
+ :files ("*.el" "*.py")))
 
 (package! chatgpt-shell
   :recipe (:host github :repo "xenodium/chatgpt-shell"))
+
+(package! org-ai
+  :recipe (:host github :repo "rksm/org-ai"
+           :files ("*.el" "README.md" "snippets")))
 
 #+end_src
 * config
@@ -303,7 +314,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (setq url-proxy-services
          '(("socks5" . "127.0.0.1:8888")))
 
-(setq doom-theme 'doom-nord-light)
+(setq doom-theme 'doom-dark+)
 ;; (setq doom-theme 'doom-one-light)
 ;; (setq doom-theme nil)
 ;; (require 'nano-theme)
@@ -312,8 +323,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;; (nano-modeline-mode)
 (setq-default cursor-type 'box)
 
-(setq doom-font (font-spec :family "Fira Mono" :size 19)
-      doom-serif-font (font-spec :family "Fira Mono" :size 20)
+(setq doom-font (font-spec :family "Victor Mono" :size 19)
+      doom-serif-font (font-spec :family "Victor Mono" :size 20)
       ;; doom-variable-pitch-font (font-spec :family "SourceHanSerifCN")
       doom-unicode-font (font-spec :family "SourceHanSerifCN")
       ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
@@ -327,12 +338,18 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (set-fontset-font t 'mathematical (font-spec :family "Symbola"))
   (set-fontset-font t 'emoji (font-spec :family "Symbola")))
 
+(setq warning-minimum-level :emergency)
+
 ;; t relative or nil
 (setq display-line-numbers-type t)
 ;; bookmarks and recentf cache
 (setq bookmark-default-file "~/.config/doom/bookmarks")
-(setq recentf-save-file "~/.config/doom/recentf")
-(run-at-time nil (* 5 60) 'recentf-save-list)
+
+(after! dap-mode
+  (setq dap-python-debugger 'debugpy))
+
+(after! recentf
+  (setq recentf-save-file "~/.config/doom/recentf"))
 
 ;; Set transparency of emacs
 (defun transparency (value)
@@ -347,6 +364,17 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq chatgpt-shell-openai-key
         (lambda ()
           (nth 0 (process-lines "pass" "show" "openai-key")))))
+
+(use-package! org-ai
+  :init
+  (setq org-ai-openai-api-token (nth 0 (process-lines "pass" "show" "openai-key")))
+  :hook
+  (org-mode . org-ai-mode)
+  :config
+  (org-ai-global-mode)
+  (org-ai-install-yasnippets))
+
+
 
 (after! conda
   (setq conda-anaconda-home "/run/media/bladrome/bank/drome/mambaforge"
@@ -422,6 +450,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 	'(rime-predicate-current-uppercase-letter-p
 	  rime-predicate-punctuation-line-begin-p
 	  rime-predicate-prog-in-code-p))
+  (setq default-input-method 'rime)
   (setq rime-show-candidate 'posframe))
 
 (use-package! lsp-bridge
@@ -431,7 +460,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 
 (after! lsp-mode
-  (add-to-list 'tramp-remote-path "/home/jack/.nvm/versions/node/v16.19.1/bin/")
+  (add-to-list 'tramp-remote-path "/home/jack/mambaforge/bin/")
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-tramp-connection "pyright")
                     :major-modes '(python-mode)
@@ -454,6 +483,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (add-hook 'org-mode-hook #'valign-mode))
 
 (use-package! mind-wave)
+(use-package! nova)
 
 (use-package leetcode
   :config
