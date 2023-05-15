@@ -12,7 +12,6 @@ local startup_apps = {
     "fcitx5",
     "variety",
     "mpd",
-    "xmodmap ~/.Xmodmap"
     -- Add your startup programs here
 }
 
