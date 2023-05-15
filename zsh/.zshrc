@@ -59,14 +59,14 @@ zi ice as"command" from"gh-r" \
   atpull"%atclone" src"init.zsh"
 zi light starship/starship
 
+zi snippet OMZL::functions.zsh
 zi snippet OMZL::clipboard.zsh
 zi snippet OMZL::termsupport.zsh
 zi snippet OMZL::key-bindings.zsh
 zi snippet OMZL::history.zsh
 
 # conda
-
-PATH=$PATH:/run/media/bladrome/bank/drome/mambaforge/bin/conda
+PATH=$PATH:/run/media/bladrome/bank/drome/mambaforge/bin
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 # __conda_setup="$('/run/media/bladrome/bank/drome/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
