@@ -90,8 +90,8 @@ theme.widget_margin = dpi(6)
 theme.useless_gap   = dpi(1)
 theme.gap_single_client = true
 theme.maximized_hide_border = true
-theme.border_width  = dpi(1)
-theme.button_panel_border_width = dpi(0)
+theme.border_width  = dpi(5)
+theme.button_panel_border_width = dpi(1)
 theme.button_panel_border_width_active = dpi(1)
 
 -- shapes
