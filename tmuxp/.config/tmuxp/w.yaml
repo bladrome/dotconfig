@@ -1,8 +1,8 @@
 session_name: workspace
 windows:
-  - window_name: ranger
+  - window_name: joshuto
     panes:
-    - ranger ~
+    - joshuto
   - window_name: terminal
     panes:
     - pane
