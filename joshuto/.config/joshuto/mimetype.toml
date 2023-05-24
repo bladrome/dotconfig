@@ -5,6 +5,7 @@ audio_default	= [
 ]
 
 image_default	= [
+	{ command = "feh", args = [ "--" ], fork = true, silent = true },
 	{ command = "qimgv", args = [ "--" ], fork = true, silent = true },
 	{ command = "krita", args = [ "--" ], fork = true, silent = true },
 	{ command = "exiftool", confirm_exit = true },
@@ -181,3 +182,17 @@ tex.app_list	= [
 
 torrent.app_list = [
 	{ command = "transmission-gtk" } ]
+
+[mimetype]
+
+# application/octet-stream
+[mimetype.application.subtype.octet-stream]
+inherit = "video_default"
+
+# text/*
+[mimetype.text]
+inherit = "text_default"
+
+# text/*
+[mimetype.video]
+inherit = "video_default"
