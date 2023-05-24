@@ -2,5 +2,10 @@ bookmark = [
 	{ key = "r",	path = "/" },
 	{ key = "e",	path = "/etc" },
 
+	{ key = "c",	path = "~/.config" },
+	{ key = "s",	path = "~/Pictures/Screenshots" },
+	{ key = "d",	path = "~/Downloads" },
+	{ key = "p",	path = "~/Downloads/papers" },
+	{ key = "j",	path = "~/Documents/2023" },
 	{ key = "h",	path = "~/" },
 ]
