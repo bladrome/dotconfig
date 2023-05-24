@@ -332,6 +332,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (setq use-default-font-for-symbols nil)
 
+(setq native-comp-deferred-compilation nil)
+
 (add-hook! 'after-setting-font-hook
   (set-fontset-font t 'latin (font-spec :family "Roboto Mono"))
   (set-fontset-font t 'symbol (font-spec :family "Symbola"))
