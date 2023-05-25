@@ -19,7 +19,7 @@ video_default	= [
 ]
 
 text_default	= [
-	{ command = "emacsclient" },
+	{ command = "emacsclient", fork = true },
 	{ command = "nvim" },
 	{ command = "micro" },
 	{ command = "gedit", fork = true, silent = true },
@@ -29,6 +29,11 @@ text_default	= [
 reader_default	= [
 	{ command = "evince", fork = true, silent = true },
 ]
+
+pointcloud_default	= [
+	{ command = "meshlab", fork = true, silent = true },
+]
+
 
 libreoffice_default	= [
 	{ command = "libreoffice", fork = true, silent = true },
@@ -168,6 +173,10 @@ ppt.inherit	= "libreoffice_default"
 pptx.inherit	= "libreoffice_default"
 
 pdf.inherit	= "reader_default"
+
+obj.inherit = "pointcloud_default"
+ply.inherit = "pointcloud_default"
+xyz.inherit = "pointcloud_default"
 
 kra.app_list = [
 	{ command = "krita", fork = true, silent = true }

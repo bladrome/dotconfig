@@ -1,6 +1,8 @@
 bookmark = [
 	{ key = "r",	path = "/" },
-	{ key = "e",	path = "/etc" },
+	{ key = "E",	path = "/etc" },
+	{ key = "P",	path = "~/jack" },
+	{ key = "e",	path = "~/.config/emacs" },
 
 	{ key = "c",	path = "~/.config" },
 	{ key = "s",	path = "~/Pictures/Screenshots" },
