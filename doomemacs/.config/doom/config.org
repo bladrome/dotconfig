@@ -269,6 +269,14 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! org-protocol-capture-html
  :recipe (:host github :repo "alphapapa/org-protocol-capture-html"))
 
+(package! elfeed
+ :recipe (:host github :repo "skeeto/elfeed"
+ :files ("*.el" "web/*")))
+
+(package! elfeed-dashboard
+ :recipe (:host github :repo "Manoj321/elfeed-dashboard"))
+
+
 ;; lc
 (package! shrface)
 (package! leetcode
@@ -312,7 +320,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   	("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
 
 (setq url-proxy-services
-         '(("socks5" . "127.0.0.1:8888")))
+         '(("socks5" . "localhost:8888")))
 
 (setq doom-theme 'doom-dark+)
 ;; (setq doom-theme 'doom-one-light)
@@ -360,6 +368,17 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (set-frame-parameter (selected-frame) 'alpha value))
 
 (transparency 95)
+
+(use-package! elfeed
+  :config
+  (elfeed-set-max-connections 32))
+
+(use-package! elfeed-dashboard
+  :ensure t
+  :config
+  (setq elfeed-dashboard-file "~/.config/doom/elfeed-dashboard.org")
+  ;; update feed counts on elfeed-quit
+  (advice-add 'elfeed-search-quit-window :after #'elfeed-dashboard-update-links))
 
 (use-package! chatgpt-shell
   :init
@@ -413,12 +432,13 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (setq org-hugo-base-dir "~/quickstart")
 
-(setq org-directory "~/Documents/2023/")
+(setq org-directory "~/Documents/2023")
 (setq org-agenda-files (list (concat org-directory "/GTD/")))
 (setq org-refile-allow-creating-parent-nodes 'confirm)
 (setq org-attach-id-dir (concat org-directory "attachments"))
 (setq org-download-image-dir (concat org-attach-id-dir "/" (format-time-string "%Y%m%d")))
 (setq org-latex-pdf-process (list "latexmk -xelatex -bibtex- -shell-escape -f %f"))
+
 
 (after! dired
   (setq dired-listing-switches "-aBhl  --group-directories-first"
@@ -621,9 +641,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
 | #[0 \301\211\207 [imenu-create-index-function org-imenu-get-tree] 2] | turn-on-visual-line-mode | org-ref-org-menu | valign-mode | #[0 \300\301!\207 [lsp-bridge-mode 1] 2] | +lookup--init-org-mode-handlers-h | (closure (t) (&rest _) (add-hook 'before-save-hook 'org-encrypt-entries nil t)) | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-fold-show-all append local] 5] | doom-disable-show-paren-mode-h | doom-disable-show-trailing-whitespace-h | +org-enable-auto-reformat-tables-h | +org-enable-auto-update-cookies-h | +org-make-last-point-visible-h | org-fancy-priorities-mode | org-superstar-mode | toc-org-enable | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | org-cdlatex-mode | org-eldoc-load | +literate-enable-recompile-h |
 
 * Exp
-
+eaf :tangle "~/.config/doom/config.el"
 #+begin_src elisp :tangle "~/.config/doom/config.el"
-
 (use-package! eaf
   :load-path "~/gitcode/emacs-application-framework"
   :custom
