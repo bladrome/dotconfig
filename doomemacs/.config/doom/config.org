@@ -322,7 +322,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (setq url-proxy-services
          '(("socks5" . "localhost:8888")))
 
-(setq doom-theme 'doom-dark+)
+(setq doom-theme 'doom-dracula)
 ;; (setq doom-theme 'doom-one-light)
 ;; (setq doom-theme nil)
 ;; (require 'nano-theme)
@@ -435,7 +435,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (setq org-directory "~/Documents/2023")
 (setq org-agenda-files (list (concat org-directory "/GTD/")))
 (setq org-refile-allow-creating-parent-nodes 'confirm)
-(setq org-attach-id-dir (concat org-directory "attachments"))
+(setq org-attach-id-dir (concat (file-name-as-directory org-directory) "attachments"))
+
 (setq org-download-image-dir (concat org-attach-id-dir "/" (format-time-string "%Y%m%d")))
 (setq org-latex-pdf-process (list "latexmk -xelatex -bibtex- -shell-escape -f %f"))
 
@@ -662,9 +663,9 @@ eaf :tangle "~/.config/doom/config.el"
   (require 'eaf-netease-cloud-music)
 
   (setq eaf-python-command "python")
-  (setq eaf-proxy-type "http")
-  (setq eaf-proxy-host "127.0.0.1")
-  (setq eaf-proxy-port "8889")
+  ;; (setq eaf-proxy-type "http")
+  ;; (setq eaf-proxy-host "127.0.0.1")
+  ;; (setq eaf-proxy-port "8889")
   (setq eaf-pdf-dark-mode nil)
   (setq eaf-terminal-font-size 18)
   (setq eaf-buffer-background-color "#FFFFFF")
