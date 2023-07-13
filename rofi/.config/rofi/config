@@ -1,10 +1,11 @@
 configuration {
     show: "combi";
-    combi-modes: "windows,windowcd,script,ssh,run,keys";
-    modes: "combi,run,ssh,keys,filebrowser";
+    combi-modes: "drun,windows,windowcd,script,ssh,run,keys";
+    modes: "combi,run,ssh,keys,filebrowser,combi";
     show-icons: true;
-    icon-theme: "Papirus";
+    icon-theme: "Adwaita";
     font: "Hack 12";
+	threads: 0;
     drun-display-format: "{name}";
     combi-display-format: "{text}";
     ssh-client: "ssh";
@@ -12,6 +13,14 @@ configuration {
     ssh-command: "{terminal} ssh {host}";
     run-command: "{cmd}";
     run-shell-command: "{terminal} -e {cmd}";
+    timeout {
+        action: "kb-cancel";
+        delay:  0;
+    }
+    filebrowser {
+        directories-first: true;
+        sorting-method:    "name";
+    }
 }
 
 * {
