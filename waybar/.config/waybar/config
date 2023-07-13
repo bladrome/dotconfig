@@ -6,7 +6,7 @@
   // "spacing": 4, // Gaps between modules (4px)
   // Choose the order of the modules
   "modules-left": ["wlr/workspaces", "wlr/taskbar"],
-  "modules-center": ["sway/window", ],
+  "modules-center": ["sway/window"],
   "modules-right": [
     "tray",
     "mpd",
@@ -86,17 +86,15 @@
     "tooltip": false
   },
   "mpd": {
-    //"format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
-    "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+    "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
     "format-disconnected": "Disconnected ",
-    "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-    "unknown-tag": "N/A",
+    "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped",
     "interval": 2,
     "consume-icons": {
-      "on": " "
+      "on": " " // Icon shows only when "consume" is on
     },
     "random-icons": {
-      "off": "<span color=\"#f53c3c\"></span> ",
+      "off": "<span color=\"#f53c3c\"></span> ", // Icon grayed out when "random" is off
       "on": " "
     },
     "repeat-icons": {
@@ -112,6 +110,7 @@
     "tooltip-format": "MPD (connected)",
     "tooltip-format-disconnected": "MPD (disconnected)"
   },
+
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
