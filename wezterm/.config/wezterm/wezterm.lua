@@ -47,7 +47,7 @@ config.window_background_opacity = 0.8
 config.text_background_opacity = 1.0
 
 -- font set
-config.font = wezterm.font("Roboto Mono")
+config.font = wezterm.font("Hack")
 config.font_size = 14
 config.cell_width = 1.1
 config.line_height = 1.1
