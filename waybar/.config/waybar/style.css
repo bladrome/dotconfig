@@ -308,8 +308,8 @@ label:focus {
   padding-left: 10px;
   padding-right: 10px;
   transition: none;
-  color: rgba(255, 99, 71, 1);
-  background: rgba(0, 0, 0, 1);
+  color: rgba(255, 140, 0, 1);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 #temperature.critical {
