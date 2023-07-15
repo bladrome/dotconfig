@@ -10,4 +10,5 @@ bookmark = [
 	{ key = "p",	path = "~/Downloads/papers" },
 	{ key = "j",	path = "~/Documents/2023" },
 	{ key = "h",	path = "~/" },
+	{ key = "r",	path = "~/jackdatabank/jackhome/projects/sheepDimension/repos/" },
 ]
