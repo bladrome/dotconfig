@@ -3,7 +3,7 @@
   border: none;
   border-radius: 0px;
   font-family: "Source Code Pro Medium";
-  font-size: 17px;
+  font-size: 15px;
   min-height: 0px;
   margin-top: 1px;
   margin-bottom: 1px;
@@ -71,12 +71,12 @@ button:hover {
 }
 
 #workspaces button.active {
-  /*background-color: rgba(220,220,220,0.300); */
-  color: rgba(240, 128, 128, 1);
+  background-color: rgba(255,255,255,0.500);
+  color: rgba(0, 0, 0, 1);
 }
 
 #workspaces button.urgent {
-  background-color: #eb4d4b;
+  background-color: rgba(235,77,75,0.5);
 }
 
 #mode {
@@ -143,9 +143,10 @@ button:hover {
   margin-bottom: 4px;
   border-radius: 10px;
   transition: none;
+  padding-left: 10px;
+  padding-right: 10px;
   color: rgba(173, 255, 47, 1);
   background: rgba(0, 0, 0, 0.2);
-  /*background: #1A1826;*/
 }
 
 #battery {

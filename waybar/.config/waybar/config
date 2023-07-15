@@ -1,6 +1,6 @@
 {
   "layer": "top", // Waybar at top layer
-  "position": "top", // Waybar position (top|bottom|left|right)
+  "position": "bottom", // Waybar position (top|bottom|left|right)
   "height": 15, // Waybar height (to be removed for auto height)
   // "width": 1280, // Waybar width
   // "spacing": 4, // Gaps between modules (4px)
@@ -8,10 +8,10 @@
   "modules-left": [
     "wlr/workspaces",
     "hyprland/submap",
-  ],
-  "modules-center": [
     "wlr/taskbar"
   ],
+  // "modules-center": [
+  // ],
   "modules-right": [
     "tray",
     "mpd",
@@ -20,8 +20,6 @@
     "cpu",
     "memory",
     "temperature",
-    // "keyboard-state",
-    // "sway/language",
     "battery",
     "clock"
   ],
@@ -46,6 +44,7 @@
       "focused": "",
       "default": ""
     },
+    "sort-by-number":true
   },
   "wlr/taskbar": {
     "format": "{icon}",
