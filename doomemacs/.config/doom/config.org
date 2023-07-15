@@ -276,6 +276,11 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! elfeed-dashboard
  :recipe (:host github :repo "Manoj321/elfeed-dashboard"))
 
+(package! ob-zig
+ :recipe (:host github :repo "jolby/ob-zig.el"))
+
+(package! ob-tmux
+ :recipe (:host github :repo "ahendriksen/ob-tmux"))
 
 ;; lc
 (package! shrface)
@@ -319,8 +324,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
     	("org"   . "http://mirrors.bfsu.edu.cn/elpa/org/")
   	("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
 
-(setq url-proxy-services
-         '(("socks5" . "localhost:8888")))
+;; (setq url-proxy-services
+;;          '(("socks5" . "localhost:8888")))
 
 (setq doom-theme 'doom-dracula)
 ;; (setq doom-theme 'doom-one-light)
@@ -331,8 +336,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;; (nano-modeline-mode)
 (setq-default cursor-type 'box)
 
-(setq doom-font (font-spec :family "Victor Mono" :size 19)
-      doom-serif-font (font-spec :family "Victor Mono" :size 20)
+(setq doom-font (font-spec :family "Roboto Mono" :size 19)
+      doom-serif-font (font-spec :family "Roboto Mono" :size 20)
       ;; doom-variable-pitch-font (font-spec :family "SourceHanSerifCN")
       doom-unicode-font (font-spec :family "SourceHanSerifCN")
       ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
@@ -379,6 +384,23 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq elfeed-dashboard-file "~/.config/doom/elfeed-dashboard.org")
   ;; update feed counts on elfeed-quit
   (advice-add 'elfeed-search-quit-window :after #'elfeed-dashboard-update-links))
+
+(use-package! ob-tmux
+  :ensure t
+  :custom
+  (org-babel-default-header-args:tmux
+   '((:results . "silent")	;
+     (:session . "default")	; The default tmux session to send code to
+     (:socket  . "~/.config/.tmux.jack"))) ; The default tmux socket to communicate with
+  ;; The tmux sessions are prefixed with the following string.
+  ;; You can customize this if you like.
+  (org-babel-tmux-session-prefix "ob-")
+  ;; The terminal that will be used.
+  ;; You can also customize the options passed to the terminal.
+  ;; The default terminal is "gnome-terminal" with options "--".
+  (org-babel-tmux-terminal "wezterm")
+  (org-babel-tmux-terminal-opts '("-T" "ob-tmux" "-e")))
+
 
 (use-package! chatgpt-shell
   :init
@@ -643,7 +665,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 * Exp
 eaf :tangle "~/.config/doom/config.el"
-#+begin_src elisp :tangle "~/.config/doom/config.el"
+#+begin_src elisp :tangle no
 (use-package! eaf
   :load-path "~/gitcode/emacs-application-framework"
   :custom
