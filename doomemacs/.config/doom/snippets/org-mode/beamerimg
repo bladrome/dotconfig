@@ -3,4 +3,4 @@
 # key: bimg
 # condition: t
 # --
-#+ATTR_LATEX: :width ${0:width} \textwidth
+#+ATTR_LATEX: :width ${0:0.8} \textwidth
