@@ -297,6 +297,11 @@ label:focus {
 
 
 #tray {
+  border-radius: 10px;
+  margin-left: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  transition: none;
   color: rgba(255, 140, 0, 1);
   background: rgba(0, 0, 0, 0.2);
 }
