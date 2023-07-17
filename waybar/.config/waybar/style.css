@@ -230,6 +230,7 @@ label:focus {
 
 #network {
   margin-top: 4px;
+  margin-left: 10px;
   margin-bottom: 4px;
   border-radius: 10px;
   transition: none;
