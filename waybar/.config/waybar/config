@@ -197,11 +197,11 @@
     "format": "{ifname}",
     "format-alt": "{ifname}: {ipaddr}/{cidr}",
     "format-wifi": "{essid} ({signalStrength}% {frequency}) ",
-    "format-ethernet": "eth  ({bandwidthUpBytes}/{bandwidthDownBytes})",
+    "format-ethernet": "eth  ",
     "format-linked": "{ifname} (No IP) ",
     "format-disconnected": "", //An empty format will hide the module.
     "format-disconnected": "",
-    "tooltip-format": "{ifname} {ipaddr} {cidr} ",
+    "tooltip-format": "{ifname} {ipaddr} {cidr} ({bandwidthUpBytes}/{bandwidthDownBytes}) ",
     "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
     "tooltip-format-ethernet": "{ifname} {gwaddr} {netmask} ",
     "tooltip-format-disconnected": "Disconnected",
