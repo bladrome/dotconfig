@@ -316,353 +316,358 @@ emacs --batch doomemacs.org -f org-babel-tangle
 :END:
 
 #+begin_src elisp :tangle "~/.config/doom/config.el"
-(setq user-full-name "bladrome"
-      user-mail-address "blackwhitedoggie@163.com")
+  (setq user-full-name "bladrome"
+	user-mail-address "blackwhitedoggie@163.com")
 
-(setq package-archives
-    '(("melpa" . "http://mirrors.bfsu.edu.cn/elpa/melpa/")
-    	("org"   . "http://mirrors.bfsu.edu.cn/elpa/org/")
-  	("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
+  (setq package-archives
+      '(("melpa" . "http://mirrors.bfsu.edu.cn/elpa/melpa/")
+        ("org"   . "http://mirrors.bfsu.edu.cn/elpa/org/")
+        ("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
 
-;; (setq url-proxy-services
-;;          '(("socks5" . "localhost:8888")))
+  ;; (setq url-proxy-services
+  ;;          '(("socks5" . "localhost:8888")))
 
-(setq doom-theme 'doom-dracula)
-;; (setq doom-theme 'doom-one-light)
-;; (setq doom-theme nil)
-;; (require 'nano-theme)
-;; (nano-mode)
-;; (nano-light)
-;; (nano-modeline-mode)
-(setq-default cursor-type 'box)
+  (setq doom-theme 'doom-nord-light)
+  ;; (setq doom-theme 'doom-one-light)
+  ;; (setq doom-theme nil)
+  ;; (require 'nano-theme)
+  ;; (nano-mode)
+  ;; (nano-light)
+  ;; (nano-modeline-mode)
+  (setq-default cursor-type 'box)
 
-(setq doom-font (font-spec :family "Roboto Mono" :size 19)
-      doom-serif-font (font-spec :family "Roboto Mono" :size 20)
-      ;; doom-variable-pitch-font (font-spec :family "SourceHanSerifCN")
-      doom-unicode-font (font-spec :family "SourceHanSerifCN")
-      ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
-      )
+  (setq doom-font (font-spec :family "Roboto Mono" :size 19)
+	doom-serif-font (font-spec :family "Roboto Mono" :size 20)
+	;; doom-variable-pitch-font (font-spec :family "SourceHanSerifCN")
+	doom-unicode-font (font-spec :family "SourceHanSerifCN")
+	;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
+	)
 
-(setq use-default-font-for-symbols nil)
+  (setq use-default-font-for-symbols nil)
 
-(setq native-comp-deferred-compilation nil)
+  (setq native-comp-deferred-compilation nil)
 
-(add-hook! 'after-setting-font-hook
-  (set-fontset-font t 'latin (font-spec :family "Roboto Mono"))
-  (set-fontset-font t 'symbol (font-spec :family "Symbola"))
-  (set-fontset-font t 'mathematical (font-spec :family "Symbola"))
-  (set-fontset-font t 'emoji (font-spec :family "Symbola")))
+  (add-hook! 'after-setting-font-hook
+    (set-fontset-font t 'latin (font-spec :family "Roboto Mono"))
+    (set-fontset-font t 'symbol (font-spec :family "Symbola"))
+    (set-fontset-font t 'mathematical (font-spec :family "Symbola"))
+    (set-fontset-font t 'emoji (font-spec :family "Symbola")))
 
-(setq warning-minimum-level :emergency)
+  (setq warning-minimum-level :emergency)
 
-;; t relative or nil
-(setq display-line-numbers-type t)
-;; bookmarks and recentf cache
-(setq bookmark-default-file "~/.config/doom/bookmarks")
+  ;; t relative or nil
+  (setq display-line-numbers-type t)
+  ;; bookmarks and recentf cache
+  (setq bookmark-default-file "~/.config/doom/bookmarks")
 
-(after! dap-mode
-  (setq dap-python-debugger 'debugpy))
+  (after! dap-mode
+    (setq dap-python-debugger 'debugpy))
 
-(after! recentf
-  (setq recentf-save-file "~/.config/doom/recentf"))
+  (after! recentf
+    (setq recentf-save-file "~/.config/doom/recentf"))
 
-;; Set transparency of emacs
-(defun transparency (value)
-  "Sets the transparency of the frame window. 0=transparent/100=opaque"
-  (interactive "nTransparency Value 0 - 100 opaque:")
-  (set-frame-parameter (selected-frame) 'alpha value))
+  ;; Set transparency of emacs
+  (defun transparency (value)
+    "Sets the transparency of the frame window. 0=transparent/100=opaque"
+    (interactive "nTransparency Value 0 - 100 opaque:")
+    (set-frame-parameter (selected-frame) 'alpha value))
 
-(transparency 95)
+  (transparency 95)
 
-(use-package! elfeed
-  :config
-  (elfeed-set-max-connections 32))
+  (use-package! elfeed
+    :config
+    (elfeed-set-max-connections 32))
 
-(use-package! elfeed-dashboard
-  :ensure t
-  :config
-  (setq elfeed-dashboard-file "~/.config/doom/elfeed-dashboard.org")
-  ;; update feed counts on elfeed-quit
-  (advice-add 'elfeed-search-quit-window :after #'elfeed-dashboard-update-links))
+  (use-package! elfeed-dashboard
+    :ensure t
+    :config
+    (setq elfeed-dashboard-file "~/.config/doom/elfeed-dashboard.org")
+    ;; update feed counts on elfeed-quit
+    (advice-add 'elfeed-search-quit-window :after #'elfeed-dashboard-update-links))
 
-(use-package! ob-tmux
-  :ensure t
-  :custom
-  (org-babel-default-header-args:tmux
-   '((:results . "silent")	;
-     (:session . "default")	; The default tmux session to send code to
-     (:socket  . "~/.config/.tmux.jack"))) ; The default tmux socket to communicate with
-  ;; The tmux sessions are prefixed with the following string.
-  ;; You can customize this if you like.
-  (org-babel-tmux-session-prefix "ob-")
-  ;; The terminal that will be used.
-  ;; You can also customize the options passed to the terminal.
-  ;; The default terminal is "gnome-terminal" with options "--".
-  (org-babel-tmux-terminal "wezterm")
-  (org-babel-tmux-terminal-opts '("-T" "ob-tmux" "-e")))
-
-
-(use-package! chatgpt-shell
-  :init
-  (setq chatgpt-shell-openai-key
-        (lambda ()
-          (nth 0 (process-lines "pass" "show" "openai-key")))))
-
-(use-package! org-ai
-  :init
-  (setq org-ai-openai-api-token (nth 0 (process-lines "pass" "show" "openai-key")))
-  :hook
-  (org-mode . org-ai-mode)
-  :config
-  (org-ai-global-mode)
-  (org-ai-install-yasnippets))
+  (use-package! ob-tmux
+    :ensure t
+    :custom
+    (org-babel-default-header-args:tmux
+     '((:results . "silent")	;
+       (:session . "default")	; The default tmux session to send code to
+       (:socket  . nil))) ; The default tmux socket to communicate with
+    ;; The tmux sessions are prefixed with the following string.
+    ;; You can customize this if you like.
+    (org-babel-tmux-session-prefix "ob-")
+    ;; The terminal that will be used.
+    ;; You can also customize the options passed to the terminal.
+    ;; The default terminal is "gnome-terminal" with options "--".
+    (org-babel-tmux-terminal "wezterm")
+    (org-babel-tmux-terminal-opts '("-T" "ob-tmux" "-e")))
 
 
+  (use-package! chatgpt-shell
+    :init
+    (setq chatgpt-shell-openai-key
+	  (lambda ()
+	    (nth 0 (process-lines "pass" "show" "openai-key")))))
 
-(after! conda
-  (setq conda-anaconda-home "/run/media/bladrome/bank/drome/mambaforge"
-        conda-env-home-directory  "/run/media/bladrome/bank/drome/mambaforge"))
-
-;; org-export docs using a tempalate.docx
-(defun org-export-docx ()
-  (interactive)
-  (let ((docx-file (concat (file-name-sans-extension (buffer-file-name)) ".docx"))
-	      (template-file "/home/bladrome/.config/doom/template.docx"))
-    (shell-command (format "pandoc %s -o %s --reference-doc=%s" (buffer-file-name) docx-file template-file))
-    ;; pandoc --bibliography=/bibliographyfile.bib \
-    ;;        --csl=chicago-fullnote-bibliography.csl \
-    ;;        --reference-docx=reference.docx \
-    ;;        -i (buffer-file-name) -o docx.docx
-    (message "Convert finish: %s" docx-file)))
-
-(setq +mu4e-backend 'offlineimap)
-(after! mu4e
-  (setq sendmail-program (executable-find "msmtp")
-	send-mail-function #'smtpmail-send-it
-	message-sendmail-f-is-evil t
-	message-sendmail-extra-arguments '("--read-envelope-from")
-	message-send-mail-function #'message-send-mail-with-sendmail)
-  (add-to-list 'mu4e-bookmarks
-               ;; add bookmark for recent messages on the Mu mailing list.
-               '( :name "6 months message"
-                  :key  ?a
-                  :query "date:20200101..now")))
-
-;; (use-package! org-bib-mode
-;; :config
-;; (setq org-bib-pdf-directory "~/Downloads/papers/"))
-
-(setq org-hugo-base-dir "~/quickstart")
-
-(setq org-directory "~/Documents/2023")
-(setq org-agenda-files (list (concat org-directory "/GTD/")))
-(setq org-refile-allow-creating-parent-nodes 'confirm)
-(setq org-attach-id-dir (concat (file-name-as-directory org-directory) "attachments"))
-
-(setq org-download-image-dir (concat org-attach-id-dir "/" (format-time-string "%Y%m%d")))
-(setq org-latex-pdf-process (list "latexmk -xelatex -bibtex- -shell-escape -f %f"))
+  (use-package! org-ai
+    :init
+    (setq org-ai-openai-api-token (nth 0 (process-lines "pass" "show" "openai-key")))
+    :hook
+    (org-mode . org-ai-mode)
+    :config
+    (org-ai-global-mode)
+    (org-ai-install-yasnippets))
 
 
-(after! dired
-  (setq dired-listing-switches "-aBhl  --group-directories-first"
-	dired-dwim-target t
-	dired-recursive-copies (quote always)
-	dired-recursive-deletes (quote top)
-	;; Directly edit permisison bits!
-	wdired-allow-to-change-permissions t
-	dired-omit-mode nil))
 
-;; (use-package! org-special-block-extras
-;; :hook (org-mode . org-special-block-extras-mode))
+  (after! conda
+    (setq conda-anaconda-home "/run/media/bladrome/bank/drome/mambaforge"
+	  conda-env-home-directory  "/run/media/bladrome/bank/drome/mambaforge"))
 
-;; (use-package! org-bib-mode)
-(use-package! ebib)
+  ;; org-export docs using a tempalate.docx
+  (defun org-export-docx ()
+    (interactive)
+    (let ((docx-file (concat (file-name-sans-extension (buffer-file-name)) ".docx"))
+		(template-file "/home/bladrome/.config/doom/template.docx"))
+      (shell-command (format "pandoc %s -o %s --reference-doc=%s" (buffer-file-name) docx-file template-file))
+      ;; pandoc --bibliography=/bibliographyfile.bib \
+      ;;        --csl=chicago-fullnote-bibliography.csl \
+      ;;        --reference-docx=reference.docx \
+      ;;        -i (buffer-file-name) -o docx.docx
+      (message "Convert finish: %s" docx-file)))
 
+  (setq +mu4e-backend 'offlineimap)
+  (after! mu4e
+    (setq sendmail-program (executable-find "msmtp")
+	  send-mail-function #'smtpmail-send-it
+	  message-sendmail-f-is-evil t
+	  message-sendmail-extra-arguments '("--read-envelope-from")
+	  message-send-mail-function #'message-send-mail-with-sendmail)
+    (add-to-list 'mu4e-bookmarks
+		 ;; add bookmark for recent messages on the Mu mailing list.
+		 '( :name "6 months message"
+		    :key  ?a
+		    :query "date:20200101..now")))
 
-(use-package! rime
-  :custom
-  (default-input-method "rime")
-  :bind
-  (:map rime-active-mode-map
-   ("<tab>" . 'rime-inline-ascii)
-   :map rime-mode-map
-   ("C-`" . 'rime-send-keybinding)
-   ("M-j" . 'rime-force-enable))
-  :config
-  (setq rime-user-data-dir "~/.config/doom/rime")
-  (setq rime-inline-ascii-trigger 'shift-l)
-  (setq rime-disable-predicates
-	'(rime-predicate-current-uppercase-letter-p
-	  rime-predicate-punctuation-line-begin-p
-	  rime-predicate-prog-in-code-p))
-  (setq default-input-method 'rime)
-  (setq rime-show-candidate 'posframe))
+  ;; (use-package! org-bib-mode
+  ;; :config
+  ;; (setq org-bib-pdf-directory "~/Downloads/papers/"))
 
-(use-package! lsp-bridge
-  :config
-  (global-lsp-bridge-mode)
-  (yas-global-mode 1))
+  (setq org-hugo-base-dir "~/quickstart")
 
+  (setq org-directory "~/Documents/2023")
+  (setq org-agenda-files (list (file-name-concat org-directory "GTD")))
+  (setq org-refile-allow-creating-parent-nodes 'confirm)
+  (setq org-attach-id-dir (file-name-concat (file-name-as-directory org-directory) "attachments"))
 
-(after! lsp-mode
-  (add-to-list 'tramp-remote-path "/home/jack/mambaforge/bin/")
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-tramp-connection "pyright")
-                    :major-modes '(python-mode)
-                    :remote? t
-                    :server-id 'pyright-remote))
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
-                    :major-modes '(c++-mode)
-                    :remote? t
-                    :server-id 'clangd-remote)))
+  (setq org-download-image-dir (file-name-concat org-attach-id-dir (format-time-string "%Y%m%d")))
+  (setq org-latex-pdf-process (list "latexmk -xelatex -bibtex- -shell-escape -f %f"))
 
-(use-package! pangu-spacing
-  :config
-  (global-pangu-spacing-mode 1)
-  (setq pangu-spacing-real-insert-separtor nil))
+  (after! ox-latex
+    (add-to-list 'org-latex-classes
+                 '("elsarticle"
+                   "\\documentclass[review,authoryear]{elsarticle}"
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
-(use-package! valign
-  :config
-  (setq valign-fancy-bar t)
-  (add-hook 'org-mode-hook #'valign-mode))
+  (after! dired
+    (setq dired-listing-switches "-aBhl  --group-directories-first"
+	  dired-dwim-target t
+	  dired-recursive-copies (quote always)
+	  dired-recursive-deletes (quote top)
+	  ;; Directly edit permisison bits!
+	  wdired-allow-to-change-permissions t
+	  dired-omit-mode nil))
 
-(use-package! mind-wave)
-(use-package! nova)
+  ;; (use-package! org-special-block-extras
+  ;; :hook (org-mode . org-special-block-extras-mode))
 
-(use-package leetcode
-  :config
-  (setq leetcode-save-solutions t
-	leetcode-prefer-language "cpp"
-	leetcode-prefer-sql "mysql"
-	leetcode-directory "~/workground/Leetcode/"))
-
-(setq Tex-command-default "XeLaTeX")
-(setq TeX-engine 'xetex)
-(setq TeX-command-extra-options "-shell-escape")
-
-(use-package org-ref
-  :config
-  (setq bibtex-completion-bibliography '((concat org-directory "bibliography/bibliography.bib")
-					 (concat org-directory "bibliography/arxiv.bib")
-					 (concat org-directory "bibliography/references.bib"))
-	bibtex-completion-library-path '((concat org-directory "bibliography"))
-	bibtex-completion-notes-template-multiple-files "* ${author-or-editor}, ${title}, ${journal}, (${year}) :${=type=}: \n\nSee [[cite:&${=key=}]]\n"
-	bibtex-completion-additional-search-fields '(keywords)
-	bibtex-completion-display-formats
-	'((article       . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${journal:40}")
-	  (inbook        . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} Chapter ${chapter:32}")
-	  (incollection  . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
-	  (inproceedings . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
-	  (t             . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*}"))
-	bibtex-completion-pdf-open-function
-	(lambda (fpath)
-	  (call-process "open" nil 0 nil fpath)))
-  (require 'bibtex)
-  (setq bibtex-autokey-year-length 4
-	bibtex-autokey-name-year-separator "-"
-	bibtex-autokey-year-title-separator "-"
-	bibtex-autokey-titleword-separator "-"
-	bibtex-autokey-titlewords 2
-	bibtex-autokey-titlewords-stretch 1
-	bibtex-autokey-titleword-length 5
-	org-ref-bibtex-hydra-key-binding (kbd "H-b"))
-  (define-key bibtex-mode-map (kbd "H-b") 'org-ref-bibtex-hydra/body)
-  (require 'org-ref)
-  (setq reftex-default-bibliography '(concat org-directory "bibliography/references.bib"))
-  (setq org-ref-bibliography-notes '(concat org-directory "bibliography/notes.org")
-	org-ref-default-bibliography '(concat org-directory "bibliography/references.bib")
-	org-ref-pdf-directory '(concat org-directory "bibliography/bibtex-pdfs/")))
-(setq! citar-bibliography '("/home/bladrome/Documents/2022/papertii.bib"))
-(use-package org
-  :init
-  (setq org-export-use-babel nil)
-  :hook
-  (org-mode . turn-on-visual-line-mode)
-  :config
-  (add-to-list 'org-latex-packages-alist '("outputdir=latex.out" "minted"))
-  (setq org-latex-minted-options
-	'(("bgcolor" . "bg")
-	  ("breaklines" . "true")
-	  ("autogobble" . "true")
-	  ("fontsize" . "\\scriptsize")))
-  (setq org-latex-listings 'minted)
-  (setq org-highlight-latex-and-related '(native script entities))
-  (pdf-loader-install)
+  ;; (use-package! org-bib-mode)
+  (use-package! ebib)
 
 
-  (setq org-publish-project-alist
-	`(("orgfiles"
-	   :base-directory ,org-directory
-	   :base-extension "org"
-	   :publishing-directory "~/org/public_html"
-	   :publishing-function org-html-publish-to-html
-	   :with-toc t
-	   :makeindex t
-	   :auto-preamble t
-	   :auto-sitemap
-	   :sitemap-title "Notes"
-	   :sitemap-sort-files
-	   :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/worg.css\" />"
-	   :html-preamble nil)
-	  ("images"
-	   :base-directory ,(concat org-directory "attachments")
-	   :base-extension "png\\|jpg\\|webp"
-	   :recursive t
-	   :publishing-directory "~/org/public_html/attachments"
-	   :publishing-function org-publish-attachment)
-	  ("other"
-	   :base-directory ,(concat org-directory "style")
-	   :base-extension "css\\|el"
-	   :publishing-directory "~/org/public_html/style"
-	   :recursive t
-	   :publishing-function org-publish-attachment)
-	  ("org" :components ("orgfiles" "images" "other"))))
-  ;; Tags with fast selection keys
-  (setq org-tag-alist (quote (("noexport" . ?n)
-			      (:startgroup)
-			      ("@office" . ?o)
-			      ("@field" . ?f)
-			      (:endgroup)
-			      ("personal" . ?p)
-			      ("work" . ?w)
-			      ("cancelled" . ?c)
-			      ("read" . ?r)
-			      ("browse" . ?b)
-			      ("flagged" . ??))))
-  ;; Allow setting single tags without the menu
-  (setq org-fast-tag-selection-single-key (quote expert))
-  ;; For tag searches ignore tasks with scheduled and deadline dates
-  (setq org-agenda-tags-todo-honor-ignore-options t)
-  ;; (require 'org-bars)
-  ;; (add-hook 'org-mode-hook #'org-bars-mode)
-  (setq org-startup-folded "folded")
-  (setq org-export-date-timestamp-format nil)
-  ;; Capture templates for links to pages having [ and ]
-  ;; characters in their page titles - notably ArXiv
-  ;; From https://github.com/sprig/org-capture-extension
-  (require 'org-protocol)
-  (defun transform-square-brackets-to-round-ones(string-to-transform)
-    "Transforms [ into ( and ] into ), other chars left unchanged."
-    (concat
-     (mapcar #'(lambda (c) (if (equal c ?\[) ?\( (if (equal c ?\]) ?\) c))) string-to-transform)))
-  (setq org-capture-templates `(
-				("p" "Protocal" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
-				 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n\n\n\n%?")
-				("L" "Protocol Link" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
-				 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n%?")
-				("w" "Web site" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
-				 "* %a :website:\n\n%U %?\n\n%:initial")
-				("c" "Captured" entry (file+headline (lambda () (concat org-directory "/" (format-time-string "%Y%m%d") ".org")) "arxiv")
-				 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :empty-lines-after 1)
-				("n" "Captured Now!" entry (file+headline (lambda () (concat org-directory "/"  (format-time-string "%Y%m%d") ".org")) "arxiv")
-				 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t)
-				)))
+  (use-package! rime
+    :custom
+    (default-input-method "rime")
+    :bind
+    (:map rime-active-mode-map
+     ("<tab>" . 'rime-inline-ascii)
+     :map rime-mode-map
+     ("C-`" . 'rime-send-keybinding)
+     ("M-j" . 'rime-force-enable))
+    :config
+    (setq rime-user-data-dir "~/.config/doom/rime")
+    (setq rime-inline-ascii-trigger 'shift-l)
+    (setq rime-disable-predicates
+	  '(rime-predicate-current-uppercase-letter-p
+	    rime-predicate-punctuation-line-begin-p
+	    rime-predicate-prog-in-code-p))
+    (setq default-input-method 'rime)
+    (setq rime-show-candidate 'posframe))
+
+  (use-package! lsp-bridge
+    :config
+    (global-lsp-bridge-mode)
+    (yas-global-mode 1))
+
+
+  (after! lsp-mode
+    (add-to-list 'tramp-remote-path "/home/jack/mambaforge/bin/")
+    (lsp-register-client
+     (make-lsp-client :new-connection (lsp-tramp-connection "pyright")
+		      :major-modes '(python-mode)
+		      :remote? t
+		      :server-id 'pyright-remote))
+    (lsp-register-client
+     (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
+		      :major-modes '(c++-mode)
+		      :remote? t
+		      :server-id 'clangd-remote)))
+
+  (use-package! pangu-spacing
+    :config
+    (global-pangu-spacing-mode 1)
+    (setq pangu-spacing-real-insert-separtor nil))
+
+  (use-package! valign
+    :config
+    (setq valign-fancy-bar t)
+    (add-hook 'org-mode-hook #'valign-mode))
+
+  (use-package! mind-wave)
+  (use-package! nova)
+
+  (use-package leetcode
+    :config
+    (setq leetcode-save-solutions t
+	  leetcode-prefer-language "cpp"
+	  leetcode-prefer-sql "mysql"
+	  leetcode-directory "~/workground/Leetcode"))
+
+  (setq Tex-command-default "XeLaTeX")
+  (setq TeX-engine 'xetex)
+  (setq TeX-command-extra-options "-shell-escape")
+
+  (use-package org-ref
+    :config
+    (setq bibtex-completion-bibliography '((file-name-concat org-directory "bibliography/bibliography.bib")
+					   (file-name-concat org-directory "bibliography/arxiv.bib")
+					   (file-name-concat org-directory "bibliography/references.bib"))
+	  bibtex-completion-library-path '((file-name-concat org-directory "bibliography"))
+	  bibtex-completion-notes-template-multiple-files "* ${author-or-editor}, ${title}, ${journal}, (${year}) :${=type=}: \n\nSee [[cite:&${=key=}]]\n"
+	  bibtex-completion-additional-search-fields '(keywords)
+	  bibtex-completion-display-formats
+	  '((article       . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${journal:40}")
+	    (inbook        . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} Chapter ${chapter:32}")
+	    (incollection  . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
+	    (inproceedings . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
+	    (t             . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*}"))
+	  bibtex-completion-pdf-open-function
+	  (lambda (fpath)
+	    (call-process "open" nil 0 nil fpath)))
+    (require 'bibtex)
+    (setq bibtex-autokey-year-length 4
+	  bibtex-autokey-name-year-separator "-"
+	  bibtex-autokey-year-title-separator "-"
+	  bibtex-autokey-titleword-separator "-"
+	  bibtex-autokey-titlewords 2
+	  bibtex-autokey-titlewords-stretch 1
+	  bibtex-autokey-titleword-length 5
+	  org-ref-bibtex-hydra-key-binding (kbd "H-b"))
+    (define-key bibtex-mode-map (kbd "H-b") 'org-ref-bibtex-hydra/body)
+    (require 'org-ref)
+    (setq reftex-default-bibliography '(file-name-concat org-directory "bibliography/references.bib"))
+    (setq org-ref-bibliography-notes '(file-name-concat org-directory "bibliography/notes.org")
+	  org-ref-default-bibliography '(file-name-concat org-directory "bibliography/references.bib")
+	  org-ref-pdf-directory '(file-name-concat org-directory "bibliography/bibtex-pdfs/")))
+    ;;(setq! citar-bibliography '("/home/bladrome/Documents/2022/papertii.bib"))
+  (use-package org
+    :init
+    (setq org-export-use-babel nil)
+    :hook
+    (org-mode . turn-on-visual-line-mode)
+    :config
+    (add-to-list 'org-latex-packages-alist '("outputdir=latex.out" "minted"))
+    (setq org-latex-minted-options
+	  '(("bgcolor" . "bg")
+	    ("breaklines" . "true")
+	    ("autogobble" . "true")
+	    ("fontsize" . "\\scriptsize")))
+    (setq org-latex-listings 'minted)
+    (setq org-highlight-latex-and-related '(native script entities))
+    (pdf-loader-install)
+
+
+    (setq org-publish-project-alist
+	  `(("orgfiles"
+	     :base-directory ,org-directory
+	     :base-extension "org"
+	     :publishing-directory "~/org/public_html"
+	     :publishing-function org-html-publish-to-html
+	     :with-toc t
+	     :makeindex t
+	     :auto-preamble t
+	     :auto-sitemap
+	     :sitemap-title "Notes"
+	     :sitemap-sort-files
+	     :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/worg.css\" />"
+	     :html-preamble nil)
+	    ("images"
+	     :base-directory ,(file-name-concat org-directory "attachments")
+	     :base-extension "png\\|jpg\\|webp"
+	     :recursive t
+	     :publishing-directory "~/org/public_html/attachments"
+	     :publishing-function org-publish-attachment)
+	    ("other"
+	     :base-directory ,(file-name-concat org-directory "style")
+	     :base-extension "css\\|el"
+	     :publishing-directory "~/org/public_html/style"
+	     :recursive t
+	     :publishing-function org-publish-attachment)
+	    ("org" :components ("orgfiles" "images" "other"))))
+    ;; Tags with fast selection keys
+    (setq org-tag-alist (quote (("noexport" . ?n)
+				(:startgroup)
+				("@office" . ?o)
+				("@field" . ?f)
+				(:endgroup)
+				("personal" . ?p)
+				("work" . ?w)
+				("cancelled" . ?c)
+				("read" . ?r)
+				("browse" . ?b)
+				("flagged" . ??))))
+    ;; Allow setting single tags without the menu
+    (setq org-fast-tag-selection-single-key (quote expert))
+    ;; For tag searches ignore tasks with scheduled and deadline dates
+    (setq org-agenda-tags-todo-honor-ignore-options t)
+    ;; (require 'org-bars)
+    ;; (add-hook 'org-mode-hook #'org-bars-mode)
+    (setq org-startup-folded "folded")
+    (setq org-export-date-timestamp-format nil)
+    ;; Capture templates for links to pages having [ and ]
+    ;; characters in their page titles - notably ArXiv
+    ;; From https://github.com/sprig/org-capture-extension
+    (require 'org-protocol)
+    (defun transform-square-brackets-to-round-ones(string-to-transform)
+      "Transforms [ into ( and ] into ), other chars left unchanged."
+      (concat
+       (mapcar #'(lambda (c) (if (equal c ?\[) ?\( (if (equal c ?\]) ?\) c))) string-to-transform)))
+    (setq org-capture-templates `(
+				  ("p" "Protocal" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d") ".org")) "arxiv")
+				   "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n\n\n\n%?")
+				  ("L" "Protocol Link" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d") ".org")) "arxiv")
+				   "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n%?")
+				  ("w" "Web site" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d") ".org")) "arxiv")
+				   "* %a :website:\n\n%U %?\n\n%:initial")
+				  ("c" "Captured" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d") ".org")) "arxiv")
+				   "* %t %:description\nlink: %l \n\n%i\n" :prepend t :empty-lines-after 1)
+				  ("n" "Captured Now!" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d") ".org")) "arxiv")
+				   "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t)
+				  )))
 #+end_src
-
-#+RESULTS:
-| #[0 \301\211\207 [imenu-create-index-function org-imenu-get-tree] 2] | turn-on-visual-line-mode | org-ref-org-menu | valign-mode | #[0 \300\301!\207 [lsp-bridge-mode 1] 2] | +lookup--init-org-mode-handlers-h | (closure (t) (&rest _) (add-hook 'before-save-hook 'org-encrypt-entries nil t)) | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-fold-show-all append local] 5] | doom-disable-show-paren-mode-h | doom-disable-show-trailing-whitespace-h | +org-enable-auto-reformat-tables-h | +org-enable-auto-update-cookies-h | +org-make-last-point-visible-h | org-fancy-priorities-mode | org-superstar-mode | toc-org-enable | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | org-cdlatex-mode | org-eldoc-load | +literate-enable-recompile-h |
-
 * Exp
 eaf :tangle "~/.config/doom/config.el"
 #+begin_src elisp :tangle no

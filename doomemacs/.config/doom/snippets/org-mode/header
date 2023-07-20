@@ -6,4 +6,4 @@
 #+title:     `(file-name-base buffer-file-name)`
 #+author:    bladrome
 #+startup:   show2levels
-#+include:   template.org
+#+include:   `(file-relative-name (concat (file-name-as-directory org-directory) "style/html.org"))`
