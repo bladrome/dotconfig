@@ -298,9 +298,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! mind-wave
  :recipe (:host github :repo "manateelazycat/mind-wave"
  :files ("*.el" "*.py")))
-(package! nova
- :recipe (:host github :repo "manateelazycat/nova"
- :files ("*.el" "*.py")))
 
 (package! chatgpt-shell
   :recipe (:host github :repo "xenodium/chatgpt-shell"))
@@ -308,6 +305,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! org-ai
   :recipe (:host github :repo "rksm/org-ai"
            :files ("*.el" "README.md" "snippets")))
+
+(package! dirvish
+  :recipe (:host github :repo "alexluigit/dirvish"))
+
 
 #+end_src
 * config
@@ -385,6 +386,22 @@ emacs --batch doomemacs.org -f org-babel-tangle
     ;; update feed counts on elfeed-quit
     (advice-add 'elfeed-search-quit-window :after #'elfeed-dashboard-update-links))
 
+  ;; (use-package! dirvish
+  ;;   :ensure t
+  ;;   :config
+  ;;   (dirvish-override-dired-mode)
+  ;;   (dirvish-peek-mode)
+  ;;   (dirvish-side-follow-mode)
+  ;;   (setq dirvish-attributes
+  ;;     '(vc-state file-size git-msg subtree-state all-the-icons collapse file-time))
+  ;;   (setq dirvish-mode-line-format '(:left (sort symlink) :right (vc-info yank index)))
+  ;;   (setq dirvish-header-line-height '(25 . 35))
+  ;;   (setq dirvish-side-width 40)
+  ;;   (setq dirvish-header-line-format '(:left (path) :right (free-space)))
+  ;;   (setq dired-listing-switches
+  ;;     "-l --almost-all --human-readable --group-directories-first --no-group"))
+
+
   (use-package! ob-tmux
     :ensure t
     :custom
@@ -457,10 +474,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq org-directory "~/Documents/2023")
   (setq org-agenda-files (list (file-name-concat org-directory "GTD")))
   (setq org-refile-allow-creating-parent-nodes 'confirm)
-  (setq org-attach-id-dir (file-name-concat (file-name-as-directory org-directory) "attachments"))
+  (setq org-attach-id-dir (file-name-concat org-directory "attachments"))
 
   (setq org-download-image-dir (file-name-concat org-attach-id-dir (format-time-string "%Y%m%d")))
-  (setq org-latex-pdf-process (list "latexmk -xelatex -bibtex- -shell-escape -f %f"))
+  (setq org-latex-pdf-process (list "latexmk -xelatex -shell-escape -f %f"))
 
   (after! ox-latex
     (add-to-list 'org-latex-classes
@@ -482,7 +499,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 	  dired-omit-mode nil))
 
   ;; (use-package! org-special-block-extras
-  ;; :hook (org-mode . org-special-block-extras-mode))
+    ;; :hook (org-mode . org-special-block-extras-mode))
 
   ;; (use-package! org-bib-mode)
   (use-package! ebib)
@@ -537,7 +554,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
     (add-hook 'org-mode-hook #'valign-mode))
 
   (use-package! mind-wave)
-  (use-package! nova)
 
   (use-package leetcode
     :config
@@ -656,15 +672,15 @@ emacs --batch doomemacs.org -f org-babel-tangle
       (concat
        (mapcar #'(lambda (c) (if (equal c ?\[) ?\( (if (equal c ?\]) ?\) c))) string-to-transform)))
     (setq org-capture-templates `(
-				  ("p" "Protocal" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d") ".org")) "arxiv")
-				   "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n\n\n\n%?")
-				  ("L" "Protocol Link" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d") ".org")) "arxiv")
-				   "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n%?")
-				  ("w" "Web site" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d") ".org")) "arxiv")
-				   "* %a :website:\n\n%U %?\n\n%:initial")
-				  ("c" "Captured" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d") ".org")) "arxiv")
+				  ("p" "Protocal" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
+				   "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n\n\n\n%?"  :immediate-finish t)
+				  ("L" "Protocol Link" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
+				   "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n%?"  :immediate-finish t)
+				  ("w" "Web site" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
+				   "* %a :website:\n\n%U %?\n\n%:initial"  :immediate-finish t)
+				  ("c" "Captured" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
 				   "* %t %:description\nlink: %l \n\n%i\n" :prepend t :empty-lines-after 1)
-				  ("n" "Captured Now!" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d") ".org")) "arxiv")
+				  ("n" "Captured Now!" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
 				   "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t)
 				  )))
 #+end_src
