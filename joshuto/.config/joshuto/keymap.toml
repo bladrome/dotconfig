@@ -81,7 +81,7 @@ keymap = [
 	{ keys = [ "delete" ],		command = "delete_files" },
 	{ keys = [ "d", "D" ],		command = "delete_files" },
 
-	{ keys = [ "d", "u" ],		command = "shell bash -c 'du . -h'" },
+	{ keys = [ "d", "u" ],		command = "shell bash -c 'du -h --max-depth 2 . | sort -k1 -rh | less'"},
 
 	{ keys = [ "p", "p" ],		command = "paste_files" },
 	{ keys = [ "p", "o" ],		command = "paste_files --overwrite=true" },
