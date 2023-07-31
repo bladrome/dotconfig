@@ -3,7 +3,7 @@ configuration {
     combi-modes: "drun,windows,windowcd,script,ssh,run,keys";
     modes: "combi,run,ssh,keys,filebrowser,combi";
     show-icons: true;
-    icon-theme: "Adwaita";
+    icon-theme: "ePapirus-Dark";
     font: "Hack 12";
 	threads: 0;
     drun-display-format: "{name}";
