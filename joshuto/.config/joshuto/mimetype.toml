@@ -5,8 +5,8 @@ audio_default	= [
 ]
 
 image_default	= [
-	{ command = "feh", args = [ "--" ], fork = true, silent = false },
-	{ command = "sxiv", args = [ "*", "--" ], fork = true, silent = true },
+	{ command = "feh", args = [ "--start-at" ], fork = true, silent = true },
+	{ command = "nsxiv", args = [ "*", "--" ], fork = true, silent = true },
 	{ command = "qimgv", args = [ "--" ], fork = true, silent = true },
 	{ command = "krita", args = [ "--" ], fork = true, silent = true },
 	{ command = "exiftool", confirm_exit = true },
