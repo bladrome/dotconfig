@@ -337,8 +337,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
   ;; (nano-modeline-mode)
   (setq-default cursor-type 'box)
 
-  (setq doom-font (font-spec :family "Roboto Mono" :size 19)
-	doom-serif-font (font-spec :family "Roboto Mono" :size 20)
+  (setq doom-font (font-spec :family "FiraCode" :size 19)
+	doom-serif-font (font-spec :family "FiraCode" :size 20)
 	;; doom-variable-pitch-font (font-spec :family "SourceHanSerifCN")
 	doom-unicode-font (font-spec :family "SourceHanSerifCN")
 	;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
@@ -347,7 +347,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq use-default-font-for-symbols nil)
 
   (setq native-comp-deferred-compilation nil)
-  (setq native-comp-jit-compilation nil)
+  ;; (setq native-comp-jit-compilation nil)
 
   (add-hook! 'after-setting-font-hook
     (set-fontset-font t 'latin (font-spec :family "Roboto Mono"))
