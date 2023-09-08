@@ -242,6 +242,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 :END:
 #+begin_src elisp :tangle "~/.config/doom/packages.el"
 
+(package! saveplace-pdf-view :disable t)
 (package! org-fragtog)
 (package! org-page)
 (package! org-ql)
