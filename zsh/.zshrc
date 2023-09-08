@@ -17,7 +17,7 @@ PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.cargo/bin
 PATH=$PATH:~/node_modules/.bin
 PATH=$PATH:~/gitcode/bladrome/cvscripts
-source ~/tools/loadproxy.sh
+# source ~/tools/loadproxy.sh
 
 
 # https://wiki.zshell.dev/docs/getting_started/installation#-manual-setup
