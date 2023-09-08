@@ -2,7 +2,7 @@ session_name: ob-workspace
 windows:
   - window_name: joshuto
     panes:
-    -
+    - joshuto
   - window_name: terminal
     panes:
     - pane
@@ -16,4 +16,4 @@ windows:
     - pane
   - window_name: T
     panes:
-    - pane
+    - htop
