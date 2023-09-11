@@ -116,12 +116,12 @@ ffmpegthumbnailer
 figlet
 firefox
 firejail
+fish
 flake8
 flex
 fontforge
 freecad
 freerdp
-frpc-bin
 fuse2
 fzf
 fzy
@@ -194,7 +194,6 @@ linux-headers
 linux-lts
 linux-lts-headers
 linux-xanmod
-linux-xanmod-edge
 linux-xanmod-headers
 linux-zen
 linux-zen-headers
@@ -266,7 +265,6 @@ opencl-headers
 opencv
 opendoas
 openmp
-openresolv
 openscad
 openssh
 openvpn
@@ -362,7 +360,7 @@ redshift
 reflector
 remmina
 repo
-rime-double-pinyin
+rime-ice-git
 ripgrep
 ripgrep-all
 riscv-gnu-toolchain-bin
@@ -403,6 +401,7 @@ sxiv
 syncthing
 sysstat
 system-config-printer
+systemd-resolvconf
 systemd-swap
 tailscale
 tcpdump
@@ -489,7 +488,7 @@ vlc
 vsftpd
 w3m
 wallutils
-waybar-hyprland-git
+waybar
 weechat
 wezterm
 wget
