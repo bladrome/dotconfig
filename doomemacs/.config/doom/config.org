@@ -3,7 +3,7 @@
 
 
 * Install
-#+begin_src bash
+#+begin_src bash :tangle no
 emacs --batch doomemacs.org -f org-babel-tangle
 #+end_src
 
@@ -235,7 +235,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 #+end_src
 
-#+RESULTS:
 * packages
 :PROPERTIES:
 :header-args: :mkdirp yes
@@ -299,6 +298,9 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! mind-wave
  :recipe (:host github :repo "manateelazycat/mind-wave"
  :files ("*.el" "*.py")))
+(package! blink-search
+ :recipe (:host github :repo "manateelazycat/blink-search"
+ :files ("*.el" "*.py" "core/*.py" "backend" "icons")))
 
 (package! chatgpt-shell
   :recipe (:host github :repo "xenodium/chatgpt-shell"))
@@ -337,6 +339,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
   ;; (nano-light)
   ;; (nano-modeline-mode)
   (setq-default cursor-type 'box)
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "firefox")
 
   (setq doom-font (font-spec :family "FiraCode" :size 19)
 	doom-serif-font (font-spec :family "FiraCode" :size 20)
@@ -518,6 +522,11 @@ emacs --batch doomemacs.org -f org-babel-tangle
     :config
     (setq rime-user-data-dir "~/.config/doom/rime")
     (setq rime-inline-ascii-trigger 'shift-l)
+    (setq rime-posframe-properties
+      (list :background-color "#333333"
+            :foreground-color "#dcdccc"
+            :font "WenQuanYi Micro Hei Mono-14"
+            :internal-border-width 10))
     (setq rime-disable-predicates
 	  '(rime-predicate-current-uppercase-letter-p
 	    rime-predicate-punctuation-line-begin-p
