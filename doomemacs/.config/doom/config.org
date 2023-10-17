@@ -302,15 +302,13 @@ emacs --batch doomemacs.org -f org-babel-tangle
  :recipe (:host github :repo "manateelazycat/blink-search"
  :files ("*.el" "*.py" "core/*.py" "backend" "icons")))
 
-(package! chatgpt-shell
-  :recipe (:host github :repo "xenodium/chatgpt-shell"))
-
-(package! org-ai
-  :recipe (:host github :repo "rksm/org-ai"
-           :files ("*.el" "README.md" "snippets")))
-
-(package! dirvish
-  :recipe (:host github :repo "alexluigit/dirvish"))
+;; (package! chatgpt-shell
+;;   :recipe (:host github :repo "xenodium/chatgpt-shell"))
+;; (package! org-ai
+;;   :recipe (:host github :repo "rksm/org-ai"
+;;            :files ("*.el" "README.md" "snippets")))
+;; (package! dirvish
+;;   :recipe (:host github :repo "alexluigit/dirvish"))
 
 
 #+end_src
@@ -425,20 +423,20 @@ emacs --batch doomemacs.org -f org-babel-tangle
     (org-babel-tmux-terminal-opts '("-T" "ob-tmux" "-e")))
 
 
-  (use-package! chatgpt-shell
-    :init
-    (setq chatgpt-shell-openai-key
-	  (lambda ()
-	    (nth 0 (process-lines "pass" "show" "openai-key")))))
+  ;; (use-package! chatgpt-shell
+  ;;   :init
+  ;;   (setq chatgpt-shell-openai-key
+  ;;         (lambda ()
+  ;;           (nth 0 (process-lines "pass" "show" "openai-key")))))
 
-  (use-package! org-ai
-    :init
-    (setq org-ai-openai-api-token (nth 0 (process-lines "pass" "show" "openai-key")))
-    :hook
-    (org-mode . org-ai-mode)
-    :config
-    (org-ai-global-mode)
-    (org-ai-install-yasnippets))
+  ;; (use-package! org-ai
+  ;;   :init
+  ;;   (setq org-ai-openai-api-token (nth 0 (process-lines "pass" "show" "openai-key")))
+  ;;   :hook
+  ;;   (org-mode . org-ai-mode)
+  ;;   :config
+  ;;   (org-ai-global-mode)
+  ;;   (org-ai-install-yasnippets))
 
 
 
@@ -478,6 +476,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq org-directory "~/Documents/2023")
   (setq org-hugo-base-dir (file-name-concat org-directory "Hugo"))
   (setq org-agenda-files (list (file-name-concat org-directory "GTD")))
+
   (setq org-refile-allow-creating-parent-nodes 'confirm)
   (setq org-attach-id-dir (file-name-concat org-directory "attachments"))
 
