@@ -283,9 +283,9 @@ emacs --batch doomemacs.org -f org-babel-tangle
  :recipe (:host github :repo "ahendriksen/ob-tmux"))
 
 ;; lc
-(package! shrface)
-(package! leetcode
- :recipe (:host github :repo "kaiwk/leetcode.el"))
+;; (package! shrface)
+;; (package! leetcode
+;;  :recipe (:host github :repo "kaiwk/leetcode.el"))
 
 (package! org-bib-mode
  :recipe (:host github :repo "rougier/org-bib-mode"))
