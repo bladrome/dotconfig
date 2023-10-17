@@ -538,6 +538,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
     :config
     (global-lsp-bridge-mode)
     (yas-global-mode 1))
+;;  (lsp-bridge-enable-with-tramp)
 
 
   (after! lsp-mode
