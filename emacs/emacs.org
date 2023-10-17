@@ -123,7 +123,8 @@
 #+end_src
 
 ** use-packages
-#+begin_src elisp 
+#+begin_src elisp
+    (require 'package)
     (setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
              ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
              ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
@@ -132,22 +133,23 @@
     (setq package-archives '(("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
              ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
              ("nongnu" . "http://mirrors.ustc.edu.cn/elpa/nongnu/")))
-    (when (version< emacs-version "27.0")
-      (package-initialize))
 
-    (setq use-package-always-ensure t)
+
+    (package-initialize)
+
     (unless (package-installed-p 'use-package)
+      (package-refresh-contents)
       (package-install 'use-package))
 
-    (use-package benchmark-init 
-      :init (benchmark-init/activate) 
-      :hook (after-init . benchmark-init/deactivate))
+    ;; (use-package benchmark-init
+    ;;   :init (benchmark-init/activate)
+    ;;   :hook (after-init . benchmark-init/deactivate))
 
-    (eval-and-compile 
+    (eval-and-compile
       (setq use-package-always-ensure t)
       (setq use-package-always-defer t)
-      (setq use-package-always-demand nil) 
-      (setq use-package-expand-minimally t) 
+      (setq use-package-always-demand nil)
+      (setq use-package-expand-minimally t)
       (setq use-package-verbose t))
     (require 'use-package)
 
@@ -241,8 +243,8 @@
               :inherit modus-themes-tab-backdrop :underline t))
            'face-override-spec))
 
-  (add-to-list 'tab-bar-format 'tab-bar-format-align-right t)
-  (add-to-list 'tab-bar-format 'tab-bar-format-global t)
+  ;; (add-to-list 'tab-bar-format 'tab-bar-format-align-right t)
+  ;; (add-to-list 'tab-bar-format 'tab-bar-format-global t)
   ;; (tab-bar-mode t)
 #+end_src
 *** window-divider
@@ -281,32 +283,47 @@
     (doom-themes-org-config))
 #+end_src
 
+** bookmark
+#+begin_src elisp
+(setq bookmark-default-file "~/.config/doom/bookmarks")
+#+end_src
 ** doom-snippets
+
 #+begin_src elisp
   (use-package yasnippet
     :defer nil
     :config
+    (setq yas-snippet-dirs
+      '("~/.config/doom/snippets"))
     (yas-global-mode 1))
+  (use-package auto-yasnippet)
   (use-package yasnippet-snippets)
 #+end_src
 ** rime
 #+begin_src elisp
   (use-package rime
-    :defer nil
     :custom
     (default-input-method "rime")
     :bind
     (:map rime-active-mode-map
-          ("<tab>" . 'rime-inline-ascii)
-          :map rime-mode-map
-          ("C-`" . 'rime-send-keybinding)
-          ("M-j" . 'rime-force-enable))
+     ("<tab>" . 'rime-inline-ascii)
+     :map rime-mode-map
+     ("C-`" . 'rime-send-keybinding)
+     ("M-j" . 'rime-force-enable))
     :config
+    (setq rime-user-data-dir "~/.config/doom/rime")
     (setq rime-inline-ascii-trigger 'shift-l)
+    (setq rime-posframe-properties
+      (list :background-color "#333333"
+            :foreground-color "#dcdccc"
+            :font "WenQuanYi Micro Hei Mono-14"
+            :internal-border-width 10))
     (setq rime-disable-predicates
-          '(rime-predicate-current-uppercase-letter-p
-            rime-predicate-punctuation-line-begin-p))
-    (setq rime-show-candidate 'posframe))
+	  '(rime-predicate-current-uppercase-letter-p
+	    rime-predicate-punctuation-line-begin-p
+	    rime-predicate-prog-in-code-p))
+    (setq default-input-method 'rime)
+    (setq rime-show-candidate 'sidewindow))
 #+end_src
 
 ** Builtin
@@ -429,6 +446,7 @@ Do not saves duplicates in kill-ring
     (setq recentf-auto-cleanup 'never) ;; disable before we start recentf!
     (setq recentf-max-saved-items 1000)
     (setq recentf-exclude nil)
+    (setq recentf-save-file "~/.config/doom/recentf"))
     (recentf-mode 1))
 #+end_src
 *** projectile
@@ -440,8 +458,8 @@ Do not saves duplicates in kill-ring
 #+END_SRC
 ** Font
 #+begin_src elisp
-  (add-to-list 'default-frame-alist '(font . "Roboto Mono-15"))
-  (set-face-attribute 'default t :font "Roboto Mono-15")
+  (add-to-list 'default-frame-alist '(font . "Noto Sans Mono"))
+  (set-face-attribute 'default t :font "Noto Sans Mono")
 #+end_src
 
 ** icons
@@ -502,7 +520,7 @@ Toggle saving of minibuffer history.
 #+end_src
 
 *** undo
-#+begin_src elisp
+#+begin_src elisp :tangle no
   (use-package vundo
     :demand
     :config
@@ -584,18 +602,6 @@ Toggle saving of minibuffer history.
     (add-hook 'on-first-input-hook #'global-corfu-mode)
     (add-hook 'on-first-input-hook #'corfu-history-mode)
     (add-hook 'on-first-input-hook #'corfu-indexed-mode))
-#+end_src
-*** corfu-doc
-#+begin_src elisp
-  (use-package corfu-doc
-    :config
-    (add-hook 'corfu-mode-hook #'corfu-doc-mode)
-    (setq corfu-doc-delay 0.5
-          corfu-doc-max-width 70
-          corfu-doc-max-height 20)
-    (with-eval-after-load 'corfu
-      (define-key corfu-map (kbd "M-p") #'corfu-doc-scroll-down)
-      (define-key corfu-map (kbd "M-n") #'corfu-doc-scroll-up)))
 #+end_src
 *** kind-icon
 
@@ -766,8 +772,12 @@ Toggle saving of minibuffer history.
 #+end_src
 ** Smex
 #+begin_src elisp
-  (use-package smex)
-  (use-package ivy)
+
+  (use-package ivy
+    :demand
+    :config
+    (setq ivy-use-virtual-buffers t
+          ivy-count-format "%d/%d "))
   (use-package counsel)
 
 #+end_src
@@ -798,7 +808,7 @@ Toggle saving of minibuffer history.
 #+end_src
 ** config
 #+begin_src elisp
-      (setq org-directory "~/Documents/2022/")
+      (setq org-directory "~/Documents/2023/")
       (setq org-agenda-files (list org-directory))
       (setq org-attach-id-dir (concat org-directory "attachments"))
       (use-package org
@@ -810,7 +820,7 @@ Toggle saving of minibuffer history.
         (setq org-latex-listings 'minted)
         (setq org-publish-project-alist
               '(("orgfiles"
-                 :base-directory "~/Documents/2022"
+                 :base-directory "~/Documents/2023"
                  :base-extension "org"
                  :publishing-directory "~/org/public_html"
                  :publishing-function org-html-publish-to-html
@@ -1065,11 +1075,9 @@ Copy id to clipboard.
           bibtex-autokey-titlewords 2
           bibtex-autokey-titlewords-stretch 1
           bibtex-autokey-titleword-length 5)
-    (require 'org-ref)
-    (require 'org-ref-helm)
     (define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link)
     )
-  (setq bibtex-completion-bibliography '("/home/bladrome/Documents/2022/papertii.bib"))
+  (setq bibtex-completion-bibliography '("/home/bladrome/Documents/2023/papertii.bib"))
 
 #+end_src
 *** consult-bibtex
@@ -1175,7 +1183,7 @@ Copy id to clipboard.
 
 
 * Exp
-#+begin_src elisp
+#+begin_src elisp :tangle no
   (setq doom-theme nil)
   (add-to-list 'load-path
                "~/gitcode/nano-emacs/")
