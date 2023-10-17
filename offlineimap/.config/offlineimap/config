@@ -1,7 +1,7 @@
 [general]
-accounts = blkcat,jack
+accounts = blkcat,jack,nwafu2017
 pythonfile = ~/.config/offlineimap/pass.py
-maxsyncaccounts = 2
+maxsyncaccounts = 3
 autorefresh = 10
 
 [Account blkcat]
@@ -39,5 +39,24 @@ sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 remotehost = imap.163.com
 remoteuser = blade_jack@163.com
 remotepasseval = get_pass("blade_jack")
+folderfilter = lambda foldername: foldername not in ['drafts', 'sent', 'trash']
+realdelete = no
+
+[Account nwafu2017]
+localrepository = nwafu2017-Local
+remoterepository = nwafu2017-Remote
+utf8foldernames = yes
+
+[Repository nwafu2017-Local]
+type = Maildir
+localfolders = ~/mail/nwafu2017-mailbox
+
+[Repository nwafu2017-Remote]
+type = IMAP
+ssl = no
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+remotehost = imap.nwafu.edu.cn
+remoteuser = chonghe@nwafu.edu.cn
+remotepasseval = get_pass("nwafu2017")
 folderfilter = lambda foldername: foldername not in ['drafts', 'sent', 'trash']
 realdelete = no

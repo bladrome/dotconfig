@@ -16,4 +16,10 @@ host           smtp.163.com
 from           blade_jack@163.com
 passwordeval   "gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.config/.mailauthinfo.gpg | tail -n1 | awk '{print $2}'"
 
+account        nwafu2017
+user           chonghe
+host           smtp.nwafu.edu.cn
+from           chonghe@nwafu.edu.cn
+passwordeval   "gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.config/.mailauthinfo.gpg | tail -n1 | awk '{print $3}'"
+
 account default : blackwhitedoggie
