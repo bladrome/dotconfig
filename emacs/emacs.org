@@ -2,6 +2,7 @@
 #+auto_tangle: t
 #+property: header-args:elisp :noweb yes :results silent :mkdirp yes :tangle "~/.emacs.d/init.el"  :exports code
 
+
 * Emacs configuration
 ** Early-init.el
 #+begin_src elisp :tangle ~/.emacs.d/early-init.el
@@ -124,43 +125,45 @@
 
 ** use-packages
 #+begin_src elisp
-    (require 'package)
-    (setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-             ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-             ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
-             ))
+(require 'package)
+(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+                         ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+                         ))
 
-    (setq package-archives '(("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
-             ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
-             ("nongnu" . "http://mirrors.ustc.edu.cn/elpa/nongnu/")))
+(setq package-archives '(("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
+                         ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
+                         ("nongnu" . "http://mirrors.ustc.edu.cn/elpa/nongnu/")))
 
 
-    (package-initialize)
+(package-initialize)
 
-    (unless (package-installed-p 'use-package)
-      (package-refresh-contents)
-      (package-install 'use-package))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-    ;; (use-package benchmark-init
-    ;;   :init (benchmark-init/activate)
-    ;;   :hook (after-init . benchmark-init/deactivate))
+;; (use-package benchmark-init
+;;   :init (benchmark-init/activate)
+;;   :hook (after-init . benchmark-init/deactivate))
 
-    (eval-and-compile
-      (setq use-package-always-ensure t)
-      (setq use-package-always-defer t)
-      (setq use-package-always-demand nil)
-      (setq use-package-expand-minimally t)
-      (setq use-package-verbose t))
-    (require 'use-package)
+(eval-and-compile
+  (setq use-package-always-ensure t)
+  (setq use-package-always-defer t)
+  (setq use-package-always-demand nil)
+  (setq use-package-expand-minimally t)
+  (setq use-package-verbose t)
+  (require 'use-package))
 
-    (use-package auto-compile
-      :defer nil
-      :config
-      (auto-compile-on-load-mode)
-      (auto-compile-on-save-mode))
-    ;; (use-package quelpa)
-    ;; (use-package quelpa-use-package)
+(use-package auto-compile
+  :defer nil
+  :config
+  (auto-compile-on-load-mode)
+  (auto-compile-on-save-mode))
+;; (use-package quelpa)
+;; (use-package quelpa-use-package)
 
+(use-package better-defaults
+  :ensure t)
 #+end_src
 
 ** debug
@@ -295,9 +298,12 @@
     :config
     (setq yas-snippet-dirs
       '("~/.config/doom/snippets"))
-    (yas-global-mode 1))
+    (yas-global-mode))
   (use-package auto-yasnippet)
   (use-package yasnippet-snippets)
+  (use-package doom-snippets
+    :load-path "~/.config/doom/doom-snippets"
+    :after yasnippet)
 #+end_src
 ** rime
 #+begin_src elisp
@@ -446,7 +452,7 @@ Do not saves duplicates in kill-ring
     (setq recentf-auto-cleanup 'never) ;; disable before we start recentf!
     (setq recentf-max-saved-items 1000)
     (setq recentf-exclude nil)
-    (setq recentf-save-file "~/.config/doom/recentf"))
+    (setq recentf-save-file "~/.config/doom/recentf")
     (recentf-mode 1))
 #+end_src
 *** projectile
@@ -694,7 +700,7 @@ Toggle saving of minibuffer history.
 #+end_src
 
 ** dashboard
-#+begin_src elisp
+#+begin_src elisp :tangle no
   (use-package dashboard
     :defer nil
     :config
@@ -719,6 +725,12 @@ Toggle saving of minibuffer history.
     :config (which-key-mode))
 #+end_src
 * Programing Languages
+** indent
+#+begin_src elisp
+(use-package aggressive-indent
+  :config
+  (global-aggressive-indent-mode t))
+#+end_src
 ** complettion
 #+begin_src elisp
 
@@ -770,18 +782,69 @@ Toggle saving of minibuffer history.
     ;; Enable recursive minibuffers
     (setq enable-recursive-minibuffers t))
 #+end_src
-** Smex
+** ivy
 #+begin_src elisp
 
-  (use-package ivy
-    :demand
-    :config
-    (setq ivy-use-virtual-buffers t
-          ivy-count-format "%d/%d "))
-  (use-package counsel)
+(use-package ivy
+  :demand
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  (setq  ivy-count-format "%d/%d")
+  (global-set-key (kbd "C-c C-r") 'ivy-resume))
+
+
+(use-package counsel
+  :config
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file))
+#+end_src
+** quickrun
+#+begin_src elisp
+(use-package quickrun)
+
+(use-package apheleia
+  :config
+  (apheleia-global-mode 1))
 
 #+end_src
+** lsp cpp
+#+begin_src elisp
 
+(use-package lsp-mode
+  :hook ((lsp-mode . lsp-enable-which-key-integration))
+  :config (setq lsp-completion-enable-additional-text-edit nil))
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+(use-package ccls
+  :config
+  (setq ccls-executable "ccls")
+  (setq lsp-prefer-flymake nil)
+  (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
+  :hook ((c-mode c++-mode objc-mode) .
+         (lambda () (require 'ccls) (lsp))))
+(use-package which-key
+  :config (which-key-mode))
+(use-package helm-lsp)
+(use-package helm
+  :config (helm-mode))
+(use-package lsp-treemacs)
+
+;;; This will enable emacs to compile a simple cpp single file without any makefile by just pressing [f9] key
+(defun code-compile()
+  (interactive)
+  (unless (file-exists-p "Makefile")
+    (set (make-local-variable 'compile-command)
+     (let ((file (file-name-nondirectory buffer-file-name)))
+       (format "%s -o %s %s"
+           (if (equal (file-name-extension file) "cpp") "g++" "gcc")
+           (file-name-sans-extension file)
+           file)))
+    (compile compile-command)))
+(global-set-key [f9] 'code-compile)
+
+#+end_src
 * Orgmode
 ** Better Default
 #+begin_src elisp
@@ -805,6 +868,10 @@ Toggle saving of minibuffer history.
   (global-set-key (kbd "C-c o I") 'org-redisplay-inline-images)
   (global-set-key (kbd "C-c o p i") 'org-id-get-create)
   (global-set-key (kbd "C-c o b") 'org-switchb)
+#+end_src
+** babel
+#+begin_src elisp
+
 #+end_src
 ** config
 #+begin_src elisp
@@ -947,8 +1014,26 @@ If you do not provide the separator bar, the last state is used as the DONE stat
 ** org-babel
 根据需要加载 org-babel-load-languages, 加快 Emacs 的启动速度，[[https://emacs-china.org/t/org-babel/18699][相关讨论见 Emacs-china 论坛]]。
 #+begin_src elisp
-  (setq org-babel-python-command "python3")
+(setq org-babel-python-command "python3")
+
+
+(with-eval-after-load 'org
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   (seq-filter
+    (lambda (pair)
+      (locate-library (concat "ob-" (symbol-name (car pair)))))
+    '((R . t)
+      (python . t)
+      (shell . t)
+      (calc .t)
+      (C . t)
+      (emacs-lisp . t)
+      (gnuplot . t)
+      (latex . t)))))
+
 #+end_src
+
 #+begin_src elisp
   ;; (org-babel-do-load-languages
   ;;  'org-babel-load-languages
