@@ -122,7 +122,19 @@
   ;; (setq-default mode-line-format nil)
   ;; early-init.el ends here
 #+end_src
-
+** config
+#+begin_src elisp
+(setq fill-column 80)
+(setq create-lockfiles nil
+      make-backup-files nil
+      version-control t     ; number each backup file
+      backup-by-copying t   ; instead of renaming current file (clobbers links)
+      delete-old-versions t ; clean up after itself
+      kept-old-versions 5
+      kept-new-versions 5
+      backup-directory-alist (list (cons "." (concat startup--xdg-config-default "backup/")))
+      tramp-backup-directory-alist backup-directory-alist)
+#+end_src
 ** use-packages
 #+begin_src elisp
 (require 'package)
@@ -812,18 +824,36 @@ Toggle saving of minibuffer history.
 ** lsp cpp
 #+begin_src elisp
 
+(use-package cc-mode)
+
 (use-package lsp-mode
-  :hook ((lsp-mode . lsp-enable-which-key-integration))
-  :config (setq lsp-completion-enable-additional-text-edit nil))
+  :hook ((c-mode          ; clangd
+          c++-mode        ; clangd
+          c-or-c++-mode   ; clangd
+          python-mode     ; pyright
+          web-mode        ; ts-ls/HTML/CSS
+          ) . lsp-deferred)
+  :commands
+  lsp)
 (use-package lsp-ui
   :commands lsp-ui-mode)
-(use-package ccls
-  :config
-  (setq ccls-executable "ccls")
-  (setq lsp-prefer-flymake nil)
-  (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
-  :hook ((c-mode c++-mode objc-mode) .
-         (lambda () (require 'ccls) (lsp))))
+(use-package lsp-pyright
+  :hook
+  (python-mode . (lambda () (require 'lsp-pyright)))
+  :init
+  (when (executable-find "python3")
+    (setq lsp-pyright-python-executable-cmd "python3")))
+(use-package company)
+(use-package company-box)
+
+
+;; (use-package ccls
+;;   :config
+;;   (setq ccls-executable "ccls")
+;;   (setq lsp-prefer-flymake nil)
+;;   (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
+;;   :hook ((c-mode c++-mode objc-mode) .
+;;          (lambda () (require 'ccls) (lsp))))
 (use-package which-key
   :config (which-key-mode))
 (use-package helm-lsp)
@@ -836,11 +866,11 @@ Toggle saving of minibuffer history.
   (interactive)
   (unless (file-exists-p "Makefile")
     (set (make-local-variable 'compile-command)
-     (let ((file (file-name-nondirectory buffer-file-name)))
-       (format "%s -o %s %s"
-           (if (equal (file-name-extension file) "cpp") "g++" "gcc")
-           (file-name-sans-extension file)
-           file)))
+         (let ((file (file-name-nondirectory buffer-file-name)))
+           (format "%s -o %s %s"
+                   (if (equal (file-name-extension file) "cpp") "g++" "gcc")
+                   (file-name-sans-extension file)
+                   file)))
     (compile compile-command)))
 (global-set-key [f9] 'code-compile)
 
