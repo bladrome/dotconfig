@@ -3,7 +3,7 @@
 #assume_yes = true
 
 # Disable specific steps - same options as the command line flag
-disable = ["emacs", "git_repos", "vim", "shell", "conda", "mamba", "pip3", "config_update", "git_repos", "myrepos"]
+disable = ["emacs", "vim", "shell", "conda", "mamba", "pip3", "config_update", "git_repos", "myrepos"]
 
 # Ignore failures for these steps
 #ignore_failures = ["powershell"]
@@ -43,7 +43,7 @@ disable = ["emacs", "git_repos", "vim", "shell", "conda", "mamba", "pip3", "conf
 #cleanup = true
 
 # Skip sending a notification at the end of a run
-skip_notify = true
+skip_notify = false
 
 # Skip the preamble displayed when topgrade is run
 #display_preamble = false
@@ -60,7 +60,7 @@ repos = [
 #pull_predefined = false
 
 # Arguments to pass Git when pulling Repositories
-arguments = "--rebase --autostash"
+pull_arguments = "--rebase --autostash"
 
 [composer]
 self_update = true
@@ -79,7 +79,7 @@ self_update = true
 
 [linux]
 # Arch Package Manager to use. Allowed values: autodetect, aura, garuda_update, pacman, pamac, paru, pikaur, trizen, yay.
-#arch_package_manager = "pacman"
+arch_package_manager = "paru"
 # Arguments to pass yay (or paru) when updating packages
 #yay_arguments = "--nodevel"
 # Arguments to pass dnf when updating packages
