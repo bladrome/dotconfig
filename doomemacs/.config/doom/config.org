@@ -44,8 +44,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
         +prescient
         +icons)            ; a search engine for love and life
        (vertico
-        :icons
-        :childframe)
+       :icons
+       :childframe)
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -56,7 +56,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
        hl-todo             ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        hydra
        ;;indent-guides     ; highlighted indent columns
-       ;;ligatures         ; ligatures and symbols to make your code pretty again
+       (ligatures +extra)  ; ligatures and symbols to make your code pretty again
        ;;minimap           ; show a map of the code on the side
        (modeline +light)   ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
@@ -103,7 +103,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       ;;(spell +flyspell)   ; tasing you for misspelling mispelling
+       (spell +aspell)   ; tasing you for misspelling mispelling
        ;; grammar             ; tasing grammar mistake every you make
 
        :tools
@@ -241,7 +241,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 :END:
 #+begin_src elisp :tangle "~/.config/doom/packages.el"
 
-(package! saveplace-pdf-view :disable t)
+;; (package! saveplace-pdf-view :disable t)
 (package! org-fragtog)
 (package! org-page)
 (package! org-ql)
@@ -287,9 +287,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;; (package! leetcode
 ;;  :recipe (:host github :repo "kaiwk/leetcode.el"))
 
-(package! org-bib-mode
- :recipe (:host github :repo "rougier/org-bib-mode"))
-
 (package! emacs-epc
  :recipe (:host github :repo "kiwanami/emacs-epc"))
 (package! lsp-bridge
@@ -307,8 +304,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;; (package! org-ai
 ;;   :recipe (:host github :repo "rksm/org-ai"
 ;;            :files ("*.el" "README.md" "snippets")))
-;; (package! dirvish
-;;   :recipe (:host github :repo "alexluigit/dirvish"))
 
 
 #+end_src
@@ -326,6 +321,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
         ("org"   . "http://mirrors.bfsu.edu.cn/elpa/org/")
         ("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
 
+  (setq company-backends '(company-aspell))
   ;; (setq url-proxy-services
   ;;          '(("socks5" . "localhost:8888")))
 
@@ -469,10 +465,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
 		    :key  ?a
 		    :query "date:20200101..now")))
 
-  ;; (use-package! org-bib-mode
-  ;; :config
-  ;; (setq org-bib-pdf-directory "~/Downloads/papers/"))
-
   (setq org-directory "~/Documents/2023")
   (setq org-hugo-base-dir (file-name-concat org-directory "Hugo"))
   (setq org-agenda-files (list (file-name-concat org-directory "GTD")))
@@ -482,6 +474,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
   (setq org-download-image-dir (file-name-concat org-attach-id-dir (format-time-string "%Y%m%d")))
   (setq org-latex-pdf-process (list "latexmk -xelatex -shell-escape -f %f"))
+  (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f"))
+
 
   (after! ox-latex
     (add-to-list 'org-latex-classes
@@ -506,7 +500,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
     ;; :hook (org-mode . org-special-block-extras-mode))
 
   ;; (use-package! org-bib-mode)
-  (use-package! ebib)
 
 
   (use-package! rime
@@ -533,25 +526,25 @@ emacs --batch doomemacs.org -f org-babel-tangle
     (setq default-input-method 'rime)
     (setq rime-show-candidate 'posframe))
 
-  (use-package! lsp-bridge
-    :config
-    (global-lsp-bridge-mode)
-    (yas-global-mode 1))
+  ;; (use-package! lsp-bridge
+  ;;   :config
+  ;;   (global-lsp-bridge-mode)
+  ;;   (yas-global-mode 1))
 ;;  (lsp-bridge-enable-with-tramp)
 
 
-  (after! lsp-mode
-    (add-to-list 'tramp-remote-path "/home/jack/mambaforge/bin/")
-    (lsp-register-client
-     (make-lsp-client :new-connection (lsp-tramp-connection "pyright")
-		      :major-modes '(python-mode)
-		      :remote? t
-		      :server-id 'pyright-remote))
-    (lsp-register-client
-     (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
-		      :major-modes '(c++-mode)
-		      :remote? t
-		      :server-id 'clangd-remote)))
+  ;; (after! lsp-mode
+  ;;   (add-to-list 'tramp-remote-path "/home/jack/mambaforge/bin/")
+  ;;   (lsp-register-client
+  ;;    (make-lsp-client :new-connection (lsp-tramp-connection "pyright")
+  ;;       	      :major-modes '(python-mode)
+  ;;       	      :remote? t
+  ;;       	      :server-id 'pyright-remote))
+  ;;   (lsp-register-client
+  ;;    (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
+  ;;       	      :major-modes '(c++-mode)
+  ;;       	      :remote? t
+  ;;       	      :server-id 'clangd-remote)))
 
   (use-package! pangu-spacing
     :config
@@ -565,53 +558,42 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
   (use-package! mind-wave)
 
-  (use-package leetcode
-    :config
-    (setq leetcode-save-solutions t
-	  leetcode-prefer-language "cpp"
-	  leetcode-prefer-sql "mysql"
-	  leetcode-directory "~/workground/Leetcode"))
+  ;; (use-package! leetcode
+  ;;   :config
+  ;;   (setq leetcode-save-solutions t
+  ;;         leetcode-prefer-language "cpp"
+  ;;         leetcode-prefer-sql "mysql"
+  ;;         leetcode-directory "~/workground/Leetcode"))
 
   (setq Tex-command-default "XeLaTeX")
   (setq TeX-engine 'xetex)
   (setq TeX-command-extra-options "-shell-escape")
 
-  (use-package org-ref
-    :config
-    (setq bibtex-completion-bibliography '((file-name-concat org-directory "bibliography/bibliography.bib")
-					   (file-name-concat org-directory "bibliography/arxiv.bib")
-					   (file-name-concat org-directory "bibliography/references.bib"))
-	  bibtex-completion-library-path '((file-name-concat org-directory "bibliography"))
-	  bibtex-completion-notes-template-multiple-files "* ${author-or-editor}, ${title}, ${journal}, (${year}) :${=type=}: \n\nSee [[cite:&${=key=}]]\n"
-	  bibtex-completion-additional-search-fields '(keywords)
-	  bibtex-completion-display-formats
-	  '((article       . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${journal:40}")
-	    (inbook        . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} Chapter ${chapter:32}")
-	    (incollection  . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
-	    (inproceedings . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
-	    (t             . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*}"))
-	  bibtex-completion-pdf-open-function
-	  (lambda (fpath)
-	    (call-process "open" nil 0 nil fpath)))
-    (require 'bibtex)
-    (setq bibtex-autokey-year-length 4
-	  bibtex-autokey-name-year-separator "-"
-	  bibtex-autokey-year-title-separator "-"
-	  bibtex-autokey-titleword-separator "-"
-	  bibtex-autokey-titlewords 2
-	  bibtex-autokey-titlewords-stretch 1
-	  bibtex-autokey-titleword-length 5
-	  org-ref-bibtex-hydra-key-binding (kbd "H-b"))
-    (define-key bibtex-mode-map (kbd "H-b") 'org-ref-bibtex-hydra/body)
+  (use-package! org-ref
+    :init
     (require 'org-ref)
-    (setq reftex-default-bibliography '(file-name-concat org-directory "bibliography/references.bib"))
-    (setq org-ref-bibliography-notes '(file-name-concat org-directory "bibliography/notes.org")
-	  org-ref-default-bibliography '(file-name-concat org-directory "bibliography/references.bib")
-	  org-ref-pdf-directory '(file-name-concat org-directory "bibliography/bibtex-pdfs/")))
-    ;;(setq! citar-bibliography '("/home/bladrome/Documents/2022/papertii.bib"))
-  (use-package org
+    (require 'org-ref-ivy)
+    (require 'org-ref-refproc) ;; this is not loaded by default!
+    :config
+    (add-to-list 'org-export-before-parsing-hook #'org-ref-refproc)
+    (setq org-ref-insert-link-function 'org-ref-insert-link-hydra/body
+      org-ref-insert-cite-function 'org-ref-cite-insert-ivy
+      org-ref-insert-label-function 'org-ref-insert-label-link
+      org-ref-insert-ref-function 'org-ref-insert-ref-link
+      org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body)))
+    (define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link-hydra/body)
+    (define-key bibtex-mode-map (kbd "C-c b") 'org-ref-bibtex-hydra/body)
+    )
+
+  (use-package! org-fragtog
+    :hook
+    (org-mode . org-fragtog-mode))
+
+  (use-package! org
     :init
     (setq org-export-use-babel nil)
+    (require 'oc-bibtex)
+    (require 'org-eldoc)
     :hook
     (org-mode . turn-on-visual-line-mode)
     :config
@@ -624,7 +606,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
     (setq org-latex-listings 'minted)
     (setq org-highlight-latex-and-related '(native script entities))
     (pdf-loader-install)
-
 
     (setq org-publish-directory (file-name-concat org-directory "org-publish"))
 
