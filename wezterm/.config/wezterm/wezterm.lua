@@ -34,7 +34,7 @@ config.enable_wayland = true
 -- Cursor set
 config.force_reverse_video_cursor = true
 -- window padding
-win_padding = 10
+win_padding = 15
 config.window_padding = {
   left = win_padding,
   right = win_padding,
