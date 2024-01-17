@@ -256,6 +256,9 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! rime)
 (package! valign)
 
+(package! vlf)
+(package! org-modern)
+
 ;; (package! mu4e-thread-folding
 ;;   :recipe (:host github :repo "rougier/mu4e-thread-folding"))
 ;; (package! mu4e-dashboard
@@ -428,6 +431,15 @@ emacs --batch doomemacs.org -f org-babel-tangle
       (org-babel-tmux-terminal-opts '("-T" "ob-tmux" "-e")))
 
 
+
+(use-package! vlf
+  :config
+  (require 'vlf-setup)
+  (custom-set-variables
+   '(vlf-application 'dont-ask))
+)
+
+
     ;; (use-package! chatgpt-shell
     ;;   :init
     ;;   (setq chatgpt-shell-openai-key
@@ -597,12 +609,43 @@ emacs --batch doomemacs.org -f org-babel-tangle
       (define-key bibtex-mode-map (kbd "C-c b") 'org-ref-bibtex-hydra/body)
       )
 
-    (use-package! org-margin)
+    (use-package! org-modern
+      :config
+      (setq
+       ;; Edit settings
+       org-auto-align-tags nil
+       org-tags-column 0
+       org-catch-invisible-edits 'show-and-error
+       org-special-ctrl-a/e t
+       org-insert-heading-respect-content t
+       ;; Org styling, hide markup etc.
+       org-hide-emphasis-markers t
+       org-pretty-entities t
+       org-ellipsis "…"
+       ;; Agenda styling
+       org-agenda-tags-column 0
+       org-agenda-block-separator ?─
+       org-agenda-time-grid
+       '((daily today require-timed)
+         (800 1000 1200 1400 1600 1800 2000)
+         " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+       org-agenda-current-time-string
+       "◀── now ─────────────────────────────────────────────────")
+      :hook
+      (org-mode . global-org-modern-mode))
     (use-package! svg-lib)
     (use-package! svg-tag-mode)
     (use-package! org-fragtog
+      :after org
+      :custom
+      (org-startup-with-latex-preview t)
       :hook
-      (org-mode . org-fragtog-mode))
+      (org-mode . org-fragtog-mode)
+      :custom
+      (org-format-latex-options
+       (plist-put org-format-latex-options :scale 2)
+       (plist-put org-format-latex-options :foreground 'auto)
+       (plist-put org-format-latex-options :background 'auto)))
 
     (use-package! org-roam
       :custom
