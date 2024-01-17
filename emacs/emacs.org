@@ -435,6 +435,7 @@ Do not saves duplicates in kill-ring
   (add-hook 'ibuffer-mode-hook
             (lambda ()
               (ibuffer-switch-to-saved-filter-groups "default")))
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
 #+end_src
 *** mouse-avoidance
 #+begin_src elisp
@@ -638,7 +639,6 @@ Toggle saving of minibuffer history.
     :defer nil
     :config
     (add-hook 'completion-list-mode-hook 'consult-preview-at-point-mode)
-    (global-set-key (kbd "C-x C-b") 'consult-buffer)
     (global-set-key (kbd "M-y") 'consult-yank-pop)
     (global-set-key (kbd "C-c f r") 'consult-recent-file)
     (global-set-key (kbd "C-c o o") 'consult-outline))
@@ -712,15 +712,18 @@ Toggle saving of minibuffer history.
 #+end_src
 
 ** dashboard
-#+begin_src elisp :tangle no
+#+begin_src elisp 
   (use-package dashboard
     :defer nil
     :config
     (dashboard-setup-startup-hook)
     (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
+    (setq dashboard-icon-type 'all-the-icons)
+    (setq dashboard-set-navigator t)
+    (setq dashboard-set-init-info t)
     (setq dashboard-center-content t)
     (setq dashboard-items '((recents  . 5)
-                            (bookmarks . 5)
+;                         (bookmarks . 5)
                             (projects . 5)
                             (agenda . 5)
                             (registers . 5))))
@@ -801,9 +804,9 @@ Toggle saving of minibuffer history.
   :demand
   :config
   (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
+  (setq ivy-use-virtual-buffers nil)
   (setq enable-recursive-minibuffers t)
-  (setq  ivy-count-format "%d/%d")
+  (setq  ivy-count-format "(%d/%d) ")
   (global-set-key (kbd "C-c C-r") 'ivy-resume))
 
 
@@ -905,7 +908,7 @@ Toggle saving of minibuffer history.
 #+end_src
 ** config
 #+begin_src elisp
-      (setq org-directory "~/Documents/2023/")
+      (setq org-directory "~/Documents/2024/")
       (setq org-agenda-files (list org-directory))
       (setq org-attach-id-dir (concat org-directory "attachments"))
       (use-package org
@@ -917,7 +920,7 @@ Toggle saving of minibuffer history.
         (setq org-latex-listings 'minted)
         (setq org-publish-project-alist
               '(("orgfiles"
-                 :base-directory "~/Documents/2023"
+                 :base-directory "~/Documents/2024"
                  :base-extension "org"
                  :publishing-directory "~/org/public_html"
                  :publishing-function org-html-publish-to-html
@@ -1192,7 +1195,7 @@ Copy id to clipboard.
           bibtex-autokey-titleword-length 5)
     (define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link)
     )
-  (setq bibtex-completion-bibliography '("/home/bladrome/Documents/2023/papertii.bib"))
+  (setq bibtex-completion-bibliography '("/home/bladrome/Documents/2024/papertii.bib"))
 
 #+end_src
 *** consult-bibtex
@@ -1253,6 +1256,13 @@ Copy id to clipboard.
                   (mode-line-format . none)
                   (tab-line-format . none))))
 #+end_src
+
+#+begin_src elisp
+    (use-package org-modern
+     :config
+     (global-org-modern-mode))
+#+end_src
+
 *** pdf tools
 
 
@@ -1294,7 +1304,6 @@ Copy id to clipboard.
     (shell-command (format "pandoc %s -o %s --reference-doc=%s" (buffer-file-name) docx-file template-file))
     (message "Convert finish: %s" docx-file)))
 #+end_src
-
 
 
 * Exp
