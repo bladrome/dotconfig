@@ -194,9 +194,9 @@ emacs --batch doomemacs.org -f org-babel-tangle
        ;;purescript        ; javascript, but functional
        (python
         +conda
-        +pyenv
         +poetry
         +lsp
+        +tree-sitter
         +pyright)          ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
