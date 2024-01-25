@@ -34,7 +34,7 @@ config.enable_wayland = true
 -- Cursor set
 config.force_reverse_video_cursor = true
 -- window padding
-win_padding = 15
+win_padding = 5
 config.window_padding = {
   left = win_padding,
   right = win_padding,
@@ -43,12 +43,12 @@ config.window_padding = {
 }
 
 -- Window Transparent
-config.window_background_opacity = 0.8
+config.window_background_opacity = 0.75
 config.text_background_opacity = 1.0
 
 -- font set
-config.font = wezterm.font("Hack")
-config.font_size = 10
+config.font = wezterm.font("Fira Code")
+config.font_size = 11
 config.cell_width = 1.1
 config.line_height = 1.1
 config.dpi = 96.0
