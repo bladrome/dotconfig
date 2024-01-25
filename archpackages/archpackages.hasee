@@ -64,6 +64,7 @@ cdrtools
 chaotic-keyring
 chaotic-mirrorlist
 chez-scheme
+chromium
 clang
 clash
 clash-meta
@@ -79,6 +80,7 @@ cpupower
 cscope
 ctags
 cups
+cups-pdf
 curlftpfs
 curlie
 cyrus-sasl-gssapi
@@ -86,6 +88,7 @@ ddcutil
 deno
 dhcpcd
 discount
+distro-grub-themes-arch
 ditaa
 dnsmasq
 docker
@@ -96,7 +99,7 @@ dunst
 dust
 eigen
 elinks
-emacs-git
+emacs
 enchant
 eslint
 ethtool
@@ -132,6 +135,7 @@ geckodriver
 gifsicle
 gimp
 git-delta
+git-lfs
 github-cli
 glances
 glfw-x11
@@ -193,6 +197,8 @@ linux-firmware
 linux-headers
 linux-lts
 linux-lts-headers
+linux-tkg-bmq-generic_v3
+linux-tkg-tt-generic_v3
 linux-xanmod
 linux-xanmod-headers
 linux-zen
@@ -301,6 +307,7 @@ polybar
 poppler-data
 poppler-glib
 postgresql
+powerpill
 prettier
 progress
 psutils
@@ -324,6 +331,7 @@ python-openai
 python-openpyxl
 python-paramiko
 python-pathos
+python-pdfminer
 python-pip
 python-pipenv
 python-poetry
@@ -340,7 +348,6 @@ python-rope
 python-scikit-image
 python-scikit-learn
 python-setuptools
-python-spacy
 qemu-base
 qemu-docs
 qemu-system-aarch64
@@ -361,9 +368,9 @@ reflector
 remmina
 repo
 rime-ice-git
+rio
 ripgrep
 ripgrep-all
-riscv-gnu-toolchain-bin
 rlwrap
 rofi-lbonn-wayland
 rofi-pass
@@ -379,6 +386,7 @@ scrot
 sddm-git
 shellcheck
 shfmt
+shotcut
 shotwell
 skim
 slurp
@@ -394,7 +402,7 @@ stow
 strace
 stylelint
 sudo
-swaylock-effects
+swaylock-effects-git
 swww
 sxhkd
 sxiv
@@ -490,7 +498,7 @@ w3m
 wallutils
 waybar
 weechat
-wezterm
+wezterm-git
 wget
 which
 wireguard-tools
@@ -559,6 +567,7 @@ xterm
 yapf
 yarn
 yay
+yazi
 you-get
 zathura
 zathura-cb
@@ -568,7 +577,7 @@ zathura-ps
 zig
 zip
 zls
-zoom
+zoxide
 zram-generator
 zscroll-git
 zsh
