@@ -103,7 +103,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       (spell +aspell)   ; tasing you for misspelling mispelling
+       (spell +enchant)    ; tasing you for misspelling mispelling
        ;; grammar             ; tasing grammar mistake every you make
 
        :tools
@@ -193,6 +193,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
        plantuml            ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        (python
+        +anaconda
         +conda
         +poetry
         +lsp
@@ -322,6 +323,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
 :END:
 
 #+begin_src elisp :tangle "~/.config/doom/config.el"
+
+(setq oggle-debug-on-error t)
     (setq user-full-name "bladrome"
 	  user-mail-address "blackwhitedoggie@163.com")
 
@@ -331,7 +334,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 	  ("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
 
     (setq delete-by-moving-to-trash t)
-    (setq company-backends '(company-aspell))
+    ;; (setq company-backends '(company-aspell))
     ;; (setq url-proxy-services
     ;;          '(("socks5" . "localhost:8888")))
 
@@ -557,18 +560,19 @@ emacs --batch doomemacs.org -f org-babel-tangle
   ;;  (lsp-bridge-enable-with-tramp)
 
 
-    ;; (after! lsp-mode
-    ;;   (add-to-list 'tramp-remote-path "/home/jack/mambaforge/bin/")
-    ;;   (lsp-register-client
-    ;;    (make-lsp-client :new-connection (lsp-tramp-connection "pyright")
-    ;;       	      :major-modes '(python-mode)
-    ;;       	      :remote? t
-    ;;       	      :server-id 'pyright-remote))
-    ;;   (lsp-register-client
-    ;;    (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
-    ;;       	      :major-modes '(c++-mode)
-    ;;       	      :remote? t
-    ;;       	      :server-id 'clangd-remote)))
+    (after! tramp
+      (add-to-list 'tramp-remote-path "/home/jack/mambaforge/bin"))
+    (after! lsp-mode
+      (lsp-register-client
+       (make-lsp-client :new-connection (lsp-tramp-connection "pyright")
+          	      :major-modes '(python-mode)
+          	      :remote? t
+          	      :server-id 'pyright-tramp))
+      (lsp-register-client
+       (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
+          	      :major-modes '(c++-mode)
+          	      :remote? t
+          	      :server-id 'clangd-tramp)))
 
     (use-package! pangu-spacing
       :config
