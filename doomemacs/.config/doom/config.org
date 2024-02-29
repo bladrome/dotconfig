@@ -259,6 +259,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (package! vlf)
 (package! org-modern)
+(package! org-roam-ui)
 
 ;; (package! mu4e-thread-folding
 ;;   :recipe (:host github :repo "rougier/mu4e-thread-folding"))
@@ -324,7 +325,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 #+begin_src elisp :tangle "~/.config/doom/config.el"
 
-(setq oggle-debug-on-error t)
+(setq toggle-debug-on-error t)
     (setq user-full-name "bladrome"
 	  user-mail-address "blackwhitedoggie@163.com")
 
@@ -351,8 +352,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
     (setq browse-url-browser-function 'browse-url-generic
 	  browse-url-generic-program "firefox")
 
-    (setq doom-font (font-spec :family "FiraCode" :size 19)
-	  doom-serif-font (font-spec :family "FiraCode" :size 20)
+    (setq doom-font (font-spec :family "Roboto Mono" :size 19)
+	  doom-serif-font (font-spec :family "Roboto Mono" :size 20)
 	  ;; doom-variable-pitch-font (font-spec :family "SourceHanSerifCN")
 	  doom-unicode-font (font-spec :family "SourceHanSerifCN")
 	  ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
@@ -364,7 +365,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
     ;; (setq native-comp-jit-compilation nil)
 
     (add-hook! 'after-setting-font-hook
-      (set-fontset-font t 'latin (font-spec :family "Roboto Mono"))
+      (set-fontset-font t 'latin (font-spec :family "Fira Code"))
       (set-fontset-font t 'symbol (font-spec :family "Symbola"))
       (set-fontset-font t 'mathematical (font-spec :family "Symbola"))
       (set-fontset-font t 'emoji (font-spec :family "Symbola")))
@@ -613,30 +614,47 @@ emacs --batch doomemacs.org -f org-babel-tangle
       (define-key bibtex-mode-map (kbd "C-c b") 'org-ref-bibtex-hydra/body)
       )
 
-    (use-package! org-modern
-      :config
-      (setq
-       ;; Edit settings
-       org-auto-align-tags nil
-       org-tags-column 0
-       org-catch-invisible-edits 'show-and-error
-       org-special-ctrl-a/e t
-       org-insert-heading-respect-content t
-       ;; Org styling, hide markup etc.
-       org-hide-emphasis-markers t
-       org-pretty-entities t
-       org-ellipsis "…"
-       ;; Agenda styling
-       org-agenda-tags-column 0
-       org-agenda-block-separator ?─
-       org-agenda-time-grid
-       '((daily today require-timed)
-         (800 1000 1200 1400 1600 1800 2000)
-         " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-       org-agenda-current-time-string
-       "◀── now ─────────────────────────────────────────────────")
-      :hook
-      (org-mode . global-org-modern-mode))
+
+    (use-package! websocket
+        :after org-roam)
+
+    (use-package! org-roam-ui
+        :after org-roam ;; or :after org
+        ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+        ;;         a hookable mode anymore, you're advised to pick something yourself
+        ;;         if you don't care about startup time, use
+        ;;  :hook (after-init . org-roam-ui-mode)
+        :config
+        (setq org-roam-ui-sync-theme t
+              org-roam-ui-follow t
+              org-roam-ui-update-on-save t
+              org-roam-ui-open-on-start t))
+
+
+    ;; (use-package! org-modern
+    ;;   :config
+    ;;   (setq
+    ;;    ;; Edit settings
+    ;;    org-auto-align-tags nil
+    ;;    org-tags-column 0
+    ;;    org-catch-invisible-edits 'show-and-error
+    ;;    org-special-ctrl-a/e t
+    ;;    org-insert-heading-respect-content t
+    ;;    ;; Org styling, hide markup etc.
+    ;;    org-hide-emphasis-markers t
+    ;;    org-pretty-entities t
+    ;;    org-ellipsis "…"
+    ;;    ;; Agenda styling
+    ;;    org-agenda-tags-column 0
+    ;;    org-agenda-block-separator ?─
+    ;;    org-agenda-time-grid
+    ;;    '((daily today require-timed)
+    ;;      (800 1000 1200 1400 1600 1800 2000)
+    ;;      " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+    ;;    org-agenda-current-time-string
+    ;;    "◀── now ─────────────────────────────────────────────────")
+    ;;   :hook
+    ;;   (org-mode . global-org-modern-mode))
     (use-package! svg-lib)
     (use-package! svg-tag-mode)
     (use-package! org-fragtog
