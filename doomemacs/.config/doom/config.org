@@ -319,8 +319,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
            :files ("*.el" "README.md" "snippets")))
 (package! gptel)
 
-,#+end_#+begin_src 
-
 #+end_src
 * config
 :PROPERTIES:
