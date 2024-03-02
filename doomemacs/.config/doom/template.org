@@ -1,0 +1,354 @@
+#+options: toc:nil num:nil
+#+header:
+
+* org mode html css
+
+- [[http://ehneilsen.net/notebook/orgExamples/org-examples.html][centerorg.css]]
+- [[https://github.com/thi-ng/org-spec/blob/master/css/style.css][notebook.css]]
+- [[https://orgmode.org/org.css][org.css]]
+
+* common
+
+#+begin_src org :tangle common.org
+
+#+email:
+#+startup: overview
+#+description: This document is exported from orgmode.
+#+keywords:
+#+language:  en
+
+#+link_up:   https://orgmode.org/
+#+link_home: https://orgmode.org/
+#+export_select_tags:  export
+#+export_exclude_tags: noexport
+#+infojs_opt: view:nil toc:nil ltoc:t mouse:underline buttons:0
+
+#+options: h:2 num:nil toc:t
+#+options: \n:nil @:t ::t |:t -:t f:t *:t <:t ^:nil
+#+options: tex:t latex:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+
+#+end_src
+
+
+* LaTex
+** latex_elsarticle
+
+#+begin_src org :tangle latex_elsarticle.org
+
+# LaTeX Elsarticle Export
+
+#+options: toc:nil
+
+#+latex_class: elsarticle
+
+#+latex_header: \usepackage{booktabs}
+#+latex_header: \usepackage{algorithm}
+#+latex_header: \usepackage{algorithmic}
+#+latex_header: \usepackage{subfigure}
+#+latex_header: \usepackage{caption}
+#+latex_header: \usepackage{lineno}
+#+latex_header: \usepackage{hyperref}
+#+latex_header: \usepackage{amsmath,amssymb}
+#+latex_header: \usepackage{diagbox}
+#+latex_header: \usepackage{natbib}
+#+latex_header: \usepackage{soul}
+#+latex_header: \usepackage{multirow}
+#+latex_header: \usepackage{setspace}
+#+latex_header: \usepackage{color}
+
+#+latex_header: \linenumbers
+
+# #+cite_export: csl /usr/share/texmf-dist/tex/latex/citation-style-language/styles/elsevier-harvard.csl
+# #+cite_export: natbib elsevier-harvard
+
+#+end_src
+** latex article
+
+#+begin_src org :tangle latex_article.org
+
+# LaTeX Article Export
+
+#+latex_compiler:      xelatex
+#+latex_class:         article
+#+latex_class_options: [a4paper]
+
+#+latex_header:        \usepackage[fontset=windows]{ctex}
+#+latex_header:        \usepackage{xcolor}
+#+latex_header:        \usepackage[tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in]{geometry}
+
+#+columns: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+#+end_src
+
+** latex_beamer
+
+#+begin_src org :tangle latex_beamer.org
+
+# LaTeX Beamer Export
+
+#+startup: beamer
+#+options: H:2 toc:nil |:t \n:t tex:t
+#+columns: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+#+latex_compiler: xelatex
+#+latex_class:         beamer
+#+latex_class_options: [presentation, bigger, aspectratio=169]
+
+#+beamer_theme:        Singapore
+#+beamer_font_theme:   structurebold
+#+beamer_env:
+
+#+latex_header: \graphicspath{{./IMGs/}}
+#+latex_header: \setbeamertemplate{itemize items}[ball]
+#+latex_header: \setbeamertemplate{itemize subitem}[circle]
+#+latex_header: \usemintedstyle{emacs}
+#+latex_header: \usepackage[fontset=windows]{ctex}
+#+latex_header: \usepackage{siunitx}
+#+latex_header: \usepackage{graphicx}
+#+latex_header: \sisetup{per-mode=symbol,detect-all}
+#+latex_header: \usefonttheme{professionalfonts}
+#+latex_header: \usefonttheme{serif}
+
+#+end_src
+
+
+* HTML
+
+** Eli
+
+Eli https://elilif.github.io/articles/2024-02-21-all-in-emacs-blog.html
+
+#+begin_src org :tangle html.org
+
+#+include: common.org
+
+#+HTML_HEAD:  <link  href="/home/bladrome/Documents/2024/style/elistyles.css" rel="stylesheet" type="text/css" />
+#+HTML_HEAD:  <script src="/home/bladrome/Documents/2024/style/eliscript.js"></script>
+#+HTML_HEAD:  <script src="/home/bladrome/Documents/2024/style/elitoc.js"></script>
+
+#+end_src
+
+** oolook
+
+#+begin_src org :tangle html.org
+
+# #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="oolook/oolook.css" />
+# #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+# #+HTML_HEAD: <script src="oolook/jquery-3.x-git.min.js"></script>
+# #+HTML_HEAD: <script src="oolook/oolook.js"></script>
+
+#+end_src
+
+** worg
+
+#+begin_src org :tangle html.org
+
+#+include: common.org
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="${pwd}/worg.css" />
+
+#+end_src
+** notes
+
+#+begin_src  org :tangle html.org
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="/home/bladrome/Documents/2024/style/notes.css" />
+
+#+end_src
+
+** gongzhitaoorg
+
+#+begin_src  org :tangle html.org
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="/home/bladrome/Documents/2024/style/gongzhitaoorg.css" />
+
+#+end_src
+** usual-org-front-matter
+
+#+begin_src  org :tangle html.org
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style/usual-org-front-matter.css" />
+
+#+end_src
+
+** zngguvnfstyle
+
+#+begin_src  org :tangle html.org
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style/zngguvnfstyle.css" />
+
+#+end_src
+** Worg old
+
+#+begin_src  org :tangle html.org
+
+# #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style/worg7.css" />
+
+#+end_src
+** Worg classic
+
+#+begin_src  org :tangle html.org
+
+# #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style/worg-classic.css" />
+
+#+end_src
+** Worg Dark theme
+
+#+begin_src  org :tangle html.org
+
+# #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style/worg-zenburn.css" />
+
+
+#+end_src
+** Worg style
+
+#+begin_src  org :tangle html.org
+
+# #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style/worgstyle.css" />
+
+#+end_src
+** Left toc, white paper
+
+#+begin_src  org :tangle html.org
+
+# #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style/style.css" />
+
+#+end_src
+** Solarized light theme
+
+#+begin_src  org :tangle html.org
+
+# #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style/doom-solarized-light.css" />
+
+#+end_src
+** Zenburn Dark theme
+
+#+begin_src  org :tangle html.org
+
+# #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style/zenburn-emacs.css" />
+
+#+end_src
+** org-style
+
+#+begin_src  org :tangle html.org
+
+# #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style/org-style.css" />
+
+#+end_src
+
+** citation
+
+#+begin_src  org :tangle html.org
+
+#+cite_export: csl /usr/share/texmf-dist/tex/latex/citation-style-language/styles/elsevier-harvard.csl
+#+csl-style: /usr/share/texmf-dist/tex/latex/citation-style-language/styles/ieee.csl
+
+
+#+end_src
+
+** latex css style
+
+#+begin_src  org :tangle html.org
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="/home/bladrome/Documents/2024/style/latexcssstyle.min.css" />
+
+#+end_src
+** org jousimies org
+
+#+begin_src  org :tangle html.org
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="/home/bladrome/Documents/2024/style/orgjousimiesorg.css" />
+
+#+end_src
+** orgstyle
+
+#+begin_src  org :tangle html.org
+
+# #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style/orgstyle.css" />
+
+#+end_src
+** org-notes-style
+
+#+begin_src org :tangle html.org
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="/home/bladrome/Documents/2024/style/org-notes-style.css" />
+#+end_src
+** blog-banner
+
+#+begin_src org :tangle html.org
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="/home/bladrome/Documents/2024/style/blog-banner.css" />
+
+#+end_src
+** floating-toc
+
+#+begin_src org :tangle html.org
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="/home/bladrome/Documents/2024/style/floating-toc.css" />
+
+#+end_src
+
+* Beamer Header
+
+#+begin_src org :tangle beamerheader.org
+
+#+STARTUP: beamer
+#+OPTIONS: H:1 num:t toc:nil ^:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+LATEX_CLASS: beamer
+#+BEAMER_THEME: default
+#+BEAMER_COLOR_THEME: dove
+#+COLUMNS: %45ITEM %10BEAMER_ENV(Env) %10BEAMER_ACT(Act) %4BEAMER_COL(Col) %8BEAMER_OPT(Opt)
+#+BEAMER_FRAME_LEVEL: 1
+
+#+LaTeX_CLASS_OPTIONS: [presentation, bigger, aspectratio=169]
+
+# Bulletpoint lists
+#+BEAMER_HEADER: \setbeamertemplate{itemize items}{}
+#+BEAMER_HEADER: \setbeamertemplate{itemize subitem}[circle]
+
+# Remove slides navigation symbols
+#+BEAMER_HEADER: \beamertemplatenavigationsymbolsempty
+
+# Frame margins, background image and title colours
+#+LaTeX_HEADER: \definecolor{blue}{HTML}{0000FF}
+#+BEAMER_HEADER: \setbeamercolor{frametitle}{fg=blue,bg=white}
+#+BEAMER_HEADER: \setbeamersize{text margin left=1.5cm,text margin right=1.5cm}
+#+BEAMER_HEADER: \addtobeamertemplate{frametitle}{\vspace*{0cm}}{\vspace*{-1cm}}
+#+LATEX_HEADER: \usebackgroundtemplate{\includegraphics[width=\paperwidth]{img/background.pdf}}
+
+# Use Minted for code syntax highlighting
+#+LaTeX_HEADER: \usepackage{minted}
+#+LaTeX_HEADER: \usemintedstyle{emacs}
+
+# Fonts
+#+LATEX_HEADER: \usefonttheme{professionalfonts}
+#+LATEX_HEADER: \usefonttheme{serif}
+#+LATEX_HEADER: \usepackage{fontspec}
+#+LATEX_HEADER: \setmainfont{Gillius ADF}
+
+# Verbatim text
+#+LATEX_HEADER: \RequirePackage{fancyvrb}
+#+LATEX_HEADER: \DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\scriptsize}
+
+# Embed Beamer in frame
+#+LaTeX_HEADER: \AtBeginSection[]{\begin{frame}<beamer>\end{frame}}
+
+# Custom title slide background
+#
+# Org Mode uses `\maketitle` to draw the title slide.
+# As Org Mode does not provide any ways to customize the slide title, we override the `\maketitle` function.
+#+LATEX_HEADER: \def\maketitle{
+#+LATEX_HEADER:   {
+#+LATEX_HEADER:     \usebackgroundtemplate{\includegraphics[width=\paperwidth]{img/title-background.pdf}}
+#+LATEX_HEADER:     \setbeamercolor{date}{fg=white}
+#+LATEX_HEADER:     \setbeamercolor{title}{fg=white}
+#+LATEX_HEADER:     \setbeamercolor{author}{fg=white}
+#+LATEX_HEADER:     \setbeamercolor{alerted text}{fg=white}
+#+LATEX_HEADER:     \begin{frame}
+#+LATEX_HEADER:       \titlepage
+#+LATEX_HEADER:     \end{frame}
+#+LATEX_HEADER:   }
+#+LATEX_HEADER: }
+
+
+#+end_src
