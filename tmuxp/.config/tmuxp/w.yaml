@@ -3,10 +3,11 @@ windows:
   - panes:
     - joshuto
   - panes:
-    - pane
+    - zsh
   - panes:
     - ipython
   - panes:
     - focus: true
+    - zsh
   - panes:
     - htop
