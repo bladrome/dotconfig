@@ -1,19 +1,12 @@
 session_name: ob-workspace
 windows:
-  - window_name: joshuto
-    panes:
+  - panes:
     - joshuto
-  - window_name: terminal
-    panes:
+  - panes:
     - pane
-  - window_name: ipython
-    panes:
+  - panes:
     - ipython
-  - window_name: T2P
-    layout: tiled
-    panes:
+  - panes:
     - focus: true
-    - pane
-  - window_name: T
-    panes:
+  - panes:
     - htop
