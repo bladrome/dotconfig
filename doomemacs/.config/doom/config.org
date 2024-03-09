@@ -354,6 +354,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "firefox")
 
+;; (setq doom-font (font-spec :family "Hack" :size 19)
 (setq doom-font (font-spec :family "NotoMono Nerd Font" :size 19)
       doom-serif-font (font-spec :family "Roboto Mono" :size 20)
       ;; doom-variable-pitch-font (font-spec :family "SourceHanSerifCN")
