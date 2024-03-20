@@ -456,9 +456,9 @@ set -g @net_speed_format "D:%4s U:%4s"
 
 
 tmux_conf_theme_status_left="#S | #I/#P"
-# For TIME
-tmux_conf_theme_status_right="#{prefix}#{pairing}#{synchronized}#(tmux-mem-cpu-load -c -a 0 -i 3 -g 0)| %a %h-%d %H:%M |"
-#tmux_conf_theme_status_right="#{prefix}#{pairing}#{synchronized} #(tmux-mem-cpu-load -c -a 0 -i 3 -g 0)| #{hostname} |"
+#For TIME
+#tmux_conf_theme_status_right="#{prefix}#{pairing}#{synchronized}#(tmux-mem-cpu-load -c -a 0 -i 3 -g 0)| %a %h-%d %H:%M |"
+tmux_conf_theme_status_right="#{prefix}#{pairing}#{synchronized} #(tmux-mem-cpu-load -c -a 0 -i 3 -g 0)| #{hostname} |"
 
 
 # -- custom variables ----------------------------------------------------------
