@@ -85,3 +85,4 @@ PATH=$PATH:/run/media/bladrome/bank/drome/mambaforge/bin
 #     . "/run/media/bladrome/bank/drome/mambaforge/etc/profile.d/mamba.sh"
 # fi
 # <<< conda initialize <<<
+export PATH=$PATH:/home/bladrome/.pixi/bin

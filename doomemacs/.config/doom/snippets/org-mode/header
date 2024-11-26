@@ -7,3 +7,4 @@
 #+author:    bladrome
 #+startup:   show2levels
 #+include:   `(file-relative-name (concat (file-name-as-directory org-directory) "style/html.org"))`
+#+description:

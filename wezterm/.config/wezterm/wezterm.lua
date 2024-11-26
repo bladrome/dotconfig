@@ -30,6 +30,7 @@ config.max_fps = 60
 
 -- enable wayland
 config.enable_wayland = true
+-- config.enable_wayland = false
 
 -- Cursor set
 config.force_reverse_video_cursor = true

@@ -52,7 +52,6 @@ skip_notify = false
 max_concurrency = 10
 # Additional git repositories to pull
 repos = [
-   "~/gitcode/*/",
    "~/gitrepo/*/",
 ]
 
