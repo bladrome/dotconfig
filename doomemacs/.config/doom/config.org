@@ -1,247 +1,252 @@
-#+TITLE:     Doomemacs
-#+STARTUP:   overview
+#+title:    Doomemacs
+#+author:    bladrome
+#+property:  header-args  :mkdirp yes 
 
 
 * Install
+
 #+begin_src bash :tangle no
 emacs --batch doomemacs.org -f org-babel-tangle
 #+end_src
 
 * init
-:PROPERTIES:
-:header-args: :mkdirp yes
-:END:
 
 #+begin_src elisp :tangle "~/.config/doom/init.el"
-  ;;; init.el -*- lexical-binding: t; -*-
+;;; init.el -*- lexical-binding: t; -*-
 
-  ;; This file controls what Doom modules are enabled and what order they load
-  ;; in. Remember to run 'doom sync' after modifying it!
+;; This file controls what Doom modules are enabled and what order they load
+;; in. Remember to run 'doom sync' after modifying it!
 
-  ;; NOTE Press 'SPC h d h' (or 'C-h d h' for non-vim users) to access Doom's
-  ;;      documentation. There you'll find a link to Doom's Module Index where all
-  ;;      of our modules are listed, including what flags they support.
+;; NOTE Press 'SPC h d h' (or 'C-h d h' for non-vim users) to access Doom's
+;;      documentation. There you'll find a link to Doom's Module Index where all
+;;      of our modules are listed, including what flags they support.
 
-  ;; NOTE Move your cursor over a module's name (or its flags) and press 'K' (or
-  ;;      'C-c c k' for non-vim users) to view its documentation. This works on
-  ;;      flags as well (those symbols that start with a plus).
-  ;;
-  ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
-  ;;      directory (for easy access to its source code).
+;; NOTE Move your cursor over a module's name (or its flags) and press 'K' (or
+;;      'C-c c k' for non-vim users) to view its documentation. This works on
+;;      flags as well (those symbols that start with a plus).
+;;
+;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
+;;      directory (for easy access to its source code).
 
-  (doom! :input
-	 ;;bidi              ; (tfel ot) thgir etirw uoy gnipleh
-	 ;;chinese
-	 ;;japanese
-	 ;;layout            ; auie,ctsrnm is the superior home row
+(doom! :input
+       ;;bidi              ; (tfel ot) thgir etirw uoy gnipleh
+       ;;chinese
+       ;;japanese
+       ;;layout            ; auie,ctsrnm is the superior home row
 
-	 :completion
-	 ;;company             ; the ultimate code completion backend
-	 (corfu +orderless)  ; complete with cap(f), cape and a flying feather!
-	 ;;helm              ; the *other* search engine for love and life
-	 ;;ido               ; the other *other* search engine...
-	 (ivy
-	  +fuzzy
-	  +prescient
-	  +icons)            ; a search engine for love and life
-	 (vertico
-	  :icons
-	  :childframe)
+       :completion
+       ;;company             ; the ultimate code completion backend
+       (corfu +orderless)  ; complete with cap(f), cape and a flying feather!
+       ;;helm              ; the *other* search engine for love and life
+       ;;ido               ; the other *other* search engine...
+       (ivy
+        +fuzzy
+        +prescient
+        +icons)            ; a search engine for love and life
+       (vertico
+        :icons
+        :childframe)
 
-	 :ui
-	 ;;deft              ; notational velocity for Emacs
-	 doom                ; what makes DOOM look the way it does
-	 doom-dashboard      ; a nifty splash screen for Emacs
-	 doom-quit           ; DOOM quit-message prompts when you quit Emacs
-	 (emoji +unicode)    ; 🙂
-	 hl-todo             ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
-	 ;;indent-guides     ; highlighted indent columns
-	 (ligatures +extra)  ; ligatures and symbols to make your code pretty again
-	 ;;minimap           ; show a map of the code on the side
-	 (modeline +light)   ; snazzy, Atom-inspired modeline, plus API
-	 ;;nav-flash         ; blink cursor line after big motions
-	 ;;neotree           ; a project drawer, like NERDTree for vim
-	 ophints             ; highlight the region an operation acts on
-	 (popup +defaults)   ; tame sudden yet inevitable temporary windows
-	 ;;tabs              ; a tab bar for Emacs
-	 treemacs            ; a project drawer, like neotree but cooler
-	 ;;unicode           ; extended unicode support for various languages
-	 (vc-gutter
-	  +pretty)           ; vcs diff in the fringe
-	 vi-tilde-fringe     ; fringe tildes to mark beyond EOB
-	 (window-select
-	  +switch-window)    ; visually switch windows
-	 workspaces          ; tab emulation, persistence & separate workspaces
-	 zen                 ; distraction-free coding or writing
+       :ui
+       ;;deft              ; notational velocity for Emacs
+       doom                ; what makes DOOM look the way it does
+       doom-dashboard      ; a nifty splash screen for Emacs
+       doom-quit           ; DOOM quit-message prompts when you quit Emacs
+       (emoji +unicode)    ; 🙂
+       hl-todo             ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+       ;;indent-guides     ; highlighted indent columns
+       (ligatures +extra)  ; ligatures and symbols to make your code pretty again
+       ;;minimap           ; show a map of the code on the side
+       (modeline +light)   ; snazzy, Atom-inspired modeline, plus API
+       ;;nav-flash         ; blink cursor line after big motions
+       ;;neotree           ; a project drawer, like NERDTree for vim
+       ophints             ; highlight the region an operation acts on
+       (popup
+        +all
+        +defaults)         ; tame sudden yet inevitable temporary windows
+       ;;tabs              ; a tab bar for Emacs
+       treemacs            ; a project drawer, like neotree but cooler
+       unicode             ; extended unicode support for various languages
+       (vc-gutter
+        +pretty)           ; vcs diff in the fringe
+       vi-tilde-fringe     ; fringe tildes to mark beyond EOB
+       (window-select
+        +switch-window)    ; visually switch windows
+       workspaces          ; tab emulation, persistence & separate workspaces
+       zen                 ; distraction-free coding or writing
 
-	 :editor
-	 ;;evil              ; come to the dark side, we have cookies
-	 file-templates      ; auto-snippets for empty files
-	 fold                ; (nigh) universal code folding
-	 format              ; automated prettiness
-	 ;;god               ; run Emacs commands without modifier keys
-	 ;;lispy             ; vim for lisp, for people who don't like vim
-	 multiple-cursors    ; editing in many places at once
-	 ;;objed             ; text object editing for the innocent
-	 ;;parinfer          ; turn lisp into python, sort of
-	 rotate-text         ; cycle region at point between text candidates
-	 snippets            ; my elves. They type so I don't have to
-	 ;;word-wrap         ; soft wrapping with language-aware indent
+       :editor
+       ;;evil              ; come to the dark side, we have cookies
+       file-templates      ; auto-snippets for empty files
+       fold                ; (nigh) universal code folding
+       format              ; automated prettiness
+       ;;god               ; run Emacs commands without modifier keys
+       ;;lispy             ; vim for lisp, for people who don't like vim
+       multiple-cursors    ; editing in many places at once
+       ;;objed             ; text object editing for the innocent
+       ;;parinfer          ; turn lisp into python, sort of
+       rotate-text         ; cycle region at point between text candidates
+       snippets            ; my elves. They type so I don't have to
+       word-wrap           ; soft wrapping with language-aware indent
 
-	 :emacs
-	 (dired +icons)      ; making dired pretty [functional]
-	 electric            ; smarter, keyword-based electric-indent
-	 (ibuffer +icons)    ; interactive buffer management
-	 undo                ; persistent, smarter undo for your inevitable mistakes
-	 vc                  ; version-control and Emacs, sitting in a tree
+       :emacs
+       (dired
+        +dirvish
+        +icons)            ; making dired pretty [functional]
+       electric            ; smarter, keyword-based electric-indent
+       (ibuffer +icons)    ; interactive buffer management
+       undo                ; persistent, smarter undo for your inevitable mistakes
+       vc                  ; version-control and Emacs, sitting in a tree
 
-	 :term
-	 eshell              ; the elisp shell that works everywhere
-	 ;;shell             ; simple shell REPL for Emacs
-	 ;;term              ; basic terminal emulator for Emacs
-	 ;;vterm             ; the best terminal emulation in Emacs
+       :term
+       eshell              ; the elisp shell that works everywhere
+       ;;shell             ; simple shell REPL for Emacs
+       ;;term              ; basic terminal emulator for Emacs
+       ;;vterm             ; the best terminal emulation in Emacs
 
-	 :checkers
-	 syntax              ; tasing you for every semicolon you forget
-	 (spell +enchant)    ; tasing you for misspelling mispelling
-	 ;; grammar             ; tasing grammar mistake every you make
+       :checkers
+       syntax              ; tasing you for every semicolon you forget
+       (spell +enchant)    ; tasing you for misspelling mispelling
+       ;; grammar             ; tasing grammar mistake every you make
 
-	 :tools
-	 ;;ansible
-	 biblio              ; Writes a PhD for you (citation needed)
-	 (debugger
-	  +lsp)              ; FIXME stepping through code, to help you add bugs
-	 ;;direnv
-	 docker
-	 ;;editorconfig      ; let someone else argue about tabs vs spaces
-	 ;;ein               ; tame Jupyter notebooks with emacs
-	 (eval +overlay)     ; run code, run (also, repls)
-	 (lookup
-	  +dictionary
-	  +offline)          ; navigate your code and its documentation
-	 (lsp +peek)         ; M-x vscode
-	 magit               ; a git porcelain for Emacs
-	 make                ; run make tasks from Emacs
-	 pass                ; password manager for nerds
-	 pdf                 ; pdf enhancements
-	 ;;prodigy           ; FIXME managing external services & code builders
-	 ;;taskrunner        ; taskrunner for all your projects
-	 ;;terraform         ; infrastructure as code
-	 tmux                ; an API for interacting with tmux
-	 tree-sitter         ; syntax and parsing, sitting in a tree...
-	 upload              ; map local to remote projects via ssh/ftp
+       :tools
+       ;;ansible
+       biblio              ; Writes a PhD for you (citation needed)
+       (debugger
+        +lsp)              ; FIXME stepping through code, to help you add bugs
+       ;;direnv
+       docker
+       ;;editorconfig      ; let someone else argue about tabs vs spaces
+       ;;ein               ; tame Jupyter notebooks with emacs
+       (eval +overlay)     ; run code, run (also, repls)
+       (lookup
+        +dictionary
+        +offline)          ; navigate your code and its documentation
+       (lsp +peek)         ; M-x vscode
+       magit               ; a git porcelain for Emacs
+       make                ; run make tasks from Emacs
+       pass                ; password manager for nerds
+       pdf                 ; pdf enhancements
+       ;;prodigy           ; FIXME managing external services & code builders
+       ;;taskrunner        ; taskrunner for all your projects
+       ;;terraform         ; infrastructure as code
+       tmux                ; an API for interacting with tmux
+       tree-sitter         ; syntax and parsing, sitting in a tree...
+       upload              ; map local to remote projects via ssh/ftp
 
-	 :os
-	 (:if IS-MAC macos)  ; improve compatibility with macOS
-	 tty                 ; improve the terminal Emacs experience
+       :os
+       (:if IS-MAC macos)  ; improve compatibility with macOS
+       tty                 ; improve the terminal Emacs experience
 
-	 :lang
-	 ;;agda              ; types of types of types of types...
-	 ;;beancount         ; mind the GAAP
-	 (cc +lsp)           ; C > C++ == 1
-	 ;;clojure           ; java with a lisp
-	 common-lisp         ; if you've seen one lisp, you've seen them all
-	 ;;coq               ; proofs-as-programs
-	 ;;crystal           ; ruby at the speed of c
-	 ;;csharp            ; unity, .NET, and mono shenanigans
-	 data                ; config/data formats
-	 ;;(dart +flutter)   ; paint ui and not much else
-	 ;;dhall
-	 ;;elixir            ; erlang done right
-	 ;;elm               ; care for a cup of TEA?
-	 emacs-lisp          ; drown in parentheses
-	 ;;erlang            ; an elegant language for a more civilized age
-	 ess                 ; emacs speaks statistics
-	 ;;factor
-	 ;;faust             ; dsp, but you get to keep your soul
-	 ;;fortran           ; in FORTRAN, GOD is REAL (unless declared INTEGER)
-	 ;;fsharp            ; ML stands for Microsoft's Language
-	 ;;fstar             ; (dependent) types and (monadic) effects and Z3
-	 ;;gdscript          ; the language you waited for
-	 (go +lsp)           ; the hipster dialect
-	 ;;(graphql +lsp)    ; Give queries a REST
-	 ;;(haskell +lsp)    ; a language that's lazier than I am
-	 ;;hy                ; readability of scheme w/ speed of python
-	 ;;idris             ; a language you can depend on
-	 json                ; At least it ain't XML
-	 ;;(java +lsp)       ; the poster child for carpal tunnel syndrome
-	 (javascript +lsp)   ; all(hope(abandon(ye(who(enter(here))))))
-	 julia               ; a better, faster MATLAB
-	 ;;kotlin            ; a better, slicker Java(Script)
-	 (latex
-	  +cdlatex
-	  +latexmk
-	  +lsp)              ; writing papers in Emacs has never been so fun
-	 ;;lean              ; for folks with too much to prove
-	 ;;ledger            ; be audit you can be
-	 (lua +lsp)          ; one-based indices? one-based indices
-	 markdown            ; writing docs for people to ignore
-	 ;;nim               ; python + lisp at the speed of c
-	 ;;nix               ; I hereby declare "nix geht mehr!"
-	 ;;ocaml             ; an objective camel
-	 (org
-	  +roam2
-	  +pandoc
-	  +dragndrop
-	  +gnuplot
-	  +hugo
-	  +journal
-	  +noter
-	  +pretty
-	  +present)          ; organize your plain life in plain text
-	 ;;php               ; perl's insecure younger brother
-	 plantuml            ; diagrams for confusing people more
-	 ;;purescript        ; javascript, but functional
-	 (python
-	  +anaconda
-	  +conda
-	  +poetry
-	  +lsp
-	  +tree-sitter
-	  +pyright)          ; beautiful is better than ugly
-	 ;;qt                ; the 'cutest' gui framework ever
-	 ;;racket            ; a DSL for DSLs
-	 ;;raku              ; the artist formerly known as perl6
-	 ;;rest              ; Emacs as a REST client
-	 ;;rst               ; ReST in peace
-	 ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-	 (rust +lsp)         ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
-	 ;;scala             ; java, but good
-	 ;;(scheme +guile)   ; a fully conniving family of lisps
-	 sh                  ; she sells {ba,z,fi}sh shells on the C xor
-	 ;;sml
-	 ;;solidity          ; do you need a blockchain? No.
-	 ;;swift             ; who asked for emoji variables?
-	 ;;terra             ; Earth and Moon in alignment for performance.
-	 web                 ; the tubes
-	 yaml                ; JSON, but readable
-	 zig                 ; C, but simpler
+       :lang
+       ;;agda              ; types of types of types of types...
+       ;;beancount         ; mind the GAAP
+       (cc +lsp)           ; C > C++ == 1
+       ;;clojure           ; java with a lisp
+       common-lisp         ; if you've seen one lisp, you've seen them all
+       ;;coq               ; proofs-as-programs
+       ;;crystal           ; ruby at the speed of c
+       ;;csharp            ; unity, .NET, and mono shenanigans
+       data                ; config/data formats
+       ;;(dart +flutter)   ; paint ui and not much else
+       ;;dhall
+       ;;elixir            ; erlang done right
+       ;;elm               ; care for a cup of TEA?
+       emacs-lisp          ; drown in parentheses
+       ;;erlang            ; an elegant language for a more civilized age
+       ess                 ; emacs speaks statistics
+       ;;factor
+       ;;faust             ; dsp, but you get to keep your soul
+       ;;fortran           ; in FORTRAN, GOD is REAL (unless declared INTEGER)
+       ;;fsharp            ; ML stands for Microsoft's Language
+       ;;fstar             ; (dependent) types and (monadic) effects and Z3
+       ;;gdscript          ; the language you waited for
+       (go +lsp)           ; the hipster dialect
+       ;;(graphql +lsp)    ; Give queries a REST
+       ;;(haskell +lsp)    ; a language that's lazier than I am
+       ;;hy                ; readability of scheme w/ speed of python
+       ;;idris             ; a language you can depend on
+       json                ; At least it ain't XML
+       ;;(java +lsp)       ; the poster child for carpal tunnel syndrome
+       (javascript +lsp)   ; all(hope(abandon(ye(who(enter(here))))))
+       julia               ; a better, faster MATLAB
+       ;;kotlin            ; a better, slicker Java(Script)
+       (latex
+        +cdlatex
+        +latexmk
+        +lsp)              ; writing papers in Emacs has never been so fun
+       ;;lean              ; for folks with too much to prove
+       ;;ledger            ; be audit you can be
+       (lua +lsp)          ; one-based indices? one-based indices
+       markdown            ; writing docs for people to ignore
+       ;;nim               ; python + lisp at the speed of c
+       ;;nix               ; I hereby declare "nix geht mehr!"
+       ;;ocaml             ; an objective camel
+       (org
+        +roam2
+        +pandoc
+        +dragndrop
+        +gnuplot
+        +hugo
+        +journal
+        +noter
+        +pretty
+        +present)          ; organize your plain life in plain text
+       ;;php               ; perl's insecure younger brother
+       plantuml            ; diagrams for confusing people more
+       ;;purescript        ; javascript, but functional
+       (python
+        +anaconda
+        +conda
+        +poetry
+        +lsp
+        +tree-sitter
+        +pyright)          ; beautiful is better than ugly
+       ;;qt                ; the 'cutest' gui framework ever
+       ;;racket            ; a DSL for DSLs
+       ;;raku              ; the artist formerly known as perl6
+       rest                ; Emacs as a REST client
+       ;;rst               ; ReST in peace
+       ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       (rust +lsp)         ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       ;;scala             ; java, but good
+       ;;(scheme +guile)   ; a fully conniving family of lisps
+       sh                  ; she sells {ba,z,fi}sh shells on the C xor
+       ;;sml
+       ;;solidity          ; do you need a blockchain? No.
+       ;;swift             ; who asked for emoji variables?
+       ;;terra             ; Earth and Moon in alignment for performance.
+       web                 ; the tubes
+       yaml                ; JSON, but readable
+       zig                 ; C, but simpler
 
-	 :email
-	 (mu4e +org)
-	 ;;notmuch
-	 ;;(wanderlust +gmail)
+       :email
+       (mu4e +org)
+       ;;notmuch
+       ;;(wanderlust +gmail)
 
-	 :app
-	 calendar
-	 ;;emms
-	 everywhere          ; *leave* Emacs!? You must be joking
-	 ;;irc               ; how neckbeards socialize
-	 (rss +org)          ; emacs as an RSS reader
+       :app
+       calendar
+       ;;emms
+       everywhere          ; *leave* Emacs!? You must be joking
+       ;;irc               ; how neckbeards socialize
+       (rss +org)          ; emacs as an RSS reader
 
-	 :config
-	 literate
-	 (default +snippets +bindings +smartparens))
+       :config
+       literate
+       (default
+         +snippets
+         +bindings
+         +smartparens))
 
 #+end_src
 
 * packages
-:PROPERTIES:
-:header-args: :mkdirp yes
-:END:
+
+
 #+begin_src elisp :tangle "~/.config/doom/packages.el"
 
-;; (package! saveplace-pdf-view :disable t)
+
 (package! org-fragtog)
 (package! org-page)
 (package! org-ql)
@@ -256,13 +261,15 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! rime)
 (package! valign)
 
+
 (package! vlf)
-<<<<<<< Updated upstream
 (package! org-modern)
 (package! org-roam-ui)
-=======
+(package! org-download)
+(package! org-web-tools)
 
->>>>>>> Stashed changes
+(package! ultra-scroll
+  :recipe (:host github :repo "jdtsmith/ultra-scroll"))
 
 ;; (package! mu4e-thread-folding
 ;;   :recipe (:host github :repo "rougier/mu4e-thread-folding"))
@@ -285,8 +292,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (package! elfeed
   :recipe (:host github :repo "skeeto/elfeed"
-           :files ("*.el" "web/*")))
-
+                 :files ("*.el" "web/*")))
 (package! elfeed-dashboard
   :recipe (:host github :repo "Manoj321/elfeed-dashboard"))
 
@@ -299,55 +305,97 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! org-tufte
   :recipe (:host github :repo "Zilong-Li/org-tufte"))
 
-;; lc
-;; (package! shrface)
-;; (package! leetcode
-;;  :recipe (:host github :repo "kaiwk/leetcode.el"))
-
 (package! emacs-epc
   :recipe (:host github :repo "kiwanami/emacs-epc"))
 (package! lsp-bridge
   :recipe (:host github :repo "manateelazycat/lsp-bridge"
-           :files ("*.el" "*.py" "acm" "core" "langserver" "icons" "resources")))
+                 :files ("*.el" "*.py" "acm" "core" "langserver" "icons" "resources")))
 (package! mind-wave
   :recipe (:host github :repo "manateelazycat/mind-wave"
-           :files ("*.el" "*.py")))
+                 :files ("*.el" "*.py")))
 (package! blink-search
   :recipe (:host github :repo "manateelazycat/blink-search"
-           :files ("*.el" "*.py" "core/*.py" "backend" "icons")))
+                 :files ("*.el" "*.py" "core/*.py" "backend" "icons")))
 
-;; (package! chatgpt-shell
-;;   :recipe (:host github :repo "xenodium/chatgpt-shell"))
+(package! chatgpt-shell
+  :recipe (:host github :repo "xenodium/chatgpt-shell"))
 (package! org-ai
   :recipe (:host github :repo "rksm/org-ai"
-           :files ("*.el" "README.md" "snippets")))
+                 :files ("*.el" "README.md" "snippets")))
 (package! gptel)
 
 #+end_src
 * config
-:PROPERTIES:
-:header-args: :mkdirp yes
-:END:
 
 #+begin_src elisp :tangle "~/.config/doom/config.el"
 
 (setq toggle-debug-on-error t)
+
 (setq user-full-name "bladrome"
       user-mail-address "blackwhitedoggie@163.com")
 
-(setq package-archives
-      '(("melpa" . "http://mirrors.bfsu.edu.cn/elpa/melpa/")
-	("org"   . "http://mirrors.bfsu.edu.cn/elpa/org/")
-	("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
+(use-package! package
+  :config
+  (setq package-archives
+        '(("melpa" . "http://mirrors.bfsu.edu.cn/elpa/melpa/")
+	  ("org"   . "http://mirrors.bfsu.edu.cn/elpa/org/")
+	  ("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
+  (package-initialize))
+
+(use-package! use-package
+  :custom
+  (use-package-always-ensure nil)
+  (package-native-compile t)
+  (warning-minimum-level :emergency))
+
+
+(setq shell-file-name (executable-find "bash"))
+
+(setq confirm-kill-emacs nil
+      system-time-locale "C"
+      pop-up-windows nil
+      scroll-margin 2
+      widget-image-enable nil)
+
+(setq byte-compile-warnings '(not obsolete))
+(setq warning-suppress-log-types '((comp) (bytecomp)))
+(setq native-comp-async-report-warnings-errors 'silent)
+(setq inhibit-startup-echo-area-message (user-login-name))
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
+(setq set-message-beep 'silent)
+
+(prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(setq default-buffer-file-coding-system 'utf-8)
+
 
 (setq delete-by-moving-to-trash t)
+
+(setq word-wrap-by-category t)
+
+;; (add-hook 'org-mode-hook 'adaptive-wrap-prefix-mode)
+
+(save-place-mode 1)
+
+(global-auto-revert-mode)
+
+(setq initial-major-mode 'org-mode) ;; org!
+(setq initial-scratch-message nil)
+
+;; Smooth mouse scrolling
+(setq mouse-wheel-scroll-amount '(2 ((shift) . 1))
+      mouse-wheel-progressive-speed nil
+      mouse-wheel-follow-mouse t
+      scroll-step 1)
+
 ;; (setq company-backends '(company-aspell))
 ;; (setq url-proxy-services
 ;;          '(("socks5" . "localhost:8888")))
 
-;; (setq doom-theme 'doom-nord-light)
+(setq doom-theme 'doom-nord-light)
 ;; (setq doom-theme 'doom-one-light)
-(setq doom-theme nil)
+;; (setq doom-theme nil)
 ;; (load-theme 'lambda-light t)
 ;; (require 'nano-theme)
 ;; (nano-mode)
@@ -356,32 +404,40 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (setq-default cursor-type 'box)
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "firefox")
+      browse-url-generic-program "xdg-open")
 
-;; (setq doom-font (font-spec :family "Hack" :size 19)
-(setq doom-font (font-spec :family "NotoMono Nerd Font" :size 19)
-      doom-serif-font (font-spec :family "Roboto Mono" :size 20)
+
+
+(setq doom-font (font-spec :family "Hack Nerd Font Mono" :size 40)
+      doom-serif-font doom-font
       ;; doom-variable-pitch-font (font-spec :family "SourceHanSerifCN")
       ;; doom-unicode-font (font-spec :family "SourceHanSerifCN")
       ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
       )
 
-
-(global-hl-todo-mode)
 (setq native-comp-deferred-compilation nil)
 ;; (setq native-comp-jit-compilation nil)
 
-;; (setq use-default-font-for-symbols nil)
-;; (add-hook! 'after-setting-font-hook
-;;   (set-fontset-font t 'latin (font-spec :family "Fira Code"))
-;;   (set-fontset-font t 'symbol (font-spec :family "Symbola"))
-;;   (set-fontset-font t 'mathematical (font-spec :family "Symbola"))
-;;   (set-fontset-font t 'emoji (font-spec :family "Symbola")))
 
-(setq warning-minimum-level :emergency)
+(add-hook! 'after-setting-font-hook
+  (set-fontset-font t 'symbol (font-spec :family "Symbola"))
+  (set-fontset-font t 'mathematical (font-spec :family "Symbola"))
+  (set-fontset-font t 'emoji (font-spec :family "Symbola")))
+
+
+(global-visual-line-mode)
 
 ;; t relative or nil
 (setq display-line-numbers-type t)
+
+(show-paren-mode t)
+(setq use-short-answers t)
+
+(blink-cursor-mode 1)
+
+(setq-default x-stretch-cursor t
+              x-underline-at-descent-line t)
+
 ;; bookmarks and recentf cache
 (setq bookmark-default-file "~/.config/doom/bookmarks")
 
@@ -399,6 +455,12 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (transparency 95)
 
+;; (use-package! doom-modeline
+;;   :custom
+;;   (doom-modeline-buffer-encoding nil)
+;;   (doom-modeline-enable-word-count nil)
+;;   (doom-modeline-height 10))
+
 (use-package! elfeed
   :config
   (elfeed-set-max-connections 32))
@@ -410,30 +472,54 @@ emacs --batch doomemacs.org -f org-babel-tangle
   ;; update feed counts on elfeed-quit
   (advice-add 'elfeed-search-quit-window :after #'elfeed-dashboard-update-links))
 
-;; (use-package! dirvish
-;;   :ensure t
-;;   :config
-;;   (dirvish-override-dired-mode)
-;;   (dirvish-peek-mode)
-;;   (dirvish-side-follow-mode)
-;;   (setq dirvish-attributes
-;;     '(vc-state file-size git-msg subtree-state all-the-icons collapse file-time))
-;;   (setq dirvish-mode-line-format '(:left (sort symlink) :right (vc-info yank index)))
-;;   (setq dirvish-header-line-height '(25 . 35))
-;;   (setq dirvish-side-width 40)
-;;   (setq dirvish-header-line-format '(:left (path) :right (free-space)))
-;;   (setq dired-listing-switches
-;;     "-l --almost-all --human-readable --group-directories-first --no-group"))
 
+;; MINIBUFFER COMPLETION
+(use-package! vertico
+  :init (vertico-mode)
+  :custom
+  (vertico-sort-function 'vertico-sort-history-alpha))
 
-<<<<<<< Updated upstream
+;; Search for partial matches in any order
+(use-package! orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides
+   '((file (styles partial-completion)))))
+
+;; Improve keyboard shortcut discoverability
+(use-package! which-key
+  :config (which-key-mode)
+  :custom
+  (which-key-max-description-length 40)
+  (which-key-lighter nil)
+  (which-key-sort-order 'which-key-description-order))
+
+;; Consult convenience functions
+(use-package! consult
+  :bind
+  (("C-c M-x" . consult-mode-command)
+   ("C-c h" . consult-history)
+   ("C-c k" . consult-kmacro)
+   ("C-c m" . consult-man)
+   ("C-c i" . consult-info)
+   ([remap Info-search] . consult-info)))
+
+;; Improved help buffers
+(use-package! helpful
+  :bind
+  (("C-h f" . helpful-function)
+   ("C-h x" . helpful-command)
+   ("C-h k" . helpful-key)
+   ("C-h v" . helpful-variable)))
+
 (use-package! ob-tmux
   :ensure t
   :custom
   (org-babel-default-header-args:tmux
-   '((:results . "silent")	;
-     (:session . "default")	; The default tmux session to send code to
-     (:socket  . nil))) ; The default tmux socket to communicate with
+   '((:results . "silent")
+     (:session . "default")  ; The default tmux session to send code to
+     (:socket  . nil)))      ; The default tmux socket to communicate with
   ;; The tmux sessions are prefixed with the following string.
   ;; You can customize this if you like.
   (org-babel-tmux-session-prefix "ob-")
@@ -442,36 +528,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
   ;; The default terminal is "gnome-terminal" with options "--".
   (org-babel-tmux-terminal "wezterm")
   (org-babel-tmux-terminal-opts '("-T" "ob-tmux" "-e")))
-=======
-
-(use-package! vlf
-  :config
-  (require 'vlf-setup)
-  (custom-set-variables
-   '(vlf-application 'dont-ask))
-)
-
-
-    ;; (use-package! chatgpt-shell
-    ;;   :init
-    ;;   (setq chatgpt-shell-openai-key
-    ;;         (lambda ()
-    ;;           (nth 0 (process-lines "pass" "show" "openai-key")))))
-
-    (use-package! gptel)
-
-
-    (use-package! org-ai
-    ;;   :init
-    ;;   (setq org-ai-openai-api-token (nth 0 (process-lines "pass" "show" "openai-key")))
-      :hook
-      (org-mode . org-ai-mode)
-      :config
-      (org-ai-global-mode)
-      (org-ai-install-yasnippets))
->>>>>>> Stashed changes
-
-
 
 (use-package! vlf
   :config
@@ -485,37 +541,32 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq org-tufte-htmlize-code t)
   )
 
-
 ;; (use-package! chatgpt-shell
 ;;   :init
 ;;   (setq chatgpt-shell-openai-key
 ;;         (lambda ()
 ;;           (nth 0 (process-lines "pass" "show" "openai-key")))))
-
-(use-package! gptel
-    :custom
-    (gptel-temperature 0.1)
-    (gptel-prompt-prefix-alist)
-    :config (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
-
-    (setq-default gptel-backend
-                  (gptel-make-openai "ChatGLM"
-                    :host "open.bigmodel.cn"
-                    :endpoint "/api/paas/v4/chat/completions"
-                    :models '("glm-4" "glm-4v" "glm-3-turbo")
-                    :stream t
-                    :header '(("Authorization" .  "Bearer eyJhbGciOiJIUzI1NiIsInNpZ25fdHlwZSI6IlNJR04iLCJ0eXAiOiJKV1QifQ.eyJhcGlfa2V5IjoiZmM2MWNmMzVjZDVlYWQyZWYxNGQ3YjNhOGViYjNmZjciLCJleHAiOjE3MTIzMjExNjk3MTYsInRpbWVzdGFtcCI6MTcxMTQ1NzE2OTcxNn0.NRmC8WdIB2jroyqXClyfyIP-TeQYWirv_r8pj9Csqa4"))))
-)
-
-
-(use-package! org-ai
-  ;;   :init
-  ;;   (setq org-ai-openai-api-token (nth 0 (process-lines "pass" "show" "openai-key")))
-  :hook
-  (org-mode . org-ai-mode)
-  :config
-  (org-ai-global-mode)
-  (org-ai-install-yasnippets))
+;; (use-package! gptel
+;;   :custom
+;;   (gptel-temperature 0.1)
+;;   (gptel-prompt-prefix-alist)
+;;   :config (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
+;;   (setq-default gptel-backend
+;;                 (gptel-make-openai "ChatGLM"
+;;                                    :host "open.bigmodel.cn"
+;;                                    :endpoint "/api/paas/v4/chat/completions"
+;;                                    :models '("glm-4" "glm-4v" "glm-3-turbo")
+;;                                    :stream t
+;;                                    :header '(("Authorization" .  "Bearer eyJhbGciOiJIUzI1NiIsInNpZ25fdHlwZSI6IlNJR04iLCJ0eXAiOiJKV1QifQ.eyJhcGlfa2V5IjoiZmM2MWNmMzVjZDVlYWQyZWYxNGQ3YjNhOGViYjNmZjciLCJleHAiOjE3MTIzMjExNjk3MTYsInRpbWVzdGFtcCI6MTcxMTQ1NzE2OTcxNn0.NRmC8WdIB2jroyqXClyfyIP-TeQYWirv_r8pj9Csqa4"))))
+;;   )
+;; (use-package! org-ai
+;;   ;;   :init
+;;   ;;   (setq org-ai-openai-api-token (nth 0 (process-lines "pass" "show" "openai-key")))
+;;   :hook
+;;   (org-mode . org-ai-mode)
+;;   :config
+;;   (org-ai-global-mode)
+;;   (org-ai-install-yasnippets))
 
 
 
@@ -548,14 +599,76 @@ emacs --batch doomemacs.org -f org-babel-tangle
 		  :key  ?a
 		  :query "date:20200101..now")))
 
-(setq org-directory "~/Documents/2024")
+(setq org-directory "~/chromeorg/2024")
 (setq org-hugo-base-dir (file-name-concat org-directory "Hugo"))
 (setq org-agenda-files (list (file-name-concat org-directory "GTD")))
+
+
+(after! org
+  (setq org-confirm-babel-evaluate nil
+        org-edit-src-content-indentation 0
+        org-ellipsis "▾"
+        org-fold-catch-invisible-edits 'show
+        org-fontify-quote-and-verse-blocks t
+        org-fontify-whole-heading-line t
+        org-fontify-done-headline t
+        org-hide-block-startup t
+        org-hide-emphasis-markers t
+        org-hide-leading-stars t
+        org-id-link-to-org-use-id t
+        org-image-actual-width '(450)
+        org-list-allow-alphabetical t
+        org-pretty-entities t
+        org-return-follows-link t
+        org-special-ctrl-a/e t
+        org-special-ctrl-k t
+        org-src-preserve-indentation nil
+        org-src-tab-acts-natively t
+        org-startup-indented t
+        org-startup-with-inline-images t
+        org-use-speed-commands t
+        org-use-sub-superscripts "{}"))
+
+(setq org-todo-keywords '((sequence "TODO" "|" "DONE")))
+
+;; (add-hook! 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+;; (add-hook! 'org-babel-after-execute-hook 'org-toggle-latex-fragment 'append)
+
+(setq-default prettify-symbols-alist '(("#+title:" . "✍")
+                                       ("#+author:" . "👨")
+                                       ("#+caption:" . "☰")
+                                       ("#+filetags:" . "🎃")
+                                       ("#+identifier:" . "👺")
+                                       ("#+results:" . "🎁")
+                                       ("#+attr_latex:" . "🍄")
+                                       ("#+attr_org:" . "🔔")
+                                       ("#+date:" . "⚓")
+                                       ("#+property:" . "☸")
+                                       (":PROPERTIES:" . "⚙")
+                                       (":END:" . ".")
+                                       ("[ ]" . "☐")
+                                       ("[X]" . "☑︎")
+                                       ("#+options:" . "⌥")
+                                       ("\\pagebreak" . 128204)
+                                       ("#+begin_quote" . "❮")
+                                       ("#+end_quote" . "❯")
+                                       ("#+begin_src" . "❮")
+                                       ("#+end_src" . "❯")))
+
+(add-hook! 'org-mode-hook 'prettify-symbols-mode)
+
+(after! org-superstar
+  (setq 
+   ;; org-superstar-headline-bullets-list '("🙘" "🙙" "🙚" "🙛")
+   org-superstar-special-todo-items t
+   org-superstar-item-bullet-alist '((?- . ?➤) (?* . ?🔻) (?+ . ?△))
+   org-superstar-prettify-item-bullets t ))
+
 
 (setq org-refile-allow-creating-parent-nodes 'confirm)
 (setq org-attach-id-dir (file-name-concat org-directory "attachments"))
 
-(setq org-download-image-dir (file-name-concat org-attach-id-dir (format-time-string "%Y%m%d")))
+
 (setq org-latex-pdf-process (list "latexmk -xelatex -shell-escape -f %f"))
 ;; (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f"))
 
@@ -646,18 +759,57 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq valign-fancy-bar t)
   (add-hook 'org-mode-hook #'valign-mode))
 
+;; (use-package! ultra-scroll
+;;   :init
+;;   (setq scroll-conservatively 101 ; important!
+;;         scroll-margin 0)
+;;   :config
+;;   (ultra-scroll-mode 1))
+
+(use-package! org-web-tools
+  :init
+  (map!
+   :leader
+   :prefix "i"
+   :desc "insert weblinks" "l" #'org-web-tools-insert-link-for-url))
+
+(use-package! org-download
+  :defer nil
+  :custom
+  (org-download-image-dir (file-name-concat org-attach-id-dir (format-time-string "%Y%m%d")))
+  (org-image-actual-width '(600))
+  (org-download-heading-lvl nil)
+  (org-download-timestamp "")
+  :config
+  (require 'org-download))
+
+(after! org-download
+  (setq org-download-method 'directory)
+  (setq org-download-link-format "[[file:images/%s]]\n"))
+
+
 (use-package! mind-wave)
 
-;; (use-package! leetcode
-;;   :config
-;;   (setq leetcode-save-solutions t
-;;         leetcode-prefer-language "cpp"
-;;         leetcode-prefer-sql "mysql"
-;;         leetcode-directory "~/workground/Leetcode"))
+
 
 (setq Tex-command-default "XeLaTeX")
 (setq TeX-engine 'xetex)
 (setq TeX-command-extra-options "-shell-escape")
+
+;; (use-package! org
+;;   :custom
+;;   (org-export-with-drawers nil)
+;;   (org-export-with-todo-keywords nil)
+;;   (org-export-with-broken-links t)
+;;   (org-export-with-toc nil)
+;;   (org-export-with-smart-quotes t)
+;;   (org-export-with-date t)
+;;   (org-export-with-author t)
+;;   (org-export-with-section-numbers nil)
+;;   (org-export-with-sub-superscripts nil)
+;;   (org-export-headline-levels 5)
+;;   (org-export-in-background nil)
+;;   (org-export-use-babel nil))
 
 (use-package! org-ref
   :init
@@ -718,6 +870,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;;   (org-mode . global-org-modern-mode))
 (use-package! svg-lib)
 (use-package! svg-tag-mode)
+
 (use-package! org-fragtog
   :after org
   :custom
@@ -730,22 +883,22 @@ emacs --batch doomemacs.org -f org-babel-tangle
    (plist-put org-format-latex-options :foreground 'auto)
    (plist-put org-format-latex-options :background 'auto)))
 
-(use-package! org-roam
-  :custom
-  (org-roam-directory (file-name-concat org-directory "roam"))
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n g" . org-roam-graph)
-         ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-capture)
-         ;; Dailies
-         ("C-c n j" . org-roam-dailies-capture-today))
-  :config
-  ;; If you're using a vertical completion framework, you might want a more informative completion interface
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  (org-roam-db-autosync-mode)
-  ;; If using org-roam-protocol
-  (require 'org-roam-protocol))
+;; (use-package! org-roam
+;;   :custom
+;;   (org-roam-directory (file-name-concat org-directory "roam"))
+;;   :bind (("C-c n l" . org-roam-buffer-toggle)
+;;          ("C-c n f" . org-roam-node-find)
+;;          ("C-c n g" . org-roam-graph)
+;;          ("C-c n i" . org-roam-node-insert)
+;;          ("C-c n c" . org-roam-capture)
+;;          ;; Dailies
+;;          ("C-c n j" . org-roam-dailies-capture-today))
+;;   :config
+;;   ;; If you're using a vertical completion framework, you might want a more informative completion interface
+;;   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+;;   (org-roam-db-autosync-mode)
+;;   ;; If using org-roam-protocol
+;;   (require 'org-roam-protocol))
 
 (use-package! org
   :init
@@ -836,7 +989,9 @@ emacs --batch doomemacs.org -f org-babel-tangle
 				)))
 #+end_src
 * Exp
+
 eaf :tangle "~/.config/doom/config.el"
+
 #+begin_src elisp :tangle no
 (use-package! eaf
   :load-path "~/gitcode/emacs-application-framework"
