@@ -9,6 +9,7 @@
 emacs --batch doomemacs.org -f org-babel-tangle
 #+end_src
 
+
 * init
 
 #+begin_src elisp :tangle "~/.config/doom/init.el"
@@ -241,6 +242,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 #+end_src
 
+
 * packages
 
 
@@ -325,6 +327,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! gptel)
 
 #+end_src
+
+
 * config
 
 #+begin_src elisp :tangle "~/.config/doom/config.el"
@@ -338,8 +342,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
   :config
   (setq package-archives
         '(("melpa" . "http://mirrors.bfsu.edu.cn/elpa/melpa/")
-	  ("org"   . "http://mirrors.bfsu.edu.cn/elpa/org/")
-	  ("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
+          ("org"   . "http://mirrors.bfsu.edu.cn/elpa/org/")
+          ("gnu"   . "http://mirrors.bfsu.edu.cn/elpa/gnu/")))
   (package-initialize))
 
 (use-package! use-package
@@ -407,13 +411,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
       browse-url-generic-program "xdg-open")
 
 
-
 (setq doom-font (font-spec :family "Hack Nerd Font Mono" :size 40)
-      doom-serif-font doom-font
-      ;; doom-variable-pitch-font (font-spec :family "SourceHanSerifCN")
-      ;; doom-unicode-font (font-spec :family "SourceHanSerifCN")
-      ;; doom-big-font (font-spec :family "SourceHanSerifCN" :size 23)
-      )
+      doom-variable-pitch-font doom-font
+      doom-symbol-font (font-spec :family "VictorMono")
+      doom-big-font (font-spec :family "VictorMono" :size 24))
 
 (setq native-comp-deferred-compilation nil)
 ;; (setq native-comp-jit-compilation nil)
@@ -658,7 +659,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (add-hook! 'org-mode-hook 'prettify-symbols-mode)
 
 (after! org-superstar
-  (setq 
+  (setq
    ;; org-superstar-headline-bullets-list '("🙘" "🙙" "🙚" "🙛")
    org-superstar-special-todo-items t
    org-superstar-item-bullet-alist '((?- . ?➤) (?* . ?🔻) (?+ . ?△))
@@ -819,10 +820,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
   :config
   (add-to-list 'org-export-before-parsing-hook #'org-ref-refproc)
   (setq org-ref-insert-link-function 'org-ref-insert-link-hydra/body
-	org-ref-insert-cite-function 'org-ref-cite-insert-ivy
-	org-ref-insert-label-function 'org-ref-insert-label-link
-	org-ref-insert-ref-function 'org-ref-insert-ref-link
-	org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body)))
+        org-ref-insert-cite-function 'org-ref-cite-insert-ivy
+        org-ref-insert-label-function 'org-ref-insert-label-link
+        org-ref-insert-ref-function 'org-ref-insert-ref-link
+        org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body)))
   (define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link-hydra/body)
   (define-key bibtex-mode-map (kbd "C-c b") 'org-ref-bibtex-hydra/body)
   )
@@ -910,10 +911,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
   :config
   (add-to-list 'org-latex-packages-alist '("outputdir=latex.out" "minted"))
   (setq org-latex-minted-options
-	'(("bgcolor" . "bg")
-	  ("breaklines" . "true")
-	  ("autogobble" . "true")
-	  ("fontsize" . "\\scriptsize")))
+        '(("bgcolor" . "bg")
+          ("breaklines" . "true")
+          ("autogobble" . "true")
+          ("fontsize" . "\\scriptsize")))
   (setq org-latex-listings 'minted)
   (setq org-highlight-latex-and-related '(native script entities))
   (pdf-loader-install)
@@ -921,32 +922,32 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq org-publish-directory (file-name-concat org-directory "org-publish"))
 
   (setq org-publish-project-alist
-	`(("orgfiles"
-	   :base-directory ,org-directory
-	   :base-extension "org"
-	   :publishing-directory ,(file-name-concat org-publish-directory "html")
-	   :publishing-function org-html-publish-to-html
-	   :with-toc t
-	   :makeindex t
-	   :auto-preamble t
-	   :auto-sitemap
-	   :sitemap-title "Notes"
-	   :sitemap-sort-files
-	   :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/worg.css\" />"
-	   :html-preamble nil)
-	  ("images"
-	   :base-directory ,(file-name-concat org-directory "attachments")
-	   :base-extension "png\\|jpg\\|webp"
-	   :recursive t
-	   :publishing-directory ,(file-name-concat org-publish-directory "attachments")
-	   :publishing-function org-publish-attachment)
-	  ("other"
-	   :base-directory ,(file-name-concat org-directory "style")
-	   :base-extension "css\\|el"
-	   :publishing-directory ,(file-name-concat org-publish-directory "style")
-	   :recursive t
-	   :publishing-function org-publish-attachment)
-	  ("org" :components ("orgfiles" "images" "other"))))
+        `(("orgfiles"
+           :base-directory ,org-directory
+           :base-extension "org"
+           :publishing-directory ,(file-name-concat org-publish-directory "html")
+           :publishing-function org-html-publish-to-html
+           :with-toc t
+           :makeindex t
+           :auto-preamble t
+           :auto-sitemap
+           :sitemap-title "Notes"
+           :sitemap-sort-files
+           :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/worg.css\" />"
+           :html-preamble nil)
+          ("images"
+           :base-directory ,(file-name-concat org-directory "attachments")
+           :base-extension "png\\|jpg\\|webp"
+           :recursive t
+           :publishing-directory ,(file-name-concat org-publish-directory "attachments")
+           :publishing-function org-publish-attachment)
+          ("other"
+           :base-directory ,(file-name-concat org-directory "style")
+           :base-extension "css\\|el"
+           :publishing-directory ,(file-name-concat org-publish-directory "style")
+           :recursive t
+           :publishing-function org-publish-attachment)
+          ("org" :components ("orgfiles" "images" "other"))))
   ;; Tags with fast selection keys
   (setq org-tag-alist (quote (("noexport" . ?n)
 			      (:startgroup)
@@ -976,18 +977,20 @@ emacs --batch doomemacs.org -f org-babel-tangle
     (concat
      (mapcar #'(lambda (c) (if (equal c ?\[) ?\( (if (equal c ?\]) ?\) c))) string-to-transform)))
   (setq org-capture-templates `(
-				("p" "Protocal" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
-				 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n\n\n\n%?"  :immediate-finish t)
-				("L" "Protocol Link" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
-				 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n%?"  :immediate-finish t)
-				("w" "Web site" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
-				 "* %a :website:\n\n%U %?\n\n%:initial"  :immediate-finish t)
-				("c" "Captured" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
-				 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :empty-lines-after 1)
-				("n" "Captured Now!" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
-				 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t)
-				)))
+                                ("p" "Protocal" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
+                                 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n\n\n\n%?"  :immediate-finish t)
+                                ("L" "Protocol Link" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
+                                 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n%?"  :immediate-finish t)
+                                ("w" "Web site" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
+                                 "* %a :website:\n\n%U %?\n\n%:initial"  :immediate-finish t)
+                                ("c" "Captured" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
+                                 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :empty-lines-after 1)
+                                ("n" "Captured Now!" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
+                                 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t)
+                                )))
 #+end_src
+
+
 * Exp
 
 eaf :tangle "~/.config/doom/config.el"
