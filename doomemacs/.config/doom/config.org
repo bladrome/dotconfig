@@ -411,13 +411,13 @@ emacs --batch doomemacs.org -f org-babel-tangle
       browse-url-generic-program "xdg-open")
 
 
-(setq doom-font (font-spec :family "Hack Nerd Font Mono" :size 40)
+(setq doom-font (font-spec :family "FiraCode Nerd Font Mono" :size 40)
       doom-variable-pitch-font doom-font
       doom-symbol-font (font-spec :family "VictorMono")
       doom-big-font (font-spec :family "VictorMono" :size 24))
 
 (setq native-comp-deferred-compilation nil)
-;; (setq native-comp-jit-compilation nil)
+(setq native-comp-jit-compilation nil)
 
 
 (add-hook! 'after-setting-font-hook
