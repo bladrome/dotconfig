@@ -515,7 +515,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
    ("C-h v" . helpful-variable)))
 
 (use-package! ob-tmux
-  :ensure t
   :custom
   (org-babel-default-header-args:tmux
    '((:results . "silent")
@@ -539,8 +538,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (use-package! org-tufte
   :config
-  (setq org-tufte-htmlize-code t)
-  )
+  (setq org-tufte-htmlize-code t))
 
 ;; (use-package! chatgpt-shell
 ;;   :init
@@ -909,6 +907,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   :hook
   (org-mode . turn-on-visual-line-mode)
   :config
+  (setq org-babel-js-cmd "bun")
   (add-to-list 'org-latex-packages-alist '("outputdir=latex.out" "minted"))
   (setq org-latex-minted-options
         '(("bgcolor" . "bg")
