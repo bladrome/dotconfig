@@ -257,8 +257,12 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! valign)
 
 (package! vlf)
+<<<<<<< Updated upstream
 (package! org-modern)
 (package! org-roam-ui)
+=======
+
+>>>>>>> Stashed changes
 
 ;; (package! mu4e-thread-folding
 ;;   :recipe (:host github :repo "rougier/mu4e-thread-folding"))
@@ -422,6 +426,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;;     "-l --almost-all --human-readable --group-directories-first --no-group"))
 
 
+<<<<<<< Updated upstream
 (use-package! ob-tmux
   :ensure t
   :custom
@@ -437,6 +442,34 @@ emacs --batch doomemacs.org -f org-babel-tangle
   ;; The default terminal is "gnome-terminal" with options "--".
   (org-babel-tmux-terminal "wezterm")
   (org-babel-tmux-terminal-opts '("-T" "ob-tmux" "-e")))
+=======
+
+(use-package! vlf
+  :config
+  (require 'vlf-setup)
+  (custom-set-variables
+   '(vlf-application 'dont-ask))
+)
+
+
+    ;; (use-package! chatgpt-shell
+    ;;   :init
+    ;;   (setq chatgpt-shell-openai-key
+    ;;         (lambda ()
+    ;;           (nth 0 (process-lines "pass" "show" "openai-key")))))
+
+    (use-package! gptel)
+
+
+    (use-package! org-ai
+    ;;   :init
+    ;;   (setq org-ai-openai-api-token (nth 0 (process-lines "pass" "show" "openai-key")))
+      :hook
+      (org-mode . org-ai-mode)
+      :config
+      (org-ai-global-mode)
+      (org-ai-install-yasnippets))
+>>>>>>> Stashed changes
 
 
 
