@@ -414,7 +414,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (setq doom-font (font-spec :family "FiraCode Nerd Font Mono" :size 40)
       doom-variable-pitch-font doom-font
       doom-symbol-font (font-spec :family "VictorMono")
-      doom-big-font (font-spec :family "VictorMono" :size 24))
+      doom-big-font (font-spec :family "VictorMono" :size 36))
 
 (setq native-comp-deferred-compilation nil)
 (setq native-comp-jit-compilation nil)
@@ -440,13 +440,13 @@ emacs --batch doomemacs.org -f org-babel-tangle
               x-underline-at-descent-line t)
 
 ;; bookmarks and recentf cache
-(setq bookmark-default-file "~/.config/doom/bookmarks")
+(setq bookmark-default-file (file-name-concat doom-private-dir "bookmarks"))
 
 (after! dap-mode
   (setq dap-python-debugger 'debugpy))
 
 (after! recentf
-  (setq recentf-save-file "~/.config/doom/recentf"))
+  (setq recentf-save-file (file-name-concat doom-private-dir "recentf"))
 
 ;; Set transparency of emacs
 (defun transparency (value)
