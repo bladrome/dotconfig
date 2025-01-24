@@ -378,13 +378,13 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (setq word-wrap-by-category t)
 
-;; (add-hook 'org-mode-hook 'adaptive-wrap-prefix-mode)
+(add-hook 'org-mode-hook 'adaptive-wrap-prefix-mode)
 
 (save-place-mode 1)
 
 (global-auto-revert-mode)
 
-(setq initial-major-mode 'org-mode) ;; org!
+(setq initial-major-mode 'org-mode)
 (setq initial-scratch-message nil)
 
 ;; Smooth mouse scrolling
