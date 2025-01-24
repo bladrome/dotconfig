@@ -469,7 +469,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (use-package! elfeed-dashboard
   :ensure t
   :config
-  (setq elfeed-dashboard-file "~/.config/doom/elfeed-dashboard.org")
+  (setq elfeed-dashboard-file (file-name-concat doom-private-dir "elfeed-dashboard.org"))
   ;; update feed counts on elfeed-quit
   (advice-add 'elfeed-search-quit-window :after #'elfeed-dashboard-update-links))
 
