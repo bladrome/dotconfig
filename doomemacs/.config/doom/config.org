@@ -634,7 +634,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;; (add-hook! 'org-babel-after-execute-hook 'org-toggle-latex-fragment 'append)
 
 (setq-default prettify-symbols-alist '(("#+title:" . "󰗴")
-                                       ("#+author:" . "")
+                                       ("#+author:" . "󰴓")
                                        ("#+caption:" . "☰")
                                        ("#+include:" . "")
                                        ("#+html_head:" . "")
