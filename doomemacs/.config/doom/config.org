@@ -276,6 +276,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;;   :recipe (:host github :repo "rougier/mu4e-thread-folding"))
 ;; (package! mu4e-dashboard
 ;;   :recipe (:host github :repo "rougier/mu4e-dashboard"))
+
 (package! svg-tag-mode
   :recipe (:host github :repo "rougier/svg-tag-mode"))
 (package! nano-theme
@@ -453,7 +454,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (interactive "nTransparency Value 0 - 100 opaque:")
   (set-frame-parameter (selected-frame) 'alpha value))
 
-(transparency 95)
+(transparency 99)
 
 ;; (use-package! doom-modeline
 ;;   :custom
