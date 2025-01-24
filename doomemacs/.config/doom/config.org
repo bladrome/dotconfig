@@ -633,21 +633,24 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;; (add-hook! 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 ;; (add-hook! 'org-babel-after-execute-hook 'org-toggle-latex-fragment 'append)
 
-(setq-default prettify-symbols-alist '(("#+title:" . "✍")
-                                       ("#+author:" . "👨")
+(setq-default prettify-symbols-alist '(("#+title:" . "󰗴")
+                                       ("#+author:" . "")
                                        ("#+caption:" . "☰")
+                                       ("#+include:" . "")
+                                       ("#+html_head:" . "")
+                                       ("#+startup:" . "")
                                        ("#+filetags:" . "🎃")
                                        ("#+identifier:" . "👺")
                                        ("#+results:" . "🎁")
                                        ("#+attr_latex:" . "🍄")
                                        ("#+attr_org:" . "🔔")
+                                       ("#+options:" . "⌥")
                                        ("#+date:" . "⚓")
                                        ("#+property:" . "☸")
-                                       (":PROPERTIES:" . "⚙")
-                                       (":END:" . ".")
+                                       (":properties:" . "⚙")
+                                       (":end:" . ".")
                                        ("[ ]" . "☐")
                                        ("[X]" . "☑︎")
-                                       ("#+options:" . "⌥")
                                        ("\\pagebreak" . 128204)
                                        ("#+begin_quote" . "❮")
                                        ("#+end_quote" . "❯")
@@ -658,7 +661,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (after! org-superstar
   (setq
-   ;; org-superstar-headline-bullets-list '("🙘" "🙙" "🙚" "🙛")
+   org-superstar-headline-bullets-list '("🙘" "🙙" "🙚" "🙛")
    org-superstar-special-todo-items t
    org-superstar-item-bullet-alist '((?- . ?➤) (?* . ?🔻) (?+ . ?△))
    org-superstar-prettify-item-bullets t ))
@@ -855,7 +858,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;;    ;; Org styling, hide markup etc.
 ;;    org-hide-emphasis-markers t
 ;;    org-pretty-entities t
-;;    org-ellipsis "…"
+;;    org-ellipsis " "
 ;;    ;; Agenda styling
 ;;    org-agenda-tags-column 0
 ;;    org-agenda-block-separator ?─
@@ -867,6 +870,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;;    "◀── now ─────────────────────────────────────────────────")
 ;;   :hook
 ;;   (org-mode . global-org-modern-mode))
+
 (use-package! svg-lib)
 (use-package! svg-tag-mode)
 
@@ -878,7 +882,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (org-mode . org-fragtog-mode)
   :custom
   (org-format-latex-options
-   (plist-put org-format-latex-options :scale 2)
+   (plist-put org-format-latex-options :scale 3)
    (plist-put org-format-latex-options :foreground 'auto)
    (plist-put org-format-latex-options :background 'auto)))
 
