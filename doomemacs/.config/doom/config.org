@@ -1,5 +1,5 @@
-#+title:    Doomemacs
-#+author:    bladrome
+#+title:  Doomemacs
+#+author:  bladrome
 #+property:  header-args  :mkdirp yes 
 
 
@@ -247,7 +247,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 
 #+begin_src elisp :tangle "~/.config/doom/packages.el"
-
 
 (package! org-fragtog)
 (package! org-page)
@@ -712,16 +711,15 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq rime-user-data-dir "~/.config/doom/rime")
   (setq rime-inline-ascii-trigger 'shift-l)
   (setq rime-posframe-properties
-	(list :background-color "#333333"
-	      :foreground-color "#dcdccc"
-	      :font "NotoMono Nerd Font 14"
-	      :internal-border-width 10))
-  ;; (setq rime-disable-predicates
-  ;;       '(rime-predicate-evil-mode-p
-  ;;         rime-predicate-after-alphabet-char-p
-  ;;         rime-predicate-current-input-punctuation-p
-  ;;         rime-predicate-current-uppercase-letter-p
-  ;;         rime-predicate-punctuation-line-begin-p))
+        (list :background-color "#333333"
+              :foreground-color "#dcdccc"
+              :internal-border-width 10))
+  (setq rime-disable-predicates
+        '(rime-predicate-evil-mode-p
+          rime-predicate-after-alphabet-char-p
+          rime-predicate-current-input-punctuation-p
+          rime-predicate-current-uppercase-letter-p
+          rime-predicate-punctuation-line-begin-p))
   (setq rime-disable-predicates
         '(rime-predicate-evil-mode-p
           rime-predicate-current-uppercase-letter-p
