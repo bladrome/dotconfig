@@ -3,7 +3,8 @@
 # uuid: orgmodeheader
 # key: hd
 # --
-#+title:     `(file-name-base buffer-file-name)`
+#+title:    `(file-name-base buffer-file-name)`
 #+author:    bladrome
-#+startup:   show2levels
-#+include:   `(file-relative-name (concat (file-name-as-directory org-directory) "style/html.org"))`
+#+startup:    show2levels
+#+include:    `(file-relative-name (concat (file-name-as-directory org-directory) "style/common.org"))`
+#+html_head:    <link rel="stylesheet" type="text/css" href=style/worg.css />
