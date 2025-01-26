@@ -269,8 +269,12 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! org-download)
 (package! org-web-tools)
 
+
 (package! ultra-scroll
   :recipe (:host github :repo "jdtsmith/ultra-scroll"))
+
+(package! nova
+  :recipe (:host github :repo "thisisran/nova"))
 
 ;; (package! mu4e-thread-folding
 ;;   :recipe (:host github :repo "rougier/mu4e-thread-folding"))
@@ -357,7 +361,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (setq confirm-kill-emacs nil
       system-time-locale "C"
-      pop-up-windows nil
+      pop-up-windows t
       scroll-margin 2
       widget-image-enable nil)
 
