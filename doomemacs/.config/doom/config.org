@@ -907,11 +907,11 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;;   ;; If using org-roam-protocol
 ;;   (require 'org-roam-protocol))
 
+
 (use-package! org
   :init
   (setq org-export-use-babel nil)
   (require 'oc-bibtex)
-  (require 'org-eldoc)
   :hook
   (org-mode . turn-on-visual-line-mode)
   :config
