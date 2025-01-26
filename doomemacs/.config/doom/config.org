@@ -637,6 +637,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
                                        ("#+caption:" . "☰")
                                        ("#+include:" . "")
                                        ("#+html_head:" . "")
+                                       ("#+attr_html:" . "")
+                                       ("#+attr_latex:" . "")
                                        ("#+startup:" . "")
                                        ("#+filetags:" . "🎃")
                                        ("#+identifier:" . "👺")
