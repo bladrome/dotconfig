@@ -456,7 +456,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (defun transparency (value)
   "Sets the transparency of the frame window. 0=transparent/100=opaque"
   (interactive "nTransparency Value 0 - 100 opaque:")
-  (set-frame-parameter (selected-frame) 'alpha value))
+  (set-frame-parameter (selected-frame) 'alpha (if (> value 100) 100 value)))
 
 (transparency 99)
 
@@ -631,7 +631,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
         org-use-speed-commands t
         org-use-sub-superscripts "{}"))
 
-;; (setq org-todo-keywords '((sequence "TODO" "|" "DONE")))
 ;; (add-hook! 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 ;; (add-hook! 'org-babel-after-execute-hook 'org-toggle-latex-fragment 'append)
 
