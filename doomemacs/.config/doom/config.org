@@ -923,7 +923,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
           ("autogobble" . "true")
           ("fontsize" . "\\scriptsize")))
   (setq org-latex-listings 'minted)
-  (setq org-highlight-latex-and-related '(native script entities))
   (pdf-loader-install)
 
   (setq org-publish-directory (file-name-concat org-directory "org-publish"))
