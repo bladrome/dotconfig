@@ -382,7 +382,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (setq word-wrap-by-category t)
 
-(add-hook 'org-mode-hook 'adaptive-wrap-prefix-mode)
+;; (add-hook 'org-mode-hook 'adaptive-wrap-prefix-mode)
 
 (save-place-mode 1)
 
