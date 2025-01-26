@@ -58,7 +58,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
        ;;indent-guides     ; highlighted indent columns
        (ligatures +extra)  ; ligatures and symbols to make your code pretty again
        ;;minimap           ; show a map of the code on the side
-       (modeline +light)   ; snazzy, Atom-inspired modeline, plus API
+       modeline            ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
        ;;neotree           ; a project drawer, like NERDTree for vim
        ophints             ; highlight the region an operation acts on
@@ -446,7 +446,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq dap-python-debugger 'debugpy))
 
 (after! recentf
-  (setq recentf-save-file (file-name-concat doom-private-dir "recentf"))
+  (setq recentf-save-file (file-name-concat doom-private-dir "recentf")))
 
 ;; Set transparency of emacs
 (defun transparency (value)
@@ -456,11 +456,11 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (transparency 99)
 
-;; (use-package! doom-modeline
-;;   :custom
-;;   (doom-modeline-buffer-encoding nil)
-;;   (doom-modeline-enable-word-count nil)
-;;   (doom-modeline-height 10))
+(use-package! doom-modeline
+  :custom
+  (doom-modeline-buffer-encoding t)
+  (doom-modeline-enable-word-count nil)
+  (doom-modeline-height 10))
 
 (use-package! elfeed
   :config
@@ -568,10 +568,9 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;;   (org-ai-install-yasnippets))
 
 
-
-(after! conda
-  (setq conda-anaconda-home "/run/media/bladrome/bank/drome/mambaforge"
-	conda-env-home-directory  "/run/media/bladrome/bank/drome/mambaforge"))
+;; (after! conda
+;;   (setq conda-anaconda-home "/run/media/bladrome/bank/drome/mambaforge"
+;; 	conda-env-home-directory  "/run/media/bladrome/bank/drome/mambaforge"))
 
 ;; org-export docs using a tempalate.docx
 (defun org-export-docx ()
