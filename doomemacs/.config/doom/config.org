@@ -4,7 +4,6 @@
 
 
 * Install
-
 #+begin_src bash :tangle no
 emacs --batch doomemacs.org -f org-babel-tangle
 #+end_src
@@ -415,7 +414,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
       browse-url-generic-program "xdg-open")
 
 
-(setq doom-font (font-spec :family "FiraCode Nerd Font Mono" :size 40)
+(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 40)
       doom-variable-pitch-font doom-font
       doom-symbol-font (font-spec :family "VictorMono")
       doom-big-font (font-spec :family "VictorMono" :size 36))
@@ -543,12 +542,29 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (use-package! org-tufte
   :config
   (setq org-tufte-htmlize-code t))
+#+end_src
 
-;; (use-package! chatgpt-shell
-;;   :init
-;;   (setq chatgpt-shell-openai-key
-;;         (lambda ()
-;;           (nth 0 (process-lines "pass" "show" "openai-key")))))
+** AI
+
+#+begin_src elisp :tangle "~/.config/doom/config.el"
+
+(use-package! chatgpt-shell
+  :init
+  (setq chatgpt-shell-openai-key
+        (lambda ()
+          (shell-command-to-string "pass show open.bigmodel.cn"))))
+
+(use-package! gptel
+    :custom (gptel-temperature 0.2)
+    :config (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
+    (setq-default gptel-backend
+                  (gptel-make-openai "Moonshot"
+                    :host "api.moonshot.cn"
+                    :endpoint "/v1/chat/completions"
+                    :models '("moonshot-v1-8k")
+                    :stream t
+                    :header `(("Authorization" .  ,(shell-command-to-string "pass show api.moonshot.cn"))))))
+
 ;; (use-package! gptel
 ;;   :custom
 ;;   (gptel-temperature 0.1)
@@ -571,7 +587,13 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;;   (org-ai-global-mode)
 ;;   (org-ai-install-yasnippets))
 
+#+end_src
 
+
+** Org
+
+
+#+begin_src elisp :tangle "~/.config/doom/config.el"
 ;; (after! conda
 ;;   (setq conda-anaconda-home "/run/media/bladrome/bank/drome/mambaforge"
 ;; 	conda-env-home-directory  "/run/media/bladrome/bank/drome/mambaforge"))
@@ -762,6 +784,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq valign-fancy-bar t)
   (add-hook 'org-mode-hook #'valign-mode))
 
+(use-package! mind-wave)
 
 (use-package! nova)
 
@@ -830,8 +853,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
         org-ref-insert-ref-function 'org-ref-insert-ref-link
         org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body)))
   (define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link-hydra/body)
-  (define-key bibtex-mode-map (kbd "C-c b") 'org-ref-bibtex-hydra/body)
-  )
+  (define-key bibtex-mode-map (kbd "C-c b") 'org-ref-bibtex-hydra/body))
 
 
 (use-package! websocket
