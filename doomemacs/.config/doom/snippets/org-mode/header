@@ -7,4 +7,4 @@
 #+author:    bladrome
 #+startup:    show2levels
 #+include:    `(file-relative-name (concat (file-name-as-directory org-directory) "style/common.org"))`
-#+html_head:    <link rel="stylesheet" type="text/css" href=style/worg.css />
+#+html_head:    <link rel="stylesheet" type="text/css" href="`(file-relative-name (concat (file-name-as-directory org-directory) ))`style/worg.css" />

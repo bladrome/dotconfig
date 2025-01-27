@@ -315,9 +315,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! lsp-bridge
   :recipe (:host github :repo "manateelazycat/lsp-bridge"
                  :files ("*.el" "*.py" "acm" "core" "langserver" "icons" "resources")))
-(package! mind-wave
-  :recipe (:host github :repo "manateelazycat/mind-wave"
-                 :files ("*.el" "*.py")))
+
 (package! blink-search
   :recipe (:host github :repo "manateelazycat/blink-search"
                  :files ("*.el" "*.py" "core/*.py" "backend" "icons")))
@@ -784,8 +782,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (setq valign-fancy-bar t)
   (add-hook 'org-mode-hook #'valign-mode))
 
-(use-package! mind-wave)
-
 (use-package! nova)
 
 ;; (use-package! ultra-scroll
@@ -815,10 +811,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (after! org-download
   (setq org-download-method 'directory)
   (setq org-download-link-format "[[file:images/%s]]\n"))
-
-
-(use-package! mind-wave)
-
 
 
 (setq Tex-command-default "XeLaTeX")
