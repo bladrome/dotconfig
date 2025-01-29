@@ -297,7 +297,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (package! elfeed
   :recipe (:host github :repo "skeeto/elfeed"
-                 :files ("*.el" "web/*")))
+           :files ("*.el" "web/*")))
 (package! elfeed-dashboard
   :recipe (:host github :repo "Manoj321/elfeed-dashboard"))
 
@@ -314,19 +314,22 @@ emacs --batch doomemacs.org -f org-babel-tangle
   :recipe (:host github :repo "kiwanami/emacs-epc"))
 (package! lsp-bridge
   :recipe (:host github :repo "manateelazycat/lsp-bridge"
-                 :files ("*.el" "*.py" "acm" "core" "langserver" "icons" "resources")))
+           :files ("*.el" "*.py" "acm" "core" "langserver" "icons" "resources")))
 
 (package! blink-search
   :recipe (:host github :repo "manateelazycat/blink-search"
-                 :files ("*.el" "*.py" "core/*.py" "backend" "icons")))
+           :files ("*.el" "*.py" "core/*.py" "backend" "icons")))
 
-(package! chatgpt-shell
-  :recipe (:host github :repo "xenodium/chatgpt-shell"))
 (package! org-ai
   :recipe (:host github :repo "rksm/org-ai"
-                 :files ("*.el" "README.md" "snippets")))
-(package! gptel)
+           :files ("*.el" "README.md" "snippets")))
 
+(package! aider
+  :recipe (:host github :repo "tninja/aider.el"
+           :files ("aider.el" "aider-doom.el" "aider-helm.el")))
+
+(package! gptel)
+(package! ellama)
 #+end_src
 
 
@@ -398,7 +401,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;; (setq url-proxy-services
 ;;          '(("socks5" . "localhost:8888")))
 
-(setq doom-theme 'doom-nord-light)
+(setq doom-theme 'doom-dark+)
 ;; (setq doom-theme 'doom-one-light)
 ;; (setq doom-theme nil)
 ;; (load-theme 'lambda-light t)
