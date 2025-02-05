@@ -4,14 +4,16 @@
 
 
 * Install
-#+begin_src bash :tangle no
+
+#+end_src bash :tangle no
 emacs --batch doomemacs.org -f org-babel-tangle
 #+end_src
 
 
-* init
+* Init
 
-#+begin_src elisp :tangle "~/.config/doom/init.el"
+#+begin_src elisp :tangle init.el
+
 ;;; init.el -*- lexical-binding: t; -*-
 
 ;; This file controls what Doom modules are enabled and what order they load
@@ -35,14 +37,16 @@ emacs --batch doomemacs.org -f org-babel-tangle
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       ;;company             ; the ultimate code completion backend
-       (corfu +orderless)  ; complete with cap(f), cape and a flying feather!
+       ;;company           ; the ultimate code completion backend
+       (corfu
+        +orderless
+        +dabbrev)          ; complete with cap(f), cape and a flying feather!
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy
-        +fuzzy
-        +prescient
-        +icons)            ; a search engine for love and life
+       ;; (ivy
+       ;;  +fuzzy
+       ;;  +prescient
+       ;;  +icons)            ; a search engine for love and life
        (vertico
         :icons
         :childframe)
@@ -51,8 +55,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
        ;;deft              ; notational velocity for Emacs
        doom                ; what makes DOOM look the way it does
        doom-dashboard      ; a nifty splash screen for Emacs
-       doom-quit           ; DOOM quit-message prompts when you quit Emacs
-       ;; (emoji +unicode)    ; 🙂
+       ;;doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       ;;(emoji +unicode)  ; 🙂
        hl-todo             ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;indent-guides     ; highlighted indent columns
        (ligatures +extra)  ; ligatures and symbols to make your code pretty again
@@ -94,6 +98,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
         +dirvish
         +icons)            ; making dired pretty [functional]
        electric            ; smarter, keyword-based electric-indent
+       eww                 ; the internet is gross
        (ibuffer +icons)    ; interactive buffer management
        undo                ; persistent, smarter undo for your inevitable mistakes
        vc                  ; version-control and Emacs, sitting in a tree
@@ -112,6 +117,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
        :tools
        ;;ansible
        biblio              ; Writes a PhD for you (citation needed)
+       collab              ; buffers with friends
        (debugger
         +lsp)              ; FIXME stepping through code, to help you add bugs
        ;;direnv
@@ -128,17 +134,17 @@ emacs --batch doomemacs.org -f org-babel-tangle
        pass                ; password manager for nerds
        pdf                 ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
-       ;;taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        tmux                ; an API for interacting with tmux
        tree-sitter         ; syntax and parsing, sitting in a tree...
        upload              ; map local to remote projects via ssh/ftp
 
        :os
-       (:if IS-MAC macos)  ; improve compatibility with macOS
+       (:if (featurep :system 'macos) macos)  ; improve compatibility with macOS
        tty                 ; improve the terminal Emacs experience
 
        :lang
+
        ;;agda              ; types of types of types of types...
        ;;beancount         ; mind the GAAP
        (cc +lsp)           ; C > C++ == 1
@@ -194,6 +200,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
         +present)          ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        plantuml            ; diagrams for confusing people more
+       graphviz            ; diagrams for confusing yourself even more
        ;;purescript        ; javascript, but functional
        (python
         +anaconda
@@ -227,7 +234,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
        :app
        calendar
-       ;;emms
+       emms
        everywhere          ; *leave* Emacs!? You must be joking
        ;;irc               ; how neckbeards socialize
        (rss +org)          ; emacs as an RSS reader
@@ -242,100 +249,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
 #+end_src
 
 
-* packages
+* Config
+** Base Config
 
-
-#+begin_src elisp :tangle "~/.config/doom/packages.el"
-
-(package! org-fragtog)
-(package! org-page)
-(package! org-ql)
-(package! org-special-block-extras)
-(package! org-ref)
-(package! ebib)
-
-(package! fanyi)
-
-(package! pangu-spacing)
-(package! rainbow-identifiers)
-(package! rime)
-(package! valign)
-
-
-(package! vlf)
-(package! org-modern)
-(package! org-roam-ui)
-(package! org-download)
-(package! org-web-tools)
-
-
-(package! ultra-scroll
-  :recipe (:host github :repo "jdtsmith/ultra-scroll"))
-
-(package! nova
-  :recipe (:host github :repo "thisisran/nova"))
-
-;; (package! mu4e-thread-folding
-;;   :recipe (:host github :repo "rougier/mu4e-thread-folding"))
-;; (package! mu4e-dashboard
-;;   :recipe (:host github :repo "rougier/mu4e-dashboard"))
-
-(package! svg-tag-mode
-  :recipe (:host github :repo "rougier/svg-tag-mode"))
-(package! nano-theme
-  :recipe (:host github :repo "rougier/nano-theme"))
-(package! nano-modeline)
-
-(package! svg-lib
-  :recipe (:host github :repo "rougier/svg-lib"))
-
-(package! lambda-themes
-  :recipe (:host github :repo "Lambda-Emacs/lambda-themes"))
-
-(package! org-protocol-capture-html
-  :recipe (:host github :repo "alphapapa/org-protocol-capture-html"))
-
-(package! elfeed
-  :recipe (:host github :repo "skeeto/elfeed"
-           :files ("*.el" "web/*")))
-(package! elfeed-dashboard
-  :recipe (:host github :repo "Manoj321/elfeed-dashboard"))
-
-(package! ob-zig
-  :recipe (:host github :repo "jolby/ob-zig.el"))
-
-(package! ob-tmux
-  :recipe (:host github :repo "ahendriksen/ob-tmux"))
-
-(package! org-tufte
-  :recipe (:host github :repo "Zilong-Li/org-tufte"))
-
-(package! emacs-epc
-  :recipe (:host github :repo "kiwanami/emacs-epc"))
-(package! lsp-bridge
-  :recipe (:host github :repo "manateelazycat/lsp-bridge"
-           :files ("*.el" "*.py" "acm" "core" "langserver" "icons" "resources")))
-
-(package! blink-search
-  :recipe (:host github :repo "manateelazycat/blink-search"
-           :files ("*.el" "*.py" "core/*.py" "backend" "icons")))
-
-(package! org-ai
-  :recipe (:host github :repo "rksm/org-ai"
-           :files ("*.el" "README.md" "snippets")))
-
-(package! aider
-  :recipe (:host github :repo "tninja/aider.el"
-           :files ("aider.el" "aider-doom.el" "aider-helm.el")))
-
-(package! gptel)
-(package! ellama)
-#+end_src
-
-
-* config
-
-#+begin_src elisp :tangle "~/.config/doom/config.el"
+#+begin_src elisp :tangle config.el
 
 (setq toggle-debug-on-error t)
 
@@ -357,6 +274,26 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (warning-minimum-level :emergency))
 
 
+(setq-default cursor-type 'box)
+(setq browse-url-browser-function 'browse-url-xdg-open
+      browse-url-generic-program 'browse-url-xdg-open)
+
+
+(global-visual-line-mode)
+
+;; t relative or nil
+(setq display-line-numbers-type t)
+
+(show-paren-mode t)
+
+(setq use-short-answers t)
+
+(blink-cursor-mode 1)
+
+(setq-default x-stretch-cursor t
+              x-underline-at-descent-line t)
+
+
 (setq shell-file-name (executable-find "bash"))
 
 (setq confirm-kill-emacs nil
@@ -373,6 +310,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (setq ring-bell-function 'ignore)
 (setq set-message-beep 'silent)
 
+;; coding
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (setq default-buffer-file-coding-system 'utf-8)
@@ -381,8 +319,6 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (setq delete-by-moving-to-trash t)
 
 (setq word-wrap-by-category t)
-
-;; (add-hook 'org-mode-hook 'adaptive-wrap-prefix-mode)
 
 (save-place-mode 1)
 
@@ -396,61 +332,31 @@ emacs --batch doomemacs.org -f org-babel-tangle
       mouse-wheel-progressive-speed nil
       mouse-wheel-follow-mouse t
       scroll-step 1)
+#+end_src
 
-;; (setq company-backends '(company-aspell))
-;; (setq url-proxy-services
-;;          '(("socks5" . "localhost:8888")))
+*** bookmark
 
-(setq doom-theme 'doom-dark+)
-;; (setq doom-theme 'doom-one-light)
-;; (setq doom-theme nil)
-;; (load-theme 'lambda-light t)
-;; (require 'nano-theme)
-;; (nano-mode)
-;; (nano-light)
-;; (nano-modeline-mode)
-
-(setq-default cursor-type 'box)
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "xdg-open")
-
-
-(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 40)
-      doom-variable-pitch-font doom-font
-      doom-symbol-font (font-spec :family "VictorMono")
-      doom-big-font (font-spec :family "VictorMono" :size 36))
-
-(setq native-comp-deferred-compilation nil)
-(setq native-comp-jit-compilation nil)
-
-
-(add-hook! 'after-setting-font-hook
-  (set-fontset-font t 'symbol (font-spec :family "Symbola"))
-  (set-fontset-font t 'mathematical (font-spec :family "Symbola"))
-  (set-fontset-font t 'emoji (font-spec :family "Symbola")))
-
-
-(global-visual-line-mode)
-
-;; t relative or nil
-(setq display-line-numbers-type t)
-
-(show-paren-mode t)
-(setq use-short-answers t)
-
-(blink-cursor-mode 1)
-
-(setq-default x-stretch-cursor t
-              x-underline-at-descent-line t)
-
+#+begin_src elisp :tangle config.el
 ;; bookmarks and recentf cache
-(setq bookmark-default-file (file-name-concat doom-private-dir "bookmarks"))
 
-(after! dap-mode
-  (setq dap-python-debugger 'debugpy))
+(after! bookmark
+  (setq bookmark-default-file (file-name-concat doom-user-dir "bookmarks")))
 
 (after! recentf
-  (setq recentf-save-file (file-name-concat doom-private-dir "recentf")))
+  (setq recentf-save-file (file-name-concat doom-user-dir "recentf")))
+
+#+end_src
+
+*** proxy
+
+#+begin_src elisp :tangle config.el
+;; (setq url-proxy-services
+;;          '(("socks5" . "localhost:8888")))
+#+end_src
+
+*** transparency
+
+#+begin_src elisp :tangle config.el
 
 ;; Set transparency of emacs
 (defun transparency (value)
@@ -459,24 +365,12 @@ emacs --batch doomemacs.org -f org-babel-tangle
   (set-frame-parameter (selected-frame) 'alpha (if (> value 100) 100 value)))
 
 (transparency 100)
+#+end_src
 
-(use-package! doom-modeline
-  :custom
-  (doom-modeline-buffer-encoding t)
-  (doom-modeline-enable-word-count nil)
-  (doom-modeline-height 10))
+*** search completion
 
-(use-package! elfeed
-  :config
-  (elfeed-set-max-connections 32))
 
-(use-package! elfeed-dashboard
-  :ensure t
-  :config
-  (setq elfeed-dashboard-file (file-name-concat doom-private-dir "elfeed-dashboard.org"))
-  ;; update feed counts on elfeed-quit
-  (advice-add 'elfeed-search-quit-window :after #'elfeed-dashboard-update-links))
-
+#+begin_src elisp :tangle config.el
 
 ;; MINIBUFFER COMPLETION
 (use-package! vertico
@@ -517,93 +411,155 @@ emacs --batch doomemacs.org -f org-babel-tangle
    ("C-h x" . helpful-command)
    ("C-h k" . helpful-key)
    ("C-h v" . helpful-variable)))
+#+end_src
 
-(use-package! ob-tmux
+** Theme
+
+#+begin_src elisp :tangle packages.el
+(package! nova
+  :recipe (:host github :repo "thisisran/nova"))
+
+(package! svg-tag-mode
+  :recipe (:host github :repo "rougier/svg-tag-mode"))
+
+(package! nano-theme
+  :recipe (:host github :repo "rougier/nano-theme"))
+
+(package! nano-modeline)
+
+(package! lambda-themes
+  :recipe (:host github :repo "Lambda-Emacs/lambda-themes"))
+#+end_src
+
+#+begin_src elisp :tangle config.el
+(use-package! nova
+  :config
+  (setq nova-vertico-mode 1))
+
+(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 40)
+      doom-variable-pitch-font doom-font
+      doom-symbol-font (font-spec :family "VictorMono")
+      doom-big-font (font-spec :family "VictorMono" :size 36))
+
+(setq native-comp-deferred-compilation nil)
+(setq native-comp-jit-compilation nil)
+
+
+(add-hook! 'after-setting-font-hook
+  (set-fontset-font t 'symbol (font-spec :family "Symbola"))
+  (set-fontset-font t 'mathematical (font-spec :family "Symbola"))
+  (set-fontset-font t 'emoji (font-spec :family "Symbola")))
+
+#+end_src
+
+Select theme.
+
+#+begin_src elisp :tangle config.el
+
+(use-package! doom-modeline
   :custom
-  (org-babel-default-header-args:tmux
-   '((:results . "silent")
-     (:session . "default")  ; The default tmux session to send code to
-     (:socket  . nil)))      ; The default tmux socket to communicate with
-  ;; The tmux sessions are prefixed with the following string.
-  ;; You can customize this if you like.
-  (org-babel-tmux-session-prefix "ob-")
-  ;; The terminal that will be used.
-  ;; You can also customize the options passed to the terminal.
-  ;; The default terminal is "gnome-terminal" with options "--".
-  (org-babel-tmux-terminal "wezterm")
-  (org-babel-tmux-terminal-opts '("-T" "ob-tmux" "-e")))
+  (doom-modeline-buffer-encoding t)
+  (doom-modeline-enable-word-count nil)
+  (doom-modeline-height 10))
 
-(use-package! vlf
-  :config
-  (require 'vlf-setup)
-  (custom-set-variables
-   '(vlf-application 'dont-ask))
-  )
 
-(use-package! org-tufte
-  :config
-  (setq org-tufte-htmlize-code t))
+(setq doom-theme 'doom-one-light)
+;; (setq doom-theme 'doom-one-light)
+;; (setq doom-theme nil)
+;; (load-theme 'lambda-light t)
+;; (require 'nano-theme)
+;; (nano-mode)
+;; (nano-light)
+;; (nano-modeline-mode)
 #+end_src
-
-** AI
-
-#+begin_src elisp :tangle "~/.config/doom/config.el"
-
-(use-package! chatgpt-shell
-  :init
-  (setq chatgpt-shell-openai-key
-        (lambda ()
-          (shell-command-to-string "pass show open.bigmodel.cn"))))
-
-(use-package! gptel
-    :custom (gptel-temperature 0.2)
-    :config (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
-    (setq-default gptel-backend
-                  (gptel-make-openai "Moonshot"
-                    :host "api.moonshot.cn"
-                    :endpoint "/v1/chat/completions"
-                    :models '("moonshot-v1-8k")
-                    :stream t
-                    :header `(("Authorization" .  ,(shell-command-to-string "pass show api.moonshot.cn"))))))
-
-;; (use-package! gptel
-;;   :custom
-;;   (gptel-temperature 0.1)
-;;   (gptel-prompt-prefix-alist)
-;;   :config (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
-;;   (setq-default gptel-backend
-;;                 (gptel-make-openai "ChatGLM"
-;;                                    :host "open.bigmodel.cn"
-;;                                    :endpoint "/api/paas/v4/chat/completions"
-;;                                    :models '("glm-4" "glm-4v" "glm-3-turbo")
-;;                                    :stream t
-;;                                    :header '(("Authorization" .  "Bearer eyJhbGciOiJIUzI1NiIsInNpZ25fdHlwZSI6IlNJR04iLCJ0eXAiOiJKV1QifQ.eyJhcGlfa2V5IjoiZmM2MWNmMzVjZDVlYWQyZWYxNGQ3YjNhOGViYjNmZjciLCJleHAiOjE3MTIzMjExNjk3MTYsInRpbWVzdGFtcCI6MTcxMTQ1NzE2OTcxNn0.NRmC8WdIB2jroyqXClyfyIP-TeQYWirv_r8pj9Csqa4"))))
-;;   )
-;; (use-package! org-ai
-;;   ;;   :init
-;;   ;;   (setq org-ai-openai-api-token (nth 0 (process-lines "pass" "show" "openai-key")))
-;;   :hook
-;;   (org-mode . org-ai-mode)
-;;   :config
-;;   (org-ai-global-mode)
-;;   (org-ai-install-yasnippets))
-
-#+end_src
-
 
 ** Org
 
+#+begin_src elisp :tangle packages.el
 
-#+begin_src elisp :tangle "~/.config/doom/config.el"
+(package! org-page)
+(package! org-ql)
+(package! org-special-block-extras)
+
+(package! org-modern)
+(package! org-download)
+(package! org-web-tools)
+
+(package! org-graph-view
+  :recipe (:host github :repo "alphapapa/org-graph-view"))
+
+(package! org-pandoc-import
+  :recipe (:host github
+           :repo "tecosaur/org-pandoc-import"
+           :files ("*.el" "filters" "preprocessors")))
+
+(package! org-transclusion
+  :recipe (:host github :repo "nobiot/org-transclusion"))
+
+(package! org-tufte
+  :recipe (:host github :repo "Zilong-Li/org-tufte"))
+
+(package! org-protocol-capture-html
+    :recipe (:host github :repo "alphapapa/org-protocol-capture-html"))
+
+#+end_src
+
+#+begin_src elisp :tangle config.el
 ;; (after! conda
 ;;   (setq conda-anaconda-home "/run/media/bladrome/bank/drome/mambaforge"
 ;; 	conda-env-home-directory  "/run/media/bladrome/bank/drome/mambaforge"))
+
+
+(setq org-tag-alist (quote (("noexport" . ?n)
+                            (:startgroup)
+                            ("@office" . ?o)
+                            ("@field" . ?f)
+                            (:endgroup)
+                            ("personal" . ?p)
+                            ("work" . ?w)
+                            ("cancelled" . ?c)
+                            ("read" . ?r)
+                            ("browse" . ?b)
+                            ("flagged" . ??))))
+;; Allow setting single tags without the menu
+(setq org-fast-tag-selection-single-key (quote expert))
+;; For tag searches ignore tasks with scheduled and deadline dates
+(setq org-agenda-tags-todo-honor-ignore-options t)
+(setq org-startup-folded "folded")
+(setq org-export-date-timestamp-format nil)
+
+
+(setq org-directory "~/chromeorg/2025")
+(setq org-hugo-base-dir (file-name-concat org-directory "Hugo"))
+(setq org-agenda-files (list (file-name-concat org-directory "GTD")))
+
+
+(use-package! org-web-tools
+  :init
+  (map!
+   :leader
+   :prefix "i"
+   :desc "insert weblinks" "l" #'org-web-tools-insert-link-for-url))
+
+(use-package! org-download
+  :defer nil
+  :custom
+  (org-download-image-dir (file-name-concat org-attach-id-dir (format-time-string "%Y%m%d")))
+  (org-image-actual-width '(600))
+  (org-download-heading-lvl nil)
+  (org-download-timestamp "")
+  :config
+  (require 'org-download))
+
+(after! org-download
+  (setq org-download-method 'directory)
+  (setq org-download-link-format "[[file:images/%s]]\n"))
 
 ;; org-export docs using a tempalate.docx
 (defun org-export-docx ()
   (interactive)
   (let ((docx-file (concat (file-name-sans-extension (buffer-file-name)) ".docx"))
-	(template-file "/home/bladrome/.config/doom/template.docx"))
+	(template-file (file-name-concat doom-user-dir "template.docx")))
     (shell-command (format "pandoc %s -o %s --reference-doc=%s" (buffer-file-name) docx-file template-file))
     ;; pandoc --bibliography=/bibliographyfile.bib \
     ;;        --csl=chicago-fullnote-bibliography.csl \
@@ -611,28 +567,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
     ;;        -i (buffer-file-name) -o docx.docx
     (message "Convert finish: %s" docx-file)))
 
-(setq +mu4e-backend 'offlineimap)
-(after! mu4e
-  (setq sendmail-program (executable-find "msmtp")
-	send-mail-function #'smtpmail-send-it
-	message-sendmail-f-is-evil t
-	message-sendmail-extra-arguments '("--read-envelope-from")
-	message-send-mail-function #'message-send-mail-with-sendmail)
-  (add-to-list 'mu4e-bookmarks
-	       ;; add bookmark for recent messages on the Mu mailing list.
-	       '( :name "6 months message"
-		  :key  ?a
-		  :query "date:20200101..now")))
-
-(setq org-directory "~/chromeorg/2024")
-(setq org-hugo-base-dir (file-name-concat org-directory "Hugo"))
-(setq org-agenda-files (list (file-name-concat org-directory "GTD")))
-
 
 (after! org
   (setq org-confirm-babel-evaluate nil
         org-edit-src-content-indentation 0
-        org-ellipsis "▾"
         org-fold-catch-invisible-edits 'show
         org-fontify-quote-and-verse-blocks t
         org-fontify-whole-heading-line t
@@ -652,10 +590,729 @@ emacs --batch doomemacs.org -f org-babel-tangle
         org-startup-indented t
         org-startup-with-inline-images t
         org-use-speed-commands t
-        org-use-sub-superscripts "{}"))
+        org-use-sub-superscripts nil))
 
 ;; (add-hook! 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 ;; (add-hook! 'org-babel-after-execute-hook 'org-toggle-latex-fragment 'append)
+
+
+(setq org-refile-allow-creating-parent-nodes 'confirm)
+(setq org-attach-id-dir (file-name-concat org-directory "attachments"))
+
+(use-package! org-special-block-extras
+  :hook (org-mode . org-special-block-extras-mode))
+
+(use-package! svg-lib)
+(use-package! svg-tag-mode)
+
+
+(use-package! org
+  :hook
+  (org-mode . turn-on-visual-line-mode)
+  :config
+  (pdf-loader-install))
+
+#+end_src
+
+** Latex
+*** LaTeX Export
+
+#+begin_src elisp :tangle packages.el
+(package! org-fragtog)
+#+end_src
+
+#+begin_src elisp :tangle config.el
+
+;; org-latex-compilers = ("pdflatex" "xelatex" "lualatex"), which are the possible values for %latex
+(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+
+(setq-default org-html-with-latex `dvisvgm)
+
+(after! ox-latex
+  (add-to-list 'org-latex-classes
+	       '("elsarticle"
+		 "\\documentclass[review,authoryear]{elsarticle}"
+		 ("\\section{%s}" . "\\section*{%s}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}")
+		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+		 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
+(setq Tex-command-default "XeLaTeX")
+(setq TeX-engine 'xetex)
+(setq TeX-command-extra-options "-shell-escape")
+
+(use-package! org-fragtog
+  :after org
+  :custom
+  (org-startup-with-latex-preview t)
+  :hook
+  (org-mode . org-fragtog-mode)
+  :custom
+  (org-format-latex-options
+   (plist-put org-format-latex-options :scale 3)
+   (plist-put org-format-latex-options :foreground 'auto)
+   (plist-put org-format-latex-options :background 'auto)))
+
+(use-package! org
+  :config
+  (add-to-list 'org-latex-packages-alist '("outputdir=latex.out" "minted"))
+  (setq org-latex-minted-options
+        '(("bgcolor" . "bg")
+          ("breaklines" . "true")
+          ("autogobble" . "true")
+          ("fontsize" . "\\scriptsize")))
+  (setq org-latex-listings 'minted))
+
+#+end_src
+
+*** LaTeX Fragments
+
+**** Prettier highlighting
+
+#+begin_src elisp :tangle config.el
+(setq org-highlight-latex-and-related '(latex script entities))
+(require 'org-src)
+(add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
+#+end_src
+
+**** Prettier highlighting
+
+#+begin_src elisp :tangle no
+(add-hook 'org-mode-hook #'org-latex-preview-auto-mode)
+#+end_src
+
+** Dired
+
+#+begin_src elisp :tangle config.el
+
+(after! dired
+  (setq dired-listing-switches "-aBhl  --group-directories-first"
+	dired-dwim-target t
+	dired-recursive-copies (quote always)
+	dired-recursive-deletes (quote top)
+	;; Directly edit permisison bits!
+	wdired-allow-to-change-permissions t
+	dired-omit-mode nil))
+
+
+#+end_src
+
+** Agenda
+
+#+begin_src elisp :tangle packages.el
+(package! org-super-agenda)
+#+end_src
+
+#+begin_src elisp :tangle config.el
+(use-package! org-super-agenda
+  :commands org-super-agenda-mode)
+
+(after! org-agenda
+  (let ((inhibit-message t))
+    (org-super-agenda-mode)))
+
+(setq org-agenda-skip-scheduled-if-done t
+      org-agenda-skip-deadline-if-done t
+      org-agenda-include-deadlines t
+      org-agenda-block-separator nil
+      org-agenda-tags-column 100 ;; from testing this seems to be a good value
+      org-agenda-compact-blocks t)
+
+(setq org-agenda-custom-commands
+      '(("o" "Overview"
+         ((agenda "" ((org-agenda-span 'day)
+                      (org-super-agenda-groups
+                       '((:name "Today"
+                          :time-grid t
+                          :date today
+                          :todo "TODAY"
+                          :scheduled today
+                          :order 1)))))
+          (alltodo "" ((org-agenda-overriding-header "")
+                       (org-super-agenda-groups
+                        '((:name "Next to do"
+                           :todo "NEXT"
+                           :order 1)
+                          (:name "Important"
+                           :tag "Important"
+                           :priority "A"
+                           :order 6)
+                          (:name "Due Today"
+                           :deadline today
+                           :order 2)
+                          (:name "Due Soon"
+                           :deadline future
+                           :order 8)
+                          (:name "Overdue"
+                           :deadline past
+                           :face error
+                           :order 7)
+                          (:name "Assignments"
+                           :tag "Assignment"
+                           :order 10)
+                          (:name "Issues"
+                           :tag "Issue"
+                           :order 12)
+                          (:name "Emacs"
+                           :tag "Emacs"
+                           :order 13)
+                          (:name "Projects"
+                           :tag "Project"
+                           :order 14)
+                          (:name "Research"
+                           :tag "Research"
+                           :order 15)
+                          (:name "To read"
+                           :tag "Read"
+                           :order 30)
+                          (:name "Waiting"
+                           :todo "WAITING"
+                           :order 20)
+                          (:name "University"
+                           :tag "uni"
+                           :order 32)
+                          (:name "Trivial"
+                           :priority<= "E"
+                           :tag ("Trivial" "Unimportant")
+                           :todo ("SOMEDAY" )
+                           :order 90)
+                          (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
+
+#+end_src
+
+** Capture
+
+#+begin_src elisp :tangle packages.el
+(package! doct
+  :recipe (:host github :repo "progfolio/doct"))
+#+end_src
+
+#+begin_src elisp :tangle config.el
+(use-package! org
+  :config
+    (require 'org-protocol)
+  (defun transform-square-brackets-to-round-ones(string-to-transform)
+    "Transforms [ into ( and ] into ), other chars left unchanged."
+    (concat
+     (mapcar #'(lambda (c) (if (equal c ?\[) ?\( (if (equal c ?\]) ?\) c))) string-to-transform)))
+  (setq org-capture-templates `(
+                                ("p" "Protocal" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
+                                 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n\n\n\n%?"  :immediate-finish t)
+                                ("L" "Protocol Link" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
+                                 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n%?"  :immediate-finish t)
+                                ("w" "Web site" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
+                                 "* %a :website:\n\n%U %?\n\n%:initial"  :immediate-finish t)
+                                ("c" "Captured" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
+                                 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :empty-lines-after 1)
+                                ("n" "Captured Now!" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
+                                 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t)
+                                ))
+  )
+
+(use-package! doct
+  :commands doct)
+#+end_src
+
+** pdf
+
+#+begin_src elisp :tangle packages.el
+(package! pdftotext
+  :recipe (:host github :repo "tecosaur/pdftotext.el"))
+#+end_src
+
+#+begin_src elisp :tangle config.el
+(use-package! pdftotext
+  :init
+  (unless (display-graphic-p)
+    (add-to-list 'auto-mode-alist '("\\.[pP][dD][fF]\\'" . pdftotext-mode))
+    (add-to-list 'magic-mode-alist '("%PDF" . pdftotext-mode)))
+  :config
+  (unless (display-graphic-p) (after! pdf-tools (pdftotext-install)))
+  ;; For prettyness
+  (add-hook 'pdftotext-mode-hook #'spell-fu-mode-disable)
+  (add-hook 'pdftotext-mode-hook (lambda () (page-break-lines-mode 1)))
+  ;; I have no idea why this is needed
+  (map! :map pdftotext-mode-map
+        "<mouse-4>" (cmd! (scroll-down mouse-wheel-scroll-amount-horizontal))
+        "<mouse-5>" (cmd! (scroll-up mouse-wheel-scroll-amount-horizontal))))
+#+end_src
+
+** roam
+
+#+begin_src elisp :tangle no
+(unpin! org-roam)
+(package! org-roam-ui
+  :recipe (:host github :repo "org-roam/org-roam-ui"
+           :files ("*.el" "out")))
+(package! websocket)
+#+end_src
+
+#+begin_src elisp :tangle no 
+  (use-package! websocket
+    :after org-roam)
+
+  (use-package! org-roam
+    :custom
+    (org-roam-directory (file-name-concat org-directory "roam"))
+    :bind (("C-c n l" . org-roam-buffer-toggle)
+	   ("C-c n f" . org-roam-node-find)
+	   ("C-c n g" . org-roam-graph)
+	   ("C-c n i" . org-roam-node-insert)
+	   ("C-c n c" . org-roam-capture)
+	   ;; Dailies
+	   ("C-c n j" . org-roam-dailies-capture-today))
+    :config
+    ;; If you're using a vertical completion framework, you might want a more informative completion interface
+    (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+    (org-roam-db-autosync-mode)
+    ;; If using org-roam-protocol
+    (require 'org-roam-protocol))
+
+
+  (use-package! org-roam-ui
+    :after org-roam
+    :commands org-roam-ui-open
+    :hook (org-roam . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+	  org-roam-ui-follow t
+	  org-roam-ui-update-on-save t
+	  org-roam-ui-open-on-start nil)
+    (require 'org-roam) ; in case autoloaded
+    (defun org-roam-ui-open ()
+      "Ensure the server is active, then open the roam graph."
+      (interactive)
+      (unless org-roam-ui-mode (org-roam-ui-mode 1))
+      (browse-url-xdg-open (format "http://localhost:%d" org-roam-ui-port))))
+#+end_src
+
+** snippet helper
+
+#+begin_src elisp :tangle config.el
+(defun +yas/org-src-header-p ()
+  "Determine whether `point' is within a src-block header or header-args."
+  (pcase (org-element-type (org-element-context))
+    ('src-block (< (point) ; before code part of the src-block
+                   (save-excursion (goto-char (org-element-property :begin (org-element-context)))
+                                   (forward-line 1)
+                                   (point))))
+    ('inline-src-block (< (point) ; before code part of the inline-src-block
+                          (save-excursion (goto-char (org-element-property :begin (org-element-context)))
+                                          (search-forward "]{")
+                                          (point))))
+    ('keyword (string-match-p "^header-args" (org-element-property :value (org-element-context))))))
+
+
+(defun +yas/org-prompt-header-arg (arg question values)
+  "Prompt the user to set ARG header property to one of VALUES with QUESTION.
+The default value is identified and indicated. If either default is selected,
+or no selection is made: nil is returned."
+  (let* ((src-block-p (not (looking-back "^#\\+property:[ \t]+header-args:.*" (line-beginning-position))))
+         (default
+           (or
+            (cdr (assoc arg
+                        (if src-block-p
+                            (nth 2 (org-babel-get-src-block-info t))
+                          (org-babel-merge-params
+                           org-babel-default-header-args
+                           (let ((lang-headers
+                                  (intern (concat "org-babel-default-header-args:"
+                                                  (+yas/org-src-lang)))))
+                             (when (boundp lang-headers) (eval lang-headers t)))))))
+            ""))
+         default-value)
+    (setq values (mapcar
+                  (lambda (value)
+                    (if (string-match-p (regexp-quote value) default)
+                        (setq default-value
+                              (concat value " "
+                                      (propertize "(default)" 'face 'font-lock-doc-face)))
+                      value))
+                  values))
+    (let ((selection (consult--read values :prompt question :default default-value)))
+      (unless (or (string-match-p "(default)$" selection)
+                  (string= "" selection))
+        selection))))
+(defun +yas/org-src-lang ()
+  "Try to find the current language of the src/header at `point'.
+Return nil otherwise."
+  (let ((context (org-element-context)))
+    (pcase (org-element-type context)
+      ('src-block (org-element-property :language context))
+      ('inline-src-block (org-element-property :language context))
+      ('keyword (when (string-match "^header-args:\\([^ ]+\\)" (org-element-property :value context))
+                  (match-string 1 (org-element-property :value context)))))))
+
+(defun +yas/org-last-src-lang ()
+  "Return the language of the last src-block, if it exists."
+  (save-excursion
+    (beginning-of-line)
+    (when (re-search-backward "^[ \t]*#\\+begin_src" nil t)
+      (org-element-property :language (org-element-context)))))
+
+(defun +yas/org-most-common-no-property-lang ()
+  "Find the lang with the most source blocks that has no global header-args, else nil."
+  (let (src-langs header-langs)
+    (save-excursion
+      (goto-char (point-min))
+      (while (re-search-forward "^[ \t]*#\\+begin_src" nil t)
+        (push (+yas/org-src-lang) src-langs))
+      (goto-char (point-min))
+      (while (re-search-forward "^[ \t]*#\\+property: +header-args" nil t)
+        (push (+yas/org-src-lang) header-langs)))
+
+    (setq src-langs
+          (mapcar #'car
+                  ;; sort alist by frequency (desc.)
+                  (sort
+                   ;; generate alist with form (value . frequency)
+                   (cl-loop for (n . m) in (seq-group-by #'identity src-langs)
+                            collect (cons n (length m)))
+                   (lambda (a b) (> (cdr a) (cdr b))))))
+
+    (car (cl-set-difference src-langs header-langs :test #'string=))))
+#+end_src
+
+** lower keywords
+
+#+begin_src elisp :tangle config.el
+(defun org-syntax-convert-keyword-case-to-lower ()
+  "Convert all #+KEYWORDS to #+keywords."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (let ((count 0)
+          (case-fold-search nil))
+      (while (re-search-forward "^[ \t]*#\\+[A-Z_]+" nil t)
+        (unless (s-matches-p "RESULTS" (match-string 0))
+          (replace-match (downcase (match-string 0)) t)
+          (setq count (1+ count))))
+      (message "Replaced %d occurances" count))))
+#+end_src
+
+** citation
+
+#+begin_src elisp :tangle packages.el
+(package! ebib)
+(package! org-ref)
+
+(package! consult-bibtex
+  :recipe (:host github :repo "mohkale/consult-bibtex"))
+#+end_src
+
+#+begin_src elisp :tangle config.el
+;; (use-package! org-bib-mode)
+
+(use-package! org-ref)
+
+(use-package! consult-bibtex
+  :config
+  (with-eval-after-load 'embark
+    (add-to-list 'embark-keymap-alist '(bibtex-completion . consult-bibtex-embark-map))))
+
+#+end_src
+
+** AI
+
+#+begin_src elisp :tangle packages.el
+(package! org-ai
+  :recipe (:host github :repo "rksm/org-ai"
+           :files ("*.el" "README.md" "snippets")))
+
+(package! aider
+  :recipe (:host github :repo "tninja/aider.el"
+           :files ("aider.el" "aider-doom.el" "aider-helm.el")))
+
+(package! gptel)
+(package! ellama)
+#+end_src
+
+#+begin_src elisp :tangle config.el
+(use-package! gptel
+  :custom
+  (gptel-temperature 0.2)
+  :hook
+  (gptel-post-response-functions . gptel-end-of-response)
+  :config
+  (setq gptel-default-mode 'org-mode)
+  (setq
+   gptel-backend
+   (gptel-make-openai "Moenet"
+     :stream t
+     :host "openai.moenet.top"
+     :endpoint "/v1/chat/completions"
+     :models '("auto")
+     :key (shell-command-to-string "pass show moenetkey")))
+  (gptel-make-openai "Moonshot"
+    :stream t
+    :host "api.moonshot.cn"
+    :endpoint "/v1/chat/completions"
+    :models '("moonshot-v1-8k")
+    :key (shell-command-to-string "pass show api.moonshot.cn")))
+
+(use-package! ellama
+  :bind ("C-c E" . ellama-transient-main-menu)
+  :init
+  ;; setup key bindings
+  (setq ellama-keymap-prefix "C-c e")
+  (setq ellama-language "Chinese")
+  ;; could be llm-openai for example
+  (require 'llm-ollama)
+  (setq ellama-summarization-provider
+        (make-llm-ollama
+         :chat-model "deepseek-r1:1.5b"
+         :embedding-model "nomic-embed-text"
+         :default-chat-non-standard-params '(("num_ctx" . 32768))))
+  :config
+  ;; send last message in chat buffer with C-c C-c
+  (add-hook 'org-ctrl-c-ctrl-c-hook #'ellama-chat-send-last-message))
+#+end_src
+
+** Translation
+
+#+begin_src elisp :tangle packages.el
+(package! fanyi)
+#+end_src
+
+** Tramp
+
+#+begin_src elisp :tangle config.el
+(after! tramp
+  (add-to-list 'tramp-remote-path "/home/jack/mambaforge/bin"))
+#+end_src
+
+** Language server
+
+#+begin_src elisp :tangle packages.el
+(package! emacs-epc
+  :recipe (:host github :repo "kiwanami/emacs-epc"))
+(package! lsp-bridge
+  :recipe (:host github :repo "manateelazycat/lsp-bridge"
+           :files ("*.el" "*.py" "acm" "core" "langserver" "icons" "resources")))
+
+#+end_src
+
+#+begin_src elisp :tangle config.el
+
+(after! lsp-mode
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-tramp-connection "pyright")
+                    :major-modes '(python-mode)
+                    :remote? t
+                    :server-id 'pyright-tramp))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
+                    :major-modes '(c++-mode)
+                    :remote? t
+                    :server-id 'clangd-tramp)))
+
+(after! dap-mode
+  (setq dap-python-debugger 'debugpy))
+
+;; (use-package! lsp-bridge
+;;   :config
+;;   (global-lsp-bridge-mode)
+;;   (yas-global-mode 1))
+;;  (lsp-bridge-enable-with-tramp)
+
+#+end_src
+
+** RSS
+
+#+begin_src elisp :tangle packages.el
+(package! elfeed
+  :recipe (:host github :repo "skeeto/elfeed"
+           :files ("*.el" "web/*")))
+(package! elfeed-dashboard
+  :recipe (:host github :repo "Manoj321/elfeed-dashboard"))
+#+end_src
+
+#+begin_src elisp :tangle config.el
+(use-package! elfeed
+  :config
+  (elfeed-set-max-connections 32))
+
+(use-package! elfeed-dashboard
+  :ensure t
+  :config
+  (setq elfeed-dashboard-file (file-name-concat doom-user-dir "elfeed-dashboard.org"))
+  ;; update feed counts on elfeed-quit
+  (advice-add 'elfeed-search-quit-window :after #'elfeed-dashboard-update-links))
+
+#+end_src
+
+** Mails
+
+#+begin_src elisp :tangle packages.el
+;; (package! mu4e-thread-folding
+;;   :recipe (:host github :repo "rougier/mu4e-thread-folding"))
+;; (package! mu4e-dashboard
+;;   :recipe (:host github :repo "rougier/mu4e-dashboard"))
+#+end_src
+
+#+begin_src elisp :tangle config.el
+(setq +mu4e-backend 'offlineimap)
+(after! mu4e
+  (setq sendmail-program (executable-find "msmtp")
+	send-mail-function #'smtpmail-send-it
+	message-sendmail-f-is-evil t
+	message-sendmail-extra-arguments '("--read-envelope-from")
+	message-send-mail-function #'message-send-mail-with-sendmail)
+  (add-to-list 'mu4e-bookmarks
+	       ;; add bookmark for recent messages on the Mu mailing list.
+	       '( :name "6 months message"
+		  :key  ?a
+		  :query "date:20200101..now")))
+#+end_src
+
+** Input Method
+
+#+begin_src elisp :tangle packages.el
+(package! rime)
+#+end_src
+
+#+begin_src elisp :tangle config.el
+(use-package! rime
+  :custom
+  (default-input-method "rime")
+  :bind
+  (:map rime-active-mode-map
+   ("<tab>" . 'rime-inline-ascii)
+   :map rime-mode-map
+   ("C-`" . 'rime-send-keybinding)
+   ("M-j" . 'rime-force-enable))
+  :config
+  (setq rime-user-data-dir "~/.config/doom/rime")
+  (setq rime-inline-ascii-trigger 'shift-l)
+  (setq rime-posframe-properties
+        (list :background-color "#333333"
+              :foreground-color "#dcdccc"
+              :internal-border-width 10))
+  (setq rime-disable-predicates
+        '(rime-predicate-evil-mode-p
+          rime-predicate-after-alphabet-char-p
+          rime-predicate-current-input-punctuation-p
+          rime-predicate-current-uppercase-letter-p
+          rime-predicate-punctuation-line-begin-p))
+  (setq rime-disable-predicates
+        '(rime-predicate-evil-mode-p
+          rime-predicate-current-uppercase-letter-p
+          rime-predicate-punctuation-line-begin-p
+          rime-predicate-prog-in-code-p))
+  (setq default-input-method 'rime)
+  (setq rime-show-candidate 'posframe))
+#+end_src
+
+** casual transient
+
+#+begin_src elisp :tangle packages.el
+(package! casual
+  :recipe (:host github :repo "kickingvegas/casual"))
+#+end_src
+
+#+begin_src elisp :tangle config.el
+(use-package! casual)
+#+end_src
+
+** Search
+
+#+begin_src elisp :tangle packages.el
+(package! blink-search
+  :recipe (:host github :repo "manateelazycat/blink-search"
+           :files ("*.el" "*.py" "core/*.py" "backend" "icons")))
+
+#+end_src
+
+** Program
+
+#+begin_src elisp :tangle packages.el
+(package! rainbow-identifiers)
+#+end_src
+
+#+begin_src elisp :tangle config.el
+(use-package! rainbow-identifiers
+  :hook
+  (prog-mode . rainbow-identifiers-mode))
+#+end_src
+
+** Visuals
+*** scroll
+
+#+begin_src elisp :tangle packages.el
+(package! ultra-scroll
+  :recipe (:host github :repo "jdtsmith/ultra-scroll"))
+
+#+end_src
+
+#+begin_src elisp :tangle config.el
+;; (use-package! ultra-scroll
+;;   :init
+;;   (setq scroll-conservatively 101 ; important!
+;;         scroll-margin 0)
+;;   :config
+;;   (ultra-scroll-mode 1))
+#+end_src
+
+*** Space
+
+#+begin_src elisp :tangle packages.el
+(package! vlf)
+(package! pangu-spacing)
+(package! valign)
+#+end_src
+
+#+begin_src elisp :tangle config.el
+(use-package! vlf
+  :config
+  (require 'vlf-setup)
+  (custom-set-variables
+   '(vlf-application 'dont-ask)))
+
+(use-package! pangu-spacing
+  :config
+  (global-pangu-spacing-mode 1)
+  (setq pangu-spacing-real-insert-separtor nil))
+
+(use-package! valign
+  :config
+  (setq valign-fancy-bar t)
+  (add-hook 'org-mode-hook #'valign-mode))
+#+end_src
+
+*** Font Display
+
+#+begin_src elisp :tangle config.el
+(add-hook 'org-mode-hook #'+org-pretty-mode)
+
+(setq org-agenda-deadline-faces
+      '((1.001 . error)
+        (1.0 . org-warning)
+        (0.5 . org-upcoming-deadline)
+        (0.0 . org-upcoming-distant-deadline)))
+
+(setq org-fontify-quote-and-verse-blocks t)
+
+(defun locally-defer-font-lock ()
+  "Set jit-lock defer and stealth, when buffer is over a certain size."
+  (when (> (buffer-size) 50000)
+    (setq-local jit-lock-defer-time 0.05
+                jit-lock-stealth-time 1)))
+
+(add-hook 'org-mode-hook #'locally-defer-font-lock)
+#+end_src
+
+*** Fontifying inline src blocks
+
+#+begin_src elisp :tangle config.el
+(setq org-inline-src-prettify-results '("⟨" . "⟩"))
+(setq doom-themes-org-fontify-special-tags nil)
+#+end_src
+
+*** Symbols
+
+#+begin_src elisp :tangle config.el
+
 
 (setq-default prettify-symbols-alist '(("#+title:" . "󰗴")
                                        ("#+author:" . "󰴓")
@@ -692,258 +1349,384 @@ emacs --batch doomemacs.org -f org-babel-tangle
    org-superstar-prettify-item-bullets t ))
 
 
-(setq org-refile-allow-creating-parent-nodes 'confirm)
-(setq org-attach-id-dir (file-name-concat org-directory "attachments"))
+(setq org-ellipsis " ▾ "
+      org-hide-leading-stars t
+      org-priority-highest ?A
+      org-priority-lowest ?E
+      org-priority-faces
+      '((?A . 'nerd-icons-red)
+        (?B . 'nerd-icons-orange)
+        (?C . 'nerd-icons-yellow)
+        (?D . 'nerd-icons-green)
+        (?E . 'nerd-icons-blue)))
+
+(appendq! +ligatures-extra-symbols
+          (list :list_property "∷"
+                :em_dash       "—"
+                :ellipses      "…"
+                :arrow_right   "→"
+                :arrow_left    "←"
+                :arrow_lr      "↔"
+                :properties    "⚙"
+                :end           "∎"
+                :priority_a    #("⚑" 0 1 (face nerd-icons-red))
+                :priority_b    #("⬆" 0 1 (face nerd-icons-orange))
+                :priority_c    #("■" 0 1 (face nerd-icons-yellow))
+                :priority_d    #("⬇" 0 1 (face nerd-icons-green))
+                :priority_e    #("❓" 0 1 (face nerd-icons-blue))))
+
+(defadvice! +org-init-appearance-h--no-ligatures-a ()
+  :after #'+org-init-appearance-h
+  (set-ligatures! 'org-mode nil)
+  (set-ligatures! 'org-mode
+    :list_property "::"
+    :em_dash       "---"
+    :ellipsis      "..."
+    :arrow_right   "->"
+    :arrow_left    "<-"
+    :arrow_lr      "<->"
+    :properties    ":PROPERTIES:"
+    :end           ":END:"
+    :priority_a    "[#A]"
+    :priority_b    "[#B]"
+    :priority_c    "[#C]"
+    :priority_d    "[#D]"
+    :priority_e    "[#E]"))
+#+end_src
+
+*** Org Plot
+
+#+begin_src elisp :tangle config.el
+(defvar +org-plot-term-size '(1050 . 650)
+  "The size of the GNUPlot terminal, in the form (WIDTH . HEIGHT).")
+
+(after! org-plot
+  (defun +org-plot-generate-theme (_type)
+    "Use the current Doom theme colours to generate a GnuPlot preamble."
+    (format "
+fgt = \"textcolor rgb '%s'\" # foreground text
+fgat = \"textcolor rgb '%s'\" # foreground alt text
+fgl = \"linecolor rgb '%s'\" # foreground line
+fgal = \"linecolor rgb '%s'\" # foreground alt line
+
+# foreground colors
+set border lc rgb '%s'
+# change text colors of  tics
+set xtics @fgt
+set ytics @fgt
+# change text colors of labels
+set title @fgt
+set xlabel @fgt
+set ylabel @fgt
+# change a text color of key
+set key @fgt
+
+# line styles
+set linetype 1 lw 2 lc rgb '%s' # red
+set linetype 2 lw 2 lc rgb '%s' # blue
+set linetype 3 lw 2 lc rgb '%s' # green
+set linetype 4 lw 2 lc rgb '%s' # magenta
+set linetype 5 lw 2 lc rgb '%s' # orange
+set linetype 6 lw 2 lc rgb '%s' # yellow
+set linetype 7 lw 2 lc rgb '%s' # teal
+set linetype 8 lw 2 lc rgb '%s' # violet
+
+# border styles
+set tics out nomirror
+set border 3
+
+# palette
+set palette maxcolors 8
+set palette defined ( 0 '%s',\
+1 '%s',\
+2 '%s',\
+3 '%s',\
+4 '%s',\
+5 '%s',\
+6 '%s',\
+7 '%s' )
+"
+            (doom-color 'fg)
+            (doom-color 'fg-alt)
+            (doom-color 'fg)
+            (doom-color 'fg-alt)
+            (doom-color 'fg)
+            ;; colours
+            (doom-color 'red)
+            (doom-color 'blue)
+            (doom-color 'green)
+            (doom-color 'magenta)
+            (doom-color 'orange)
+            (doom-color 'yellow)
+            (doom-color 'teal)
+            (doom-color 'violet)
+            ;; duplicated
+            (doom-color 'red)
+            (doom-color 'blue)
+            (doom-color 'green)
+            (doom-color 'magenta)
+            (doom-color 'orange)
+            (doom-color 'yellow)
+            (doom-color 'teal)
+            (doom-color 'violet)))
+
+  (defun +org-plot-gnuplot-term-properties (_type)
+    (format "background rgb '%s' size %s,%s"
+            (doom-color 'bg) (car +org-plot-term-size) (cdr +org-plot-term-size)))
+
+  (setq org-plot/gnuplot-script-preamble #'+org-plot-generate-theme)
+  (setq org-plot/gnuplot-term-extra #'+org-plot-gnuplot-term-properties))
+#+end_src
+
+** Export
+
+*** General settings
+
+#+begin_src elisp :tangle config.el
+(setq org-export-headline-levels 5)
 
 
-(setq org-latex-pdf-process (list "latexmk -xelatex -shell-escape -f %f"))
-;; (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f"))
 
-
-(after! ox-latex
-  (add-to-list 'org-latex-classes
-	       '("elsarticle"
-		 "\\documentclass[review,authoryear]{elsarticle}"
-		 ("\\section{%s}" . "\\section*{%s}")
-		 ("\\subsection{%s}" . "\\subsection*{%s}")
-		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-		 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
-
-(after! dired
-  (setq dired-listing-switches "-aBhl  --group-directories-first"
-	dired-dwim-target t
-	dired-recursive-copies (quote always)
-	dired-recursive-deletes (quote top)
-	;; Directly edit permisison bits!
-	wdired-allow-to-change-permissions t
-	dired-omit-mode nil))
-
-;; (use-package! org-special-block-extras
-;; :hook (org-mode . org-special-block-extras-mode))
-
-;; (use-package! org-bib-mode)
-
-(use-package! rime
+(use-package! org
   :custom
-  (default-input-method "rime")
-  :bind
-  (:map rime-active-mode-map
-   ("<tab>" . 'rime-inline-ascii)
-   :map rime-mode-map
-   ("C-`" . 'rime-send-keybinding)
-   ("M-j" . 'rime-force-enable))
+  (org-export-with-drawers nil)
+  (org-export-with-todo-keywords nil)
+  (org-export-with-broken-links t)
+  (org-export-with-toc t)
+  (org-export-with-smart-quotes t)
+  (org-export-with-date t)
+  (org-export-with-author t)
+  (org-export-with-section-numbers nil)
+  (org-export-with-sub-superscripts nil)
+  (org-export-headline-levels 5)
+  (org-export-in-background nil)
+  (org-export-use-babel nil))
+
+
+(require 'ox-extra)
+(ox-extras-activate '(ignore-headlines))
+
+(setq org-export-creator-string
+      (format "Emacs %s (Org mode %s–%s)"
+              emacs-version (org-release) (org-git-version)))
+
+(use-package! org-tufte
   :config
-  (setq rime-user-data-dir "~/.config/doom/rime")
-  (setq rime-inline-ascii-trigger 'shift-l)
-  (setq rime-posframe-properties
-        (list :background-color "#333333"
-              :foreground-color "#dcdccc"
-              :internal-border-width 10))
-  (setq rime-disable-predicates
-        '(rime-predicate-evil-mode-p
-          rime-predicate-after-alphabet-char-p
-          rime-predicate-current-input-punctuation-p
-          rime-predicate-current-uppercase-letter-p
-          rime-predicate-punctuation-line-begin-p))
-  (setq rime-disable-predicates
-        '(rime-predicate-evil-mode-p
-          rime-predicate-current-uppercase-letter-p
-          rime-predicate-punctuation-line-begin-p
-          rime-predicate-prog-in-code-p))
-  (setq default-input-method 'rime)
-  (setq rime-show-candidate 'posframe))
+  (setq org-tufte-htmlize-code nil))
 
-;; (use-package! lsp-bridge
-;;   :config
-;;   (global-lsp-bridge-mode)
-;;   (yas-global-mode 1))
-;;  (lsp-bridge-enable-with-tramp)
-
-
-(after! tramp
-  (add-to-list 'tramp-remote-path "/home/jack/mambaforge/bin"))
-(after! lsp-mode
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-tramp-connection "pyright")
-          	    :major-modes '(python-mode)
-          	    :remote? t
-          	    :server-id 'pyright-tramp))
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
-          	    :major-modes '(c++-mode)
-          	    :remote? t
-          	    :server-id 'clangd-tramp)))
-
-(use-package! pangu-spacing
-  :config
-  (global-pangu-spacing-mode 1)
-  (setq pangu-spacing-real-insert-separtor nil))
-
-(use-package! valign
-  :config
-  (setq valign-fancy-bar t)
-  (add-hook 'org-mode-hook #'valign-mode))
-
-(use-package! nova)
-
-;; (use-package! ultra-scroll
-;;   :init
-;;   (setq scroll-conservatively 101 ; important!
-;;         scroll-margin 0)
-;;   :config
-;;   (ultra-scroll-mode 1))
-
-(use-package! org-web-tools
+(use-package! org-transclusion
+  :commands org-transclusion-mode
   :init
-  (map!
-   :leader
-   :prefix "i"
-   :desc "insert weblinks" "l" #'org-web-tools-insert-link-for-url))
-
-(use-package! org-download
-  :defer nil
-  :custom
-  (org-download-image-dir (file-name-concat org-attach-id-dir (format-time-string "%Y%m%d")))
-  (org-image-actual-width '(600))
-  (org-download-heading-lvl nil)
-  (org-download-timestamp "")
-  :config
-  (require 'org-download))
-
-(after! org-download
-  (setq org-download-method 'directory)
-  (setq org-download-link-format "[[file:images/%s]]\n"))
+  (map! :after org :map org-mode-map
+        "<f12>" #'org-transclusion-mode))
 
 
-(setq Tex-command-default "XeLaTeX")
-(setq TeX-engine 'xetex)
-(setq TeX-command-extra-options "-shell-escape")
+(use-package! org-pandoc-import
+  :after org)
 
-;; (use-package! org
-;;   :custom
-;;   (org-export-with-drawers nil)
-;;   (org-export-with-todo-keywords nil)
-;;   (org-export-with-broken-links t)
-;;   (org-export-with-toc nil)
-;;   (org-export-with-smart-quotes t)
-;;   (org-export-with-date t)
-;;   (org-export-with-author t)
-;;   (org-export-with-section-numbers nil)
-;;   (org-export-with-sub-superscripts nil)
-;;   (org-export-headline-levels 5)
-;;   (org-export-in-background nil)
-;;   (org-export-use-babel nil))
+#+end_src
 
-(use-package! org-ref
+*** Acronym formatting
+
+#+begin_src elisp :tangle config.el
+(defun org-export-filter-text-acronym (text backend _info)
+  "Wrap suspected acronyms in acronyms-specific formatting.
+Treat sequences of 2+ capital letters (optionally succeeded by \"s\") as an acronym.
+Ignore if preceeded by \";\" (for manual prevention) or \"\\\" (for LaTeX commands).
+
+TODO abstract backend implementations."
+  (let ((base-backend
+         (cond
+          ((org-export-derived-backend-p backend 'latex) 'latex)
+          ;; Markdown is derived from HTML, but we don't want to format it
+          ((org-export-derived-backend-p backend 'md) nil)
+          ((org-export-derived-backend-p backend 'html) 'html)))
+        (case-fold-search nil))
+    (when base-backend
+      (replace-regexp-in-string
+       "[;\\\\]?\\b[A-Z][A-Z]+s?\\(?:[^A-Za-z]\\|\\b\\)"
+       (lambda (all-caps-str)
+         (cond ((equal (aref all-caps-str 0) ?\\) all-caps-str)                ; don't format LaTeX commands
+               ((equal (aref all-caps-str 0) ?\;) (substring all-caps-str 1))  ; just remove not-acronym indicator char ";"
+               (t (let* ((final-char (if (string-match-p "[^A-Za-z]" (substring all-caps-str -1 (length all-caps-str)))
+                                         (substring all-caps-str -1 (length all-caps-str))
+                                       nil)) ; needed to re-insert the [^A-Za-z] at the end
+                         (trailing-s (equal (aref all-caps-str (- (length all-caps-str) (if final-char 2 1))) ?s))
+                         (acr (if final-char
+                                  (substring all-caps-str 0 (if trailing-s -2 -1))
+                                (substring all-caps-str 0 (+ (if trailing-s -1 (length all-caps-str)))))))
+                    (pcase base-backend
+                      ('latex (concat "\\acr{" (s-downcase acr) "}" (when trailing-s "\\acrs{}") final-char))
+                      ('html (concat "<span class='acr'>" acr "</span>" (when trailing-s "<small>s</small>") final-char)))))))
+       text t t))))
+
+(add-to-list 'org-export-filter-plain-text-functions
+             #'org-export-filter-text-acronym)
+
+;; We won't use `org-export-filter-headline-functions' because it
+;; passes (and formats) the entire section contents. That's no good.
+
+(defun org-html-format-headline-acronymised (todo todo-type priority text tags info)
+  "Like `org-html-format-headline-default-function', but with acronym formatting."
+  (org-html-format-headline-default-function
+   todo todo-type priority (org-export-filter-text-acronym text 'html info) tags info))
+(setq org-html-format-headline-function #'org-html-format-headline-acronymised)
+
+(defun org-latex-format-headline-acronymised (todo todo-type priority text tags info)
+  "Like `org-latex-format-headline-default-function', but with acronym formatting."
+  (org-latex-format-headline-default-function
+   todo todo-type priority (org-export-filter-text-acronym text 'latex info) tags info))
+(setq org-latex-format-headline-function #'org-latex-format-headline-acronymised)
+#+end_src
+
+*** Strip zero width spaces
+
+#+begin_src elisp :tangle config.el
+(defun +org-export-remove-zero-width-space (text _backend _info)
+  "Remove zero width spaces from TEXT."
+  (unless (org-export-derived-backend-p 'org)
+    (replace-regexp-in-string "\u200B" "" text)))
+
+(add-to-list 'org-export-filter-final-output-functions #'+org-export-remove-zero-width-space t)
+#+end_src
+
+*** Exporting Org code
+
+#+begin_src elisp :tangle config.el
+(defun +org-mode--fontlock-only-mode ()
+  "Just apply org-mode's font-lock once."
+  (let (org-mode-hook
+        org-hide-leading-stars
+        org-hide-emphasis-markers)
+    (org-set-font-lock-defaults)
+    (font-lock-ensure))
+  (setq-local major-mode #'fundamental-mode))
+
+(defun +org-export-babel-mask-org-config (_backend)
+  "Use `+org-mode--fontlock-only-mode' instead of `org-mode'."
+  (setq-local org-src-lang-modes
+              (append org-src-lang-modes
+                      (list (cons "org" #'+org-mode--fontlock-only)))))
+
+(add-hook 'org-export-before-processing-hook #'+org-export-babel-mask-org-config)
+#+end_src
+
+** Make verbatim different to code
+
+#+begin_src elisp :tangle config.el
+(setq org-html-text-markup-alist
+      '((bold . "<b>%s</b>")
+        (code . "<code>%s</code>")
+        (italic . "<i>%s</i>")
+        (strike-through . "<del>%s</del>")
+        (underline . "<span class=\"underline\">%s</span>")
+        (verbatim . "<kbd>%s</kbd>")))
+#+end_src
+
+** Change checkbox type
+
+#+begin_src elisp :tangle config.el
+(appendq! org-html-checkbox-types
+          '((html-span
+             (on . "<span class='checkbox'></span>")
+             (off . "<span class='checkbox'></span>")
+             (trans . "<span class='checkbox'></span>"))))
+(setq org-html-checkbox-type 'html-span)
+#+end_src
+
+** Graphviz
+
+#+begin_src elisp :tangle packages.el
+(package! graphviz-dot-mode)
+#+end_src
+
+#+begin_src elisp :tangle config.el
+(use-package! graphviz-dot-mode
+  :commands graphviz-dot-mode
+  :mode ("\\.dot\\'" . graphviz-dot-mode)
   :init
-  (require 'org-ref)
-  (require 'org-ref-ivy)
-  (require 'org-ref-refproc) ;; this is not loaded by default!
-  :config
-  (add-to-list 'org-export-before-parsing-hook #'org-ref-refproc)
-  (setq org-ref-insert-link-function 'org-ref-insert-link-hydra/body
-        org-ref-insert-cite-function 'org-ref-cite-insert-ivy
-        org-ref-insert-label-function 'org-ref-insert-label-link
-        org-ref-insert-ref-function 'org-ref-insert-ref-link
-        org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body)))
-  (define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link-hydra/body)
-  (define-key bibtex-mode-map (kbd "C-c b") 'org-ref-bibtex-hydra/body))
+  (after! org
+    (setcdr (assoc "dot" org-src-lang-modes)
+            'graphviz-dot)))
+#+end_src
 
+** ESS
 
-(use-package! websocket
-  :after org-roam)
+#+begin_src elisp :tangle config.el
+(setq ess-eval-visibly 'nowait)
+(setq ess-R-font-lock-keywords
+      '((ess-R-fl-keyword:keywords . t)
+        (ess-R-fl-keyword:constants . t)
+        (ess-R-fl-keyword:modifiers . t)
+        (ess-R-fl-keyword:fun-defs . t)
+        (ess-R-fl-keyword:assign-ops . t)
+        (ess-R-fl-keyword:%op% . t)
+        (ess-fl-keyword:fun-calls . t)
+        (ess-fl-keyword:numbers . t)
+        (ess-fl-keyword:operators . t)
+        (ess-fl-keyword:delimiters . t)
+        (ess-fl-keyword:= . t)
+        (ess-R-fl-keyword:F&T . t)))
+(after! org
+  (add-to-list '+org-babel-mode-alist '(jags . ess-jags)))
+#+end_src
 
-(use-package! org-roam-ui
-  :after org-roam ;; or :after org
-  ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-  ;;         a hookable mode anymore, you're advised to pick something yourself
-  ;;         if you don't care about startup time, use
-  ;;  :hook (after-init . org-roam-ui-mode)
-  :config
-  (setq org-roam-ui-sync-theme t
-        org-roam-ui-follow t
-        org-roam-ui-update-on-save t
-        org-roam-ui-open-on-start t))
+** Babel
+*** config/data
 
-
-;; (use-package! org-modern
-;;   :config
-;;   (setq
-;;    ;; Edit settings
-;;    org-auto-align-tags nil
-;;    org-tags-column 0
-;;    org-catch-invisible-edits 'show-and-error
-;;    org-special-ctrl-a/e t
-;;    org-insert-heading-respect-content t
-;;    ;; Org styling, hide markup etc.
-;;    org-hide-emphasis-markers t
-;;    org-pretty-entities t
-;;    org-ellipsis " "
-;;    ;; Agenda styling
-;;    org-agenda-tags-column 0
-;;    org-agenda-block-separator ?─
-;;    org-agenda-time-grid
-;;    '((daily today require-timed)
-;;      (800 1000 1200 1400 1600 1800 2000)
-;;      " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-;;    org-agenda-current-time-string
-;;    "◀── now ─────────────────────────────────────────────────")
-;;   :hook
-;;   (org-mode . global-org-modern-mode))
-
-(use-package! svg-lib)
-(use-package! svg-tag-mode)
-
-(use-package! org-fragtog
-  :after org
-  :custom
-  (org-startup-with-latex-preview t)
-  :hook
-  (org-mode . org-fragtog-mode)
-  :custom
-  (org-format-latex-options
-   (plist-put org-format-latex-options :scale 3)
-   (plist-put org-format-latex-options :foreground 'auto)
-   (plist-put org-format-latex-options :background 'auto)))
-
-;; (use-package! org-roam
-;;   :custom
-;;   (org-roam-directory (file-name-concat org-directory "roam"))
-;;   :bind (("C-c n l" . org-roam-buffer-toggle)
-;;          ("C-c n f" . org-roam-node-find)
-;;          ("C-c n g" . org-roam-graph)
-;;          ("C-c n i" . org-roam-node-insert)
-;;          ("C-c n c" . org-roam-capture)
-;;          ;; Dailies
-;;          ("C-c n j" . org-roam-dailies-capture-today))
-;;   :config
-;;   ;; If you're using a vertical completion framework, you might want a more informative completion interface
-;;   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-;;   (org-roam-db-autosync-mode)
-;;   ;; If using org-roam-protocol
-;;   (require 'org-roam-protocol))
-
+#+begin_src elisp :tangle config.el
 
 (use-package! org
   :init
   (setq org-export-use-babel nil)
-  (require 'oc-bibtex)
-  :hook
-  (org-mode . turn-on-visual-line-mode)
   :config
-  (setq org-babel-js-cmd "bun")
-  (add-to-list 'org-latex-packages-alist '("outputdir=latex.out" "minted"))
-  (setq org-latex-minted-options
-        '(("bgcolor" . "bg")
-          ("breaklines" . "true")
-          ("autogobble" . "true")
-          ("fontsize" . "\\scriptsize")))
-  (setq org-latex-listings 'minted)
-  (pdf-loader-install)
+  (setq org-babel-js-cmd "bun"))
 
+
+(add-transient-hook! #'org-babel-execute-src-block
+  (require 'ob-async))
+
+#+end_src
+
+*** ob-zig
+
+#+begin_src elisp :tangle packages.el
+(package! ob-zig
+  :recipe (:host github :repo "jolby/ob-zig.el"))
+#+end_src
+
+
+*** ob-tmux
+
+#+begin_src elisp :tangle packages.el
+(package! ob-tmux
+  :recipe (:host github :repo "ahendriksen/ob-tmux"))
+
+#+end_src
+
+#+begin_src elisp :tangle config.el
+(use-package! ob-tmux
+  :custom
+  (org-babel-default-header-args:tmux
+   '((:results . "silent")
+     (:session . "default")  ; The default tmux session to send code to
+     (:socket  . nil)))      ; The default tmux socket to communicate with
+  ;; The tmux sessions are prefixed with the following string.
+  ;; You can customize this if you like.
+  (org-babel-tmux-session-prefix "ob-")
+  ;; The terminal that will be used.
+  ;; You can also customize the options passed to the terminal.
+  ;; The default terminal is "gnome-terminal" with options "--".
+  (org-babel-tmux-terminal "wezterm")
+  (org-babel-tmux-terminal-opts '("-T" "ob-tmux" "-e")))
+#+end_src
+
+** Publish
+
+#+begin_src elisp :tangle config.el
+(use-package! org
+  :config
   (setq org-publish-directory (file-name-concat org-directory "org-publish"))
-
   (setq org-publish-project-alist
         `(("orgfiles"
            :base-directory ,org-directory
@@ -970,53 +1753,25 @@ emacs --batch doomemacs.org -f org-babel-tangle
            :publishing-directory ,(file-name-concat org-publish-directory "style")
            :recursive t
            :publishing-function org-publish-attachment)
-          ("org" :components ("orgfiles" "images" "other"))))
-  ;; Tags with fast selection keys
-  (setq org-tag-alist (quote (("noexport" . ?n)
-			      (:startgroup)
-			      ("@office" . ?o)
-			      ("@field" . ?f)
-			      (:endgroup)
-			      ("personal" . ?p)
-			      ("work" . ?w)
-			      ("cancelled" . ?c)
-			      ("read" . ?r)
-			      ("browse" . ?b)
-			      ("flagged" . ??))))
-  ;; Allow setting single tags without the menu
-  (setq org-fast-tag-selection-single-key (quote expert))
-  ;; For tag searches ignore tasks with scheduled and deadline dates
-  (setq org-agenda-tags-todo-honor-ignore-options t)
-  ;; (require 'org-bars)
-  ;; (add-hook 'org-mode-hook #'org-bars-mode)
-  (setq org-startup-folded "folded")
-  (setq org-export-date-timestamp-format nil)
-  ;; Capture templates for links to pages having [ and ]
-  ;; characters in their page titles - notably ArXiv
-  ;; From https://github.com/sprig/org-capture-extension
-  (require 'org-protocol)
-  (defun transform-square-brackets-to-round-ones(string-to-transform)
-    "Transforms [ into ( and ] into ), other chars left unchanged."
-    (concat
-     (mapcar #'(lambda (c) (if (equal c ?\[) ?\( (if (equal c ?\]) ?\) c))) string-to-transform)))
-  (setq org-capture-templates `(
-                                ("p" "Protocal" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
-                                 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n\n\n\n%?"  :immediate-finish t)
-                                ("L" "Protocol Link" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
-                                 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n%?"  :immediate-finish t)
-                                ("w" "Web site" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
-                                 "* %a :website:\n\n%U %?\n\n%:initial"  :immediate-finish t)
-                                ("c" "Captured" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
-                                 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :empty-lines-after 1)
-                                ("n" "Captured Now!" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
-                                 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t)
-                                )))
+          ("org" :components ("orgfiles" "images" "other")))))
+
+#+end_src
+
+** Markdown
+
+GFM
+
+#+begin_src elisp :tangle packages.el
+(package! ox-gfm)
+#+end_src
+
+#+begin_src elisp :tangle config.el
+(use-package! ox-gfm
+  :after ox)
 #+end_src
 
 
-* Exp
-
-eaf :tangle "~/.config/doom/config.el"
+* EAF
 
 #+begin_src elisp :tangle no
 (use-package! eaf

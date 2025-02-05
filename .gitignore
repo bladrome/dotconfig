@@ -44,3 +44,5 @@ rime/.local/share/fcitx5/rime/installation.yaml
 rime/.local/share/fcitx5/rime/user.yaml
 /ranger/.config/ranger/plugins/ranger_tmux.py
 /doomemacs/.config/doom/elfeed-dashboard.org
+/.aider.chat.history.md
+/.aider.tags.cache.v3/
