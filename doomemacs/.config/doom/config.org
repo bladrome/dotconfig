@@ -39,8 +39,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
        :completion
        ;;company           ; the ultimate code completion backend
        (corfu
-        +orderless
-        +dabbrev)          ; complete with cap(f), cape and a flying feather!
+        +orderless)        ; complete with cap(f), cape and a flying feather!
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;; (ivy
@@ -282,7 +281,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (global-visual-line-mode)
 
 ;; t relative or nil
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type nil)
 
 (show-paren-mode t)
 
@@ -332,6 +331,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
       mouse-wheel-progressive-speed nil
       mouse-wheel-follow-mouse t
       scroll-step 1)
+
+(setq fancy-splash-image (file-name-concat doom-user-dir "splash.png"))
 #+end_src
 
 *** bookmark
@@ -419,7 +420,8 @@ emacs --batch doomemacs.org -f org-babel-tangle
 (package! nova
   :recipe (:host github :repo "thisisran/nova"))
 
-(package! svg-tag-mode
+(package!
+  svg-tag-mode
   :recipe (:host github :repo "rougier/svg-tag-mode"))
 
 (package! nano-theme
@@ -429,6 +431,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (package! lambda-themes
   :recipe (:host github :repo "Lambda-Emacs/lambda-themes"))
+
+(package! ef-themes
+  :recipe (:host github :repo "protesilaos/ef-themes"))
+
 #+end_src
 
 #+begin_src elisp :tangle config.el
@@ -462,15 +468,15 @@ Select theme.
   (doom-modeline-enable-word-count nil)
   (doom-modeline-height 10))
 
+;; (setq +doom-dashboard-functions '(doom-dashboard-widget-banner))
+;; (setq doom-theme 'lambda-light-faded)
+(setq doom-theme 'ef-duo-light)
 
-(setq doom-theme 'doom-one-light)
-;; (setq doom-theme 'doom-one-light)
 ;; (setq doom-theme nil)
-;; (load-theme 'lambda-light t)
 ;; (require 'nano-theme)
 ;; (nano-mode)
 ;; (nano-light)
-;; (nano-modeline-mode)
+;; (use-package! nano-modeline)
 #+end_src
 
 ** Org
@@ -789,9 +795,7 @@ Select theme.
 #+end_src
 
 #+begin_src elisp :tangle config.el
-(use-package! org
-  :config
-    (require 'org-protocol)
+(after! org
   (defun transform-square-brackets-to-round-ones(string-to-transform)
     "Transforms [ into ( and ] into ), other chars left unchanged."
     (concat
