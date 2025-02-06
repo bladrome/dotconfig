@@ -701,7 +701,6 @@ Select theme.
 	wdired-allow-to-change-permissions t
 	dired-omit-mode nil))
 
-
 #+end_src
 
 ** Agenda
@@ -789,33 +788,62 @@ Select theme.
 
 ** Capture
 
-#+begin_src elisp :tangle packages.el
-(package! doct
-  :recipe (:host github :repo "progfolio/doct"))
-#+end_src
-
 #+begin_src elisp :tangle config.el
 (after! org
   (defun transform-square-brackets-to-round-ones(string-to-transform)
     "Transforms [ into ( and ] into ), other chars left unchanged."
     (concat
      (mapcar #'(lambda (c) (if (equal c ?\[) ?\( (if (equal c ?\]) ?\) c))) string-to-transform)))
-  (setq org-capture-templates `(
-                                ("p" "Protocal" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
-                                 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n\n\n\n%?"  :immediate-finish t)
-                                ("L" "Protocol Link" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
-                                 "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n \n%i\n%?"  :immediate-finish t)
-                                ("w" "Web site" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
-                                 "* %a :website:\n\n%U %?\n\n%:initial"  :immediate-finish t)
-                                ("c" "Captured" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
-                                 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :empty-lines-after 1)
-                                ("n" "Captured Now!" entry (file+headline (lambda () (file-name-concat org-directory (format-time-string "%Y%m%d.org"))) "arxiv")
-                                 "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t)
-                                ))
-  )
-
-(use-package! doct
-  :commands doct)
+  (setq org-capture-templates
+        `(("p" "Protocal" entry
+           (file+headline
+            (lambda nil
+              (file-name-concat org-directory
+                                (format-time-string "%Y%m%d.org")))
+            "arxiv")
+           "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n %t\n%i\n\n\n\n%?" :immediate-finish t)
+          ("L" "Protocol Link" entry
+           (file+headline
+            (lambda nil
+              (file-name-concat org-directory
+                                (format-time-string "%Y%m%d.org")))
+            "arxiv")
+           "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n %t%?" :immediate-finish t)
+          ("w" "Web site" entry
+           (file+headline
+            (lambda nil
+              (file-name-concat org-directory
+                                (format-time-string "%Y%m%d.org")))
+            "Web Sites")
+           "* %a :website:\n\n%U %?\n\n%:initial" :immediate-finish t)
+          ("t" "todo" entry
+           (file+headline
+            (lambda nil
+              (file-name-concat org-directory
+                                (format-time-string "%Y%m%d.org")))
+            "InBox")
+           "* TODO %?\n%i" :prepend t)
+          ("d" "deadline" entry
+           (file+headline
+            (lambda nil
+              (file-name-concat org-directory
+                                (format-time-string "%Y%m%d.org")))
+            "InBox")
+           "* TODO %?\nDEADLINE: <%(org-read-date)>\n\n%i" :prepend t)
+          ("s" "schedule" entry
+           (file+headline
+            (lambda nil
+              (file-name-concat org-directory
+                                (format-time-string "%Y%m%d.org")))
+            "InBox")
+           "* TODO %?\nSCHEDULED: <%(org-read-date)>\n\n%i" :prepend t)
+          ("n" "Captured Now!" entry
+           (file+headline
+            (lambda nil
+              (file-name-concat org-directory
+                                (format-time-string "%Y%m%d.org")))
+            "Catures")
+           "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t))))
 #+end_src
 
 ** pdf
