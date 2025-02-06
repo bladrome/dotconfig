@@ -253,7 +253,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 #+begin_src elisp :tangle config.el
 
-(setq toggle-debug-on-error t)
+;; (setq toggle-debug-on-error t)
 
 (setq user-full-name "bladrome"
       user-mail-address "blackwhitedoggie@163.com")
@@ -682,12 +682,6 @@ Select theme.
 (add-to-list 'org-src-block-faces '("latex" (:inherit default :extend t)))
 #+end_src
 
-**** Prettier highlighting
-
-#+begin_src elisp :tangle no
-(add-hook 'org-mode-hook #'org-latex-preview-auto-mode)
-#+end_src
-
 ** Dired
 
 #+begin_src elisp :tangle config.el
@@ -801,14 +795,14 @@ Select theme.
               (file-name-concat org-directory
                                 (format-time-string "%Y%m%d.org")))
             "arxiv")
-           "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n %t\n%i\n\n\n\n%?" :immediate-finish t)
+           "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n%T\n%i\n\n\n\n%?\n" :immediate-finish t)
           ("L" "Protocol Link" entry
            (file+headline
             (lambda nil
               (file-name-concat org-directory
                                 (format-time-string "%Y%m%d.org")))
             "arxiv")
-           "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n %t%?" :immediate-finish t)
+           "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n%T%?\n" :immediate-finish t)
           ("w" "Web site" entry
            (file+headline
             (lambda nil
@@ -843,7 +837,7 @@ Select theme.
               (file-name-concat org-directory
                                 (format-time-string "%Y%m%d.org")))
             "Catures")
-           "* %t %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t))))
+           "* %T %:description\nlink: %l \n\n%i\n" :prepend t :emptry-lines-after 1 :immediate-finish t))))
 #+end_src
 
 ** pdf
@@ -1057,15 +1051,22 @@ Return nil otherwise."
            :files ("aider.el" "aider-doom.el" "aider-helm.el")))
 
 (package! gptel)
+
+(package! gptel-aibo
+  :recipe (:host github :repo "dolmens/gptel-aibo"))
+
 (package! ellama)
 #+end_src
 
 #+begin_src elisp :tangle config.el
 (use-package! gptel
   :custom
-  (gptel-temperature 0.2)
+  (gptel-temperature 0.1)
   :hook
   (gptel-post-response-functions . gptel-end-of-response)
+  :bind
+  (("C-c C-m" . gptel-menu)
+   ("C-c <return>" . gptel-send))
   :config
   (setq gptel-default-mode 'org-mode)
   (setq
@@ -1082,6 +1083,13 @@ Return nil otherwise."
     :endpoint "/v1/chat/completions"
     :models '("moonshot-v1-8k")
     :key (shell-command-to-string "pass show api.moonshot.cn")))
+
+
+(use-package! gptel-aibo
+  :after (gptel flycheck)
+  :config
+  (define-key gptai-complete-mode-map (kbd "C-c i") #'gptai-complete-at-point)
+  (add-hook 'prog-mode-hook #'gptai-complete-mode))
 
 (use-package! ellama
   :bind ("C-c E" . ellama-transient-main-menu)
@@ -1726,7 +1734,6 @@ TODO abstract backend implementations."
 (package! ob-zig
   :recipe (:host github :repo "jolby/ob-zig.el"))
 #+end_src
-
 
 *** ob-tmux
 
