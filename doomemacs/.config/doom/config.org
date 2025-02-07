@@ -355,6 +355,13 @@ emacs --batch doomemacs.org -f org-babel-tangle
 ;;          '(("socks5" . "localhost:8888")))
 #+end_src
 
+*** auth
+
+#+begin_src elisp :tangle config.el
+(setq auth-sources (list (file-name-concat doom-user-dir "authinfo.gpg")
+                         "~/.authinfo.gpg"))
+#+end_src
+
 *** transparency
 
 #+begin_src elisp :tangle config.el
@@ -1033,7 +1040,10 @@ Return nil otherwise."
 #+begin_src elisp :tangle config.el
 ;; (use-package! org-bib-mode)
 
-(use-package! org-ref)
+(use-package! org-ref
+  :config
+  (map! :after org :map org-mode-map
+        "C-C ]" #'org-ref-insert-link-hydra/body))
 
 (use-package! consult-bibtex
   :config
