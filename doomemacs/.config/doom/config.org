@@ -534,6 +534,7 @@ Select theme.
 (setq org-startup-folded "folded")
 (setq org-export-date-timestamp-format nil)
 
+(setq org-startup-with-inline-images nil)
 
 (setq org-directory "~/chromeorg/2025")
 (setq org-hugo-base-dir (file-name-concat org-directory "Hugo"))
@@ -1025,6 +1026,8 @@ Return nil otherwise."
 
 (package! consult-bibtex
   :recipe (:host github :repo "mohkale/consult-bibtex"))
+
+(package! emacsql :pin "b84102f")
 #+end_src
 
 #+begin_src elisp :tangle config.el
