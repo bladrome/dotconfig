@@ -145,7 +145,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
        :lang
 
        ;;agda              ; types of types of types of types...
-       ;;beancount         ; mind the GAAP
+       beancount           ; mind the GAAP
        (cc +lsp)           ; C > C++ == 1
        ;;clojure           ; java with a lisp
        common-lisp         ; if you've seen one lisp, you've seen them all
@@ -537,7 +537,7 @@ Select theme.
 
 (setq org-directory "~/chromeorg/2025")
 (setq org-hugo-base-dir (file-name-concat org-directory "Hugo"))
-(setq org-agenda-files (list (file-name-concat org-directory "GTD")))
+(setq org-agenda-files (list org-directory (file-name-concat org-directory "GTD")))
 
 
 (use-package! org-web-tools
@@ -656,7 +656,7 @@ Select theme.
   (org-mode . org-fragtog-mode)
   :custom
   (org-format-latex-options
-   (plist-put org-format-latex-options :scale 3)
+   (plist-put org-format-latex-options :scale (/ (frame-char-height) 15))
    (plist-put org-format-latex-options :foreground 'auto)
    (plist-put org-format-latex-options :background 'auto)))
 
