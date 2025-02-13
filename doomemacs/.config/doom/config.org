@@ -544,9 +544,9 @@ Select theme.
   (setq org-directory "~/chromeorg/2025")
   (setq org-hugo-base-dir (file-name-concat org-directory "Hugo"))
   (setq org-agenda-files (list (file-name-concat org-directory "GTD")))
+  (setq org-log-done 'time)
   (setq org-refile-allow-creating-parent-nodes 'confirm)
   (setq org-attach-id-dir (file-name-concat org-directory "attachments")))
-
 
 
 
@@ -832,25 +832,19 @@ Select theme.
             "Web Sites")
            "* %a :website:\n\n%U %?\n\n%:initial" :immediate-finish t)
           ("t" "todo" entry
-           (file+headline
+           (file
             (lambda nil
-              (file-name-concat org-directory
-                                (format-time-string "%Y%m%d.org")))
-            "InBox")
-           "* TODO %?\n%i" :prepend t)
+              (file-name-concat org-directory "GTD" "Inbox.org")))
+           "* TODO %?\nSCHEDULED: %T\n\n%i")
           ("d" "deadline" entry
-           (file+headline
+           (file
             (lambda nil
-              (file-name-concat org-directory
-                                (format-time-string "%Y%m%d.org")))
-            "InBox")
+              (file-name-concat org-directory "GTD" "Inbox.org")))
            "* TODO %?\nDEADLINE: <%(org-read-date)>\n\n%i" :prepend t)
           ("s" "schedule" entry
-           (file+headline
+           (file
             (lambda nil
-              (file-name-concat org-directory
-                                (format-time-string "%Y%m%d.org")))
-            "InBox")
+              (file-name-concat org-directory "GTD" "Inbox.org")))
            "* TODO %?\nSCHEDULED: <%(org-read-date)>\n\n%i" :prepend t)
           ("n" "Captured Now!" entry
            (file+headline
