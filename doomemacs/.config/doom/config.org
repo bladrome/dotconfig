@@ -522,30 +522,32 @@ Select theme.
 ;;   (setq conda-anaconda-home "/run/media/bladrome/bank/drome/mambaforge"
 ;; 	conda-env-home-directory  "/run/media/bladrome/bank/drome/mambaforge"))
 
+(after! org
+  (setq org-tag-alist (quote (("noexport" . ?n)
+                              (:startgroup)
+                              ("@office" . ?o)
+                              ("@field" . ?f)
+                              (:endgroup)
+                              ("personal" . ?p)
+                              ("work" . ?w)
+                              ("cancelled" . ?c)
+                              ("read" . ?r)
+                              ("browse" . ?b)
+                              ("flagged" . ??))))
+  ;; Allow setting single tags without the menu
+  (setq org-fast-tag-selection-single-key (quote expert))
+  ;; For tag searches ignore tasks with scheduled and deadline dates
+  (setq org-agenda-tags-todo-honor-ignore-options t)
+  (setq org-startup-folded "folded")
+  (setq org-export-date-timestamp-format nil)
+  ;; org-directory
+  (setq org-directory "~/chromeorg/2025")
+  (setq org-hugo-base-dir (file-name-concat org-directory "Hugo"))
+  (setq org-agenda-files (list (file-name-concat org-directory "GTD")))
+  (setq org-refile-allow-creating-parent-nodes 'confirm)
+  (setq org-attach-id-dir (file-name-concat org-directory "attachments")))
 
-(setq org-tag-alist (quote (("noexport" . ?n)
-                            (:startgroup)
-                            ("@office" . ?o)
-                            ("@field" . ?f)
-                            (:endgroup)
-                            ("personal" . ?p)
-                            ("work" . ?w)
-                            ("cancelled" . ?c)
-                            ("read" . ?r)
-                            ("browse" . ?b)
-                            ("flagged" . ??))))
-;; Allow setting single tags without the menu
-(setq org-fast-tag-selection-single-key (quote expert))
-;; For tag searches ignore tasks with scheduled and deadline dates
-(setq org-agenda-tags-todo-honor-ignore-options t)
-(setq org-startup-folded "folded")
-(setq org-export-date-timestamp-format nil)
 
-
-
-(setq org-directory "~/chromeorg/2025")
-(setq org-hugo-base-dir (file-name-concat org-directory "Hugo"))
-(setq org-agenda-files (list (file-name-concat org-directory "GTD")))
 
 
 (use-package! org-web-tools
@@ -610,15 +612,14 @@ Select theme.
 ;; (add-hook! 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 ;; (add-hook! 'org-babel-after-execute-hook 'org-toggle-latex-fragment 'append)
 
-
-(setq org-refile-allow-creating-parent-nodes 'confirm)
-(setq org-attach-id-dir (file-name-concat org-directory "attachments"))
-
 (use-package! org-special-block-extras
   :hook (org-mode . org-special-block-extras-mode))
 
 (use-package! svg-lib)
 (use-package! svg-tag-mode)
+
+
+(use-package! org-numbering)
 
 
 (use-package! org
@@ -627,6 +628,10 @@ Select theme.
   :config
   (pdf-loader-install))
 
+
+
+(after! beancount
+  (setq beancount-number-alignment-column 59))
 #+end_src
 
 ** Latex
@@ -789,6 +794,13 @@ Select theme.
 
 #+end_src
 
+** note
+
+#+begin_src elisp :tangle packages.el
+(package! nov)
+(package! djvu)
+#+end_src
+
 ** Capture
 
 #+begin_src elisp :tangle config.el
@@ -875,7 +887,7 @@ Select theme.
 
 ** roam
 
-#+begin_src elisp :tangle no
+#+begin_src elisp :tangle packages.el
 (unpin! org-roam)
 (package! org-roam-ui
   :recipe (:host github :repo "org-roam/org-roam-ui"
@@ -883,7 +895,7 @@ Select theme.
 (package! websocket)
 #+end_src
 
-#+begin_src elisp :tangle no 
+#+begin_src elisp :tangle config.el
   (use-package! websocket
     :after org-roam)
 
@@ -1132,7 +1144,17 @@ Return nil otherwise."
 ** Tramp
 
 #+begin_src elisp :tangle config.el
-(after! tramp
+(use-package! tramp
+  :config
+  ;; Enable full-featured Dirvish over TRAMP on certain connections
+  ;; https://www.gnu.org/software/tramp/#Improving-performance-of-asynchronous-remote-processes-1.
+  (add-to-list 'tramp-connection-properties
+               (list (regexp-quote "/ssh:YOUR_HOSTNAME:")
+                     "direct-async-process" t))
+  ;; Tips to speed up connections
+  (setq tramp-verbose 0)
+  (setq tramp-chunksize 2000)
+  (setq tramp-use-ssh-controlmaster-options nil)
   (add-to-list 'tramp-remote-path "/home/jack/mambaforge/bin"))
 #+end_src
 
@@ -1380,7 +1402,7 @@ Return nil otherwise."
                                        ("#+identifier:" . "󰻾")
                                        ("#+results:" . "")
                                        ("#+attr_org:" . "")
-                                       ("#+options:" . "⌥")
+                                       ("#+options:" . "")
                                        ("#+date:" . "")
                                        ("#+property:" . "")
                                        (":properties:" . "")
@@ -1663,6 +1685,17 @@ TODO abstract backend implementations."
                       (list (cons "org" #'+org-mode--fontlock-only)))))
 
 (add-hook 'org-export-before-processing-hook #'+org-export-babel-mask-org-config)
+#+end_src
+
+** slides :noexport: 
+
+#+begin_src elisp :tangle no
+(package! dslide)
+  ;; :recipe (:host github :repo "positron-solutions/dslide"))
+#+end_src
+
+#+begin_src elisp :tangle no
+(use-package! dslide)
 #+end_src
 
 ** Make verbatim different to code
