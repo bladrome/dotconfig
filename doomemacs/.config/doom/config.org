@@ -618,10 +618,6 @@ Select theme.
 (use-package! svg-lib)
 (use-package! svg-tag-mode)
 
-
-(use-package! org-numbering)
-
-
 (use-package! org
   :hook
   (org-mode . turn-on-visual-line-mode)
@@ -1066,9 +1062,9 @@ Return nil otherwise."
   :recipe (:host github :repo "rksm/org-ai"
            :files ("*.el" "README.md" "snippets")))
 
-(package! aider
-  :recipe (:host github :repo "tninja/aider.el"
-           :files ("aider.el" "aider-doom.el" "aider-helm.el")))
+(package! aidermacs
+  :recipe (:host github :repo "MatthewZMD/aidermacs"
+           :files ("*.el")))
 
 (package! gptel)
 
@@ -1104,12 +1100,18 @@ Return nil otherwise."
     :models '("moonshot-v1-8k")
     :key (shell-command-to-string "pass show api.moonshot.cn")))
 
-
 (use-package! gptel-aibo
   :after (gptel flycheck)
   :config
   (define-key gptai-complete-mode-map (kbd "C-c i") #'gptai-complete-at-point)
   (add-hook 'prog-mode-hook #'gptai-complete-mode))
+
+(use-package! aidermacs
+  :config
+  (setq aidermacs-args '("--model" "openai/auto"))
+  (setenv "OPENAI_API_KEY" (shell-command-to-string "pass show api.moonshot.cn"))
+  (setenv "OPENAI_API_BASE" "https://openai.moenet.top")
+  (global-set-key (kbd "C-c a a") 'aidermacs-transient-menu))
 
 (use-package! ellama
   :bind ("C-c E" . ellama-transient-main-menu)
