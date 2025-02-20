@@ -449,10 +449,10 @@ emacs --batch doomemacs.org -f org-babel-tangle
   :config
   (setq nova-vertico-mode 1))
 
-(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 40)
+(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 20)
       doom-variable-pitch-font doom-font
       doom-symbol-font (font-spec :family "VictorMono")
-      doom-big-font (font-spec :family "VictorMono" :size 36))
+      doom-big-font (font-spec :family "VictorMono" :size 26))
 
 (setq native-comp-deferred-compilation nil)
 (setq native-comp-jit-compilation nil)
@@ -483,7 +483,9 @@ Select theme.
 ;; (require 'nano-theme)
 ;; (nano-mode)
 ;; (nano-light)
+;; (setq-default mode-line-format nil)
 ;; (use-package! nano-modeline)
+;; (add-hook 'org-mode-hook  #'nano-modeline-org-mode)
 #+end_src
 
 ** Org
@@ -541,10 +543,12 @@ Select theme.
   (setq org-startup-folded "folded")
   (setq org-export-date-timestamp-format nil)
   ;; org-directory
-  (setq org-directory "~/chromeorg/2025")
+  (setq org-directory "~/legionorg/2025")
   (setq org-hugo-base-dir (file-name-concat org-directory "Hugo"))
   (setq org-agenda-files (list (file-name-concat org-directory "GTD")))
   (setq org-log-done 'time)
+  (setq org-log-redeadline 'time)
+  (setq org-log-reschedule 'time)
   (setq org-refile-allow-creating-parent-nodes 'confirm)
   (setq org-attach-id-dir (file-name-concat org-directory "attachments")))
 
@@ -1103,7 +1107,7 @@ Return nil otherwise."
 (use-package! gptel-aibo
   :after (gptel flycheck)
   :config
-  (define-key gptai-complete-mode-map (kbd "C-c i") #'gptai-complete-at-point)
+  (define-key gptel-aibo-complete-mode-map (kbd "C-c i") #'gptel-aibo-complete-at-point)
   (add-hook 'prog-mode-hook #'gptai-complete-mode))
 
 (use-package! aidermacs
