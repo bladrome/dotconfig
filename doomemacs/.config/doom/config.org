@@ -1108,7 +1108,7 @@ Return nil otherwise."
   :after (gptel flycheck)
   :config
   (define-key gptel-aibo-complete-mode-map (kbd "C-c i") #'gptel-aibo-complete-at-point)
-  (add-hook 'prog-mode-hook #'gptai-complete-mode))
+  (add-hook 'prog-mode-hook #'gptel-aibo-complete-mode))
 
 (use-package! aidermacs
   :config
