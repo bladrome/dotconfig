@@ -1,6 +1,6 @@
 #+title:  Doomemacs
 #+author:  bladrome
-#+property:  header-args  :mkdirp yes 
+#+property:  header-args  :mkdirp yes
 
 
 * Install
@@ -549,8 +549,10 @@ Select theme.
   (setq org-log-done 'time)
   (setq org-log-redeadline 'time)
   (setq org-log-reschedule 'time)
+  (setq org-agenda-hide-tags-regexp ".")
   (setq org-refile-allow-creating-parent-nodes 'confirm)
   (setq org-attach-id-dir (file-name-concat org-directory "attachments")))
+
 
 
 
@@ -1687,7 +1689,7 @@ TODO abstract backend implementations."
 (add-hook 'org-export-before-processing-hook #'+org-export-babel-mask-org-config)
 #+end_src
 
-** slides :noexport: 
+** slides :noexport:
 
 #+begin_src elisp :tangle no
 (package! dslide)
