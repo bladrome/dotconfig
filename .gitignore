@@ -46,3 +46,4 @@ rime/.local/share/fcitx5/rime/user.yaml
 /doomemacs/.config/doom/elfeed-dashboard.org
 /.aider.chat.history.md
 /.aider.tags.cache.v3/
+/doomemacs/.config/doom/authinfo.gpg
