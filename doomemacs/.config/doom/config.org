@@ -543,9 +543,9 @@ Select theme.
   (setq org-startup-folded "folded")
   (setq org-export-date-timestamp-format nil)
   ;; org-directory
-  (setq org-directory "~/legionorg/2025")
+  (setq org-directory "~/Documents/Org")
   (setq org-hugo-base-dir (file-name-concat org-directory "Hugo"))
-  (setq org-agenda-files (list (file-name-concat org-directory "GTD")))
+  (setq org-agenda-files (list (file-name-concat org-directory "gtd")))
   (setq org-log-done 'time)
   (setq org-log-redeadline 'time)
   (setq org-log-reschedule 'time)
@@ -815,38 +815,38 @@ Select theme.
         `(("p" "Protocal" entry
            (file+headline
             (lambda nil
-              (file-name-concat org-directory
+              (file-name-concat org-directory "journal"
                                 (format-time-string "%Y%m%d.org")))
             "arxiv")
            "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n%T\n%i\n\n\n\n%?\n" :immediate-finish t)
           ("L" "Protocol Link" entry
            (file+headline
             (lambda nil
-              (file-name-concat org-directory
+              (file-name-concat org-directory "journal"
                                 (format-time-string "%Y%m%d.org")))
             "arxiv")
            "* [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n%T%?\n" :immediate-finish t)
           ("w" "Web site" entry
            (file+headline
             (lambda nil
-              (file-name-concat org-directory
+              (file-name-concat org-directory "journal"
                                 (format-time-string "%Y%m%d.org")))
             "Web Sites")
            "* %a :website:\n\n%U %?\n\n%:initial" :immediate-finish t)
           ("t" "todo" entry
            (file
             (lambda nil
-              (file-name-concat org-directory "GTD" "Inbox.org")))
+              (file-name-concat org-directory "gtd" "Inbox.org")))
            "* TODO %?\nSCHEDULED: %T\n\n%i")
           ("d" "deadline" entry
            (file
             (lambda nil
-              (file-name-concat org-directory "GTD" "Inbox.org")))
+              (file-name-concat org-directory "gtd" "Inbox.org")))
            "* TODO %?\nDEADLINE: <%(org-read-date)>\n\n%i" :prepend t)
           ("s" "schedule" entry
            (file
             (lambda nil
-              (file-name-concat org-directory "GTD" "Inbox.org")))
+              (file-name-concat org-directory "gtd" "Inbox.org")))
            "* TODO %?\nSCHEDULED: <%(org-read-date)>\n\n%i" :prepend t)
           ("n" "Captured Now!" entry
            (file+headline
