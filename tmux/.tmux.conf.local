@@ -441,9 +441,9 @@ set -g status-left-length 40
 set -g status-right-length 120
 
 
-<<<<<<< Updated upstream
+
 set -g @plugin 'joshmedeski/tmux-nerd-font-window-name'
-=======
+
 set -g allow-passthrough on
 
 set -ga update-environment TERM
