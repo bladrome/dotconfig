@@ -650,7 +650,7 @@ Select theme.
 #+begin_src elisp :tangle config.el
 
 ;; org-latex-compilers = ("pdflatex" "xelatex" "lualatex"), which are the possible values for %latex
-(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=latex.out %f"))
 
 (setq-default org-html-with-latex `dvisvgm)
 
@@ -665,7 +665,7 @@ Select theme.
 		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 (setq Tex-command-default "XeLaTeX")
-(setq TeX-engine 'xetex)
+(setq TeX-engine 'xelatex)
 (setq TeX-command-extra-options "-shell-escape")
 
 (use-package! org-fragtog

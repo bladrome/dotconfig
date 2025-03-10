@@ -1,4 +1,7 @@
 var:
-  last_build_time: 1679408061
+  last_build_time: 1741003480
   option:
     simplification: true
+  previously_selected_schema: double_pinyin
+  schema_access_time:
+    double_pinyin: 1741061863
