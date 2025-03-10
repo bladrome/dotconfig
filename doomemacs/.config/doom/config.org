@@ -449,10 +449,14 @@ emacs --batch doomemacs.org -f org-babel-tangle
   :config
   (setq nova-vertico-mode 1))
 
-(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 20)
+(setq font-size
+      (if (string= (system-name) "penguin")
+          30
+        20))
+(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size font-size)
       doom-variable-pitch-font doom-font
       doom-symbol-font (font-spec :family "VictorMono")
-      doom-big-font (font-spec :family "VictorMono" :size 26))
+      doom-big-font (font-spec :family "VictorMono" :size (+ font-size 6)))
 
 (setq native-comp-deferred-compilation nil)
 (setq native-comp-jit-compilation nil)
@@ -672,7 +676,7 @@ Select theme.
   (org-mode . org-fragtog-mode)
   :custom
   (org-format-latex-options
-   (plist-put org-format-latex-options :scale (/ (frame-char-height) 15))
+   (plist-put org-format-latex-options :scale (/ (frame-char-height) 10))
    (plist-put org-format-latex-options :foreground 'auto)
    (plist-put org-format-latex-options :background 'auto)))
 
@@ -1255,6 +1259,7 @@ Return nil otherwise."
 (use-package! rime
   :custom
   (default-input-method "rime")
+  ;; (rime-emacs-module-header-root "~/emacs/include")
   :bind
   (:map rime-active-mode-map
    ("<tab>" . 'rime-inline-ascii)
@@ -1700,6 +1705,16 @@ TODO abstract backend implementations."
 #+begin_src elisp :tangle no
 (use-package! dslide)
 #+end_src
+
+#+begin_src elisp :tangle config.el
+(after! org-re-reveal
+  :config
+  (setq org-re-reveal-root (file-relative-name  (concat org-directory "style"))
+        org-re-reveal-revealjs-version "4"))
+#+end_src
+
+  # (setq org-re-reveal-root (concat "file://" (expand-file-name "../../" (locate-library "dist/reveal.js" t)))
+        # org-re-reveal-revealjs-version "4"))
 
 ** Make verbatim different to code
 
