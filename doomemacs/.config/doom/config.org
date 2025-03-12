@@ -451,7 +451,7 @@ emacs --batch doomemacs.org -f org-babel-tangle
 
 (setq font-size
       (if (string= (system-name) "penguin")
-          30
+          40
         20))
 (setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size font-size)
       doom-variable-pitch-font doom-font
@@ -1078,8 +1078,7 @@ Return nil otherwise."
 
 (package! gptel)
 
-(package! gptel-aibo
-  :recipe (:host github :repo "dolmens/gptel-aibo"))
+(package! gptel-aibo)
 
 (package! ellama)
 #+end_src
@@ -1111,18 +1110,22 @@ Return nil otherwise."
     :key (shell-command-to-string "pass show api.moonshot.cn")))
 
 (use-package! gptel-aibo
-  :after (gptel)
+  :after (gptel flycheck)
   :config
-  (define-key gptel-aibo-complete-mode-map
-              (kbd "C-c i") #'gptel-aibo-complete-at-point)
-  (add-hook 'prog-mode-hook #'gptel-aibo-complete-mode))
+  (map! :map prog-mode-map "C-i" #'gptel-aibo-summon))
 
 (use-package! aidermacs
+  :bind (("C-c C-a" . aidermacs-transient-menu))
   :config
-  (setq aidermacs-args '("--model" "openai/auto"))
-  (setenv "OPENAI_API_KEY" (shell-command-to-string "pass show api.moonshot.cn"))
-  (setenv "OPENAI_API_BASE" "https://openai.moenet.top")
-  (global-set-key (kbd "C-c a a") 'aidermacs-transient-menu))
+  (setenv "OPENAI_API_KEY" (shell-command-to-string "pass show moenetkey"))
+  (setenv "OPENAI_API_BASE" "openai.moenet.top/v1")
+  (setq aidermacs-extra-args `("--verbose"
+                               "--openai-api-base"
+                               " https://openai.moenet.top/v1/"
+                               "--openai-api-key"
+                               ,(shell-command-to-string "pass show moenetkey")))
+  :custom
+  (aidermacs-default-model "openai/auto"))
 
 (use-package! ellama
   :bind ("C-c E" . ellama-transient-main-menu)
