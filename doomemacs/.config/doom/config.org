@@ -1119,9 +1119,9 @@ Return nil otherwise."
   :config
   (setenv "OPENAI_API_KEY" (shell-command-to-string "pass show moenetkey"))
   (setenv "OPENAI_API_BASE" "openai.moenet.top/v1")
-  (setq aidermacs-extra-args `("--verbose"
-                               "--openai-api-base"
+  (setq aidermacs-extra-args `("--openai-api-base"
                                " https://openai.moenet.top/v1/"
+                               ;; "--verbose"
                                "--openai-api-key"
                                ,(shell-command-to-string "pass show moenetkey")))
   :custom
@@ -1709,7 +1709,7 @@ TODO abstract backend implementations."
 (use-package! dslide)
 #+end_src
 
-#+begin_src elisp :tangle config.el
+#+begin_src elisp :tangle no
 (after! org-re-reveal
   :config
   (setq org-re-reveal-root (file-relative-name  (concat org-directory "style"))
